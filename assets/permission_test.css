@@ -1,0 +1,14 @@
+/* 
+    Document   : permission_test.css
+    Created on : Jun 28, 2013, 12:11:12 PM
+    Author     : mswindle
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+table, td, th
+{
+/*	border: 1px solid red;*/
+	/*border-collapse: collapse;*/
+}
+
