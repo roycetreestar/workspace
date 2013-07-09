@@ -53,9 +53,9 @@
 				<?php $this->load->view('partials/available_groups_p') ?>	
 			</div>
 			
-			<div class="span4">
+<!--			<div class="span4">
 				<?php $this->load->view('partials/available_resources_p')?>
-			</div>
+			</div>-->
 		</div>
 
 		

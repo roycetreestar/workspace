@@ -1,7 +1,7 @@
 <div class="well">
 	<h1>my_groups_p</h1>
 	<?php 
-	if($my_groups)
+	if(isset($my_groups) )
 	{
 //die('$my_groups:<textarea>'.print_r($my_groups, true).'</textarea>');
 		foreach($my_groups as $group)
@@ -24,7 +24,7 @@
 		}
 	}
 	else
-		echo 'No groups';
+		echo 'You\'re not in any groups';
 	?>
 </div>
 
@@ -53,7 +53,7 @@
 		$.ajax(
 		{
 //			url: 'permission_test/join_group/',
-			url: 'permission_test/remove_from_group/<?=$this->session->userdata['logged_in']['userid']?>/'+groupid+'/0/1',
+			url: 'permission_test/groups/remove_from_group/<?=$this->session->userdata['logged_in']['userid']?>/'+groupid+'/0/1',
 			type: 'get',
 			data: values,
 			success:function(msg)

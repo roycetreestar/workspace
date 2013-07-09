@@ -21,12 +21,12 @@
 				<tr><td>email:			</td><td>	<input type="text" name="email" />			</td></tr>
 <!--			</div>
 			<div class="well half_width">-->
-				<tr><td>address_line_1:	</td><td>	<input type="text" name="address_line_1" />	</td></tr>
+<!--				<tr><td>address_line_1:	</td><td>	<input type="text" name="address_line_1" />	</td></tr>
 				<tr><td>address_line_2:	</td><td>	<input type="text" name="address_line_2" />	</td></tr>
 				<tr><td>city:			</td><td>	<input type="text" name="city" />			</td></tr>
 				<tr><td>state:			</td><td>	<input type="text" name="state" />			</td></tr>
 				<tr><td>zipcode:		</td><td>	<input type="text" name="zipcode" />		</td></tr>
-				<tr><td>country:		</td><td>	<input type="text" name="country" />		</td></tr>
+				<tr><td>country:		</td><td>	<input type="text" name="country" />		</td></tr>-->
 			<!--</div>-->
 			<tr><td ><input type="submit" />		</td></tr>
 		</table>
@@ -47,20 +47,20 @@
 		
 		$('#new_user_result').html('');
 		
-alert('submitted');
+//alert('submitted');
 		$.ajax(
 		{
-			url: '<?=base_url('index.php/permission_test/create_user') ?>',
+			url: '<?=base_url('index.php/permission_test/users/create_user') ?>',
 			type: 'post',
 			data: values,
 			success:function(msg)
 			{
-alert(msg);				
+//alert(msg);				
 		$('#new_user_result').html('New user created').css('color', 'green');
 			},
 			error: function (msg) 
 			{ 
-alert(msg.responseText);
+//alert(msg.responseText);
 				var the_error = msg.responseText;
 				var start = the_error.indexOf("<div");
 				var end = the_error.indexOf("</div>") + 7;

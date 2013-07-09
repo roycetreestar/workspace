@@ -45,15 +45,15 @@
 		
 		$('#new_group_result').html('');
 		
-alert('submitted:'+ $(this).serialize());
+//alert('submitted:'+ $(this).serialize());
 		$.ajax(
 		{
-			url: 'permission_test/create_group',
+			url: 'permission_test/groups/create_group',
 			type: 'post',
 			data: values,
 			success:function(msg)
 			{
-alert('message: \n'+msg);
+//alert('message: \n'+msg);
 				if(msg == 'success')
 					$('#new_group_result').html('New group created\n'+msg).css('color', 'green');
 				else

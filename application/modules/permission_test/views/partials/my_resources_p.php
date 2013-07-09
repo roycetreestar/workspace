@@ -9,26 +9,29 @@
 	<h1>my_resources_p</h1>
 	
 <?php
-	foreach( $this->session->userdata['groups'] as $group)
+	if(!empty($this->session->userdata['groups']))
 	{
-?>
-	<div class="well">
-		<h3>Group # <?=$group['group_id']?></h3>
-	<?php
-		if(!isset($group['resources']) || count($group['resources']) === 0)
-			echo 'No Resources for group id '.$group['group_id'];
-
-		else
+		foreach( $this->session->userdata['groups'] as $group)
 		{
-			foreach($group['resources'] as $resource)
+	?>
+		<div class="well">
+			<h3>Group # <?=$group['group_id']?></h3>
+		<?php
+			if(!isset($group['resources']) || count($group['resources']) === 0)
+				echo 'No Resources for group id '.$group['group_id'];
+
+			else
 			{
-				echo '<a href="permission_test/display_resource/'.$resource['id'].'" >'.$resource['resource_name'].'</a><br/>';
+				foreach($group['resources'] as $resource)
+				{
+					echo '<a href="permission_test/resources/display_resource/'.$resource['id'].'" >'.$resource['resource_name'].'</a><br/>';
+				}
 			}
+
+		?>	
+		</div>	
+	<?php	
 		}
-		
-	?>	
-	</div>	
-<?php	
 	}
 ?>
 </div>

@@ -52,7 +52,7 @@
 		$.ajax(
 		{
 //			url: 'permission_test/join_group/',
-			url: 'permission_test/join_group/<?=$this->session->userdata['logged_in']['userid']?>/'+groupid+'/0/1',
+			url: 'permission_test/groups/join_group/<?=$this->session->userdata['logged_in']['userid']?>/'+groupid+'/0/1',
 			type: 'get',
 			data: values,
 			success:function(msg)
