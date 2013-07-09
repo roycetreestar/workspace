@@ -13,7 +13,7 @@
 		<table class="table ">			
 			<tr><td>resourceid:		</td><td>	<!--<input type="text" name="resourceid" />-->		</td></tr>
 			<tr><td>groupid:		</td><td>	<input type="text" name="groupid" />		</td></tr>
-			<tr><td>permission:		</td><td>	<input type="text" name="permission" />		</td></tr>
+<!--			<tr><td>permission:		</td><td>	<input type="text" name="permission" />		</td></tr>-->
 			<tr><td>resource_name:	</td><td>	<input type="text" name="resource_name" />		</td></tr>
 			<tr><td>resource_type:	</td><td>	<input type="text" name="resource_type" />	</td></tr>
 			<tr><td>metadata:		</td><td>	<textarea  name="metadata" ></textarea>		</td></tr>

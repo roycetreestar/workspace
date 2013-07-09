@@ -178,10 +178,12 @@ if($this->groups_m->in_group($entityid, $groupid))
 	//update the session array
 //			$this->session->set_userdata('groups', $this->groups_m->my_groups($entityid));
 		    $this->login->refresh_session();
-			return true;
+			echo 'success';
+			//return true;
 		}
 		else 
-			return false;
+			echo 'failure';
+			//return false;
 
     }
     

@@ -55,8 +55,10 @@ class Login
 	function refresh_session()
 	{
 //		$this->session->set_userdata('groups', $this->groups_m->my_groups($result['userid']));
-		
-		
+		if(!isset($this->CI->session->userdata['logged_in']))
+		{
+			redirect('permission_test/users');
+		}
 		//set up the groups session subarray			
 			$group_arr = array();
 //

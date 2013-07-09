@@ -40,9 +40,13 @@ class Permission_test extends MX_Controller
 //		$this->session->userdata['groups'] = $this->permission_test_m->my_groups($this->session->userdata['logged_in']['userid']);
 
 	    if(!empty($this->session->userdata['groups']))
-			foreach($this->session->userdata['groups'] as $this_group)
+	    {
+		    foreach($this->session->userdata['groups'] as $this_group)
+		    {
 			    $this->data['my_groups'][$this_group['group_id']] = $this->groups_m->get_group_data($this_group['group_id']);
-	    
+		    }
+		    
+	    }
 //die('<textarea>'.print_r($this->data, true).'</textarea>');
 	    
 	    $this->display_user($this->session->userdata['logged_in']['userid']);

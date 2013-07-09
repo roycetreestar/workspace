@@ -46,7 +46,7 @@ Class Resources_m extends CI_Model
 	function create_resource($data)
 	{
 	    $this->db->set('group_id', $data['groupid']);
-	    $this->db->set('permission', $data['permission']);
+//	    $this->db->set('permission', $data['permission']);
 	    $this->db->set('resource_name', $data['resource_name']);
    	    $this->db->set('resource_type', $data['resource_type']);
 	    $this->db->set('metadata', $data['metadata']);
