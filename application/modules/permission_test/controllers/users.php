@@ -81,6 +81,26 @@ class Users extends Entities //CI_Controller
 	    }
     }
 	
+        function view_users()
+    {
+	    $this->data['users'] = $this->users_m->get_all_users();
+	    
+	    
+    }
+    
+    
+////////////////////////////////////////////////////////////////////////////////
+    
+    function display_user($userid)
+    {
+//	    echo 'view_user() not working yet';
+	    $this->data['user'] = $this->users_m->get_user($userid);
+	    $this->data['user_address'] = $this->permission_test_m->get_addresses($userid);
+	    
+//	    $this->load->view('partials/display_user_p', $data);
+	    
+    }
+    
 ////////////////////////////////////////////////////////////////////////////////
 	function do_login()
 	{

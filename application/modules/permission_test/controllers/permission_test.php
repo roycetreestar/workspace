@@ -34,7 +34,7 @@ class Permission_test extends MX_Controller
 	    $this->data['users'] = $this->users_m->get_all_users();
 	    
 // get all groups
-	    $this->available_groups();
+	    $this->available_groups($this->session->userdata['logged_in']['userid']);
 //get user's groups
 //		$this->data['my_groups'] = $this->my_groups($this->session->userdata['logged_in']['userid']);
 //		$this->session->userdata['groups'] = $this->permission_test_m->my_groups($this->session->userdata['logged_in']['userid']);
@@ -161,16 +161,16 @@ class Permission_test extends MX_Controller
 //
 //    }  
 ////////////////////////////////////////////////////////////////////////////////
-    function view_users()
-    {
-	    $this->data['users'] = $this->permission_test_m->get_all_users();
-	    
-	    
-    }
-    
-    
-////////////////////////////////////////////////////////////////////////////////
-    
+//    function view_users()
+//    {
+//	    $this->data['users'] = $this->permission_test_m->get_all_users();
+//	    
+//	    
+//    }
+//    
+//    
+//////////////////////////////////////////////////////////////////////////////////
+//    
     function display_user($userid)
     {
 //	    echo 'view_user() not working yet';
@@ -232,39 +232,39 @@ class Permission_test extends MX_Controller
  * @param type $permission
  * @param type $entity_type
  */
-    function join_group($entityid='', $groupid='', $permission='', $entity_type='')
-    {
-	    $from_form = false;
+//    function join_group($entityid='', $groupid='', $permission='', $entity_type='')
+//    {
+//	    $from_form = false;
+//
+//			$data['entityid'] = $entityid;
+//			$data['groupid'] = $groupid;
+//			$data['permission'] = $permission;
+//			$data['entity_type'] = $entity_type;
 
-			$data['entityid'] = $entityid;
-			$data['groupid'] = $groupid;
-			$data['permission'] = $permission;
-			$data['entity_type'] = $entity_type;
-
-if($this->groups_m->in_group($entityid, $groupid))
-	   die( 'You\'re already in this group' );
-//pass values to the model		
-		if($this->groups_m->join_group($data))
-		{
-//update the session array
-$this->session->set_userdata('groups', $this->groups_m->my_groups($entityid));	
-			
-			if($from_form)
-				echo 'success';
-
-			else
-
-				echo 'success';
-		}
-		else
-		{
-			if($from_form)
-				echo 'failure';
-			else
-				echo 'failure';
-		}
-		
-    }
+//if($this->groups_m->in_group($entityid, $groupid))
+//	   die( 'You\'re already in this group' );
+// //pass values to the model		
+//		if($this->groups_m->join_group($data))
+//		{
+// //update the session array
+//$this->session->set_userdata('groups', $this->groups_m->my_groups($entityid));	
+//			
+//			if($from_form)
+//				echo 'success';
+//
+//			else
+//
+//				echo 'success';
+//		}
+//		else
+//		{
+//			if($from_form)
+//				echo 'failure';
+//			else
+//				echo 'failure';
+//		}
+//		
+//    }
 
     /**
      * checks entity_group table for $entityid. if found, sets an array

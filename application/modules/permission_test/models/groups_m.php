@@ -51,9 +51,9 @@ Class Groups_m extends CI_Model
 //		$query = $this->db->get('groups');
 		
 		
-		$this->db->select('*')->where('id NOT IN (SELECT group_id FROM entity_group WHERE entity_id = '.$userid.')');
+		$this->db->where('id NOT IN (SELECT group_id FROM entity_group WHERE entity_id = '.$userid.')');
 		$query = $this->db->get('groups');
-//		die(var_dump($query));
+//		die('<textarea>'.print_r($query, true).'</textarea>');
 		return $query->result_array();
 	}
 	

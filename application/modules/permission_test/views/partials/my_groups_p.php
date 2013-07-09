@@ -59,7 +59,7 @@
 //			data: values,
 			success:function(msg)
 			{
-alert('message: \n'+msg);
+//alert('message: \n'+msg);
 				if(msg === 'success')
 					$('#my_group_result_'+groupid).html('You\'ve been removed from this group\n'+msg).css('color', 'green');
 				else

@@ -1,5 +1,5 @@
 <?php
-class Test extends MX_Controller 
+class Test extends LoggedIn 
 {
 	private $data = array();
 	
@@ -14,7 +14,7 @@ class Test extends MX_Controller
     {
 	    echo 'this is test';
 	    
-	    
+	    echo 'is_logged_in()'.$this->is_logged_in();
     }
     
     

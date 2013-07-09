@@ -92,37 +92,34 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
     
 
 
-//////////////////////////////////////////////////////////////////////////////////
-//    function available_groups()
-//    {
-//	    $this->data['available_groups'] = array();
-////	    $all_groups = $this->permission_test_m->get_all_groups();
-//	    $all_groups = $this->groups_m->get_all_groups();
-////die('$all_groups:<br/><textarea>'.print_r($all_groups, true).'</textarea>');	    
-//	    foreach($all_groups as $this_group)
-//	    {
-//		  $keepit = true;
-//		  
-//		    $groupid = $this_group['id'];
-//		   foreach($this->session->userdata['groups'] as $sess_group)
-//		   {
-//			   if($this_group['id'] === $sess_group['group_id'])
-//				   $keepit = false;
-//		   }
-//		   if($keepit)
-//		   {
-//			   $this->data['available_groups'][] = $this_group;
-//		   }
-//	    }
-////die('all groups:<br/><textarea>'.print_r($all_groups, true).'</textarea>
-////	<hr/>
-////	my groups<textarea>'.print_r($this->session->userdata['groups'], true).'</textarea>
-////	<hr/>
-////	available groups<textarea>'.print_r($this->data['available_groups'], true).'</textarea>');
-//	    
-//	    
-////	    $this->data['available_groups'] = $this->permission_test_m->get_all_groups();
-//    }
+    function available_groups()
+    {
+	    $this->data['available_groups'] = array();
+//	    $all_groups = $this->permission_test_m->get_all_groups();
+	    $all_groups = $this->groups_m->get_all_groups();
+//die('$all_groups:<br/><textarea>'.print_r($all_groups, true).'</textarea>');	 
+	    if(!empty($this->session->userdata['groups']) )
+	    {
+			foreach($all_groups as $this_group)
+			{
+			   $keepit = true;
+
+				$groupid = $this_group['id'];
+			    foreach($this->session->userdata['groups'] as $sess_group)
+			    {
+				    if($this_group['id'] === $sess_group['group_id'])
+					    $keepit = false;
+			    }
+			    if($keepit)
+			    {
+				    $this->data['available_groups'][] = $this_group;
+			    }
+			}
+	    }
+	    else
+		    $this->data['available_groups'] = $all_groups;
+
+    }
     
     
     
