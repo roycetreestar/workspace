@@ -13,7 +13,7 @@ Class Users_m extends CI_Model
  
 	function login($username, $password)
 	{
-		$this->db->select('id, user_name, password');
+		$this->db->select('entity_id, user_name, password');
 		$this->db->from('users');
 		$this->db->where('user_name', $username);
 		$this->db->where('password', $password);
@@ -37,7 +37,7 @@ Class Users_m extends CI_Model
     {
 //	    echo '<h1 style="color:green">From the model</h1>';
 //	    echo '<textarea>'.print_r($data, true).'</textarea>';
-	    
+	    $this->db->set('entity_id', $data['entityid']);
 	    $this->db->set('user_name', $data['username']);
 	    $this->db->set('password', $data['password']);
 	    $this->db->set('first_name', $data['first_name']);
@@ -66,7 +66,7 @@ Class Users_m extends CI_Model
 ////////////////////////////////////////////////////////////////////////////////
 	function get_user($userid)
 	{
-		$this->db->where('id', $userid);
+		$this->db->where('entity_id', $userid);
 		$query = $this->db->get('users');
 		
 		return $query->result_array();

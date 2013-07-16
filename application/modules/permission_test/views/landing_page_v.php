@@ -11,7 +11,7 @@
 
 <div class="row-fluid">
 	<div class="span6">
-		<?php $this->load->view('partials/create_user_p') ?>
+		<?php $this->load->view('partials/form_user_p') ?>
 	</div>
 	<div class="span6">
 		<?php $this->load->view('partials/login_p') ?>

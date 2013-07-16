@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once('entities.php');
+//require_once('entities.php');
 
 class Users extends Entities //CI_Controller 
 {
@@ -30,7 +30,7 @@ class Users extends Entities //CI_Controller
 	  $this->load->model('groups_m');
 	  $this->load->library('session');
 	  
-	  $this->load->library('login');
+//	  $this->load->library('login');
 	}
 
 	function index()
@@ -52,18 +52,40 @@ class Users extends Entities //CI_Controller
 			$this->db->trans_start();
 			
 			$this->data = $this->input->post();
-//				$this->permission_test_m->create_user($this->data);
-				$this->users_m->create_user($this->data);
-				$this->data['entityid'] = $this->db->insert_id();
+//die('users->create_user():<br/><textarea>'.print_r($this->data, true).'</textarea>');
+		//create the user entity
+			$this->data['entity_name'] = $this->data['username'];
+			$this->create_entity($this->data);
+			$this->data['entityid'] = $this->db->insert_id();
+			
+		//create the user
+			$this->users_m->create_user($this->data);
+			
 				
-//				$this->permission_test_m->create_address($this->data);
-//				$this->data['addressid'] = $this->db->insert_id();
-//				
-//				$this->permission_test_m->create_address_entity($this->data);
-//				$this->data['address_entity_id'] = $this->db->insert_id();
+
+		//create default personal-resources group
+		//create the group entity
+			$this->data['entity_name'] = $this->data['entity_name'].'\'s personal resources';
+			$this->create_entity($this->data);
+			$this->data['entity_id'] = $this->db->insert_id();
+			
+		//create the group
+			$this->data['group_name'] = $this->data['entity_name']; //.'\'s personal resources';
+			$this->data['long_group_name'] = 'your private / shared personal resources';
+			$this->data['parent_group'] = '';
+			$this->data['access'] = 0;
+			$this->data['additional_information'] = $this->data['username'].'\'s personal resources group';			
+			$this->groups_m->create_group($this->data);	
+		
+		//create entity_group record of personal-resources group	
+			$this->data['groupid'] = $this->data['entity_id'];		//$this->db->insert_id();
+			
+			$this->data['permission'] = 1;
+			$this->data['entity_type'] = 1;
+			$this->groups_m->join_group($this->data);
 				
 			$this->db->trans_complete();
-			
+//die('users->create_user()<br/><textarea>'.print_r($this->data, true).'</textarea>');		
 			if ($this->db->trans_status() === FALSE)
 			{
 				echo '<h1> fail</h1>';
@@ -95,30 +117,48 @@ class Users extends Entities //CI_Controller
     {
 //	    echo 'view_user() not working yet';
 	    $this->data['user'] = $this->users_m->get_user($userid);
-	    $this->data['user_address'] = $this->permission_test_m->get_addresses($userid);
+//	    $this->data['user_address'] = $this->permission_test_m->get_addresses($userid);
 	    
 //	    $this->load->view('partials/display_user_p', $data);
 	    
     }
     
+    function profile($userid)
+    {
+	    $data['user'] = $this->users_m->get_user($userid);
+//	    $data['']
+	    
+	    $this->load->view('header_v');
+	    $this->load->view('profile_user_v', $data);
+    }
+    
 ////////////////////////////////////////////////////////////////////////////////
-	function do_login()
-	{
-		
-		
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
-		
-		$this->login->do_login($username, $password);
-	}
-	function refresh_session()
-	{
-		$this->login->refresh_session();
-	}
-	function logout()
-	{
-		$this->login->logout();
-	}
+//	function do_login()
+//	{
+//		
+//		
+//		$username = $this->input->post('username');
+//		$password = $this->input->post('password');
+//		
+//		$this->login->do_login($username, $password);
+//	}
+//	function refresh_session()
+//	{
+//		$this->login->refresh_session();
+//	}
+//	function logout()
+//	{
+//		$this->login->logout();
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	function do_login()
 //	{
 //		$username = $this->input->post('username');

@@ -12,7 +12,7 @@
 	{
 ?>
 		<div class="well">
-			userid:<?=$user['id']?><br/>
+			userid:<?=$user['entity_id']?><br/>
 			username:<?=$user['user_name']?><br/>
 			password:<?=$user['password']?><br/>
 			first_name:<?=$user['first_name']?><br/>

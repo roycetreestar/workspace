@@ -10,4 +10,14 @@
 	</head>
 	
 	<body>
-		<a class='btn' href="<?php echo base_url('index.php/permission_test/users/logout') ?>">logout</a>
+		<div id="navbar">
+			<a class='btn' href="<?php echo base_url('index.php/permission_test/users/logout') ?>">logout</a>
+			<a class='btn' href="<?php echo base_url('index.php/permission_test') ?>">dashboard</a>
+		<?php if(isset( $this->session->userdata['logged_in']))
+		{
+		?>
+			<a class='btn' href="<?php echo base_url('index.php/permission_test/users/profile/'.$this->session->userdata['logged_in']['userid']) ?>">profile</a>
+		<?php
+		}
+		?>
+		</div>

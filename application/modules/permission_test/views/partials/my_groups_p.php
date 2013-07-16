@@ -7,9 +7,9 @@
 		foreach($my_groups as $group)
 		{
 	?>		
-			<div class="well" id="my_group_<?=$group['id']?>">
-				<div class="well" id="my_group_result_<?=$group['id']?>"></div>
-				group_id: <?=$group['id']?><br/>
+			<div class="well" id="my_group_<?=$group['entity_id']?>">
+				<div class="well" id="my_group_result_<?=$group['entity_id']?>"></div>
+				group_id: <?=$group['entity_id']?><br/>
 				group_name: <?=$group['group_name']?><br/>
 				long_group_name: <?=$group['long_group_name']?><br/>
 				parent_group: <?=$group['parent_group']?><br/>
@@ -18,7 +18,7 @@
 				phone: <?=$group['phone']?><br/>
 				additional_information: <?=$group['additional_information']?><br/>
 				
-				<a class="btn" id="remove_from_group_<?=$group['id']?>">remove from group</a>
+				<a class="btn" id="remove_from_group_<?=$group['entity_id']?>">remove from group</a>
 			</div>
 	<?php
 
@@ -64,6 +64,10 @@
 					$('#my_group_result_'+groupid).html('You\'ve been removed from this group\n'+msg).css('color', 'green');
 				else
 					$('#my_group_result_'+groupid).html(msg).css('color', 'red');
+			},
+			error: function(msg)
+			{
+				alert('error message: \n'+msg);
 			}
 		});
 	});

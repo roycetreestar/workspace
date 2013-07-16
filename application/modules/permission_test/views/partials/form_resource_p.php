@@ -1,10 +1,3 @@
-<?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
 <div class="well">
 	<h1>Create_resource_p</h1>
 	<div id="create_resource_result"></div>

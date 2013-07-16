@@ -1,5 +1,5 @@
 <?php
-class Permission_test extends MX_Controller 
+class Permission_test extends LoggedIn //MY_Controller 
 {
 	private $data = array();
 	
@@ -13,23 +13,29 @@ class Permission_test extends MX_Controller
 	   
 	   $this->load->helper('url');
 //	   $this->load->library('jquery');
+	   
 	   $this->load->model('permission_test/permission_test_m');
 	   $this->load->model('permission_test/resources_m');
 	   $this->load->model('permission_test/groups_m');
 	   $this->load->model('permission_test/users_m');
+	   $this->load->model('permission_test/addresses_m');
+	   $this->load->model('permission_test/cytometers_m');
+	   $this->load->model('permission_test/panels_m');
+	   
 	   
 	   if ( !$this->session->userdata('logged_in'))
         { 
             redirect('permission_test/users');
         }
-	   
+	   $this->refresh_session();
     }
 ////////////////////////////////////////////////////////////////////////////////
     
     function index()
     {
 //	    echo '<h1 style="color:green">From the controller</h1>';
-	    
+
+//die('login/refresh_session: <br/><textarea>'.print_r($this->session->userdata, true).'</textarea>');	
 //	    $this->data['users'] = $this->permission_test_m->get_all_users();
 	    $this->data['users'] = $this->users_m->get_all_users();
 	    
@@ -175,7 +181,7 @@ class Permission_test extends MX_Controller
     {
 //	    echo 'view_user() not working yet';
 	    $this->data['user'] = $this->users_m->get_user($userid);
-	    $this->data['user_address'] = $this->permission_test_m->get_addresses($userid);
+	    $this->data['user_address'] = $this->addresses_m->get_addresses($userid);
 	    
 //	    $this->load->view('partials/display_user_p', $data);
 	    
@@ -191,20 +197,21 @@ class Permission_test extends MX_Controller
 	    $this->data['available_groups'] = array();
 //	    $all_groups = $this->permission_test_m->get_all_groups();
 	    $all_groups = $this->groups_m->get_all_groups();
-//die('$all_groups:<br/><textarea>'.print_r($all_groups, true).'</textarea>');	 
+//die('$all_groups:<br/><textarea>'.print_r($all_groups, true).'</textarea>');	
+//die('$this->session->userdata:<br/><textarea>'.print_r($this->session->userdata, true).'</textarea>');
 	    if(!empty($this->session->userdata['groups']) )
 	    {
 			foreach($all_groups as $this_group)
 			{
-			   $keepit = true;
+			   $is_available = true;
 
-				$groupid = $this_group['id'];
+				$groupid = $this_group['entity_id'];
 			    foreach($this->session->userdata['groups'] as $sess_group)
 			    {
-				    if($this_group['id'] === $sess_group['group_id'])
-					    $keepit = false;
+				    if($this_group['entity_id'] === $sess_group['group_id'])
+					    $is_available = false;
 			    }
-			    if($keepit)
+			    if($is_available)
 			    {
 				    $this->data['available_groups'][] = $this_group;
 			    }

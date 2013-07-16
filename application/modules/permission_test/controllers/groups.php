@@ -1,7 +1,7 @@
 
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Groups extends CI_Controller 
+class Groups extends LoggedIn 
 {
 
 	
@@ -25,10 +25,11 @@ class Groups extends CI_Controller
 		parent::__construct();
 
 		$this->load->model('groups_m');
+		$this->load->model('entities_m');
 		$this->load->model('permission_test_m');
 
 		
-
+$this->refresh_session();
 		
 	}
 	
@@ -57,26 +58,36 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 	
 	////////////////////////////////////////////////////////////////////////////////
     
-    function create_group()
+    function create_group($data = NULL)
     {
 
-	    if($this->input->post() )
+	    if($data === NULL && $this->input->post() )
+	    {
+		    $data = $this->input->post();
+	    }
+	    
+	    if($data !== NULL)
 	    {
 //		    echo '<textarea>'.print_r($this->input->post(), true).'</textarea>' ;
+		    
+		    $data['entity_name'] = $data['group_name'];
+		    
+		    
 			$this->db->trans_start();
+//die('<textarea>'.print_r($data, true).'</textarea>');		
+		//create the group-entity and get its id
+			$data['entity_id'] = $this->entities_m->create_entity($data);
 			
-			$data = $this->input->post();
-
+			
+			
+		//create the group
 			$this->groups_m->create_group($data);
 			$data['entityid'] = $this->db->insert_id();
+		//add creator to group as manager
+			
+			$this->join_group($this->session->userdata['logged_in']['userid'], $data['entityid'], 1, 0 );
 		    
-			$this->permission_test_m->create_address($data);
-			$data['addressid'] = $this->db->insert_id();
-//die(print_r($data, true));
-			$this->permission_test_m->create_address_entity($data);
-			$data['address_entity_id'] = $this->db->insert_id();
-		    
-		    
+   
 			$this->db->trans_complete();
 		    if ($this->db->trans_status() === FALSE)
 			    echo 'failed';
@@ -86,7 +97,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 		else 
 		{
 			 $this->load->view('header_v');
-			 $this->load->view('partials/create_group_p');
+			 $this->load->view('partials/_group_p');
 		}
     }  
     
@@ -127,7 +138,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
     
         function join_group($entityid='', $groupid='', $permission='', $entity_type='')
     {
-		   $this->load->library('login');
+//		   $this->load->library('login');
 	    $from_form = false;
 
 			$data['entityid'] = $entityid;
@@ -142,7 +153,8 @@ if($this->groups_m->in_group($entityid, $groupid))
 		{
 //update the session array
 //$this->session->set_userdata('groups', $this->groups_m->my_groups($entityid));
-			$this->login->refresh_session();
+//			$this->login->refresh_session();
+			$this->refresh_session();
 			
 			if($from_form)
 				echo 'success';
@@ -168,13 +180,13 @@ if($this->groups_m->in_group($entityid, $groupid))
     
     function remove_from_group($entityid, $groupid)
     {
-	$this->load->library('login');
+//	$this->load->library('login');
 	
 	    if($this->groups_m->remove_from_group($entityid, $groupid))
 		{
 	//update the session array
 //			$this->session->set_userdata('groups', $this->groups_m->my_groups($entityid));
-		    $this->login->refresh_session();
+		    $this->refresh_session();
 			echo 'success';
 			//return true;
 		}
@@ -185,7 +197,14 @@ if($this->groups_m->in_group($entityid, $groupid))
     }
     
     
-    
+    function profile($groupid)
+	{	
+//	    die($this->debug_arr($this->session->userdata['groups'][$groupid]));
+	    $data['group'] = $this->session->userdata['groups'][$groupid];
+	    
+		$this->load->view('header_v');
+		$this->load->view('profile_group_v', $data);
+	}
     
 ////////////////////////////////////////////////////////////////////////////////
     

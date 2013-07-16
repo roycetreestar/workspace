@@ -3,7 +3,7 @@
 <?php 
 	foreach($available_groups as $group)
 	{
-		$groupid = $group['id'];
+		$groupid = $group['entity_id'];
 	
 ?>
 		<div class="well">

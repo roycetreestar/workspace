@@ -63,13 +63,13 @@
 <!-- create things -->
 		<div class="row-fluid" >
 			<div class="span4">
-				<?php $this->load->view('partials/create_user_p') ?>
+				<?php $this->load->view('partials/form_user_p') ?>
 			</div>
 			<div class="span4">
-				<?php $this->load->view('partials/create_group_p') ?>	
+				<?php $this->load->view('partials/form_group_p') ?>	
 			</div>
 			<div class="span4">
-				<?php $this->load->view('partials/create_resource_p') ?>
+				<?php $this->load->view('partials/form_resource_p') ?>
 			</div>
 		</div>
 

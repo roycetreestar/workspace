@@ -6,6 +6,14 @@
  * @package Project Name
  * @subpackage  Controllers
  */
+
+
+/* ************************************************************************** */
+/* ************************************************************************** */
+/* ************************************************************************** */
+
+
+
 class MY_Controller extends CI_Controller 
 {
 
@@ -23,6 +31,18 @@ class MY_Controller extends CI_Controller
 	
 }
 
+
+
+
+/* ************************************************************************** */
+/* ************************************************************************** */
+/* ************************************************************************** */
+/* ************************************************************************** */
+/* ************************************************************************** */
+
+
+
+
 class LoggedIn extends MY_Controller {
 
 	public function __construct() 
@@ -34,6 +54,12 @@ class LoggedIn extends MY_Controller {
 //			$this->session->set_flashdata('message', 'You need to log in.');
 //			redirect('/home');
 //		}
+//		$this->load->library('session');
+		$this->load->model('resources_m');
+		$this->load->model('groups_m');
+		
+if(isset($this->session->userdata['logged_in']))
+	$this->refresh_session();
 	}
 ////////////////////////////////////////////////////////////////////////////////
     function is_logged_in()
@@ -43,38 +69,30 @@ class LoggedIn extends MY_Controller {
         {
             echo 'You don\'t have permission to access this page. <a href="../login">Login</a>';    
             die();      
-            //$this->load->view('login_form');
         }       
     }
     
-    	function do_login($username, $password)
+////////////////////////////////////////////////////////////////////////////////
+    	function do_login()//($username, $password)
 	{
-//		$username = $this->input->post('username');
-//		$password = $this->input->post('password');
-		
-		$result = $this->CI->users_m->login($username, $password);
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+
+//compare username/password to the database
+		$result = $this->users_m->login($username, $password);
 		
 		if( $result )
 		{
-			$session_array = array('userid' => $result['id'], 'username' => $result['user_name']);
+			$session_array = array('userid' => $result['entity_id'], 'username' => $result['user_name']);
 			
-			$this->CI->session->set_userdata('logged_in', $session_array);
-//die(var_dump($this->session->userdata['logged_in']));			
-////set up the groups session subarray		
+			$this->session->set_userdata('logged_in', $session_array);
+	
 			$this->refresh_session();
-//			$group_arr = array();
-////
-//			foreach($this->groups_m->my_groups($result['id']) as $group)
-//			{		
-//				$resources = $this->resources_m->get_resources_by_groupid($group['group_id']);
-//				$group['resources'] = $resources;
-//				
-//				$group_arr[$group['group_id']] = $group;
-//				
-//			}
-//			$this->session->set_userdata('groups',$group_arr);
-			
-			 redirect('permission_test', 'refresh');
+
+	
+//die('login/refresh_session: <br/><textarea>'.print_r($this->session->userdata, true).'</textarea>');			
+//			 redirect('permission_test', 'refresh');
+			redirect('permission_test/users/profile/'.$result['entity_id'], 'refresh');
 		}
 		else
 		{
@@ -83,35 +101,38 @@ class LoggedIn extends MY_Controller {
 		}
 	}
  
+////////////////////////////////////////////////////////////////////////////////
 	function refresh_session()
 	{
 //		$this->session->set_userdata('groups', $this->groups_m->my_groups($result['userid']));
-		if(!isset($this->CI->session->userdata['logged_in']))
+		if(!isset($this->session->userdata['logged_in']))
 		{
 			redirect('permission_test/users');
 		}
 		//set up the groups session subarray			
 			$group_arr = array();
 //
-		if($this->CI->groups_m->my_groups($this->CI->session->userdata['logged_in']['userid']))
-			foreach($this->CI->groups_m->my_groups($this->CI->session->userdata['logged_in']['userid']) as $group)
+		$my_groups = $this->groups_m->my_groups($this->session->userdata['logged_in']['userid']);
+		
+		if($my_groups)
+			foreach($my_groups as $group)
 			{		
-				$resources = $this->CI->resources_m->get_resources_by_groupid($group['group_id']);
+				$resources = $this->resources_m->get_resources_by_groupid($group['group_id']);
 				$group['resources'] = $resources;
 				
 				$group_arr[$group['group_id']] = $group;
 				
 			}
 			
-//die('login/refresh_session: <br/>'.print_r($group_arr, true));
-			$this->CI->session->set_userdata('groups',$group_arr);
-			
+//die('login/refresh_session: <br/><textarea>'.print_r($group_arr, true).'</textarea>');
+			$this->session->set_userdata('groups',$group_arr);
+//die('login/refresh_session: <br/><textarea>'.print_r($this->session->userdata, true).'</textarea>');		
 	}
 ////////////////////////////////////////////////////////////////////////////////
 	function logout()
 	{
-		$this->CI->session->unset_userdata('logged_in');
-		$this->CI->session->sess_destroy();
+		$this->session->unset_userdata('logged_in');
+		$this->session->sess_destroy();
 //		$this->load->view('landing_page_v');
 		redirect('permission_test', 'refresh');
 		
@@ -122,6 +143,135 @@ class LoggedIn extends MY_Controller {
 }//end class
 
 
+/* ************************************************************************** */
+/* ************************************************************************** */
+/* ************************************************************************** */
+/* ************************************************************************** */
+/* ************************************************************************** */
 
+
+class Entities extends LoggedIn //CI_Controller 
+{
+
+	
+	private $entityid;
+	private $entity_name;
+	private $email;
+	private $phone;
+	private $timestamp;
+
+	
+	
+	
+	
+	
+	function __construct()
+	{
+	  parent::__construct();
+	  
+	  $this->load->model('entities_m');
+	  
+	}
+	
+	
+	
+	function create_entity($data)
+	{
+		return $this->entities_m->create_entity($data);
+	}
+	
+	
+	
+	function get_entity_data($entityid)
+	{
+		$entity = $this->entities_m->read_entity($entityid);
+		
+		$this->entityid = $entityid;
+		$this->entity_name = $entity->entity_name;
+		$this->email = $entity->email;
+		$this->phone = $entity->phone;
+		$this->timestamp = $entity->timestamp;
+		
+	}
+	
+	
+	
+	function update_entity($data)
+	{
+		return $this->entities_m->update_entity($data);
+	}
+	
+}// end class
+
+
+/* ************************************************************************** */
+/* ************************************************************************** */
+/* ************************************************************************** */
+/* ************************************************************************** */
+/* ************************************************************************** */
+
+class Resources extends LoggedIn //CI_Controller 
+{
+
+	function __construct()
+	{
+	  parent::__construct();
+
+	  $this->load->helper('url');
+	  $this->load->model('resources_m');
+//	  $this->load->model('permission_test_m');
+//	  $this->load->library('session');
+	}
+
+	function index()
+	{
+	//   $this->load->view('partials/login_p');
+	//   $this->load->view('partials/create_user_p');
+		$this->load->view('landing_page_v');
+	}
+	
+////////////////////////////////////////////////////////////////////////////////
+    
+	function create_resource($data=NULL)
+	{
+		if($data == NULL && $this->input->post() )
+		{
+			$data = $this->input->post();
+
+		}
+
+		//create_resource returns resource_id or FALSE
+		return $this->resources_m->create_resource($data);	    
+		//redirect('permission_test/index', 'refresh');
+
+	}  
+	function create_address()
+	{
+		$data = $this->input->post();
+
+		$data['resource_id'] = $this->create_resource($data);
+//die($this->debug_arr($data));	
+		$data['address_success'] = $this->resources_m->create_address($data);
+		
+		die($this->debug_arr($data));
+
+
+	}
+	
+////////////////////////////////////////////////////////////////////////////////
+	    function display_resource($resourceid)
+    {
+	   $data['rdata'] = $this->resources_m->get_resource_by_id($resourceid);
+	   
+	   $this->load->view('partials/display_resource_p', $data);
+    }
+	
+	function update_resource()
+	{
+		$data = $this->resources_m->update_resource($data);
+		redirect('permission_test/resources/display_resource', 'refresh');
+	}
+	
+}
 /* End of file  */
 /* Location: ./application/core/ */

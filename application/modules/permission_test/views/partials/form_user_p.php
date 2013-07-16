@@ -47,7 +47,7 @@
 		
 		$('#new_user_result').html('');
 		
-//alert('submitted');
+alert('submitted');
 		$.ajax(
 		{
 			url: '<?=base_url('index.php/permission_test/users/create_user') ?>',
@@ -55,12 +55,12 @@
 			data: values,
 			success:function(msg)
 			{
-//alert(msg);				
+alert('form_user_p says \n'+ msg);				
 		$('#new_user_result').html('New user created').css('color', 'green');
 			},
 			error: function (msg) 
 			{ 
-//alert(msg.responseText);
+alert('form_user_p says \n'+ g.responseText);
 				var the_error = msg.responseText;
 				var start = the_error.indexOf("<div");
 				var end = the_error.indexOf("</div>") + 7;

@@ -42,5 +42,6 @@ if( $permission == 1)
 	
 <?php	
 }
-else echo 'bummer!';
+else echo '(you don\'t get the form)';
 ?>
+<hr/>

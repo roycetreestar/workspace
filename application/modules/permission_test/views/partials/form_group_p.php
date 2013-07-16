@@ -10,8 +10,8 @@
 	
 	<div class="well" id="new_group_result"></div>
 	
-	<form action="permission_test/create_group" method="post" id="create_group_form" >
-		<h1>create_group_p</h1>
+	<form action="permission_test/groups/create_group" method="post" id="form_group_form" >
+		<h1>form_group_p</h1>
 		
 		<table class="table ">
 			<tr><td>group_name:				</td><td>	<input type="text" name="group_name" />				</td></tr>
@@ -22,12 +22,12 @@
 			<tr><td>group phone number:		</td><td>	<input type="text" name="phone" />					</td></tr>
 			<tr><td>additional information:	</td><td>	<textarea name="additional_information" ></textarea>	</td></tr>
 
-			<tr><td>address_line_1:			</td><td>	<input type="text" name="address_line_1" />			</td></tr>
+<!--			<tr><td>address_line_1:			</td><td>	<input type="text" name="address_line_1" />			</td></tr>
 			<tr><td>address_line_2:			</td><td>	<input type="text" name="address_line_2" />			</td></tr>
 			<tr><td>city:					</td><td>	<input type="text" name="city" />					</td></tr>
 			<tr><td>state:					</td><td>	<input type="text" name="state" />					</td></tr>
 			<tr><td>zipcode:				</td><td>	<input type="text" name="zipcode" />				</td></tr>
-			<tr><td>country:				</td><td>	<input type="text" name="country" />				</td></tr>
+			<tr><td>country:				</td><td>	<input type="text" name="country" />				</td></tr>-->
 			<tr><td>						</td><td>	<input type="submit" />							</td></tr>
 		</table>
 	</form>	

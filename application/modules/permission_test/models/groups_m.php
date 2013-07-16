@@ -16,6 +16,7 @@ Class Groups_m extends CI_Model
 //	   echo 'got to the model';
 //die(print_r($data));
 //	    $this->db->set('group_type', $data['group_type']);
+	    $this->db->set('entity_id', $data['entity_id']);
 	    $this->db->set('group_name', $data['group_name']);
 	    $this->db->set('long_group_name', $data['long_group_name']);
 	    $this->db->set('parent_group', $data['parent_group']);
@@ -51,7 +52,7 @@ Class Groups_m extends CI_Model
 //		$query = $this->db->get('groups');
 		
 		
-		$this->db->where('id NOT IN (SELECT group_id FROM entity_group WHERE entity_id = '.$userid.')');
+		$this->db->where('entity_id NOT IN (SELECT group_id FROM entity_group WHERE entity_id = '.$userid.')');
 		$query = $this->db->get('groups');
 //		die('<textarea>'.print_r($query, true).'</textarea>');
 		return $query->result_array();
@@ -60,7 +61,7 @@ Class Groups_m extends CI_Model
 ////////////////////////////////////////////////////////////////////////////////
 	function get_group_data($groupid)
 	{
-		$this->db->where('id', $groupid);
+		$this->db->where('entity_id', $groupid);
 		$groupdata = $this->db->get('groups');
 		
 		if($groupdata)
@@ -76,6 +77,7 @@ Class Groups_m extends CI_Model
 	////////////////////////////////////////////////////////////////////////////////
 	function join_group($data)
 	{
+//die('groups_m->join_group() $data:'.var_dump($data));
 		$this->db->set('entity_id', $data['entityid']);
 		$this->db->set('group_id', $data['groupid']);
 		$this->db->set('permission', $data['permission']);
@@ -137,12 +139,44 @@ Class Groups_m extends CI_Model
  */
 	function my_groups($entityid)
 	{
-		$this->db->where ('entity_id', $entityid);
-		$query=$this->db->get('entity_group');
+		$returnable = array();
 		
-//die('<textarea>'.print_r($query->result_array(), true).'</textarea>');
-		if($query->num_rows() > 0)
-			return $query->result_array();
+		$this->db->where ('entity_id', $entityid);
+		$query1 = $this->db->get('entity_group')->result_array();
+//die('entity_group record for entity_id '.$entityid.':<textarea>'.print_r($query1, true).'</textarea>');		
+		$gid; //groupid var for the loop
+		$gd;	//group data var for the loop
+		foreach($query1 as $q)
+		{
+			$gid = $q['group_id'];
+			$returnable[$gid] = $q;
+			
+			$gd = $this->get_group_data($gid);
+
+			$returnable[$gid] = array_merge( $returnable[$gid], $gd );
+			
+//			$this->db->where('id', $gid );
+//			$query2 = $this->db->get('groups')->result_array();
+			
+//			$returnable[$gid]['resources'] = $query2;
+	
+		}
+		
+		
+		
+		
+//die('$returnable:<br/><textarea>'.print_r($returnable, true).'</textarea><hr/>$query1:<br/><textarea>'.print_r($query1, true).'</textarea>');
+		
+
+//		$this->db->where('id', $query1['id'] );
+//		$query2 = $this->db->get('groups')->result_array();
+		
+//		$returnable = array_merge($query1, $query2);
+		
+		
+		
+		if(count($returnable) > 0)
+			return $returnable;
 		else 
 			return false;
 	}
