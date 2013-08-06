@@ -38,7 +38,8 @@
 |
 */
 
-$route['default_controller'] = "permission_test/user_login";
+//~ $route['default_controller'] = "membership/user_login";
+$route['default_controller'] = "fluorish_driver";
 $route['404_override'] = '';
 
 
