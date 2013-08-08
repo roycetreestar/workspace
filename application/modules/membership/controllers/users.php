@@ -34,10 +34,10 @@ class Users extends Entities //CI_Controller
 	  
 //	  $this->load->library('login');
 	  
-		if($this->session->userdata('logged_in'))
-			$this->get_session();
-		else
-			redirect('fluorish_driver');
+		//~ if($this->session->userdata('logged_in'))
+			//~ $this->get_session();
+		//~ else
+			//~ redirect('fluorish_driver');
 	}
 
 ////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,12 @@ class Users extends Entities //CI_Controller
 	//   $this->load->view('partials/login_p');
 	//   $this->load->view('partials/create_user_p');
 		//~ $this->load->view('landing_page_v');
-		redirect('fluorish_driver');
+		
+		if($this->session->userdata('logged_in'))
+			$this->get_session();
+		else
+			redirect('fluorish_driver');
+		//~ redirect('fluorish_driver');
 	}
 	
 	
@@ -61,7 +66,7 @@ class Users extends Entities //CI_Controller
 			$this->db->trans_start();
 			
 			$this->data = $this->input->post();
-//die('users->create_user():<br/><textarea>'.print_r($this->data, true).'</textarea>');
+//~ die('users->create_user():<br/><textarea>'.print_r($this->data, true).'</textarea>');
 		//create the user entity
 			$this->data['entity_name'] = $this->data['username'];
 			$this->create_entity($this->data);
@@ -95,7 +100,7 @@ class Users extends Entities //CI_Controller
 				
 			$this->db->trans_complete();
 //die('users->create_user()<br/><textarea>'.print_r($this->data, true).'</textarea>');		
-			if ($this->db->trans_status() === FALSE)
+			if (!$this->db->trans_status())
 			{
 				echo '<h1> fail</h1>';
 			} 
@@ -107,6 +112,7 @@ class Users extends Entities //CI_Controller
 	    }
 	    else 
 	    {
+		    //~ echo 'users/create_user complains:\n No POST recieved! BOO!';
 		     $this->load->view('header_v');
 			$this->load->view('partials/create_user_p');
 	    }

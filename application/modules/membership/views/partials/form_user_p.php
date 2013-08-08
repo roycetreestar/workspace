@@ -47,7 +47,9 @@
 		
 		$('#new_user_result').html('');
 		
+/*
 alert('submitted');
+*/
 		$.ajax(
 		{
 			url: '<?=base_url('membership/users/create_user') ?>',
@@ -55,12 +57,12 @@ alert('submitted');
 			data: values,
 			success:function(msg)
 			{
-alert('form_user_p says \n'+ msg);				
-		$('#new_user_result').html('New user created').css('color', 'green');
+alert('SUCCESS: form_user_p says \n'+ msg);				
+		$('#new_user_result').html(msg).css('color', 'green');
 			},
 			error: function (msg) 
 			{ 
-alert('form_user_p says \n'+ g.responseText);
+alert('ERROR: form_user_p says \n'+ msg);
 				var the_error = msg.responseText;
 				var start = the_error.indexOf("<div");
 				var end = the_error.indexOf("</div>") + 7;

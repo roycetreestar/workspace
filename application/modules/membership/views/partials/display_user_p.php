@@ -1,5 +1,5 @@
 <div class="well">
-	<h3>display_user_p:</h3>
+	<h3>membership/views/partials/display_user_p:</h3>
 	<!--<textarea style='width:40%; height:500px;'><?= print_r($user, true)?></textarea><br/>-->
 	<table>
 		<tr><td>userid		</td><td><?=$user[0]['entity_id']?>			</td></tr>

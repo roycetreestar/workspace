@@ -8,18 +8,6 @@
 		
 <h1>from the view</h1>
 
-<!--
-	<a href='<?=base_url('membership/register')?>'>register</a>
-	<br/>
-	<a href='<?=base_url('membership/view_groups')?>'>view_groups</a>
-	<br/>
-	<a href='<?=base_url('membership/view_my_groups')?>'>view_my_groups</a>
-	<br/>
-	<a href='<?=base_url('membership/create_group')?>'>create_group</a>
-	<br/>
-	<a href='<?=base_url('membership/edit_group')?>'>edit_group</a>
-	<br/>
--->
 
 
 <div class="row-fluid">

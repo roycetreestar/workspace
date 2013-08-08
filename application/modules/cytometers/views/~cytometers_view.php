@@ -64,7 +64,7 @@ echo $template['partials']['upload_cytometer_p'];					// id="my_instruments_div"
 						<br/>
 
 						<br/>
-						<a class="btn" href="<?= base_url('cytometers/config/'.$thisCytometer['cytometerid']) ?> ">edit</a> 
+						<a class="btn" href="<?= base_url('cytometers/edit/'.$thisCytometer['cytometerid']) ?> ">edit</a> 
 						<a class="btn" href="<?= base_url('cytometers/deleteCytometer/'.$thisCytometer['cytometerid']) ?> ">delete</a>
 						<a class="btn" id="slide_laser_<?= $thisCytometer['cytometerid']?>">Slide Open</a>
 						<a class="btn" id="modal_laser_<?= $thisCytometer['cytometerid']?>">Open In Modal</a>

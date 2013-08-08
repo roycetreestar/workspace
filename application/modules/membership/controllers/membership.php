@@ -23,19 +23,26 @@ class Membership extends Loggedin_Controller //MY_Controller
 	   $this->load->model('membership/panels_m');
 	   
 	   
-	   if ( !$this->session->userdata('logged_in'))
-        { 
-            redirect('membership/users');
-        }
+	   //~ if ( !$this->session->userdata('logged_in'))
+        //~ { 
+            //~ redirect(base_url());
+        //~ }
 //	   $this->get_session();
     }
 ////////////////////////////////////////////////////////////////////////////////
     
     function index()
     {
+		
+		if ( !$this->session->userdata('logged_in'))
+        { 
+            redirect(base_url());
+        }
+        
+        
 	    $this->data['users'] = $this->users_m->get_all_users();
 	    
-// get all groups
+// get all groups user is not a member of
 	    $this->available_groups($this->session->userdata['logged_in']['userid']);
 //get user's groups
 
@@ -48,7 +55,7 @@ class Membership extends Loggedin_Controller //MY_Controller
 		    
 	    }
 	    
-	    $this->display_user($this->session->userdata['logged_in']['userid']);
+	    $this->data = array_merge($this->data, $this->display_user($this->session->userdata['logged_in']['userid']) );
 	    
 	    
 //load the primary views	    
@@ -59,12 +66,39 @@ class Membership extends Loggedin_Controller //MY_Controller
     }
  
 //////////////////////////////////////////////////////////////////////////////////
+/**
+ * 
+ */
+	function get_session()
+	{
+		if(!isset($this->session->userdata['logged_in']))
+		{
+			redirect(base_url());
+		}		
+			$group_arr = array();
+			$my_groups = $this->groups_m->my_groups_recursive($this->session->userdata['logged_in']['userid']);
+			
+			if($my_groups)
+			{	
+				foreach($my_groups as $group)
+				{		
+					$resources = $this->resources_m->get_resources_by_groupid($group['group_id']);
+					$group['resources'] = $resources;
+					
+					$group_arr[$group['group_id']] = $group;					
+				}
+			}
+//~ die('membership/get_session(): <pre>'.print_r($group_arr, true).'</pre>');
+			return $group_arr;	
+	}
+//////////////////////////////////////////////////////////////////////////////////
 //    
     function display_user($userid)
     {
-	    $this->data['user'] = $this->users_m->get_user($userid);
-	    $this->data['user_address'] = $this->addresses_m->get_addresses($userid);
-	    	    
+	    $data['user'] = $this->users_m->get_user($userid);
+	    $data['user_address'] = $this->addresses_m->get_addresses($userid);
+	    
+	    return $data;	    
     }
     
     
@@ -101,6 +135,7 @@ class Membership extends Loggedin_Controller //MY_Controller
 	    else
 		    $this->data['available_groups'] = $all_groups;
 
+		return $this->data['available_groups'];
     }
     
  /**

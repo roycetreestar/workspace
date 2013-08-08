@@ -26,6 +26,7 @@ class Cytometers extends Resources
 		//~ $this->load->library('ion_auth');
 		$this->load->helper('form');
 		$this->load->helper('url');
+		$this->load->helper('xml');
 		//~ $this->load->model('user_cytometers_model');
 		//~ $this->load->model('cytometers_model');
 		$this->load->model('cytometers_m');
@@ -43,8 +44,11 @@ class Cytometers extends Resources
  * 
  * @param type $cytometerid
  */	
-	function config($cytometerid = '')
+	function edit($cytometerid = '', $message = '')
 	{
+		if( $message !== '')
+		$this->data['message'] = $message;
+		
 		if($cytometerid === '')
 		{
 			//~ $this->data['cytometers_array']= $this->user_cytometers_model->get_user_cytometers($this->data['userid']);
@@ -170,7 +174,7 @@ $membership = $this->load->module("membership");
 //~ die(print_r($postvars));
 		$saveme = array();
 		
-		$cytometername = $postvars['cytometerName'];
+		$cytometername = $postvars['name'];
 		$manufacturer = $postvars['manufacturer'];
 		$model = $postvars['model'];
 		$cytometer_string = '';
@@ -200,7 +204,7 @@ $membership = $this->load->module("membership");
 			 '.$cytometer_string.'
 			</FlowCytometer >
 			</Panel>';
-
+//~ die('cytometers.php/save_cytometer()<br/>$this_xml:<br/><textarea>'.$the_xml.'</textarea>');
 		$saveme['user_id'] = 				$this->session->userdata['logged_in']['userid'];
 		if(isset($postvars['coreid']))
 			$saveme['coreid'] = 			$postvars['coreid'];
@@ -210,7 +214,7 @@ $membership = $this->load->module("membership");
 		$saveme['model']=					$postvars['model'];
 		$saveme['xml']=						$the_xml;
 		$saveme['size']=					strlen($cytometer_string);
-		$saveme['name']=					$postvars['cytometerName'];
+		$saveme['name']=					$postvars['name'];
 		//~ $saveme['timestamp']=				now();
 	// TODO: determine if these fields in the db table need to be populated via this form 
 		$saveme['hash']=					md5($the_xml)		;
@@ -221,9 +225,10 @@ $membership = $this->load->module("membership");
 
 //~ die( '<textarea>'.print_r($saveme,true).'</textarea>
 //~ <textarea>'.print_r($this->session->userdata,true).'</textarea>');	
-		$this->cytometers_m->push_to_db($saveme);
+		$resource_id = $this->cytometers_m->push_to_db($saveme);
 //		$this->all_available_cytometers();
-		//~ redirect('cytometers');
+if($resource_id)
+	redirect('cytometers/edit/'.$resource_id.'/config saved');
 	}
 	
 	
@@ -254,6 +259,27 @@ $membership = $this->load->module("membership");
 		//~ $this->load->view( 'partials/my_instruments_p', $this->data);
 	}
 	
+	
+// creates a cytometer_display_p for the resource passed in
+	function display($cytometerid)
+	{
+		foreach($this->session->userdata['groups'] as $group)
+		{
+			foreach($group['resources'] as $resource)
+			{
+				if($resource['id'] == $cytometerid)
+				{
+					$data['xml'] = new SimpleXMLElement($resource['xml']);
+					$data['cytometerName'] = $resource['resource_name'];
+					$data['cytometerid'] = $resource['id'];
+					
+					//~ return $this->load->view('partials/cytometer_display_p', $data, true);
+					$this->load->view('header_v');
+					$this->load->view('partials/cytometer_display_p', $data);
+				}
+			}
+		}
+	}
 	////////////////////////////////////////////////////////////////////////	
 	
 	function get_my_cytometers()

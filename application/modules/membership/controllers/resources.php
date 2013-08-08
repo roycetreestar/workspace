@@ -50,7 +50,7 @@ class Resources extends Loggedin_Controller //CI_Controller
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
-	    function display_resource($resourceid)
+	    function display($resourceid)
     {
 	   $data['rdata'] = $this->resources_m->get_resource_by_id($resourceid);
 	   

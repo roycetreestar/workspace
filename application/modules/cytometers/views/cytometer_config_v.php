@@ -2,21 +2,24 @@
 <?php
 //~ echo '$thisCytometer:<br/><textarea>'.print_r($thisCytometer, true).'</textarea><br/>';
 ?>
+
+
+
 <div  id="cytometerConfigBuilderDiv" class="well">
 <!--			<form id="formCytometerConfig" method="post" action="cytometers/save_to_account/<?php //echo $cytometerid ?>">		-->
 			<form id="formCytometerConfig" method="post" action="<?= base_url('cytometers/save_cytometer') ?>">
 				
 				<h1>Cytometer Configuration Builder</h1>
-				<? //if(isset($thisCytometer)) echo $thisCytometer['cytometerid'] ?>
+				<? if(isset($message)) echo '<div class="well"><h2 style="color:orange">'.urldecode($message).'</h2></div>'; ?>
 				<div id="flowCytometer" class="flowCytometer" >
 						
-					<label for="cytometerName"><strong>Building/room number or special name </strong></label>
-					<input type="text" name="cytometerName" id="cytometerName" value="<? if(isset($thisCytometer)) echo $thisCytometer['resource_name'] ?>"/>
+					<label for="name"><strong>Building/room number or special name </strong></label>
+					<input type="text" name="name" id="cytometerName" value="<? if(isset($thisCytometer)) echo $thisCytometer['resource_name'] ?>"/>
 					
 					<label for="manufacturer"><strong>Manufacturer</strong></label>
-<?php echo $manufacturerDropdown ?>
+					<?php echo $manufacturerDropdown ?>
 					
-<?php echo $cytometerModelDropdown ?>
+					<?php echo $cytometerModelDropdown ?>
 				</div>
 					
 				<div id="laserContainer">

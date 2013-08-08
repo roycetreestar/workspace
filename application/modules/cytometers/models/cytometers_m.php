@@ -7,10 +7,19 @@ Class Cytometers_m extends Resources_m
 		parent::__construct();
 		$this->load->database();
 	}
-	
+
+/** 
+ * runs an INSERT 
+ * takes an array of cytometer details
+ * 
+ * successful: returns the insert_id (the resource_id of the new resource)
+ * unsuccessful: returns FALSE
+ * 
+ */	
 	function create($data)
 	{
-		$data['resource_type'] = 'cytometers';
+//~ die('cytometers_m/create($data)<br/>$data:<textarea>'.print_r($data, true).'</textarea>');
+		$data['resource_type'] = 'cytometer';
 		$data['resource_name'] = $data['name'];
 		if(isset($data['core_id']))
 			$data['group_id'] = $data['core_id'];
@@ -28,9 +37,11 @@ Class Cytometers_m extends Resources_m
 				->set('uploaded_file_name', $data['uploaded_file_name']);
 			$result = $this->db->insert('cytometers');
 		$this->db->trans_complete();
-			
+
+//if accessed via the website, we want to reload the configurator form, 
+// so we need to return the resource_id if successful 			
 		if($result)
-			return $this->db->insert_id();
+			return $data['resource_id'];//true;
 		else return false;
 		
 	}
@@ -77,6 +88,8 @@ Class Cytometers_m extends Resources_m
 	
 	
 /** 
+ * takes a $_POST array of cytometer details
+ * 
  * checks if the unique row id is present in the $data array. 
  * 	if present, updates the row
  * 	if not present, inserts a new row
@@ -86,8 +99,10 @@ Class Cytometers_m extends Resources_m
  */
 
 
-	function push_to_db($data)
+	function push_to_db($data )
 	{
+// if $data['cytometerid'] is NOT empty, it's an edit of an existing
+// config, so update that config
 		if(!empty($data['cytometerid']))
 		{	
 			if($data['coreid'] == '')
@@ -100,20 +115,19 @@ Class Cytometers_m extends Resources_m
 				//~ echo '<h1 style="color:green;">config updated</h1>';
 				return true;
 			else 
-			die( $this->db->_error_message() );
+			//~ die( $this->db->_error_message() );
 				//~ echo '<h1 style="color:red;">config update failed</h1>';
-				//~ return false;
+				return false;
 		}
 		else
 		{	
 			$result = $this->create($data);
-
 			if($result)
-			{	echo '<h1 style="color:green;">config created (inserted)</h1>';
+			{	return $result;//'<h1 style="color:green;">config created (inserted)</h1>';
 				//~ return true;
 			}
 			else
-			{	echo '<h1 style="color:red;">config creation failed</h1>'.$this->db->_error_message() ;
+			{	return '<h1 style="color:red;">config creation failed</h1>'.$this->db->_error_message().'<br/><pre>'.print_r($data, true).'</pre>' ;
 				//~ return $this->db->_error_message();
 			}
 		}
