@@ -9,10 +9,13 @@
 	</div>
 	
 	<div class='span9'>
+		
 		<div class='row-fluid'>
 			<div class='span5 '>
 				<?= $this->load->view('membership/partials/display_user_p') ?>
 			</div>
+			
+			
 			<div class='span5 '>
 				<?= $this->load->view('membership/partials/my_resources_p') ?>
 			</div>

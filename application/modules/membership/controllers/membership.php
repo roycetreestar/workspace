@@ -20,7 +20,7 @@ class Membership extends Loggedin_Controller //MY_Controller
 	   $this->load->model('membership/users_m');
 	   $this->load->model('membership/addresses_m');
 	   //~ $this->load->model('membership/cytometers_m');
-	   $this->load->model('membership/panels_m');
+	   $this->load->model('panels/panels_m');
 	   
 	   
 	   //~ if ( !$this->session->userdata('logged_in'))
@@ -67,7 +67,10 @@ class Membership extends Loggedin_Controller //MY_Controller
  
 //////////////////////////////////////////////////////////////////////////////////
 /**
+ *  builds the userdata part of the session array
+ * 	 
  * 
+ * returns array 
  */
 	function get_session()
 	{
@@ -93,6 +96,10 @@ class Membership extends Loggedin_Controller //MY_Controller
 	}
 //////////////////////////////////////////////////////////////////////////////////
 //    
+
+/**
+ * 
+ */
     function display_user($userid)
     {
 	    $data['user'] = $this->users_m->get_user($userid);
@@ -106,6 +113,9 @@ class Membership extends Loggedin_Controller //MY_Controller
     
     
 ////////////////////////////////////////////////////////////////////////////////
+/**
+ * builds an array of groups that $userid does not belong to
+ */
     function available_groups($userid)
     {
 	    $this->data['available_groups'] = array();
@@ -160,6 +170,37 @@ function managed_groups_dropdown()
 //~ echo '<hr/>'.$dd.'<hr/>';
 	return $dd;
 }
+    
+    
+   /** get an array of a user's groups
+    * parameter (optional): $userid - if no userid is passed in, uses the logged-in user's userid
+    * 
+    * returns array of groups and their resources
+    */
+    
+    function get_groups_by_userid($userid = NULL) //$this->session->userdata['logged_in']['userid'])
+    {
+		if($userid === NULL && $this->session->userdata('logged_in') )
+			return $this->session->userdata['groups'];
+		else
+		{
+			$group_arr = array();
+			$groups = $this->groups_m->my_groups_recursive($userid);
+			
+			if($groups)
+			{	
+				foreach($groups as $group)
+				{		
+					$resources = $this->resources_m->get_resources_by_groupid($group['group_id']);
+					$group['resources'] = $resources;
+					
+					$group_arr[$group['group_id']] = $group;					
+				}
+			}
+//~ die('membership/get_session(): <pre>'.print_r($group_arr, true).'</pre>');
+			return $group_arr;	
+		}
+	}
     
 ////////////////////////////////////////////////////////////////////////////////
 }//end class

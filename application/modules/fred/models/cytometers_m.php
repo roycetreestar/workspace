@@ -1,4 +1,7 @@
 <?php
+
+require_once  APPPATH.'modules/membership/models/resources_m.php';
+
 Class Cytometers_m extends Resources_m
 {
 	
