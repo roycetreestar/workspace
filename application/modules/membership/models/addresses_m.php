@@ -1,5 +1,4 @@
-
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 Class Addresses_m extends Resources_m//CI_Model
 {
 	
@@ -73,5 +72,3 @@ Class Addresses_m extends Resources_m//CI_Model
 	}
 }
     ///////////////////////////////////////////////////////////////////////////////
-?>
-
