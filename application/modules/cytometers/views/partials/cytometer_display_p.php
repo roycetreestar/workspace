@@ -41,7 +41,7 @@ if($cytometerName == '')
 <!-- BUTTONS	-->
 		<br/>
 		<a class="btn" href="<?= base_url('cytometers/edit/'.$cytometerid) ?> ">edit</a> 
-		<a class="btn" href="<?= base_url('cytometers/deleteCytometer/'.$cytometerid) ?> ">delete</a>
+		<a class="btn" href="<?= base_url('cytometers/delete/'.$cytometerid) ?> ">delete</a>
 		<a class="btn" id="slide_laser_<?= $cytometerid?>">Slide Open</a>
 		<a class="btn"	 role="button" data-toggle="#laserModal" id="modal_laser_<?= $cytometerid?>">Open In Modal</a>
 <!-- END BUTTONS	-->

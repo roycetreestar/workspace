@@ -20,22 +20,24 @@ Class Cytometers_m extends Resources_m
 	{
 //~ die('cytometers_m/create($data)<br/>$data:<textarea>'.print_r($data, true).'</textarea>');
 		$data['resource_type'] = 'cytometer';
-		$data['resource_name'] = $data['name'];
+		$data['resource_name'] = $data['resource_name'];
 		if(isset($data['core_id']))
 			$data['group_id'] = $data['core_id'];
 
 		$this->db->trans_start();
+			//~ $data['resource_id'] = parent::create_resource($data);
 			$data['resource_id'] = parent::create_resource($data);
-			
-			$this->db->set('resource_id', $data['resource_id'])
-				->set('user_id', $data['user_id'])
-				->set('manufacturer', $data['manufacturer'])
-				->set('model', $data['model'])
-				->set('xml', $data['xml'])
-				->set('size', $data['size'])
-				->set('name', $data['name'])
-				->set('uploaded_file_name', $data['uploaded_file_name']);
-			$result = $this->db->insert('cytometers');
+
+//	uncomment this to add 'save to cytometers table' functionality	//			
+			//~ $this->db->set('resource_id', $data['resource_id'])
+				//~ ->set('user_id', $data['user_id'])
+				//~ ->set('manufacturer', $data['manufacturer'])
+				//~ ->set('model', $data['model'])
+				//~ ->set('xml', $data['xml'])
+				//~ ->set('size', $data['size'])
+				//~ ->set('name', $data['name'])
+				//~ ->set('uploaded_file_name', $data['uploaded_file_name']);
+			//~ $result = $this->db->insert('cytometers');
 		$this->db->trans_complete();
 
 //if accessed via the website, we want to reload the configurator form, 
@@ -103,27 +105,25 @@ Class Cytometers_m extends Resources_m
 	{
 // if $data['cytometerid'] is NOT empty, it's an edit of an existing
 // config, so update that config
-		if(!empty($data['cytometerid']))
+		if(!empty($data['resource_id']))
 		{	
 			if($data['coreid'] == '')
 				$data['coreid'] = null;
 			
-			//~ $this->update($data['cytometerid'], $data);
-			$this->update($data);
+			parent::update_resource($data);
+			//~ $this->update($data);
 			
 			if($this->db->affected_rows() > 0)
-				//~ echo '<h1 style="color:green;">config updated</h1>';
 				return true;
 			else 
-			//~ die( $this->db->_error_message() );
-				//~ echo '<h1 style="color:red;">config update failed</h1>';
 				return false;
 		}
 		else
 		{	
-			$result = $this->create($data);
+			$result = parent::create_resource($data);
+			//~ $result = $this->create($data);
 			if($result)
-			{	return $result;//'<h1 style="color:green;">config created (inserted)</h1>';
+			{	return $result;
 				//~ return true;
 			}
 			else
@@ -136,6 +136,7 @@ Class Cytometers_m extends Resources_m
 	
 	function update($data)
 	{	
+		
 		$this->db->where('resource_id', $data['cytometerid']);
 		$this->db->set('user_id', $data['user_id'])
 			->set('core_id', $data['coreid'])
@@ -156,6 +157,11 @@ Class Cytometers_m extends Resources_m
 	
 	
 	
-	
+	function delete($resource_id)
+	{
+		$this->db->where('resource_id', $resource_id);
+		$result =$this->delete('cytometers');
+		return $result;
+	}
 	
 }//end class

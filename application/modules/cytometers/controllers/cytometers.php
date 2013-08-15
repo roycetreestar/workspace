@@ -22,15 +22,12 @@ class Cytometers extends Resources
 		parent::__construct();
 
 		$this->load->library('form_validation');
-		//~ $this->load->library('format');
-		//~ $this->load->library('ion_auth');
+		 
 		$this->load->helper('form');
 		$this->load->helper('url');
 		$this->load->helper('xml');
-		//~ $this->load->model('user_cytometers_model');
-		//~ $this->load->model('cytometers_model');
+		
 		$this->load->model('cytometers_m');
-		//~ $this->load->model('cores_model');
 	
 		
 		$this->get_session();
@@ -205,30 +202,35 @@ $membership = $this->load->module("membership");
 			</FlowCytometer >
 			</Panel>';
 //~ die('cytometers.php/save_cytometer()<br/>$this_xml:<br/><textarea>'.$the_xml.'</textarea>');
+
+
+
 		$saveme['user_id'] = 				$this->session->userdata['logged_in']['userid'];
-		if(isset($postvars['coreid']))
-			$saveme['coreid'] = 			$postvars['coreid'];
+		//~ if(isset($postvars['coreid']))
+			//~ $saveme['coreid'] = 			$postvars['coreid'];
 		if(isset($postvars['group_id']))
-			$saveme['group_id'] = 			$postvars['group_id'];
+			$saveme['group_id'] = 			$postvars['group_id'];			
+		$saveme['resource_type']=			'cytometer';
 		$saveme['manufacturer']=			$postvars['manufacturer'];
 		$saveme['model']=					$postvars['model'];
 		$saveme['xml']=						$the_xml;
 		$saveme['size']=					strlen($cytometer_string);
-		$saveme['name']=					$postvars['name'];
+		$saveme['resource_name']=					$postvars['name'];
 		//~ $saveme['timestamp']=				now();
-	// TODO: determine if these fields in the db table need to be populated via this form 
 		$saveme['hash']=					md5($the_xml)		;
 		$saveme['uploaded_file_name']=	'';
 		$saveme['serialnumber']=			'';
 		if(isset($postvars['cytometerid']))
-			$saveme['cytometerid'] = 		$postvars['cytometerid'];
+			$saveme['resource_id'] = 		$postvars['cytometerid'];
 
 //~ die( '<textarea>'.print_r($saveme,true).'</textarea>
 //~ <textarea>'.print_r($this->session->userdata,true).'</textarea>');	
+
 		$resource_id = $this->cytometers_m->push_to_db($saveme);
-//		$this->all_available_cytometers();
+		//~ $resource_id = $this->resources_m->save_resource($saveme);
+		
 if($resource_id)
-	redirect('cytometers/edit/'.$resource_id.'/config saved');
+	redirect('cytometers/edit/'.$postvars['cytometerid'].'/saved');
 	}
 	
 	
@@ -297,6 +299,30 @@ if($resource_id)
 		}
 		return $cyt_arr;
 	}
+	
+	
+	
+	function delete($cytometerid)
+	{
+		$this->db->trans_start();
+			//delete from entity_resource table
+			//~ $this->resource_group_m->delete($cytometerid);
+			//delete from cytometers table
+			$c = $this->cytometers_m->delete($cytometerid);
+			//delete from resources table
+			$r = parent::delete_resource($cytometerid);
+		$this->db->trans_complete();
+		
+		if ($this->db->trans_status() === FALSE)
+			return false;
+		else 
+		//~ if($c && $r)
+			return true;
+		//~ else
+			//~ return false;
+	}
+	
+	
 	
 //~ ////////////////////////////////////////////////////////////////////////
 	//~ function parse_cytometer_xml($cytometer)

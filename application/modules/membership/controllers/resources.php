@@ -63,4 +63,12 @@ class Resources extends Loggedin_Controller //CI_Controller
 		redirect('membership/resources/display_resource', 'refresh');
 	}
 	
-}
+	function delete_resource($resource_id)
+	{
+		$result = $this->resources_m->delete($resource_id);
+		
+		return $result;
+		
+	}
+	
+}//end class

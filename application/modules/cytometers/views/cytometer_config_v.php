@@ -29,7 +29,7 @@
 	if(isset($thisCytometer))				
 	{	
 		$lightNum = 1;	
-		echo '<input type="hidden" name="coreid" value="'.$thisCytometer['group_id'].'" />
+		echo '<input type="hidden" name="group_id" value="'.$thisCytometer['group_id'].'" />
 			<input type="hidden" name="cytometerid" value="'.$thisCytometer['id'].'" />';
 
 //~ echo '$thisCytometer[\'cyt\']:<br/><textarea>'.print_r($thisCytometer['cyt'], true).'</textarea>';
