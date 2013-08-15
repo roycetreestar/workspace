@@ -77,6 +77,12 @@ Class Resources_m extends CI_Model
 		
 		return $result;
 	}
+	function delete_resource_group($resource_id)
+	{
+		$this->db->where('resource_id', $resource_id);
+		$result = $this->db->delete('resource_group');
+		return $result ;
+	}
 ////////////////////////////////////////////////////////////////////////////////
 /**
  * Creates a record in the resource_group link table
