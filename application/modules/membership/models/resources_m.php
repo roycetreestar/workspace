@@ -1,5 +1,4 @@
-
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 Class Resources_m extends CI_Model
 {
 	
@@ -164,4 +163,6 @@ Class Resources_m extends CI_Model
 	}
 
 	
+
 }//end class
+

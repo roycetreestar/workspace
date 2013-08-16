@@ -1,5 +1,4 @@
-
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 Class Groups_m extends CI_Model
 {
 	
