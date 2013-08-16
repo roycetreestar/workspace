@@ -15,9 +15,9 @@ $(document).ready(function()
 
 	
 //	FIRST, HIDE EVERYTHING BUT MY_INSTRUMENTS	//	
-	$('.laserConfigDiv').hide();
-	$('.coreContainer').hide();
-	$('#upload_div').hide();
+	$('.laserConfigDiv').show(); //hide();
+	$('.coreContainer').show(); //hide();
+	$('#upload_div').show(); //hide();
 
 	
 // OPEN LASER DETAILS DIV WHEN 'SLIDE OPEN' BUTTON IS CLICKED	//
