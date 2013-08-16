@@ -1,5 +1,5 @@
 		<div class="well">
-			<h3><a href="<?= base_url('membership/groups/profile/'.$group_id)?>"><?=$group_name ?></a></h3>
+			<h5><a href="<?= base_url('membership/groups/profile/'.$group_id)?>"><?=$group_name ?></a></h5>
 			Group # <?=$group_id?>
 			<hr/>
 		<?php

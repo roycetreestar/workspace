@@ -7,7 +7,7 @@
 <!-- Dashboard Expand Panels -->
 <div class="innerLR">
 <!-- group-1 -->
-<div class="tab-pane active well" id="tabAll">
+<div class="tab-pane active" id="tabAll">
   <div class="accordion accordion-2" id="accordion-1">
       <div class="accordion-group"> 
         <!-- widget header -->

@@ -22,13 +22,6 @@
 <script src="<?php echo getURL(); ?>theme/scripts/plugins/other/jquery-slimScroll/jquery.slimscroll.min.js"></script> 
 
 <!-- Colors --> 
-<script>
-	var primaryColor = '<?php echo $primaryColor; ?>',
-		dangerColor = '<?php echo $dangerColor; ?>',
-		successColor = '<?php echo $successColor; ?>',
-		warningColor = '<?php echo $warningColor; ?>',
-		inverseColor = '<?php echo $inverseColor; ?>';
-	</script> 
 
 <!-- Themer -->
 

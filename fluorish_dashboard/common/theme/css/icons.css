@@ -9138,3 +9138,90 @@ url('../fonts/ecoico.ttf') format('truetype');
 .icon-fullscreen {
   background-position: -456px -144px;
 }
+
+
+
+
+
+
+.glyphicons.myfluorish i, .glyphicons.group-type-3 i {
+	background-image: url(../../../assets/images/my_fluorish_32.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-right: 10px;
+}
+.glyphicons.core i, .glyphicons.group-type-2 i {
+	background-image: url(../../../assets/images/core_32.png);
+	background-position: center;
+	margin-right: 10px;
+	background-repeat: no-repeat;
+}
+.glyphicons.lab i, .glyphicons.group-type-1 i {
+	background-image: url(../../../assets/images/lab_32.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-right: 10px;
+}
+.glyphicons.pb i {
+	background-image: url(../../../assets/images/pb_32.png);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.glyphicons.cart i {
+	background-image: url(../../../assets/images/orders_32.png);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.flnav .glyphicons> i {
+	margin-top: 10px;
+}
+.flnav .glyphicons {
+	font-size: 11pt;
+	font-weight: bold;
+}
+.accordion.accordion-2 .accordion-heading .accordion-toggle {
+	border-bottom: none;
+}
+.group-resources {
+	margin-top: 4px;
+}
+.row-fluid.accordion-toggle {
+	z-index: 500;
+	position: absolute;
+}
+.row-fluid.accordion-toggle a {
+	border-bottom: 1px solid #E5E5E5;
+	border-left: 1px solid #E5E5E5;
+	border-right: 1px solid #E5E5E5;
+	font-size: 9px;
+	margin: 10px;
+	padding: 4px;
+}
+.badge {
+	background-color: #E02222;
+	border-radius: 12px 12px 12px 12px !important;
+	font-size: 11px !important;
+	font-weight: 400;
+	height: 13px;
+	position: relative;
+	right: 15px;
+	text-align: center;
+	text-shadow: none !important;
+	top: 0;
+}
+#dashboard-group-select {
+	margin-top: 15px;
+}
+#dashboard-group-select > h4 {
+	margin-right: 1px;
+}
+#dashboard-group-select > a {
+	font-size: 11px;
+}
+#dashboard-group-select > span {
+	color: #666;
+	border-left: 1px solid #CCCCCC;
+	margin-left: 20px;
+	padding-left: 15px;
+	margin-right: 5px;
+}

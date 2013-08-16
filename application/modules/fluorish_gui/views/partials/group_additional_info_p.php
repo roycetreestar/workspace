@@ -1,7 +1,4 @@
-<h3>views/partials/group_additional_info_p</h3>
-<h4>
-  <?=$group_name?>
-  Information</h4>
+<h4><?=$group_name?>Information</h4>
 <div class="menubar links primary">
   <ul>
     <li>Website:</li>
