@@ -165,4 +165,3 @@ Class Resources_m extends CI_Model
 	
 
 }//end class
-
