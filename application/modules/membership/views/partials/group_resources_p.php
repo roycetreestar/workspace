@@ -1,6 +1,5 @@
-		<div class="well">
-			<h5><a href="<?= base_url('membership/groups/profile/'.$group_id)?>"><?=$group_name ?></a></h5>
-			Group # <?=$group_id?>
+		<div class="resource-list">
+			<h5><a href="<?= base_url('membership/groups/profile/'.$group_id)?>"><?=$group_name ?></a><span> #<?=$group_id?></span></h5>
 			<hr/>
 		<?php
 			if(!isset($resources) || count($resources) === 0)
@@ -46,9 +45,12 @@
 					
 					echo $resource['resource_name'];
 					//~ echo '<a class="btn" href="'.base_url($resource_class.'/'.$function.'/'.$resource['id']).'" >'.$resource['resource_name'].'</a> ';
-					echo '<a class="btn" href="'.base_url($resource_class.'/'.$config_function.'/'.$resource['id']).'" >edit</a>';
-					echo '<a class="btn" href="'.base_url($resource_class.'/'.$display_function.'/'.$resource['id']).'" > view </a>';
-					echo '<br/>';
+					echo '<a class="" href="'.base_url($resource_class.'/'.$config_function.'/'.$resource['id']).'" > Edit</a>';
+					?>
+                    |
+                    <?php
+					echo '<a class="" href="'.base_url($resource_class.'/'.$display_function.'/'.$resource['id']).'" > View </a>';
+					echo '<hr/>';
 				}
 			}
 

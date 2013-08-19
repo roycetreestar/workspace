@@ -1,4 +1,4 @@
-<img width="200" height="182" src="../assets/images/UCSF_logo.png">
+<img width="200" height="182" src="<?php echo base_url(); ?>fluorish_dashboard/assets/images/UCSF_logo.png">
 <div class="separator bottom"></div>
 <h4> Division of Experimental Medicine</h4>
 <address class="margin-none">

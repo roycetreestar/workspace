@@ -1,10 +1,10 @@
 <?php
-if (!defined('BASEPATH'))   exit('No direct script access allowed');
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 //~ require_once('../membership/resources.php');
 //~ require_once  APPPATH.'modules/membership/controllers/resources.php';
 
- class Fred extends MY_Controller 
+ class Fred extends Loggedin_Controller 
 //~ class Fred extends Resources
 //~ class Fred extends Secure_Controller 
 {

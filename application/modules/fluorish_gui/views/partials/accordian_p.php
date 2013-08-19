@@ -57,16 +57,16 @@
             <!-- -->
             <div class="row-fluid"> 
               <!-- Dashboard Group Information Left -->
-              <div class="span3 center well"><br>
+              <div class="span3 center"><br>
                 <?= $this->load->view('partials/group_data_p'); ?>
               </div>
               <!-- // Dashboard Group Information Left End --> 
               <!-- Dashboard Group Information Right -->
-              <div class="span6 well">
+              <div class="span6">
                 <?= $this->load->view('partials/group_additional_info_p'); ?>
               </div>
               <!-- // Dashboard Group Information Right End-->
-              <div class="span3 well">
+              <div class="span3">
                 <?php $this->load->view('membership/partials/group_resources_p');?>
               </div>
             </div>
