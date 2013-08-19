@@ -22,13 +22,13 @@
           <div class="row-fluid">
             <div class="span6">
               <div class="control-group">
-                <label class="control-label"><?php echo $translate->_('first_name'); ?></label>
+                <label class="control-label">first_name</label>
                 <div class="controls">
                   <input type="text" value="John" class="span10" />
                   <span style="margin: 0;" class="btn-action single glyphicons circle_question_mark" data-toggle="tooltip" data-placement="top" data-original-title="First name is mandatory"><i></i></span> </div>
               </div>
               <div class="control-group">
-                <label class="control-label"><?php echo $translate->_('last_name'); ?></label>
+                <label class="control-label">last_name</label>
                 <div class="controls">
                   <input type="text" value="Doe" class="span10" />
                   <span style="margin: 0;" class="btn-action single glyphicons circle_question_mark" data-toggle="tooltip" data-placement="top" data-original-title="Last name is mandatory"><i></i></span> </div>
@@ -126,7 +126,7 @@
                 <div class="input-prepend"> <span class="add-on glyphicons envelope"><i></i></span>
                   <input type="text" id="inputPhone" class="input-large" placeholder="232 A Street" />
                 </div>
-                <label for="inputPhone"><?php echo $translate->_('phone'); ?></label>
+                <label for="inputPhone">phone</label>
                 <div class="input-prepend"> <span class="add-on glyphicons phone"><i></i></span>
                   <input type="text" id="inputPhone" class="input-large" placeholder="01234567897" />
                 </div>

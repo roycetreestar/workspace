@@ -141,9 +141,7 @@ $(document).ready(function () {
     <li><a href=""><span class=""><img src="../fluorish_dashboard/assets/images/dl.png" width="175" height="40"></span></a></li>
     <li><a href="">Send Invites</a></li>
     <li><a href="">Contact</a></li>
-    <?php if (SKIN_JS): ?>
-    <!-- <li class="hidden-phone"><a href="#themer" data-toggle="collapse" class="glyphicons eyedropper"><i></i><span><?php echo $translate->_('Themer'); ?></span></a></li>-->
-    <?php endif; ?>
+   
     <li class="account"> <a data-toggle="dropdown" href="#" class="glyphicons logout lock"><span class="hidden-phone text">Royce Cano</span><i></i></a>
       <ul class="dropdown-menu pull-right">
         <li><a href="#" class="glyphicons cogwheel">Settings<i></i></a></li>
