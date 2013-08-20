@@ -230,7 +230,7 @@ $membership = $this->load->module("membership");
 		//~ $resource_id = $this->resources_m->save_resource($saveme);
 		
 if($resource_id)
-	redirect('cytometers/edit/'.$postvars['cytometerid'].'/saved');
+	redirect('cytometers/edit/'.$resource_id.'/saved');
 	}
 	
 	
