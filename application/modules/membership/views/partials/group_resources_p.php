@@ -43,7 +43,7 @@
 					}
 					
 					
-					echo $resource['resource_name'];
+					echo $resource['resource_name'].'<br>';
 					//~ echo '<a class="btn" href="'.base_url($resource_class.'/'.$function.'/'.$resource['id']).'" >'.$resource['resource_name'].'</a> ';
 					echo '<a class="" href="'.base_url($resource_class.'/'.$config_function.'/'.$resource['id']).'" > Edit</a>';
 					?>
@@ -54,5 +54,5 @@
 				}
 			}
 
-		?>	
+		?>
 		</div>	

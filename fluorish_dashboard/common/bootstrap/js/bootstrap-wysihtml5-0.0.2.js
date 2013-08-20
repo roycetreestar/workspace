@@ -4,7 +4,7 @@
 	var templates = {
 		"font-styles": "<li class='dropdown'>" +
 							"<a class='btn btn-primary dropdown-toggle' data-toggle='dropdown' href='#'>" +
-								"<i class='icon-font icon-white'></i>&nbsp;<span class='current-font'>Normal text</span>&nbsp;<b class='caret'></b>" +
+								"<i class='icon-font icon-white'></i> <span class='current-font'>Normal text</span> <b class='caret'></b>" +
 							"</a>" +
 						    "<ul class='dropdown-menu'>" +
 						      	"<li><a data-wysihtml5-command='formatBlock' data-wysihtml5-command-value='div'>Normal text</a></li>" +
@@ -32,7 +32,7 @@
 						
 						+ "<div class='bootstrap-wysihtml5-insert-link-modal modal hide fade'>"
 							+ "<div class='modal-header'>"
-							+ "<a class='close' data-dismiss='modal'>&times;</a>"
+							+ "<a class='close' data-dismiss='modal'>×</a>"
 							  + "<h3>Insert Link</h3>"
 							+ "</div>"
 							+ "<div class='modal-body'>"
@@ -52,7 +52,7 @@
 						
 						+ "<div class='bootstrap-wysihtml5-insert-image-modal modal hide fade'>"
 							+ "<div class='modal-header'>"
-							+ "<a class='close' data-dismiss='modal'>&times;</a>"
+							+ "<a class='close' data-dismiss='modal'>×</a>"
 							  + "<h3>Insert Image</h3>"
 							+ "</div>"
 							+ "<div class='modal-body'>"

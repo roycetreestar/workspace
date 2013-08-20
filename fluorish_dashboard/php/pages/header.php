@@ -19,9 +19,9 @@
 <link href="<?php echo getURL(); ?>bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
 
 <!-- Bootstrap Extended -->
-<link href="<?php echo getURL(); ?>bootstrap/extend/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet">
-<link href="<?php echo getURL(); ?>bootstrap/extend/jasny-bootstrap/css/jasny-bootstrap-responsive.min.css" rel="stylesheet">
-<link href="<?php echo getURL(); ?>bootstrap/extend/bootstrap-wysihtml5/css/bootstrap-wysihtml5-0.0.2.css" rel="stylesheet">
+<link href="<?php echo getURL(); ?>bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo getURL(); ?>bootstrap/css/jasny-bootstrap-responsive.min.css" rel="stylesheet">
+<link href="<?php echo getURL(); ?>bootstrap/css/bootstrap-wysihtml5-0.0.2.css" rel="stylesheet">
 
 <!-- Select2 -->
 <link rel="stylesheet" href="<?php echo getURL(); ?>theme/scripts/plugins/forms/select2/select2.css"/>
@@ -41,8 +41,8 @@
 <link rel="stylesheet" href="<?php echo getURL(); ?>theme/css/fluorish_icons.css" />
 
 <!-- Bootstrap Extended -->
-<link rel="stylesheet" href="<?php echo getURL(); ?>bootstrap/extend/bootstrap-select/bootstrap-select.css" />
-<link rel="stylesheet" href="<?php echo getURL(); ?>bootstrap/extend/bootstrap-toggle-buttons/static/stylesheets/bootstrap-toggle-buttons.css" />
+<link rel="stylesheet" href="<?php echo getURL(); ?>bootstrap/css/bootstrap-select.css" />
+<link rel="stylesheet" href="<?php echo getURL(); ?>bootstrap/css/bootstrap-toggle-buttons.css" />
 
 <!-- Uniform -->
 <link rel="stylesheet" media="screen" href="<?php echo getURL(); ?>theme/scripts/plugins/forms/pixelmatrix-uniform/css/uniform.default.css" />
@@ -138,7 +138,7 @@ $(document).ready(function () {
 <a href="#" class="appbrand"><span><span></span></span></a>
 
   <ul class="topnav pull-right">
-    <li><a href=""><span class=""><img src="../fluorish_dashboard/assets/images/dl.png" width="175" height="40"></span></a></li>
+    <li><a href=""><span class=""><img src="fluorish_dashboard/assets/images/dl.png" width="175" height="40"></span></a></li>
     <li><a href="">Send Invites</a></li>
     <li><a href="">Contact</a></li>
    

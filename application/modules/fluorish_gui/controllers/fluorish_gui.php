@@ -30,7 +30,7 @@ class Fluorish_gui extends Loggedin_Controller
 		
 		
 		function getURL(){
-			$path = '../fluorish_dashboard/common/'; 
+			$path = base_url().'fluorish_dashboard/common/'; 
 			return $path;
 			}
 		
@@ -38,7 +38,8 @@ class Fluorish_gui extends Loggedin_Controller
 		
 	function index()
 	{
-			
+		
+		$this->load->view('fluorish_gui_header_v.php');	
 		$this->load->view('../../../../fluorish_dashboard/php/pages/header.php');
 		$this->load->view('partials/global_account_header_p.php');
 		

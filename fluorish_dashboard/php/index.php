@@ -88,6 +88,7 @@ switch ($page)
 	case 'core_membership':
 	case 'lab_membership':
 	case 'my_account':
+	case 'instruments':
 	
 		// header
 		require_once 'pages/header.php';

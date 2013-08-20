@@ -45,14 +45,14 @@
 <script src="<?php echo getURL(); ?>bootstrap/js/bootstrap.min.js"></script> 
 
 <!-- Bootstrap Extended --> 
-<script src="<?php echo getURL(); ?>bootstrap/extend/bootstrap-select/bootstrap-select.js"></script> 
-<script src="<?php echo getURL(); ?>bootstrap/extend/bootstrap-toggle-buttons/static/js/jquery.toggle.buttons.js"></script> 
-<script src="<?php echo getURL(); ?>bootstrap/extend/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js"></script> 
-<script src="<?php echo getURL(); ?>bootstrap/extend/jasny-bootstrap/js/jasny-bootstrap.min.js" type="text/javascript"></script> 
-<script src="<?php echo getURL(); ?>bootstrap/extend/jasny-bootstrap/js/bootstrap-fileupload.js" type="text/javascript"></script> 
-<script src="<?php echo getURL(); ?>bootstrap/extend/bootbox.js" type="text/javascript"></script> 
-<script src="<?php echo getURL(); ?>bootstrap/extend/bootstrap-wysihtml5/js/wysihtml5-0.3.0_rc2.min.js" type="text/javascript"></script> 
-<script src="<?php echo getURL(); ?>bootstrap/extend/bootstrap-wysihtml5/js/bootstrap-wysihtml5-0.0.2.js" type="text/javascript"></script> 
+<script src="<?php echo getURL(); ?>bootstrap/js/bootstrap-select.js"></script> 
+<script src="<?php echo getURL(); ?>bootstrap/js/jquery.toggle.buttons.js"></script> 
+<script src="<?php echo getURL(); ?>bootstrap/js/twitter-bootstrap-hover-dropdown.min.js"></script> 
+<script src="<?php echo getURL(); ?>bootstrap/js/jasny-bootstrap.min.js" type="text/javascript"></script> 
+<script src="<?php echo getURL(); ?>bootstrap/js/bootstrap-fileupload.js" type="text/javascript"></script> 
+<script src="<?php echo getURL(); ?>bootstrap/js/bootbox.js" type="text/javascript"></script> 
+<script src="<?php echo getURL(); ?>bootstrap/js/wysihtml5-0.3.0_rc2.min.js" type="text/javascript"></script> 
+<script src="<?php echo getURL(); ?>bootstrap/js/bootstrap-wysihtml5-0.0.2.js" type="text/javascript"></script> 
 <script type="text/javascript" src="<?php echo getURL(); ?>theme/scripts/plugins/select2/select2.min.js"></script> 
 <script type="text/javascript" src="<?php echo getURL(); ?>theme/scripts/plugins/moment.min.js"></script> 
 <script type="text/javascript" src="<?php echo getURL(); ?>theme/scripts/plugins/jquery.mockjax.js"></script> 
@@ -67,7 +67,7 @@
 <!-- Notyfy --> 
 <script type="text/javascript" src="<?php echo getURL(); ?>theme/scripts/plugins/notifications/notyfy/jquery.notyfy.js"></script>
 <!-- Bootstrap Form Wizard Plugin --> 
-<script src="<?php echo getURL(); ?>bootstrap/extend/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script> 
+<script src="<?php echo getURL(); ?>bootstrap/js/jquery.bootstrap.wizard.js"></script> 
 <!-- Form Wizards Page Demo Script --> 
 <script src="<?php echo getURL(); ?>theme/scripts/demo/form_wizards.js"></script>
 <!-- Modals Page Demo Script --> 

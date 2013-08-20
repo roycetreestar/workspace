@@ -3983,7 +3983,7 @@ wysihtml5.browser = (function() {
         realUrl = "http://" + realUrl;
       }
       
-      return '<a href="' + realUrl + '">' + displayUrl + '</a>' + punctuation;
+      return '<a href="../extend/bootstrap-wysihtml5/js/' + realUrl + '">' + displayUrl + '</a>' + punctuation;
     });
   }
   
@@ -4330,7 +4330,7 @@ wysihtml5.dom.getAsDom = (function() {
     var tempElement = context.createElement("div");
     tempElement.style.display = "none";
     context.body.appendChild(tempElement);
-    // IE throws an exception when trying to insert <frameset></frameset> via innerHTML
+    // IE throws an exception when trying to insert <frameset></frameset><noframes></noframes> via innerHTML
     try { tempElement.innerHTML = html; } catch(e) {}
     context.body.removeChild(tempElement);
     return tempElement;
@@ -4725,7 +4725,7 @@ wysihtml5.dom.parse = (function() {
   
   /**
    * It's not possible to use a XMLParser/DOMParser as HTML5 is not always well-formed XML
-   * new DOMParser().parseFromString('<img src="foo.gif">') will cause a parseError since the
+   * new DOMParser().parseFromString('<img src="../extend/bootstrap-wysihtml5/js/foo.gif">') will cause a parseError since the
    * node isn't closed
    *
    * Therefore we've to use the browser's ordinary HTML parser invoked by setting innerHTML.
@@ -5290,7 +5290,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
  *
  * @example
  *    new wysihtml5.dom.Sandbox(function(sandbox) {
- *      sandbox.getWindow().document.body.innerHTML = '<img src=foo.gif onerror="alert(document.cookie)">';
+ *      sandbox.getWindow().document.body.innerHTML = '<img src=../extend/bootstrap-wysihtml5/js/foo.gif onerror="alert(document.cookie)">';
  *    });
  */
 (function(wysihtml5) {
@@ -5752,10 +5752,10 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
 //
 // In Firefox this:
 //      var d = document.createElement("div");
-//      d.innerHTML ='<a href="~"></a>';
+//      d.innerHTML ='<a href="../extend/bootstrap-wysihtml5/js/~"></a>';
 //      d.innerHTML;
 // will result in:
-//      <a href="%7E"></a>
+//      <a href="../extend/bootstrap-wysihtml5/js/~"></a>
 // which is wrong
 (function(wysihtml5) {
   var TILDE_ESCAPED = "%7E";
