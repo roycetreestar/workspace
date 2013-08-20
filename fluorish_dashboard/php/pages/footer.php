@@ -13,7 +13,7 @@
 <script src="<?php echo getURL(); ?>theme/scripts/plugins/system/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script> 
 
 <!-- MiniColors --> 
-<script src="<?php echo getURL(); ?>theme/scripts/plugins/color/jquery-miniColors/jquery.miniColors.js"></script> 
+<script src="<?php echo getURL(); ?>theme/scripts/plugins/color/jquery-miniColors/jquery.minicolors.js"></script> 
 
 <!-- Select2 --> 
 <script src="<?php echo getURL(); ?>theme/scripts/plugins/forms/select2/select2.js"></script> 
