@@ -1,0 +1,56 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+/* ------------------FLUORISH ICONS--------------------
+[class^="fluorish-"], 
+[class*=" fluorish-"], 
+[class^="fluorish-"]:before, 
+[class*=" fluorish-"]:before  {
+  vertical-align: middle;
+  margin-right:5px;
+  margin-left:5px;
+  display: inline-block;
+  margin-top: -2px;
+}*/
+
+.fluorish-icon-panels {
+		background-image:url(../../../assets/images/panels_32.png);
+		 display: inline-block;
+    	height: 32px;
+    	vertical-align: top;
+    	width: 32px;
+		
+	
+}
+
+
+.icon64.icomoon-icon-cores {
+	height: 64px;
+	width: 64px;
+	background-color: transparent;
+	background-image: url(../../../assets/images/core_64.png);
+	background-repeat: no-repeat;
+}
+.icon16.icomoon-icon-cores {
+	height: 16px;
+	width: 16px;
+	background-color: transparent;
+	background-image: url(../../../assets/images/core_16.png);
+	background-repeat: no-repeat;
+}
+
+.glyphicons.pb {
+	height: 32px;
+	width: 32px;
+	background-color: transparent;
+	background-image: url(../../../assets/images/pb_small.png);
+	background-repeat: no-repeat;
+}
+
+
+.icomoon-icon-labs {
+    background: url("../../../assets/images/lab_64.png") no-repeat transparent;
+    height: 64px;
+    width: 64px;
+}

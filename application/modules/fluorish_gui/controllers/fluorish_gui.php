@@ -1,40 +1,54 @@
 <?php
 if (!defined('BASEPATH'))   exit('No direct script access allowed');
 
-
-// class Cytometers extends MY_Controller 
 class Fluorish_gui extends Loggedin_Controller
-//~ class Cytometers extends Secure_Controller 
 {
-
-	
-////////////////////////////////////////////////////////////////////////
-/**
- * 
- */
 	function __construct()
 	{
 		parent::__construct();
 		
+		defined('APP_NAME') || define('APP_NAME', 'Fluorish');
+		defined('APP_VERSION') || define('APP_VERSION', 'v1.0');
+		defined('APP_THEME') || define('APP_THEME', '../fluorish_dashboard/common/');
+		// development / production
+		defined('DEV') || define('DEV', true);
+		// toggle google analytics code in head sectio
+		defined('GA') || define('GA', false);
+		// default level / used for getURL paths (should't be modified
+		defined('LEVEL') || define('LEVEL', 0);
+		// allow skin customization from the browser
+		defined('SKIN_JS') || define('SKIN_JS', false);
+		// 'fixed' or 'fluid'
+		defined('LAYOUT_TYPE') || define('LAYOUT_TYPE', 'fixed');
+		// MAIN stylesheet
+		defined('STYLE') || define('STYLE', isset($_GET['style']) ? $_GET['style'] : 'style');
+		// filename without extension (eg. "brown") or false for defaul
+		defined('SKIN_CUSTOM') || define('SKIN_CUSTOM', false);
+		// edit SKIN_CUSTOM abov
+		defined('SKIN') || define('SKIN', SKIN_JS ? false : SKIN_CUSTOM);
 		
 		
-	}
-	
-	
-	
-	
+		
+		function getURL(){
+			$path = base_url().'fluorish_dashboard/common/'; 
+			return $path;
+			}
+		
+		}
+		
 	function index()
 	{
-		//~ echo 'you got to fluorish_gui/index';	
 		
-
+		$this->load->view('fluorish_gui_header_v.php');	
+		$this->load->view('../../../../fluorish_dashboard/php/pages/header.php');
+		$this->load->view('partials/global_account_header_p.php');
 		
 		
-		$this->load->view('fluorish_gui_header_v');		
 		
 		foreach( $this->session->userdata('groups') as $group)
 		{
-		// collect resource_types for this group's resources	
+			
+			// collect resource_types for this group's resources	
 			$group['c'] = false;
 			$group['p'] = false;
 			$group['i'] = false;
@@ -51,30 +65,10 @@ class Fluorish_gui extends Loggedin_Controller
 					$group['a'] = true;
 			}
 			
-		// load an accordian_p for this group	
 			$this->load->view('partials/accordian_p', $group);
 		}
-		//~ $this->load->view('fluorish_dashboard_v', $this->session->userdata);		
-		$this->load->view('fluorish_gui_footer_v');
-		
-	}
 	
-	function cytometer_links()
-	{
-		
-	}
-	
-	
-	function list_view($resource_type)
-	{
-		echo 'this is where you do stuff only to cytometers';
-		$r= $this->load->view('', true);
-		return $r;
-	}
-	
-	function form_view($resource_type)
-	{
-		
+	$this->load->view('../../../../fluorish_dashboard/php/pages/footer.php');
 	}
 	
 }//end class

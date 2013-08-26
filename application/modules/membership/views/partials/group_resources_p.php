@@ -1,6 +1,5 @@
-		<div class="well">
-			<h3><a href="<?= base_url('membership/groups/profile/'.$group_id)?>"><?=$group_name ?></a></h3>
-			Group # <?=$group_id?>
+		<div class="resource-list">
+			<h5><a href="<?= base_url('membership/groups/profile/'.$group_id)?>"><?=$group_name ?></a><span> #<?=$group_id?></span></h5>
 			<hr/>
 		<?php
 			if(!isset($resources) || count($resources) === 0)
@@ -42,19 +41,19 @@
 							//~ $display_function = 'display';
 							break;
 					}
-//~ $my_xml = new SimpleXMLElement($this->session->userdata['groups'][$group_id]['resources'][$resource['id']]['xml']);
-//~ die('$my_xml:<br/>'.$my_xml->asXML());
-//~ die('<hr/>serialized resource id '.$resource['id'].':<br/>'.serialize($my_xml).'<hr/>');		
-	
-					echo $resource['resource_name'];
-					echo '<a class="btn" href="'.base_url($resource_class.'/'.$config_function.'/'.$resource['id']).'" >edit</a>';
-					//~ echo '<a class="btn" href="'.base_url('fred/xml_to_html/form/'.htmlspecialchars($my_xml).'/'.$resource['id'].'/'. $group_id).'" >edit</a>';
+
 					
 					
-					echo '<a class="btn" href="'.base_url($resource_class.'/'.$display_function.'/'.$resource['id']).'" > view </a>';
-					echo '<br/>';
+					echo $resource['resource_name'].'<br>';
+					//~ echo '<a class="btn" href="'.base_url($resource_class.'/'.$function.'/'.$resource['id']).'" >'.$resource['resource_name'].'</a> ';
+					echo '<a class="" href="'.base_url($resource_class.'/'.$config_function.'/'.$resource['id']).'" > Edit</a>';
+					?>
+                    |
+                    <?php
+					echo '<a class="" href="'.base_url($resource_class.'/'.$display_function.'/'.$resource['id']).'" > View </a>';
+					echo '<hr/>';
 				}
 			}
 
-		?>	
+		?>
 		</div>	
