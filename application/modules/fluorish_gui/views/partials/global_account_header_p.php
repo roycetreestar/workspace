@@ -11,16 +11,16 @@
       <div class="clearfix" style="clear: both;"></div>
     </div>
     <div class="span5"> 
-      <!--<div class="buttons pull-right">
+      <div class="buttons pull-right">
         <ul>
-          <li class="glyphicons user_add"><a href="#"><span data-toggle="tab" data-target="#tab1-3"><i></i></span></a></li>
+          <li class="glyphicons notes_2"><a href="#"><span data-toggle="tab" data-target="#tab1-3"><i></i></span></a></li>
           <span class="badge">6</span>
-          <li class="glyphicons shopping_cart"><a href="#"><span data-toggle="tab" data-target="#tab2-3"><i></i></span></a></li>
+          <li class="glyphicons user_add"><a href="#"><span data-toggle="tab" data-target="#tab2-3"><i></i></span></a></li>
           <span class="badge">2</span>
-          <li class="icon16 fluorish-icon-panels"><a href="#"><span data-toggle="tab" data-target="#tab3-3"><i></i></span></a></li>
+          <li class="glyphicons shopping_cart"><a href="#"><span data-toggle="tab" data-target="#tab3-3"><i></i></span></a></li>
           <span class="badge">4</span>
         </ul>
-      </div>-->
+      </div>
       <div style="clear: both;" class="clearfix"></div>
     </div>
   </div>
