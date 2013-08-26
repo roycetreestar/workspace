@@ -1,0 +1,46 @@
+/* DEVELOPMENT STYLES - DO AWAY WITH THESE */
+.well
+{
+	background-color:LemonChiffon;
+	border:solid green 2px;
+}
+
+#single-item_start 
+{
+	border:solid red 2px;
+	/*display:none;*/
+}
+
+/*.modal-body
+{
+	max-height: 650px;
+
+}*/
+/*.ui-autocomplete
+{
+	background-color:white;
+	 z-index:2147483647; 
+}*/
+
+
+
+/*/////////////////////////////////////////////////////////////////////////////*/
+/* /////////	THESE CAN STAY	/////////////// */
+#inventory_header_buttons
+{
+	float:right;
+}
+#inventory_header_labname
+{
+	float:left;
+	font-size: x-large;
+}
+.typeahead
+{
+	z-index:1060;
+}
+#offscreen-storage
+{
+	position:absolute;
+	left: -10000px;
+}

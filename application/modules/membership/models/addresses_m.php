@@ -32,7 +32,24 @@ Class Addresses_m extends Resources_m//CI_Model
 			return false;
 	}
 
-    
+    ///////////////////////////////////////////////////////////////////////////////
+    function update($data)
+	{
+		$this->db->where('resource_id', $data['resource_id'])
+			   ->set('address_line_1', $data['line1'])
+			   ->set('address_line_2', $data['line2'])
+			   ->set('address_line_3', $data['line3'])			   
+			   ->set('city', $data['city'])
+			   ->set('state', $data['state'])
+			   ->set('zipcode', $data['zipcode'])
+			   ->set('country', $data['country']);
+		$this->db->update('addresses');
+		
+		if($this->db->affected_rows() >0)
+			return true;
+		else
+			return false;
+	}
     ///////////////////////////////////////////////////////////////////////////////
     function get_address_by_id($resourceid)
     {

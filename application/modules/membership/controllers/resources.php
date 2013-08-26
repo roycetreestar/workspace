@@ -13,6 +13,7 @@ class Resources extends Loggedin_Controller //CI_Controller
 //	  $this->load->library('session');
 	}
 
+////////////////////////////////////////////////////////////////////////////////
 	function index()
 	{
 	//   $this->load->view('partials/login_p');
@@ -36,6 +37,7 @@ class Resources extends Loggedin_Controller //CI_Controller
 		//redirect('membership/index', 'refresh');
 
 	}  
+////////////////////////////////////////////////////////////////////////////////
 	function create_address()
 	{
 		$data = $this->input->post();
@@ -57,12 +59,14 @@ class Resources extends Loggedin_Controller //CI_Controller
 	   $this->load->view('partials/display_resource_p', $data);
     }
 	
+////////////////////////////////////////////////////////////////////////////////
 	function update_resource()
 	{
 		$data = $this->resources_m->update_resource($data);
 		redirect('membership/resources/display_resource', 'refresh');
 	}
 	
+////////////////////////////////////////////////////////////////////////////////
 	function delete_resource($resource_id)
 	{
 		$result = $this->resources_m->delete($resource_id);
@@ -70,5 +74,32 @@ class Resources extends Loggedin_Controller //CI_Controller
 		return $result;
 		
 	}
+	
+////////////////////////////////////////////////////////////////////////////////
+	function get_group_name_from_resource_id($resource_id)
+	{
+		foreach($this->session->userdata['groups'] as $group)
+		{
+			foreach($group['resources'] as $resource)
+			{
+				if($resource_id === $resource['id'])
+					return $group['group_name'];
+			}
+		}
+		
+	}
+	
+	function get_resource_permission($resource_id)
+	{
+		foreach($this->session->userdata['groups'] as $group)
+		{
+			foreach($group['resources'] as $resource)
+			{
+				if($resource_id === $resource['id'])
+					return $group['permission'];
+			}
+		}
+	}
+	
 	
 }//end class

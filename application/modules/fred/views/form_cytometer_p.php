@@ -3,7 +3,9 @@
 //~ echo '$xml_obj:<br/><textarea>'.print_r($xml_obj, true).'</textarea><br/>';
 ?>
 
-
+<textarea>
+<?php die( print_r($xml_obj, true) ) ?>
+</textarea>
 
 <div  id="cytometerConfigBuilderDiv" class="well">
 <!--			<form id="formCytometerConfig" method="post" action="cytometers/save_to_account/<?php //echo $cytometerid ?>">		-->
@@ -15,27 +17,29 @@
 					<label for="name"><strong>Building/room number or special name </strong></label>
 					<input type="text" name="name" id="cytometerName" value="<? if(isset($xml_obj)) echo $xml_obj->attributes()->name ?>"/>
 					
-<label for="manufacturer"><strong>Manufacturer</strong></label>
-					<?php //echo $manufacturerDropdown ?>
-<select id="manufacturer">
-	<option>I can't be dynamically derived </option>
-	<option>from the database because</option>
-	<option>I'm coming here from fred</option>
-	<option>and fred can't talk to the db</option>
-</select>
-<label for="manufacturer"><strong>Model</strong></label>
-<select id="manufacturer">
-	<option>I can't be dynamically derived </option>
-	<option>from the database because</option>
-	<option>I'm coming here from fred</option>
-	<option>and fred can't talk to the db</option>
-</select>
-					<?php //echo $cytometerModelDropdown ?>
+					<label for="manufacturer"><strong>Manufacturer</strong></label>
+						<?php //echo $manufacturerDropdown ?>
+						<?php //echo $cytometerModelDropdown ?>
+					
+						<select id="manufacturer">
+							<option>I can't be dynamically derived </option>
+							<option>from the database because</option>
+							<option>I'm coming here from fred</option>
+							<option>and fred can't talk to the db</option>
+						</select>
+						
+					<label for="manufacturer"><strong>Model</strong></label>
+						<select id="manufacturer">
+							<option>I can't be dynamically derived </option>
+							<option>from the database because</option>
+							<option>I'm coming here from fred</option>
+							<option>and fred can't talk to the db</option>
+						</select>					
 				</div>
 					
 				<div id="laserContainer">
 <?php
-
+//~ die(var_dump($xml_obj));
 // if a cytometerid is passed in, populate the form from its config file 
 					if(isset($xml_obj))				
 					{	
@@ -45,7 +49,7 @@
 
 //~ echo '$xml_obj[\'cyt\']:<br/><textarea>'.print_r($xml_obj['cyt'], true).'</textarea>';
 //for each of the cytometer's light sources:
-						foreach($xml_obj->LightSource as $laser)
+						foreach($xml_obj->FlowCytometer->LightSource as $laser)
 						{	
 //~ echo '$laser:<br/><textarea>'.print_r($laser, true).'</textarea>';
 ?>
