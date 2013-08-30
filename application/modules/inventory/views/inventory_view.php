@@ -41,13 +41,13 @@
 			<!-- SHOW FIELDS FORM -->
 				<!--<div class="row" >-->
 					<?php //$template['partials']['show_fields_partial']; ?>
-					<?= $this->load->view('partials/show_fields_partial'); ?>
+					<?= $this->load->view('partials/show_fields_p'); ?>
 				<!--</div>-->
 
 			<!-- ADD A REAGENT BY ITS CATALOG NUMBER -->
 				<!--<div class="row">-->
 					<?php // $template['partials']['add_by_cat_num_partial']; ?>
-					<?= $this->load->view('partials/add_by_cat_num_partial'); ?>
+					<?= $this->load->view('partials/add_by_cat_num_p'); ?>
 				<!--</div>-->
 
 			<!--	ADD A SINGLE ITEM	-->
@@ -59,7 +59,7 @@
 			<!-- ADD A REAGENT MANUALLY -->
 				<!--<div class="row">-->
 					<?php // $template['partials']['add_manually_partial']; ?>
-					<?= $this->load->view('partials/add_manually_partial'); ?>
+					<?= $this->load->view('partials/add_manually_p'); ?>
 				<!--</div>-->
 				
 			<!-- IMPORT A SPREADSHEET FORM -->
@@ -81,7 +81,7 @@
 <!-- INVENTORY TABLES BY LAB -->
 	<div class="row-fluid">
 		<?php // $template['partials']['inventory_container_partial']; ?>				
-		<?= $this->load->view('partials/inventory_container_partial'); ?>
+		<?= $this->load->view('partials/inventory_container_p'); ?>
 	</div>
 
 

@@ -15,7 +15,7 @@ class Panels extends Resources //CI_Controller
 	
 	
 ////////////////////////////////////////////////////////////////////////////////
-	function create($data = NULL)
+	function create_panel($data = NULL)
 	{
 		if($data === null)
 			$data = $this->input->post();
@@ -32,19 +32,11 @@ class Panels extends Resources //CI_Controller
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
-	function update($data = NULL)
+	function update_panel($data)
 	{
 		if($data === null)
 			$data = $this->input->post();
-			
-		$this->db->trans_start();
-			$r = $this->resources_m->update_resource($data);
-			$p = $this->panels_m->update($data);
-		$this->db->trans_complete();
-		
-		if($r && $p)
-			return true;
-		else return false;
+		return $this->panels_m->update($data);
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
@@ -103,7 +95,6 @@ die('membership/panels/list_panels(): <textarea>'.print_r($panels, true).'</text
 			$p = $this->panels_m->get_panel_by_id($resource_id);
 			$r = $this->resources_m->get_resource_by_id($resource_id);
 			$data = array_merge($p, $r);
-		//~ die('panels/panels/edit() says: <br/>$data:<textarea>'.print_r($data, true).'</textarea>');
 		}
 		
 		return $this->load->view('partials/form_panel_p', $data, true);

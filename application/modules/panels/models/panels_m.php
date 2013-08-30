@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 Class Panels_m extends Resources_m
 {
 	
@@ -7,69 +7,71 @@ Class Panels_m extends Resources_m
 		parent::__construct();
 		$this->load->database();
 	}
-
-////////////////////////////////////////////////////////////////////////
-
+	
 	function create($data)
 	{
-		$this->db->trans_start();
-		//
+//die('<textarea>'.print_r($data, true).'</textarea>');
+		$this->db->set('resource_id', $data['resource_id'])
+			->set('xml', $data['xml'])
+			->set('user_id', $data['user_id'])
+			->set('name', $data['name'])
+//			->set('lab', $data['lab'])
+			->set('description', $data['description'])
+			->set('date', $data['date'])
+			->set('investigator', $data['investigator'])
+			->set('cytometer', $data['cytometer'])
+			->set('species', $data['species'])
+			->set('size', strlen($data['xml']))
+			->set('hash', md5($data['xml']))
+			->set('sharingpref', $data['sharingpref']);
+//			->set('timestamp', $data['timestamp']);
+			   
+		$this->db->insert('panels');
+	}
+	
+	function update($data)
+	{
+		$this->db->where('resource_id', $data['resource_id']);
 		
+		$this->db->set('xml', $data['xml'])
+			->set('user_id', $data['user_id'])
+			->set('name', $data['name'])
+//			->set('lab', $data['lab'])
+			->set('description', $data['description'])
+			->set('date', $data['date'])
+			->set('investigator', $data['investigator'])
+			->set('cytometer', $data['cytometer'])
+			->set('species', $data['species'])
+			->set('size', strlen($data['xml']))
+			->set('hash', md5($data['xml']))
+			->set('sharingpref', $data['sharingpref'])
+			//~ ->set('timestamp', $data['timestamp'])
+			;
 		
-		$this->db->trans_complete();
+		$this->db->update('panels');
+			  
+	}
+	
+	function get_panel_by_id($resourceid)
+	{
+		$this->db->where('resource_id', $resourceid);
+		$panel = $this->db->get('panels')->row_array();
 		
-		if($result)
-			return $data['resource_id'];
-		else
+		return $panel;
+			
+	}
+	
+	
+	function exists($resourceid)
+	{
+		$this->db->where('id', $resourceid);
+		$result = $this->db->get('panels')->result_array();
+		if(count($result) >0 )
+			return true;
+		else 
 			return false;
-		
 	}
 	
+
 	
-////////////////////////////////////////////////////////////////////////
-	function read($id)
-	{
-		die('panels/models/panels_m.php/read() ain\'t a-warken');
-	}
-	
-////////////////////////////////////////////////////////////////////////
-	function read_user_panels($userid)
-	{
-		die('panels/models/panels_m.php/read_user_panels() ain\'t a-warken');
-	}
-	
-	
-////////////////////////////////////////////////////////////////////////
-	function user_panels_array($userid)
-	{
-		die('panels/models/panels_m.php/user_panels_array() ain\'t a-warken');
-	}
-	
-////////////////////////////////////////////////////////////////////////
-	function read_all()
-	{
-		die('panels/models/panels_m.php/read_all() ain\'t a-warken');
-	}
-	
-////////////////////////////////////////////////////////////////////////
-	function update($id, $data)
-	{
-		die('panels/models/panels_m.php/update() ain\'t a-warken');
-	}
-	
-	
-////////////////////////////////////////////////////////////////////////
-	function delete($resource_id)
-	{
-		die('panels/models/panels_m.php/resource_id() ain\'t a-warken');
-	}
-	
-	
-////////////////////////////////////////////////////////////////////////
-	function hash_exists($hash)
-	{
-		die('panels/models/panels_m.php/hash_exists() ain\'t a-warken');
-	}
-	
-	
-}//end class
+}

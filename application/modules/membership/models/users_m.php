@@ -10,11 +10,11 @@ Class Users_m extends CI_Model
 
  
  
-	function login($username, $password)
+	function login($email, $password)
 	{
 		$this->db->select('entity_id, user_name, password');
 		$this->db->from('users');
-		$this->db->where('user_name', $username);
+		$this->db->where('email', $email);
 		$this->db->where('password', $password);
 		$this->db->limit(1);
 
@@ -37,14 +37,15 @@ Class Users_m extends CI_Model
 //	    echo '<h1 style="color:green">From the model</h1>';
 //	    echo '<textarea>'.print_r($data, true).'</textarea>';
 	    $this->db->set('entity_id', $data['entityid']);
-	    $this->db->set('user_name', $data['username']);
+//	    $this->db->set('user_name', $data['username']);
 	    $this->db->set('password', $data['password']);
 	    $this->db->set('first_name', $data['first_name']);
 	    $this->db->set('last_name', $data['last_name']);
-	    $this->db->set('phone', $data['phone']);
+//	    $this->db->set('phone', $data['phone']);
 //	    $this->db->set('status', $data['status']);
 	    $this->db->set('email', $data['email']);
-	    
+		$this->db->set('institution', $data['institution']);
+		
 	    $this->db->insert('users');
 	    
 	    if($this->db->affected_rows() >0)
@@ -54,7 +55,27 @@ Class Users_m extends CI_Model
 
     }
 
-    
+    function update_user($data)
+    {
+//	    echo '<h1 style="color:green">From the model</h1>';
+//	    echo '<textarea>'.print_r($data, true).'</textarea>';
+	    $this->db->where('entity_id', $data['entityid']);
+//	    $this->db->set('user_name', $data['username']);
+	    $this->db->set('password', $data['password']);
+	    $this->db->set('first_name', $data['first_name']);
+	    $this->db->set('last_name', $data['last_name']);
+//	    $this->db->set('phone', $data['phone']);
+//	    $this->db->set('status', $data['status']);
+	    $this->db->set('email', $data['email']);
+		$this->db->set('institution', $data['institution']);
+	    
+	    $this->db->update('users');
+	    
+	    if($this->db->affected_rows() >0)
+		    return true;
+	    else
+		    return false;
+	}
 ////////////////////////////////////////////////////////////////////////////////    
 	function get_all_users()
 	{
@@ -68,7 +89,7 @@ Class Users_m extends CI_Model
 		$this->db->where('entity_id', $userid);
 		$query = $this->db->get('users');
 		
-		return $query->result_array();
+		return $query->row_array();
 	}
     
     

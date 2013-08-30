@@ -93,7 +93,7 @@
 //		== 1  --> edit/manage(r/w); 
 		if($group['permission'] == 1 )														
 		{
-			$this->load->view('partials/form_address_p', $group) ;
+			$this->load->view('addresses/partials/form_address_p', $group) ;
 		}
 		
 //$group['group_type'] 

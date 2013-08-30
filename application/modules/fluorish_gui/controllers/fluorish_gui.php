@@ -39,12 +39,12 @@ class Fluorish_gui extends Loggedin_Controller
 	function index()
 	{
 		
-		$this->load->view('fluorish_gui_header_v.php');	
+		//~ $this->load->view('fluorish_gui_header_v.php');	
 		$this->load->view('../../../../fluorish_dashboard/php/pages/header.php');
 		$this->load->view('partials/global_account_header_p.php');
 		
 		
-		
+if(isset($this->session->userdata['logged_in']))		
 		foreach( $this->session->userdata('groups') as $group)
 		{
 			
@@ -67,7 +67,7 @@ class Fluorish_gui extends Loggedin_Controller
 			
 			$this->load->view('partials/accordian_p', $group);
 		}
-	
+else $this->load->view('backstage/landing_page_v');	
 	$this->load->view('../../../../fluorish_dashboard/php/pages/footer.php');
 	}
 	

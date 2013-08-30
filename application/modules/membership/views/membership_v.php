@@ -1,12 +1,12 @@
 <?php
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+ //~ die('<pre>'.print_r(get_defined_vars(), true).'</pre>');
 ?>
-		
-<h1>from the view</h1>
+		<?=$this->load->view('header_v'); ?>
+<h1>membership/views/membership_v.php</h1>
 
 
 

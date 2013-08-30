@@ -10,18 +10,27 @@ Class Groups_m extends CI_Model
 
  
 ////////////////////////////////////////////////////////////////////////////////  
+/**
+ * INSERTs a new group in the groups table.
+ * Must be called after the new group is inserted as an entity and use the 
+ * same entity_id as assigned by the entities table's auto-increment.
+ * 
+ * returns boolean
+ * 
+ */
     function create_group($data)
     {
 //	   echo 'got to the model';
-//die(print_r($data));
-//	    $this->db->set('group_type', $data['group_type']);
+//~ die('$data:'.$data.'<br/>or:<br/><textarea>'.print_r($data, true).'</textarea>');
 	    $this->db->set('entity_id', $data['entity_id']);
+	    $this->db->set('group_type', $data['group_type']);
 	    $this->db->set('group_name', $data['group_name']);
 	    $this->db->set('long_group_name', $data['long_group_name']);
-	    $this->db->set('parent_group', $data['parent_group']);
+	    //~ $this->db->set('parent_group', $data['parent_group']);
 	    $this->db->set('access', $data['access']);
 	    $this->db->set('email', $data['email']);
-	    $this->db->set('phone', $data['phone']);
+	    if(isset($data['phone']))
+			$this->db->set('phone', $data['phone']);
    	    $this->db->set('additional_information', $data['additional_information']);
 	    
 	    $this->db->insert('groups');
@@ -35,6 +44,30 @@ Class Groups_m extends CI_Model
 	    
     }
 	
+////////////////////////////////////////////////////////////////////////////////
+	function update_group($data)
+	{
+//	   echo 'got to the model';
+//die(print_r($data));
+	    $this->db->where('entity_id', $data['entity_id']);
+	    $this->db->set('group_type', $data['group_type']);
+	    $this->db->set('group_name', $data['group_name']);
+	    $this->db->set('long_group_name', $data['long_group_name']);
+	    //~ $this->db->set('parent_group', $data['parent_group']);
+	    $this->db->set('access', $data['access']);
+	    $this->db->set('email', $data['email']);
+	    $this->db->set('phone', $data['phone']);
+   	    $this->db->set('additional_information', $data['additional_information']);
+	    
+	    $this->db->update('groups');
+	    
+	    if($this->db->affected_rows() >0)
+		    return true;
+	    else
+		    return false;
+	    
+		
+	}
 	
 ////////////////////////////////////////////////////////////////////////////////
 	function get_all_groups()

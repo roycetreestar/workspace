@@ -7,7 +7,7 @@
 	{
 		foreach( $this->session->userdata['groups'] as $this_group)
 		{
-			$this->load->view('group_resources_p', $this_group);
+			$this->load->view('membership/partials/group_resources_p', $this_group);
 		}
 	}
 ?>

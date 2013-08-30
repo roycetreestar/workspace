@@ -29,9 +29,12 @@ Class Resources_m extends CI_Model
 		//	    $this->db->set('permission', $data['permission']);
 		$this->db->set('resource_name', $data['resource_name']);
 		$this->db->set('resource_type', $data['resource_type']);
-		if(isset($data['xml']))
-			$this->db->set('xml', $data['xml']);
-	    
+		//~ if(isset($data['xml']))
+		$this->db->set('xml', $data['xml']);
+		$this->db->set('size', strlen($data['xml']));
+		$this->db->set('hash', md5($data['xml']));
+		$this->db->set('date_created', date('Y-m-d H:i:s'));
+		
 		$this->db->insert('resources');
 
 		$data['resource_id'] = $this->db->insert_id();
@@ -54,8 +57,8 @@ Class Resources_m extends CI_Model
 		$this->db->set('resource_type', $data['resource_type']);
 		//~ if(isset($data['xml']))
 			$this->db->set('xml', $data['xml']);
-	    $this->db->set('size', $data['size']);
-	    $this->db->set('hash', $data['hash']);
+		$this->db->set('size', strlen($data['xml']));
+		$this->db->set('hash', md5($data['xml']));
 	    
 		$this->db->update('resources');
 

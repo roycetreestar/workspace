@@ -28,15 +28,16 @@ class Groups extends Loggedin_Controller
 		$this->load->model('membership_m');
 
 		
-$this->get_session();
+		$this->get_session();
 		
 	}
-	
+////////////////////////////////////////////////////////////////////////	
 	function index()
 	{
 		echo 'groups->index()';
 	}
 	
+////////////////////////////////////////////////////////////////////////
 	function build_group($groupid)
 	{
 		$this_group = $this->groups_m->get_group_data($groupid);
@@ -54,43 +55,54 @@ $this->get_session();
 die('<textarea>'.print_r($this_group, true).'</textarea>');
 		
 	}
-	
-	////////////////////////////////////////////////////////////////////////////////
-    
-    function create_group($data = NULL)
-    {
 
-	    if($data === NULL && $this->input->post() )
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * Returns an HTML string of the group's display partial
+ * 
+ * must be echoed to display
+ */
+    function display_group($groupid)
+    {
+		
+		foreach($this->session->userdata['groups'] as $group)
+		{
+			if($group['group_id'] == $groupid)
+			{	
+				$data['group'] = $group;
+				return $this->load->view('partials/display_group_p', $data, true) ;
+			
+			}
+		}
+	}
+////////////////////////////////////////////////////////////////////////
+    
+    //~ function create_group($data = NULL)
+    function edit($data = NULL)
+    {
+	//first, make sure $data any parameters or $_POST values
+	    if($data == NULL  )
 	    {
 		    $data = $this->input->post();
 	    }
 	    
-	    if($data !== NULL)
-	    {
-//		    echo '<textarea>'.print_r($this->input->post(), true).'</textarea>' ;
-		    
+	//next, either save the data or load the form partial
+	    if($data != NULL)
+	    {		    
 		    $data['entity_name'] = $data['group_name'];
-		    
-		    
+//~ die('from membership/groups/edit():<br/>$data:'.$data.'<br/><textarea>'.print_r($data, true).'</textarea>');		    
 			$this->db->trans_start();
-//die('<textarea>'.print_r($data, true).'</textarea>');
-		
 		//create the group-entity and get its id
 			$data['entity_id'] = $this->entities_m->create_entity($data);
-			
-			
+						
 			
 		//create the group
 			$this->groups_m->create_group($data);
-//			$data['entityid'] = $this->db->insert_id();
-			
-//die('<textarea>'.print_r($data, true).'</textarea>');			
 			
 		//add creator to group as manager
 			
 			$this->join_group($this->session->userdata['logged_in']['userid'], $data['entity_id'], 1, 0 );
-		    
-   
+		       
 			$this->db->trans_complete();
 		    if ($this->db->trans_status() === FALSE)
 			    echo 'failed';
@@ -100,11 +112,12 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 		else 
 		{
 			 $this->load->view('header_v');
-			 $this->load->view('partials/_group_p');
+			 $this->load->view('partials/form_group_p');
 		}
     }  
     
 
+////////////////////////////////////////////////////////////////////////
 
     function available_groups()
     {
@@ -139,7 +152,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
     
 ////////////////////////////////////////////////////////////////////////////////
     
-        function join_group($entityid='', $groupid='', $permission='', $entity_type='')
+    function join_group($entityid='', $groupid='', $permission='', $entity_type='')
     {
 //		   $this->load->library('login');
 	    $from_form = false;
@@ -149,8 +162,8 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 			$data['permission'] = $permission;
 			$data['entity_type'] = $entity_type;
 //		}
-if($this->groups_m->in_group($entityid, $groupid))
-	   die( 'You\'re already in this group' );
+		if($this->groups_m->in_group($entityid, $groupid))
+			   die( 'You\'re already in this group' );
 //pass values to the model		
 		if($this->groups_m->join_group($data))
 		{
@@ -197,7 +210,8 @@ if($this->groups_m->in_group($entityid, $groupid))
 
     }
     
-    
+
+////////////////////////////////////////////////////////////////////////
     function profile($groupid)
 	{	
 //	    die($this->debug_arr($this->session->userdata['groups'][$groupid]));

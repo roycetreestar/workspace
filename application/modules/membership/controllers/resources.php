@@ -19,7 +19,7 @@ class Resources extends Loggedin_Controller //CI_Controller
 	//   $this->load->view('partials/login_p');
 	//   $this->load->view('partials/create_user_p');
 		//~ $this->load->view('landing_page_v');
-			redirect('fluorish_driver');
+			redirect('backstage');
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////

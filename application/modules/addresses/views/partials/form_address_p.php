@@ -1,6 +1,6 @@
 <div class="well">
 	<h1>Add an Address</h1>
-	<form action="<?=base_url('membership/addresses/create_address')?>" method="post">
+	<form action="<?=base_url('addresses/save')?>" method="post">
 		
 		
 		

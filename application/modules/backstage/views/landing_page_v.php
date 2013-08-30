@@ -6,16 +6,16 @@
  */
 ?>
 
-
+<!--
 <h1>landing_page_v.php</h1>
-
+-->
 
 
 <div class="row-fluid">
 	<div class="span2" >
 		<?php  
 /* ************ load a partial from a different module ****************/
-			$this->load->view('membership/partials/session_array_p') 
+			//~ $this->load->view('membership/partials/session_array_p') 
 		?>
 	</div>
 	

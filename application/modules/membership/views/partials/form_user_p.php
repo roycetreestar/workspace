@@ -6,19 +6,21 @@
  */
 ?>
 <div class="well" >
-	<h3>create_user_p</h3>
+	<h3>Register for Fluorish</h3>
 	
 	<div class="well " id="new_user_result" ></div>
 	
 	<form action="" method="post" id="new_user_form" >		
 		<table class="">
-<!--			<div class="well half_width">-->
+<!--			<div class="well half_width">
 				<tr><td>username:		</td><td>	<input type="text" name="username" />		</td></tr>
+				<tr><td>phone:			</td><td>	<input type="text" name="phone" />			</td></tr>-->
+				<tr><td>email:			</td><td>	<input type="text" name="email" />			</td></tr>
 				<tr><td>password:		</td><td>	<input type="password" name="password" />	</td></tr>
 				<tr><td>first_name:		</td><td>	<input type="text" name="first_name" />		</td></tr>
 				<tr><td>last_name:		</td><td>	<input type="text" name="last_name" />		</td></tr>
-				<tr><td>phone:			</td><td>	<input type="text" name="phone" />			</td></tr>
-				<tr><td>email:			</td><td>	<input type="text" name="email" />			</td></tr>
+				<tr><td>institution		</td><td>	<input type="text" name="institution" />	</td></tr>
+				
 <!--			</div>
 			<div class="well half_width">-->
 <!--				<tr><td>address_line_1:	</td><td>	<input type="text" name="address_line_1" />	</td></tr>

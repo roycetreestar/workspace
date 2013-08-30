@@ -98,12 +98,21 @@ class Inventory extends Resources //Loggedin_Controller
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
+	function create_inventory()
+	{
+		$this->load->view('header_v');
+		echo '<h2>create_inventory() isn\'t working yet, but will eventually be the form for creating a new inventory container for your group</h2><br/><br/>';
+	}
+////////////////////////////////////////////////////////////////////////////////
 	function edit()
 	{
-		$this->index('form');
-		
+		//~ $this->index('form');
+		$this->my_inventories('form');
 	}
-	
+	function display($resource_id)
+	{
+		$this->index('display');
+	}
 	//~ function edit_item($item_id, $is_ajax = FALSE)
 	//~ {
 		//~ $this_item['show_fields'] = $this->data['show_fields'];
@@ -116,6 +125,44 @@ class Inventory extends Resources //Loggedin_Controller
 		//~ 
 		//~ //$table_row = $this->load->view('partials/inventory_item_display_p', $this_item, true);	
 	//~ }
+	
+	
+	function my_inventories($widget_type = 'display')
+	{
+	//if the user has defined filters to limit what is shown, store them in variables
+		$field=$this->input->post('dbfield');
+		$comparison = $this->input->post('comparison');
+		$comp_value = $this->input->post('comp_value');
+		
+		foreach($this->session->userdata['groups'] as $group) 
+		{
+			if($group['group_type'] == 1 || $group['group_type'] == 3)
+			{	
+				$this->data['inventories'][$group['group_id']]['labname'] = 	$group['group_name'];
+				$this->data['inventories'][$group['group_id']]['labid'] = 	$group['group_id'];		
+				foreach($group['resources'] as $resource)
+					if($resource['resource_type'] == 'inventory')
+						$this->data['inventories'][$group['group_id']]['table'] =  	$this->get_inventory_table($resource['id'], $widget_type, $field, $comparison, $comp_value);
+			}
+		}
+//~ die('<textarea>'.print_r($this->data['inventories'], true).'</textarea>');
+			$this->data['vendor_list'] = $this->get_vendor_list();
+			$this->data['target_list'] = $this->get_target_list();
+			$this->data['chrome_list'] = $this->get_chrome_list();
+			$this->data['clone_list'] = $this->get_clone_list();
+//			$this->data['isotype_list'] = $this->get_isotype_list();
+			$this->data['src_species_list'] = $this->get_source_species_list();
+			
+
+		
+			$this->load->view('header_v');
+			
+
+			$this->load->view('inventory_view', $this->data);
+	}
+	
+	
+	
 ////////////////////////////////////////////////////////////////////////////////
 /**
  * Pulls an array of inventory field preferences from custom_reagents_show_fields table
@@ -144,7 +191,7 @@ class Inventory extends Resources //Loggedin_Controller
 	{
 		$this->load->view('header_v');
 		
-		$this->load->view( 'partials/show_fields_partial', $this->data);
+		$this->load->view( 'partials/show_fields_p', $this->data);
 		
 		//~ $the_form = $this->load->view( 'partials/show_fields_partial', $this->data, true);
 		//~ return $the_form;
@@ -179,7 +226,7 @@ class Inventory extends Resources //Loggedin_Controller
 		//~ echo 'custom_reagents_show_fields for user '.$userid.':<textarea>'.print_r($this->data['show_fields'], true).'</textarea>';
 		$data['show_fields'] = $this->data['show_fields'];
 	
-		$this->load->view('partials/inventory_table_p', $data);
+		return $this->load->view('partials/inventory_table_p', $data, true);
 		
 	}
 
@@ -450,7 +497,7 @@ class Inventory extends Resources //Loggedin_Controller
 //~ die('resource_id: '.$resource_id);
 $data['resource_id'] = $resource_id;
 		$this->load->view('header_v');
-		$this->load->view('partials/add_manually_partial', $data);
+		$this->load->view('partials/add_manually_p', $data);
 		
 	}		
 		
@@ -458,7 +505,7 @@ $data['resource_id'] = $resource_id;
 	function get_form_add_cat_num()
 	{
 		$this->load->view('header_v');
-		$this->load->view('partials/add_by_cat_num_partial');
+		$this->load->view('partials/add_by_cat_num_p');
 		
 	}
 	

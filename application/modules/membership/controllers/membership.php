@@ -18,8 +18,9 @@ class Membership extends Loggedin_Controller //MY_Controller
 	   $this->load->model('membership/resources_m');
 	   $this->load->model('membership/groups_m');
 	   $this->load->model('membership/users_m');
-	   $this->load->model('membership/addresses_m');
+	   $this->load->model('addresses/addresses_m');
 	   //~ $this->load->model('membership/cytometers_m');
+	   //~ $this->load->model('membership/panels_m');
 	   $this->load->model('panels/panels_m');
 	   
 	   
@@ -98,14 +99,15 @@ class Membership extends Loggedin_Controller //MY_Controller
 //    
 
 /**
- * 
+ * returns an array of user data
  */
     function display_user($userid)
     {
 	    $data['user'] = $this->users_m->get_user($userid);
 	    $data['user_address'] = $this->addresses_m->get_addresses($userid);
 	    
-	    return $data;	    
+	    return $data;	 
+	    //~ $this->load->view('partials/display_user_p', $data);   
     }
     
     

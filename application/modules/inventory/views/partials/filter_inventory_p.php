@@ -1,5 +1,5 @@
 <div class="span12">
-	<form method="post" action="inventory/">
+	<form method="post" action="<?=base_url().'inventory/my_inventories'?>">
 		
 		<select name="dbfield" id="dbfield">
 			<option value="" > Choose a field </option>

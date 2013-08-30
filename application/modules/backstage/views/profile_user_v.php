@@ -1,6 +1,5 @@
-
 <div class="well row-fluid">
-	<h1>fluorish_driver/views/profile_user_v</h1>
+	<h1>backstage/views/profile_user_v</h1>
 </div>
 <div class="well row-fluid">
 	

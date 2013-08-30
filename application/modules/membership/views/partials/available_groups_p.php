@@ -9,13 +9,13 @@
 		<div class="well">
 			<div class="well" id="available_group_<?=$groupid?>"></div>
 			<table class="table ">
-				<tr><td>group_name:				</td><td><?=$group['group_name']?>				</td></tr>
-				<tr><td>long_group_name:			</td><td><?=$group['long_group_name']?>			</td></tr>
-				<tr><td>parent_group:			</td><td><?=$group['parent_group']?>			</td></tr>
-				<tr><td>access:				</td><td><?=$group['access']?>				</td></tr>
-				<tr><td>email:					</td><td><?=$group['email']?>					</td></tr>
-				<tr><td>phone:					</td><td><?=$group['phone']?>					</td></tr>
-				<tr><td>additional_information:	</td><td><?=$group['additional_information']?>	</td></tr>
+				<tr><td>group_name:	</td>					<td><?=$group['group_name']?>				</td></tr>
+				<tr><td>long_group_name:</td>				<td><?=$group['long_group_name']?>			</td></tr>
+				<tr><td>parent_group:</td>					<td><?=$group['parent_group']?>				</td></tr>
+				<tr><td>access:	</td>						<td><?=$group['access']?>					</td></tr>
+				<tr><td>email:	</td>						<td><?=$group['email']?>					</td></tr>
+				<tr><td>phone:	</td>						<td><?=$group['phone']?>					</td></tr>
+				<tr><td>additional_information:	</td>		<td><?=$group['additional_information']?>	</td></tr>
 			</table>
 			<a class="btn" id="join_group_button_<?=$groupid?>" >Join Group</a>
 		</div>

@@ -1,4 +1,4 @@
-		<div class="resource-list">
+<div class="resource-list">
 			<h5><a href="<?= base_url('membership/groups/profile/'.$group_id)?>"><?=$group_name ?></a><span> #<?=$group_id?></span></h5>
 			<hr/>
 		<?php
@@ -16,7 +16,7 @@
 					switch($resource_type)
 					{
 						case 'address':
-							$resource_class = "membership/addresses";
+							$resource_class = "addresses";
 							//~ $config_function = 'edit_address';
 							//~ $display_function = 'display_address';
 							break;

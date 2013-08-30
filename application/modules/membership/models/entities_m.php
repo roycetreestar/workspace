@@ -22,7 +22,7 @@ Class Entities_m extends CI_Model
 	{
 		$this->db->set('entity_name', $data['entity_name']);
 		$this->db->set('email', $data['email']);
-		$this->db->set('phone', $data['phone']);
+		if(isset($data['phone']))  $this->db->set('phone', $data['phone']);
 //		$this->db->set('timestamp', $timestamp);
 		
 		$query = $this->db->insert('entities');

@@ -22,7 +22,10 @@
 			<a class="btn" id="upload_spreadsheet_<?=$lab['labid']?>"> Import a Spreadsheet</a>
 	</div>	
 		
-		<?= $lab['table']?>
+		<?php
+			if(isset($lab['table']))
+				echo $lab['table'];
+		?>
 </div>
 <?php
 	}

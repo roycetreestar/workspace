@@ -13,7 +13,7 @@
 <div class=" well" id="inventory_table_div_<?= $resource_id ?>">
 <!-- <h2>inventory/views/partials/inventory_table_p.php</h2> -->
 <h2>
-	<?= $group_name ?>
+	<?php // $group_name ?>
 </h2>
 	<?php
 		if($permission == 1)

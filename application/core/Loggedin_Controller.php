@@ -31,7 +31,7 @@ class Loggedin_Controller extends MY_Controller {
 		if(!$this->is_logged_in() )
 		{
 				//~ $this->load->view('landing_page_v') ;
-			redirect('fluorish_driver');
+			redirect('backstage');
 		}	
 		else
 		{
@@ -129,7 +129,8 @@ function get_session()
 		$this->session->unset_userdata('logged_in');
 		$this->session->sess_destroy();
 //		$this->load->view('landing_page_v');
-		redirect('fluorish_driver', 'refresh');
+		//~ redirect('backstage', 'refresh');
+		redirect('fluorish_gui', 'refresh');
 		
 		
 	}

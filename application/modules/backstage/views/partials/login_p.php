@@ -6,11 +6,11 @@ else
 	$message_value = '';
 ?>
 <div class="well" >
-	<h3>login_p</h3>
+	<h3>login</h3>
 
 	<div class="well" id="login_message"> <?= $message_value ?> </div>
 
-	<form action="<?= base_url('fluorish_driver/do_login') ?>" method="post">
+	<form action="<?= base_url('membership/users/do_login') ?>" method="post">
 	
 		<table>
 			<tr><td>username:	</td><td><input type="username" name="username" /></td></tr>

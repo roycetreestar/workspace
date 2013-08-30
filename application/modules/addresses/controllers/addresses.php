@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once('resources.php');
+//~ require_once('resources.php');
+require_once  APPPATH.'modules/membership/controllers/resources.php';
 
 class Addresses extends Resources //CI_Controller 
 {
@@ -18,12 +19,12 @@ class Addresses extends Resources //CI_Controller
 	{
 		if($data === NULL)
 			$data = $this->input->post();
-		
+//~ die('addresses/save() $data:<br/><pre>'.print_r($data, true).'</pre>');
 		$data['xml'] = '<?xml version="1.0" encoding="UTF-8"?>
-	<Address type="xml/addr" name="test address">
-		<Line1>'.$data['line1'].'</Line1>
-		<Line2>'.$data['line2'].'</Line2>
-		<Line3>'.$data['line3'].'</Line3>
+	<Address type="xml/addr" name="'.$data['resource_name'].'">
+		<Line1>'.$data['address_line_1'].'</Line1>
+		<Line2>'.$data['address_line_2'].'</Line2>
+		<Line3>'.$data['address_line_3'].'</Line3>
 		<City>'.$data['city'].'</City>
 		<State>'.$data['state'].'</State>
 		<Zipcode>'.$data['zipcode'].'</Zipcode>
@@ -35,7 +36,7 @@ class Addresses extends Resources //CI_Controller
 			
 		//~ return $this->resources_m->save($data);
 			//~ 
-		if(isset($data['resource_id']))
+		if($data['resource_id'] > 0)
 			return $this->update_address($data);
 		else
 			return $this->create_address($data);
@@ -47,10 +48,12 @@ class Addresses extends Resources //CI_Controller
 	{
 		if($data === NULL)
 			$data = $this->input->post();
-		$r = $this->resources_m->create_resource($data);
-		$data['resource_id'] = $r;
-		$a = $this->addresses_m->create_address($data);
-		
+			
+		$this->db->trans_start();
+			$r = $this->resources_m->create_resource($data);
+			$data['resource_id'] = $r;
+			$a = $this->addresses_m->create_address($data);
+		$this->db->trans_complete();
 		if($r && $a)
 		{
 			$this->get_session();
@@ -65,6 +68,7 @@ class Addresses extends Resources //CI_Controller
 ////////////////////////////////////////////////////////////////////////////////
 	function update_address($data)
 	{
+die('oh, no! you hit update_address()!');
 		$r = $this->resources_m->save_resource($data);
 		$a = $this->addresses_m->update($data);
 		
@@ -82,17 +86,28 @@ die('addresses.php/list_addresses(): '.print_r($cytometers));
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
-	function display($resource_id)
+	function display($resource_id = NULL)
 	{
-		$data = $this->addresses_m->get_address_by_id($resource_id);
-//die('<textarea>'.print_r($data, true).'</textarea>');
-		$this->load->view('header_v');
-		$this->load->view('partials/display_address_p', $data);
+		if($resource_id !== NULL)
+			$data = $this->addresses_m->get_address_by_id($resource_id);
+		else $data = '';
+//~ die('<textarea>'.print_r($data, true).'</textarea>');
+		//~ $this->load->view('header_v');
+		
+		$addr_display =  $this->load->view('partials/display_address_p', $data, true);
+//~ die('<h2>$addr_display:</h2>'.$addr_display);
+		return $addr_display;
 	}
 	
-	function edit($resource_id)
+////////////////////////////////////////////////////////////////////////////////
+	function edit($resource_id = NULL)
 	{
-		die('you go to membership/addresses/edit()');
+		if($resource_id !== NULL)
+			$data = $this->addresses_m->get_address_by_id($resource_id);
+		else $data = '';
+//~ die('<textarea>'.print_r($data, true).'</textarea>');
+		//~ $this->load->view('header_v');
+		$this->load->view('partials/form_address_p', $data);
 	}
 ////////////////////////////////////////////////////////////////////////////////
 }//end class

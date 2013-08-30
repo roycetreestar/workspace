@@ -37,7 +37,7 @@ class Users extends Entities //CI_Controller
 		//~ if($this->session->userdata('logged_in'))
 			//~ $this->get_session();
 		//~ else
-			//~ redirect('fluorish_driver');
+			//~ redirect('backstage');
 	}
 
 ////////////////////////////////////////////////////////////////////////
@@ -50,8 +50,8 @@ class Users extends Entities //CI_Controller
 		if($this->session->userdata('logged_in'))
 			$this->get_session();
 		else
-			redirect('fluorish_driver');
-		//~ redirect('fluorish_driver');
+			redirect('backstage');
+		//~ redirect('backstage');
 	}
 	
 	
@@ -68,7 +68,7 @@ class Users extends Entities //CI_Controller
 			$this->data = $this->input->post();
 //~ die('users->create_user():<br/><textarea>'.print_r($this->data, true).'</textarea>');
 		//create the user entity
-			$this->data['entity_name'] = $this->data['username'];
+			$this->data['entity_name'] = $this->data['first_name'].' '.$this->data['last_name']; //$this->data['username'];
 			$this->create_entity($this->data);
 			$this->data['entityid'] = $this->db->insert_id();
 			
@@ -86,9 +86,10 @@ class Users extends Entities //CI_Controller
 		//create the group
 			$this->data['group_name'] = $this->data['entity_name']; //.'\'s personal resources';
 			$this->data['long_group_name'] = 'your private / shared personal resources';
+			$this->data['group_type'] = 3;								 //the personal resources group_type is 3
 			$this->data['parent_group'] = '';
 			$this->data['access'] = 0;
-			$this->data['additional_information'] = $this->data['username'].'\'s personal resources group';			
+			$this->data['additional_information'] =$this->data['entity_name'].'\'s personal resources group';		// $this->data['username'].'\'s personal resources group';			
 			$this->groups_m->create_group($this->data);	
 		
 		//create entity_group record of personal-resources group	
@@ -114,7 +115,7 @@ class Users extends Entities //CI_Controller
 	    {
 		    //~ echo 'users/create_user complains:\n No POST recieved! BOO!';
 		     $this->load->view('header_v');
-			$this->load->view('partials/create_user_p');
+			$this->load->view('partials/form_user_p');
 	    }
     }
 	
@@ -132,10 +133,11 @@ class Users extends Entities //CI_Controller
     function display_user($userid)
     {
 //	    echo 'view_user() not working yet';
-	    $this->data['user'] = $this->users_m->get_user($userid);
+	    $data['user'] = $this->users_m->get_user($userid);
+	     
 //	    $this->data['user_address'] = $this->membership_m->get_addresses($userid);
 	    
-//	    $this->load->view('partials/display_user_p', $data);
+	    $this->load->view('partials/display_user_p', $data);
 	    
     }
     

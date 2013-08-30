@@ -131,7 +131,12 @@ $(document).ready(function () {
 </script>
 </head>
 <body>
-
+<?php
+	if(isset($this->session->userdata['logged_in']))
+		$username = $this->session->userdata['logged_in']['username'];
+	else
+		$username = '';
+?>
 <!-- Start Content -->
 <div class="container-fluid menu-hidden <?php echo LAYOUT_TYPE; ?>">
 <div class="navbar main hidden-print">
@@ -142,7 +147,7 @@ $(document).ready(function () {
     <li><a href="">Send Invites</a></li>
     <li><a href="">Contact</a></li>
    
-    <li class="account"> <a data-toggle="dropdown" href="#" class="glyphicons logout lock"><span class="hidden-phone text">Royce Cano</span><i></i></a>
+    <li class="account"> <a data-toggle="dropdown" href="#" class="glyphicons logout lock"><span class="hidden-phone text"><?= $username?></span><i></i></a>
       <ul class="dropdown-menu pull-right">
         <li><a href="#" class="glyphicons cogwheel">Settings<i></i></a></li>
         <li><a href="#" class="glyphicons cogwheel">Core Membership<i></i></a></li>
@@ -151,7 +156,7 @@ $(document).ready(function () {
         	<span>
             <span class="heading">Profile <a href="#" class="pull-right">edit</a></span>
             <span class="img"></span>
-            <span class="details"> <a href="#">Fluorish</a> royce@fluorish.com </span>
+            <span class="details"> <a href="#">Fluorish</a> <?= $username?> </span>
             <span class="clearfix"></span>
             </span>
         </li>

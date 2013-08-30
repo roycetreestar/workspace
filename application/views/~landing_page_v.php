@@ -21,7 +21,7 @@
 	</div>
 	
 	<div class="span5">
-		<?php  $this->load->view('fluorish_driver/partials/login_p') ?>
+		<?php  $this->load->view('backstage/partials/login_p') ?>
 	</div>	
 </div>	
 
