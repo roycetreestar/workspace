@@ -26,6 +26,7 @@ class Entities extends Loggedin_Controller //CI_Controller
 	
 	
 	
+////////////////////////////////////////////////////////////////////////
 	function create_entity($data)
 	{
 		return $this->entities_m->create_entity($data);
@@ -33,6 +34,7 @@ class Entities extends Loggedin_Controller //CI_Controller
 	
 	
 	
+////////////////////////////////////////////////////////////////////////
 	function get_entity_data($entityid)
 	{
 		$entity = $this->entities_m->read_entity($entityid);
@@ -47,9 +49,13 @@ class Entities extends Loggedin_Controller //CI_Controller
 	
 	
 	
+////////////////////////////////////////////////////////////////////////
 	function update_entity($data)
 	{
-		return $this->entities_m->update_entity($data);
+		
+		$result = $this->entities_m->update_entity($data);
+//~ die('entities/update_entity() says: '.$result);
+		return $result;
 	}
 	
 }// end class

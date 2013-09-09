@@ -62,7 +62,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
  * 
  * must be echoed to display
  */
-    function display_group($groupid)
+    function display($groupid)
     {
 		
 		foreach($this->session->userdata['groups'] as $group)
@@ -76,11 +76,11 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 		}
 	}
 ////////////////////////////////////////////////////////////////////////
-    
-    //~ function create_group($data = NULL)
-    function edit($data = NULL)
+    //function edit($data=NULL)
+    //~ function create_group($data = NULL)  
+    function save($data = NULL)  
     {
-	//first, make sure $data any parameters or $_POST values
+	//first, make sure $data contains any parameters or $_POST values
 	    if($data == NULL  )
 	    {
 		    $data = $this->input->post();
@@ -88,43 +88,65 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 	    
 	//next, either save the data or load the form partial
 	    if($data != NULL)
-	    {		    
-		    $data['entity_name'] = $data['group_name'];
-//~ die('from membership/groups/edit():<br/>$data:'.$data.'<br/><textarea>'.print_r($data, true).'</textarea>');		    
-			$this->db->trans_start();
-		//create the group-entity and get its id
-			$data['entity_id'] = $this->entities_m->create_entity($data);
+	    {
+		// if entity_id is set, do UPDATEs
+		    if(isset($data['entity_id']))
+		    {
+				$data['entity_name'] = $data['group_name'];	
+//~ die('groups/save() about to update<br/>$data:<textarea>'.print_r($data, true).'</textarea>');
 						
-			
-		//create the group
-			$this->groups_m->create_group($data);
-			
-		//add creator to group as manager
-			
-			$this->join_group($this->session->userdata['logged_in']['userid'], $data['entity_id'], 1, 0 );
-		       
-			$this->db->trans_complete();
-		    if ($this->db->trans_status() === FALSE)
-			    echo 'failed';
-		    else	    
-			    echo 'success';
+				$this->db->trans_start();
+					$this->entities_m->update_entity($data);
+					$this->groups_m->update($data);					
+				$this->db->trans_complete();
+				
+				if ($this->db->trans_status() === FALSE)
+					echo 'failed';
+				else	    
+					echo 'success';
+			}
+		    
+		//if entity_id is NOT set, do INSERTs
+		    else
+		    {
+				$data['entity_name'] = $data['group_name'];	
+						
+				$this->db->trans_start();
+				//create the group-entity and get its id
+					$data['entity_id'] = $this->entities_m->create_entity($data);									
+				//create the group
+					$this->groups_m->create_group($data);				
+				//add creator to group as manager				
+					$this->join_group($this->session->userdata['logged_in']['userid'], $data['entity_id'], 1, 0);
+				$this->db->trans_complete();
+				
+				if ($this->db->trans_status() === FALSE)
+					echo 'failed';
+				else	    
+					echo 'success';
+			}
 	    }
 		else 
 		{
-			 $this->load->view('header_v');
 			 $this->load->view('partials/form_group_p');
 		}
     }  
     
+////////////////////////////////////////////////////////////////////////
+    function edit($groupid = '')
+    {
+		$data = $this->groups_m->get_group_data($groupid);
+		
+		return $this->load->view('partials/form_group_p', $data, true);
+	}
 
 ////////////////////////////////////////////////////////////////////////
 
     function available_groups()
     {
 	    $this->data['available_groups'] = array();
-//	    $all_groups = $this->membership_m->get_all_groups();
 	    $all_groups = $this->groups_m->get_all_groups();
-//die('$all_groups:<br/><textarea>'.print_r($all_groups, true).'</textarea>');	 
+	     
 	    if(!empty($this->session->userdata['groups']) )
 	    {
 			foreach($all_groups as $this_group)
@@ -154,7 +176,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
     
     function join_group($entityid='', $groupid='', $permission='', $entity_type='')
     {
-//		   $this->load->library('login');
+
 	    $from_form = false;
 
 			$data['entityid'] = $entityid;
@@ -214,7 +236,6 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 ////////////////////////////////////////////////////////////////////////
     function profile($groupid)
 	{	
-//	    die($this->debug_arr($this->session->userdata['groups'][$groupid]));
 	    $data['group'] = $this->session->userdata['groups'][$groupid];
 	    
 		$this->load->view('header_v');
@@ -222,5 +243,36 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 	}
     
 ////////////////////////////////////////////////////////////////////////////////
-    
+    function get_array($groupid)
+    {
+		$this_group = $this->groups_m->get_group_data($groupid);
+		
+		return $this_group;
+	}
+	
+////////////////////////////////////////////////////////////////////////////////
+	function get_xml($groupid)
+	{
+		$this_group = $this->groups_m->get_group_data($groupid);
+		
+		$xml = '<?xml version="1.0" encoding="UTF-8"?>
+	<group>
+		<entity_id>'.$this_group['entity_id'].'</entity_id>
+		<group_name>'.$this_group['group_name'].'</group_name>
+		<long_group_name>'.$this_group['long_group_name'].'</long_group_name>
+		<group_type>'.$this_group['group_type'].'</group_type>
+		<phone>'.$this_group['phone'].'</phone>
+		<email>'.$this_group['email'].'</email>
+		<date_created>'.$this_group['timestamp'].'</date_created>
+		<access>'.$this_group['access'].'</access>
+		<additional_information>'.$this_group['additional_information'].'
+		</additional_information>
+	</group>';
+		
+		return $xml;
+	}
+	
+	
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 }//end class

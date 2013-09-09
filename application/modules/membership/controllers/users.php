@@ -8,7 +8,7 @@ class Users extends Entities //CI_Controller
 
 	
 	private $userid;
-	private $user_name;
+	//~ private $user_name;
 	private $password;
 	private $first_name;
 	private $last_name;
@@ -21,6 +21,7 @@ class Users extends Entities //CI_Controller
 	
 	
 	
+////////////////////////////////////////////////////////////////////////
 	function __construct()
 	{
 	  parent::__construct();
@@ -57,50 +58,70 @@ class Users extends Entities //CI_Controller
 	
 ////////////////////////////////////////////////////////////////////////
     
-    function create_user()
+    function save($data = NULL)
     {
-//die('you got to register()');
-	    if($this->input->post() )
+	//first, make sure $data contains any parameters or $_POST values
+	    if($data == NULL  )
 	    {
-//die('create_user() called');
+		    $data = $this->input->post();
+	    }
+	// if it's an edit of a current user, update that user's entries in users table and entities table 	    
+	    if(isset($data['id']))
+	    {
+			$data['entity_name'] = $data['first_name'].' '.$data['last_name'];
+		//try to update the entities table and the users table	
+			$this->db->trans_start();
+				$e_update = $this->entities_m->update_entity($data);
+				$u_update = $this->users_m->update($data);		
+			$this->db->trans_complete();
+			
+			if($e_update && $u_update)
+			{	echo '<h1> Update Successful </h1>';	}
+			else
+			{	echo '<h1 style="color:red;"> Update Failed</h1>';			} 
+		}
+	//if it's a new user (no userid passed in), create a new user (in entities table and users table) and their personal resources group
+	    else
+	    {
+		//insert the new user into each table within a single transaction so if any one INSERT fails, they all revert 
 			$this->db->trans_start();
 			
-			$this->data = $this->input->post();
-//~ die('users->create_user():<br/><textarea>'.print_r($this->data, true).'</textarea>');
-		//create the user entity
-			$this->data['entity_name'] = $this->data['first_name'].' '.$this->data['last_name']; //$this->data['username'];
-			$this->create_entity($this->data);
-			$this->data['entityid'] = $this->db->insert_id();
-			
-		//create the user
-			$this->users_m->create_user($this->data);
-			
-				
+				$this->data = $this->input->post();
 
-		//create default personal-resources group
-		//create the group entity
-			$this->data['entity_name'] = $this->data['entity_name'].'\'s personal resources';
-			$this->create_entity($this->data);
-			$this->data['entity_id'] = $this->db->insert_id();
+			//create the user entity
+				$this->data['entity_name'] = $this->data['first_name'].' '.$this->data['last_name']; //$this->data['username'];
+				$this->create_entity($this->data);
+				$this->data['entityid'] = $this->db->insert_id();
+				
+			//create the user
+				$this->users_m->create_user($this->data);
+				
+					
+
+			//create default personal-resources group
+			//create the group entity
+				$this->data['entity_name'] = $this->data['entity_name'].'\'s personal resources';
+				$this->create_entity($this->data);
+				$this->data['entity_id'] = $this->db->insert_id();
+				
+			//create the group
+				$this->data['group_name'] = $this->data['entity_name']; //.'\'s personal resources';
+				$this->data['long_group_name'] = 'your private / shared personal resources';
+				$this->data['group_type'] = 3;								 //the personal resources group_type is 3
+				$this->data['parent_group'] = '';
+				$this->data['access'] = 0;
+				$this->data['additional_information'] =$this->data['entity_name'].'\'s personal resources group';		
+				$this->groups_m->create_group($this->data);	
 			
-		//create the group
-			$this->data['group_name'] = $this->data['entity_name']; //.'\'s personal resources';
-			$this->data['long_group_name'] = 'your private / shared personal resources';
-			$this->data['group_type'] = 3;								 //the personal resources group_type is 3
-			$this->data['parent_group'] = '';
-			$this->data['access'] = 0;
-			$this->data['additional_information'] =$this->data['entity_name'].'\'s personal resources group';		// $this->data['username'].'\'s personal resources group';			
-			$this->groups_m->create_group($this->data);	
-		
-		//create entity_group record of personal-resources group	
-			$this->data['groupid'] = $this->data['entity_id'];		//$this->db->insert_id();
-			
-			$this->data['permission'] = 1;
-			$this->data['entity_type'] = 1;
-			$this->groups_m->join_group($this->data);
+			//create entity_group record of personal-resources group	
+				$this->data['groupid'] = $this->data['entity_id'];		//$this->db->insert_id();
+				
+				$this->data['permission'] = 1;
+				$this->data['entity_type'] = 1;
+				$this->groups_m->join_group($this->data);
 				
 			$this->db->trans_complete();
-//die('users->create_user()<br/><textarea>'.print_r($this->data, true).'</textarea>');		
+		
 			if (!$this->db->trans_status())
 			{
 				echo '<h1> fail</h1>';
@@ -111,12 +132,11 @@ class Users extends Entities //CI_Controller
 			}
 		 		  
 	    }
-	    else 
-	    {
-		    //~ echo 'users/create_user complains:\n No POST recieved! BOO!';
-		     $this->load->view('header_v');
-			$this->load->view('partials/form_user_p');
-	    }
+	    //~ else 
+	    //~ {
+		    //~ //~// $data = $user_id;
+			//~ return $this->load->view('partials/form_user_p', '', true);
+	    //~ }
     }
 	
 ////////////////////////////////////////////////////////////////////////
@@ -130,7 +150,7 @@ class Users extends Entities //CI_Controller
     
 ////////////////////////////////////////////////////////////////////////////////
     
-    function display_user($userid)
+    function display($userid)
     {
 //	    echo 'view_user() not working yet';
 	    $data['user'] = $this->users_m->get_user($userid);
@@ -153,7 +173,49 @@ class Users extends Entities //CI_Controller
     
 
 
+////////////////////////////////////////////////////////////////////////
+	function edit($userid = '')
+	{
+		
+		$data = $this->users_m->get_user($userid);
+		
+//~ die('$data:<textarea>'.print_r($data, true).'</textarea>');
+		
+		return $this->load->view('partials/form_user_p', $data, true);
+	}
 	
+////////////////////////////////////////////////////////////////////////
+	function get_array($userid)
+	{
+		$user_arr = $this->users_m->get_user($userid);
+//~ die('$user_arr:<textarea>'.print_r($user_arr, true).'</textarea>');
+		return $user_arr;
+	}
+	
+////////////////////////////////////////////////////////////////////////
+	function get_xml($userid)
+	{
+		$user_arr = $this->users_m->get_user($userid);
+
+//~ die('$user_arr:<textarea>'.print_r($user_arr, true).'</textarea>');
+		
+		$xml = '<?xml version="1.0" encoding="UTF-8"?>
+	<User>
+		<entity_id>'.$user_arr['entity_id'].'</entity_id>
+		<user_name>'.$user_arr['user_name'].'</user_name>
+		<password>'.$user_arr['password'].'</password>
+		<first_name>'.$user_arr['first_name'].'</first_name>
+		<last_name>'.$user_arr['last_name'].'</last_name>
+		<phone>'.$user_arr['phone'].'</phone>
+		<email>'.$user_arr['email'].'</email>
+		<institution>'.$user_arr['institution'].'</institution>
+		<date_joined>'.$user_arr['timestamp'].'</date_joined>
+		<status>'.$user_arr['status'].'</status>
+	</User>';
+		
+		return $xml;
+	}
+////////////////////////////////////////////////////////////////////////
 }//end class
 
 ?>

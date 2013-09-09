@@ -68,14 +68,24 @@ class Addresses extends Resources //CI_Controller
 ////////////////////////////////////////////////////////////////////////////////
 	function update_address($data)
 	{
-die('oh, no! you hit update_address()!');
+//~ die('oh, no! you hit update_address()!');
+//~ die('<textarea>'.print_r($data, true).'</textarea>');
 		$r = $this->resources_m->save_resource($data);
 		$a = $this->addresses_m->update($data);
-		
+	
 		if($r && $a)
-			return true;
+			//~ return true;
+			echo 'Address Updated';
 		else
-			return false;
+		{
+			$response = 'UPDATE failed<br/>';
+			if(!$r)
+				$response .= 'Could not update the resources table - its response:'.$r.'<br/>';
+			if(!$a)
+				$response .= 'Could not update the addresses table';
+			echo $response;
+				
+		}
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
@@ -110,4 +120,22 @@ die('addresses.php/list_addresses(): '.print_r($cytometers));
 		$this->load->view('partials/form_address_p', $data);
 	}
 ////////////////////////////////////////////////////////////////////////////////
+
+	function xml($resource_id)
+	{
+		$resource = $this->addresses_m->get_address_by_id($resource_id);
+		
+		return $resource['xml'];
+		
+	}
+////////////////////////////////////////////////////////////////////////////////
+
+	function get_array($resource_id)
+	{
+		$resource = $this->addresses_m->get_address_by_id($resource_id);
+		
+		return $resource;
+		
+	}
+	
 }//end class

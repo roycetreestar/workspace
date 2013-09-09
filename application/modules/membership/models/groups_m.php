@@ -45,7 +45,7 @@ Class Groups_m extends CI_Model
     }
 	
 ////////////////////////////////////////////////////////////////////////////////
-	function update_group($data)
+	function update($data)
 	{
 //	   echo 'got to the model';
 //die(print_r($data));
@@ -94,13 +94,17 @@ Class Groups_m extends CI_Model
 ////////////////////////////////////////////////////////////////////////////////
 	function get_group_data($groupid)
 	{
-		$this->db->where('entity_id', $groupid);
-		$groupdata = $this->db->get('groups');
+		$this->load->model('entities_m');
+		$e_data = $this->entities_m->read_entity($groupid);
 		
-		if($groupdata)
-			return $groupdata->row_array();
-		else 
-			return false;
+		$this->db->where('entity_id', $groupid);
+		$g_data = $this->db->get('groups')->row_array();
+		
+		if(is_array($e_data) && is_array($g_data))
+			$groupdata = array_merge($e_data, $g_data);
+		else $groupdata = '';
+
+			return $groupdata;
 	}
 	
 	

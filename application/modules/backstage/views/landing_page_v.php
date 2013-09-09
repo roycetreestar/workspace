@@ -26,7 +26,7 @@
 	<div class="span5">
 		<?php  
 /* ***************   loading a partial from the same module ************/			
-			$this->load->view('partials/login_p') 
+			$this->load->view('membership/partials/login_p') 
 		?>
 	</div>	
 </div>	

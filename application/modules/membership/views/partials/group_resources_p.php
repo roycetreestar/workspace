@@ -26,7 +26,7 @@
 							//~ $display_function = 'display_cytometer';
 							break;
 						case 'panel':
-							$resource_class = "panel";
+							$resource_class = "panels";
 							//~ $config_function = 'edit_panel';
 							//~ $display_function = 'display_panel';
 							break;
@@ -46,14 +46,47 @@
 					
 					echo $resource['resource_name'].'<br>';
 					//~ echo '<a class="btn" href="'.base_url($resource_class.'/'.$function.'/'.$resource['id']).'" >'.$resource['resource_name'].'</a> ';
-					echo '<a class="" href="'.base_url($resource_class.'/'.$config_function.'/'.$resource['id']).'" > Edit</a>';
+					echo '<a class="" id="edit_resource_link_'.$resource['id'].'" href="'.base_url($resource_class.'/'.$config_function.'/'.$resource['id']).'" > Edit</a>';
 					?>
                     |
                     <?php
-					echo '<a class="" href="'.base_url($resource_class.'/'.$display_function.'/'.$resource['id']).'" > View </a>';
+					echo '<a class="" id="view_resource_link_'.$resource['id'].'" href="'.base_url($resource_class.'/'.$display_function.'/'.$resource['id']).'" > View </a>';
 					echo '<hr/>';
 				}
 			}
 
 		?>
 		</div>	
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+// replace the #content container with the button's href:
+//for "edit" buttons
+	$("a[id^='edit_resource_link_']").click(function(event)
+	{
+		event.preventDefault();
+		
+		var buttonid = $(this).attr("id");
+		var id = buttonid.substring(buttonid.lastIndexOf("_")+1);
+		
+		var target = $(this).attr("href");
+
+		$("#content").load(target);		
+	});
+	
+//for "view" buttons	
+	$("a[id^='view_resource_link_']").click(function(event)
+	{
+		event.preventDefault();
+		
+		var buttonid = $(this).attr("id");
+		var id = buttonid.substring(buttonid.lastIndexOf("_")+1);
+		
+		var target = $(this).attr("href");
+
+		$("#content").load(target);		
+	});
+
+</script>

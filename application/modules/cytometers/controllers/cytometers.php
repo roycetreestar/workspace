@@ -36,7 +36,8 @@ class Cytometers extends Resources
 	
 	
 	
-	/**
+////////////////////////////////////////////////////////////////////////
+/**
  * Builds the cytometer configuration tool
  * 
  * @param type $cytometerid
@@ -52,7 +53,7 @@ class Cytometers extends Resources
 			$this->data['cytometerModelDropdown'] = $this->cytometerModelDropdown();
 			$this->data['manufacturerDropdown'] = $this->manufacturerDropdown();
 			
-$membership = $this->load->module("membership");
+			$membership = $this->load->module("membership");
 			
 			$this->data['managedGroupsDropdown'] = $membership->managed_groups_dropdown();
 //~ die($this->data['managedGroupsDropdown'].'<br/><textarea>'.print_r($this->session->userdata, true).'</textarea>');
@@ -78,7 +79,7 @@ $membership = $this->load->module("membership");
 			//~ ->append_js('module::cytometer_config.js')
 			//~ ->build('cytometer_config_view', $this->data);
 		
-		$this->load->view('header_v');	
+		//~ $this->load->view('header_v');	
 		$this->load->view('cytometer_config_v', $this->data);
 		
 	}//end config()
@@ -105,7 +106,7 @@ $membership = $this->load->module("membership");
 	}
 
 
-  //////////////////////////////////////////////////////////////////////////
+
 ////////////////////////////////////////////////////////////////////////
 
 /**
@@ -276,7 +277,7 @@ if($resource_id)
 					$data['cytometerid'] = $resource['id'];
 					
 					//~ return $this->load->view('partials/cytometer_display_p', $data, true);
-					$this->load->view('header_v');
+					//~ $this->load->view('header_v');
 					$this->load->view('partials/cytometer_display_p', $data);
 				}
 			}
@@ -342,4 +343,24 @@ if($resource_id)
 //~ $groups:<br/><textarea>'.print_r($this->session->userdata['groups'], true).'</textarea><br/>');		
 	//~ }
 	
+//////////////////////////////////////////////////////////////////////////
+ /**
+  * 
+  * calls $this->get_xml_from_session(), then strips out and returns the xml string
+  */
+  function xml($resource_id)
+  {
+	  $xml = $this->get_xml_from_session($resource_id);
+	  
+	  //~ die('<textarea>'.print_r($xml, true).'</textarea>');
+	  return $xml['xml'];
+  }
+  
+////////////////////////////////////////////////////////////////////////////////
+	function get_array($resource_id)
+	{
+		$resource = $this->cytometers_m->get_cytometer_by_id($resource_id);
+		
+		return $resource;
+	}
 }//end class

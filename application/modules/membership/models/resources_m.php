@@ -60,14 +60,16 @@ Class Resources_m extends CI_Model
 		$this->db->set('size', strlen($data['xml']));
 		$this->db->set('hash', md5($data['xml']));
 	    
-		$this->db->update('resources');
+		$result = $this->db->update('resources');
 
 
-		if($this->db->affected_rows() >0)
+		//~ if($this->db->affected_rows() >0)
+		if($result)
 		//		    return true;
 			return $data['resource_id'];
 		else
 			return false;	
+			//~ die( 'error message: '.$this->db->_error_message() );
 	}
 	
 	
@@ -165,6 +167,11 @@ Class Resources_m extends CI_Model
 			return false;
 	}
 
-	
+	function get_name($resource_id)
+	{
+		$r = $this->db->where('id', $resource_id)->get('resources')->row_array();
+		
+		return $r['resource_name'];
+	}
 
 }//end class

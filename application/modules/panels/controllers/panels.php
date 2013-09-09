@@ -66,31 +66,33 @@ die('membership/panels/list_panels(): <textarea>'.print_r($panels, true).'</text
 ////////////////////////////////////////////////////////////////////////////////
 /**
  * returns an HTML string of the given resource's display partial
+ * 
+ * the first parameter is the resource_id of the panel to be displayed
+ * the second parameter determines wheter the display partial is echoed (for ajax calls)
+ * 		or is returned (for variable storage) 
  */
-	function display($resource_id)
+	function display($resource_id, $not_ajax = true)
 	{
-		//~ $panel_model = $this->load->model('panels_m');
-		
-		
-		
-		$p = $this->panels_m->get_panel_by_id($resource_id);
-		$r = $this->resources_m->get_resource_by_id($resource_id);
-		//~ 
-		
-		
-		//~ foreach($this->session->userdata['groups'] as $group)
-			//~ foreach($group['resources'] as $resource)
-				//~ if($resource['id'] == $resource_id)
-					//~ $r = $resource;
-//~ 
-		$data = array_merge($p, $r);
+//~ if($not_ajax)
+//~ echo '$not_ajax is true<br/>';
+//~ else echo '$not_ajax is false<br/>';
+//~ die('panels/display() $resource_id:'.$resource_id.' $not_ajax:'.$not_ajax);	
 
-//~ die('<textarea>'.print_r($data, true).'</textarea>');	
+$this->load->library('misc_functions');
+		
+		$panel_data = $this->panels_m->get_panel_by_id($resource_id);
 
+		$data['panel'] = $panel_data;
+		$data['panel']['xml'] = 'erased';
+		$data['panel']['panelXML'] = simplexml_load_string($panel_data['xml']);
+
+		if($not_ajax)
+			return $this->load->view('partials/display_panel_p', $data, true);
+		else			
+			echo $this->load->view('partials/display_panel_p', $data, true);
+
+			
 		
-		
-		//~ $this->load->view('header_v');
-		return $this->load->view('partials/display_panel_p', $data, true);
 	}
 	
 	
@@ -109,5 +111,45 @@ die('membership/panels/list_panels(): <textarea>'.print_r($panels, true).'</text
 		return $this->load->view('partials/form_panel_p', $data, true);
 	}
 ////////////////////////////////////////////////////////////////////////////////
+	function get_array($resource_id)
+	{
+		$resource = $this->panels_m->get_panel_by_id($resource_id);
+		
+		return $resource;
+	}
 ////////////////////////////////////////////////////////////////////////////////
+	function xml($resource_id)
+	{
+		$resource = $this->panels_m->get_panel_by_id($resource_id);
+		
+		return $resource['xml'];
+	}
+	
+	
+	
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+	function download($resource_id)
+	{
+		$xml = $this->xml($resource_id);
+		
+        $this->output->set_header('Content-Type: application/force-download');
+        $this->output->set_header('Content-Disposition: attachment; filename="'.str_replace(' ', '_', $this->get_resource_name($resource_id)).'.xml"');
+        $this->output->set_content_type('text/xml')
+                ->set_output($xml);		
+		
+	}
+	
+	
+	function get_name($resource_id)
+	{
+		
+	}
+	
+
 }//end class

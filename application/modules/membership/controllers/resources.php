@@ -101,5 +101,8 @@ class Resources extends Loggedin_Controller //CI_Controller
 		}
 	}
 	
-	
+	function get_resource_name($resource_id)
+	{
+		return $this->resources_m->get_name($resource_id);
+	}
 }//end class

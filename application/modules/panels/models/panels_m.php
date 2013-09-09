@@ -54,11 +54,24 @@ Class Panels_m extends Resources_m
 	
 	function get_panel_by_id($resourceid)
 	{
-		$this->db->where('resource_id', $resourceid);
-		$panel = $this->db->get('panels')->row_array();
-		
-		return $panel;
+		//~ $this->db->where('resource_id', $resourceid);
+		//~ $panel = $this->db->get('panels')->row_array();
+		//~ 
+		//~ return $panel;
 			
+			
+	    $this->db->where('id', $resourceid);
+	    $rdata = $this->db->get('resources')->row_array();
+	    
+	    $this->db->where('resource_id', $resourceid);
+	    $pdata = $this->db->get('panels')->row_array();
+	    
+	    $data = array_merge($rdata, $pdata);
+//~ die(print_r($data));	    
+	    if($data)
+		    return $data;
+	    else
+		    return false;
 	}
 	
 	

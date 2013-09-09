@@ -40,13 +40,15 @@ if($cytometerName == '')
 		<br/>
 <!-- BUTTONS	-->
 		<br/>
-		<a class="btn" href="<?= base_url('cytometers/edit/'.$cytometerid) ?> ">edit</a> 
+<!--		<a class="btn" href="<?= base_url('cytometers/edit/'.$cytometerid) ?> ">edit</a> 
 		<a class="btn" href="<?= base_url('cytometers/delete/'.$cytometerid) ?> ">delete</a>
 		<a class="btn" id="slide_laser_<?= $cytometerid?>">Slide Open</a>
-		<a class="btn"	 role="button" data-toggle="#laserModal" id="modal_laser_<?= $cytometerid?>">Open In Modal</a>
+		<a class="btn"	 role="button" data-toggle="#laserModal" id="modal_laser_<?= $cytometerid?>">Open In Modal</a>	
+-->
+
 <!-- END BUTTONS	-->
 
-	</div><!-- end cytometerConfigDiv -->
+<!--	</div><!-- end cytometerConfigDiv -->
 <!-- END PICTURE AND BASIC DATA	-->	
 						
 	
@@ -65,7 +67,7 @@ if($cytometerName == '')
 
 <!-- LASER / DETECTOR SPECIFICS DIV 	-->
 
-	<div class="laserConfigDiv span3 well" id="laser_details_<?=$cytometerid?>" > 
+	<div class="laserConfigDiv  well" id="laser_details_<?=$cytometerid?>" > 	
 
 <?php // for each lightsource, print out it's detectors' data
 		foreach($xml->FlowCytometer->LightSource as $laser)
@@ -89,7 +91,7 @@ if($cytometerName == '')
 	
 <!-- END LASER SPECIFICS	-->
 
-
+	</div><!-- end cytometerConfigDiv -->
 
 
 

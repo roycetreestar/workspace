@@ -36,6 +36,7 @@ Class Addresses_m extends Resources_m//CI_Model
     ///////////////////////////////////////////////////////////////////////////////
     function update($data)
 	{
+//~ die('addresses_m/update() $data:<textarea>'.print_r($data, true).'</textarea>');
 		$this->db->where('resource_id', $data['resource_id'])
 			   ->set('address_line_1', $data['address_line_1'])
 			   ->set('address_line_2', $data['address_line_2'])
@@ -44,14 +45,21 @@ Class Addresses_m extends Resources_m//CI_Model
 			   ->set('state', $data['state'])
 			   ->set('zipcode', $data['zipcode'])
 			   ->set('country', $data['country']);
-		$this->db->update('addresses');
+		$result = $this->db->update('addresses');
 		
-		if($this->db->affected_rows() >0)
+		if($result)
 			return true;
 		else
 			return false;
+			//~ die( 'error message: '.$this->db->_error_message() );
 	}
     ///////////////////////////////////////////////////////////////////////////////
+/**
+ * returns an array of $resourceid's data from 
+ *  the resources db table 
+ * 	and the addresses db table
+ * 	and the resource_group db talbe
+ */
     function get_address_by_id($resourceid)
     {
 	    $this->db->where('id', $resourceid);
@@ -60,8 +68,11 @@ Class Addresses_m extends Resources_m//CI_Model
 	    $this->db->where('resource_id', $resourceid);
 	    $adata = $this->db->get('addresses')->row_array();
 	    
-	    $data = array_merge($rdata, $adata);
-die(print_r($data));	    
+	    $this->db->where('resource_id', $resourceid);
+	    $ra_data = $this->db->get('resource_group')->row_array();
+	    
+	    $data = array_merge($rdata, $adata, $ra_data);
+//~ die(print_r($data));	    
 	    if($data)
 		    return $data;
 	    else

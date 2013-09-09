@@ -55,13 +55,13 @@ Class Users_m extends CI_Model
 
     }
 
-    function update_user($data)
+    function update($data)
     {
 //	    echo '<h1 style="color:green">From the model</h1>';
 //	    echo '<textarea>'.print_r($data, true).'</textarea>';
-	    $this->db->where('entity_id', $data['entityid']);
+	    $this->db->where('entity_id', $data['entity_id']);
 //	    $this->db->set('user_name', $data['username']);
-	    $this->db->set('password', $data['password']);
+//	    $this->db->set('password', $data['password']);
 	    $this->db->set('first_name', $data['first_name']);
 	    $this->db->set('last_name', $data['last_name']);
 //	    $this->db->set('phone', $data['phone']);
@@ -76,6 +76,18 @@ Class Users_m extends CI_Model
 	    else
 		    return false;
 	}
+	
+	function update_password($data)
+	{
+		$this->db->where('entity_id', $data['entityid'])
+			->set('password', $data['password']);
+		$this->db->update('users');
+		
+	    if($this->db->affected_rows() >0)
+		    return true;
+	    else
+		    return false;		
+	}
 ////////////////////////////////////////////////////////////////////////////////    
 	function get_all_users()
 	{
@@ -86,10 +98,16 @@ Class Users_m extends CI_Model
 ////////////////////////////////////////////////////////////////////////////////
 	function get_user($userid)
 	{
-		$this->db->where('entity_id', $userid);
-		$query = $this->db->get('users');
+		$this->load->model('entities_m');
+		$e_data = $this->entities_m->read_entity($userid);
 		
-		return $query->row_array();
+		$this->db->where('entity_id', $userid);
+		$u_data = $this->db->get('users')->row_array();
+		
+		if(is_array($e_data) && is_array($u_data))
+			$user_array=array_merge($e_data, $u_data);
+		else $user_array = '';
+		return $user_array;
 	}
     
     

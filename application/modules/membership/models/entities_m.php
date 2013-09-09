@@ -18,6 +18,7 @@ Class Entities_m extends CI_Model
 
  
 	
+////////////////////////////////////////////////////////////////////////
 	function create_entity($data)
 	{
 		$this->db->set('entity_name', $data['entity_name']);
@@ -33,32 +34,42 @@ Class Entities_m extends CI_Model
 			return false;
 	}
 	
+////////////////////////////////////////////////////////////////////////
 	function read_entity($entityid)
 	{
 		$this->db->where('id', $entityid);
 		$query = $this->db->get('entities');
 		
 		if($query->num_rows() > 0 )
-			return $query->result();
+			return $query->row_array(); //result();
 		else
 			return false;
 	}
 	
+////////////////////////////////////////////////////////////////////////
 	function update_entity($data)
 	{
-		$this->where('id', $data['entity_id']);
+//~ die('entities_m/update_entity() $data:<textarea>'.print_r($data, true).'</textarea>');
+		$this->db->where('id', $data['entity_id']);
 		$this->db->set('entity_name', $data['entity_name']);
 		$this->db->set('email', $data['email']);
 		$this->db->set('phone', $data['phone']);
 //		$this->db->set('timestamp', $timestamp);
 		
-		$query = $this->db->update('entities');
-		
-		if($this->db->affected_rows() === 1 )
-			return true;
-		else return false;
+		//~ $query =
+		$result = $this->db->update('entities');
+
+//~ die('entities_m/update_entity() affected_rows():<textarea>'.print_r($this->db->affected_rows(), true).'</textarea><br/>	'.$this->db->_error_message() );
+		//~ if($result) //($this->db->affected_rows() > 0 )
+//~ die('entities_m/update_entity() $result: '.$result);
+			//~ return true;
+		//~ else if($this->db->affected_rows() == 0 )
+			//~ die($this->db->last_query() );
+		//~ else	return false;
+		return $result;
 	}
 	
+////////////////////////////////////////////////////////////////////////
 	function delete_entity($id)
 	{
 		$this->db->where('id', $id);
