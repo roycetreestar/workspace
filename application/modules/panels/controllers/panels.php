@@ -81,11 +81,11 @@ die('membership/panels/list_panels(): <textarea>'.print_r($panels, true).'</text
 $this->load->library('misc_functions');
 		
 		$panel_data = $this->panels_m->get_panel_by_id($resource_id);
-
+//~ die('panels.php/display(): $panel_data:<textarea>'.print_r($panel_data, true).'</textarea>');
 		$data['panel'] = $panel_data;
 		$data['panel']['xml'] = 'erased';
 		$data['panel']['panelXML'] = simplexml_load_string($panel_data['xml']);
-
+//~ die('panels/display()<textarea>'.print_r($data['panel'], true).'</textarea>');
 		if($not_ajax)
 			return $this->load->view('partials/display_panel_p', $data, true);
 		else			

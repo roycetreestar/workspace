@@ -99,7 +99,7 @@ Class Groups_m extends CI_Model
 		
 		$this->db->where('entity_id', $groupid);
 		$g_data = $this->db->get('groups')->row_array();
-		
+//~ echo 'groups_m.php/get_group_data() debug:<br/>$e_data:<textarea>'.print_r($e_data, true).'</textarea><br/>$g_data:<textarea>'.print_r($g_data, true).'</textarea><hr/>';		
 		if(is_array($e_data) && is_array($g_data))
 			$groupdata = array_merge($e_data, $g_data);
 		else $groupdata = '';
@@ -107,10 +107,7 @@ Class Groups_m extends CI_Model
 			return $groupdata;
 	}
 	
-	
-	
-	
-	
+
 ////////////////////////////////////////////////////////////////////////////////
 	function join_group($data)
 	{
@@ -220,7 +217,7 @@ Class Groups_m extends CI_Model
 			$returnable[$gid] = $q;
 			
 			$gd = $this->get_group_data($gid);
-
+//~ die('var_dump($gd):'.var_dump($gd));
 			$returnable[$gid] = array_merge( $returnable[$gid], $gd );
 //echo 'sending back in gid:'.$gid.'<br/><textarea>'.print_r($returnable, true).'</textarea><hr/>';		
 			

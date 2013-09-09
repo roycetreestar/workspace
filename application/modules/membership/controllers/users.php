@@ -66,7 +66,7 @@ class Users extends Entities //CI_Controller
 		    $data = $this->input->post();
 	    }
 	// if it's an edit of a current user, update that user's entries in users table and entities table 	    
-	    if(isset($data['id']))
+	    if(isset($data['id']) && $data['id'] != '')
 	    {
 			$data['entity_name'] = $data['first_name'].' '.$data['last_name'];
 		//try to update the entities table and the users table	

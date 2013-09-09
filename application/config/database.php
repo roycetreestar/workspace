@@ -48,9 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-//~ $db['default']['hostname'] = 'sites.treestarinc.com';
-//~ $db['default']['username'] = 'mswindle';
-//~ $db['default']['password'] = 'secure@mswindle';
+$db['default']['hostname'] = 'sites.treestarinc.com';
+$db['default']['username'] = 'mswindle';
+$db['default']['password'] = 'secure@mswindle';
 //~ $db['default']['database'] = 'george';
 //~ $db['default']['dbdriver'] = 'mysql';
 //~ $db['default']['dbprefix'] = '';
@@ -66,9 +66,9 @@ $active_record = TRUE;
 
 
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'root';
+//~ $db['default']['hostname'] = 'localhost';
+//~ $db['default']['username'] = 'root';
+//~ $db['default']['password'] = 'root';
 $db['default']['database'] = 'george';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
