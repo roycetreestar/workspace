@@ -90,7 +90,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 	    if($data != NULL)
 	    {
 		// if entity_id is set, do UPDATEs
-		    if(isset($data['entity_id']))
+		    if(isset($data['entity_id']) && $data['entity_id'] != '')
 		    {
 				$data['entity_name'] = $data['group_name'];	
 //~ die('groups/save() about to update<br/>$data:<textarea>'.print_r($data, true).'</textarea>');
@@ -110,7 +110,8 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 		    else
 		    {
 				$data['entity_name'] = $data['group_name'];	
-						
+
+//~ die('groups/save() about to insert<br/>$data:<textarea>'.print_r($data, true).'</textarea>');
 				$this->db->trans_start();
 				//create the group-entity and get its id
 					$data['entity_id'] = $this->entities_m->create_entity($data);									
@@ -119,9 +120,16 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 				//add creator to group as manager				
 					$this->join_group($this->session->userdata['logged_in']['userid'], $data['entity_id'], 1, 0);
 				$this->db->trans_complete();
+			
+			// now reload the session array so the new group is accessible
+
 				
 				if ($this->db->trans_status() === FALSE)
+				{
+				// now reload the session array so the new group is accessible
+					$this->get_session();
 					echo 'failed';
+				}
 				else	    
 					echo 'success';
 			}

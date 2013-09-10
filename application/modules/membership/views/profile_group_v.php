@@ -109,7 +109,7 @@
 		if($group['group_type'] == 0  || $group['group_type'] == 2 || $group['group_type'] === 'lab')		
 		{
 			if($group['permission'] == 1 )
-				$this->load->view('partials/form_panel_p', $group);
+				$this->load->view('panels/partials/form_panel_p', $group);
 		}
 		
 //make sub-group

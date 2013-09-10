@@ -26,44 +26,47 @@ class Inventory_m extends CI_Model
 		
 	}
 
-
+/**
+ * creates an item in an inventory resource
+ * 
+ */
 	function create($data)
 	{
-if(isset($data['resource_id']))				$this->db->set('resource_id', $data['resource_id']);
-if(isset($data['catalog_number']))			$this->db->set('catalog_number', $data['catalog_number']);
-if(isset($data['item_name']))				$this->db->set('item_name', $data['item_name']);
-if(isset($data['vendorid']))				$this->db->set('vendorid', $data['vendorid']);
-if(isset($data['vendor_name']))				$this->db->set('vendor_name', $data['vendor_name']);
-if(isset($data['target']))					$this->db->set('target', $data['target']);
-if(isset($data['target_canonical']))		$this->db->set('target_canonical', $data['target_canonical']);
-if(isset($data['format']))					$this->db->set('format', $data['format']);
-if(isset($data['format_canonical']))		$this->db->set('format_canonical', $data['format_canonical']);
-if(isset($data['clone']))					$this->db->set('clone', $data['clone']);
-if(isset($data['isotype']))					$this->db->set('isotype', $data['isotype']);
-if(isset($data['unit_size']))				$this->db->set('unit_size', $data['unit_size']);
-if(isset($data['package_size']))			$this->db->set('package_size', $data['package_size']);
-if(isset($data['price']))					$this->db->set('price', $data['price']);
-if(isset($data['product_url']))				$this->db->set('product_url', $data['product_url']);
-if(isset($data['source_species']))			$this->db->set('source_species', $data['source_species']);
-if(isset($data['target_species']))			$this->db->set('target_species', $data['target_species']);
-if(isset($data['regulatory_status_id']))	$this->db->set('regulatory_status_id', $data['regulatory_status_id']);
-if(isset($data['regulatory_status']))		$this->db->set('regulatory_status', $data['regulatory_status']);
-if(isset($data['application_id']))			$this->db->set('application_id', $data['application_id']);
-if(isset($data['category_id']))				$this->db->set('category_id', $data['category_id']);
-if(isset($data['category']))				$this->db->set('category', $data['category']);
-if(isset($data['date_created']))			$this->db->set('date_created', $data['date_created']);
-if(isset($data['date_updated']))			$this->db->set('date_updated', $data['date_updated']);
-		//~ $this->db->set('edit_modified', $data['edit_modified']);
-if(isset($data['description']))				$this->db->set('description', $data['description']);
-if(isset($data['titration_amount']))		$this->db->set('titration_amount', $data['titration_amount']);
-if(isset($data['amount_per_test']))			$this->db->set('amount_per_test', $data['amount_per_test']);
-if(isset($data['amount_per_test_units']))	$this->db->set('amount_per_test_units', $data['amount_per_test_units']);
-if(isset($data['remaining_tests']))			$this->db->set('remaining_tests', $data['remaining_tests']);
-if(isset($data['amount_on_hand']))			$this->db->set('amount_on_hand', $data['amount_on_hand']);
-if(isset($data['threshold']))				$this->db->set('threshold', $data['threshold']);
-if(isset($data['lot_number']))				$this->db->set('lot_number', $data['lot_number']);
-if(isset($data['expiration_date']))			$this->db->set('expiration_date', $data['expiration_date']);
-if(isset($data['location']))				$this->db->set('location', $data['location']);		
+		if(isset($data['resource_id']))				$this->db->set('resource_id', $data['resource_id']);
+		if(isset($data['catalog_number']))			$this->db->set('catalog_number', $data['catalog_number']);
+		if(isset($data['item_name']))				$this->db->set('item_name', $data['item_name']);
+		if(isset($data['vendorid']))				$this->db->set('vendorid', $data['vendorid']);
+		if(isset($data['vendor_name']))				$this->db->set('vendor_name', $data['vendor_name']);
+		if(isset($data['target']))					$this->db->set('target', $data['target']);
+		if(isset($data['target_canonical']))		$this->db->set('target_canonical', $data['target_canonical']);
+		if(isset($data['format']))					$this->db->set('format', $data['format']);
+		if(isset($data['format_canonical']))		$this->db->set('format_canonical', $data['format_canonical']);
+		if(isset($data['clone']))					$this->db->set('clone', $data['clone']);
+		if(isset($data['isotype']))					$this->db->set('isotype', $data['isotype']);
+		if(isset($data['unit_size']))				$this->db->set('unit_size', $data['unit_size']);
+		if(isset($data['package_size']))			$this->db->set('package_size', $data['package_size']);
+		if(isset($data['price']))					$this->db->set('price', $data['price']);
+		if(isset($data['product_url']))				$this->db->set('product_url', $data['product_url']);
+		if(isset($data['source_species']))			$this->db->set('source_species', $data['source_species']);
+		if(isset($data['target_species']))			$this->db->set('target_species', $data['target_species']);
+		if(isset($data['regulatory_status_id']))	$this->db->set('regulatory_status_id', $data['regulatory_status_id']);
+		if(isset($data['regulatory_status']))		$this->db->set('regulatory_status', $data['regulatory_status']);
+		if(isset($data['application_id']))			$this->db->set('application_id', $data['application_id']);
+		if(isset($data['category_id']))				$this->db->set('category_id', $data['category_id']);
+		if(isset($data['category']))				$this->db->set('category', $data['category']);
+		if(isset($data['date_created']))			$this->db->set('date_created', $data['date_created']);
+		if(isset($data['date_updated']))			$this->db->set('date_updated', $data['date_updated']);
+				//~ $this->db->set('edit_modified', $data['edit_modified']);
+		if(isset($data['description']))				$this->db->set('description', $data['description']);
+		if(isset($data['titration_amount']))		$this->db->set('titration_amount', $data['titration_amount']);
+		if(isset($data['amount_per_test']))			$this->db->set('amount_per_test', $data['amount_per_test']);
+		if(isset($data['amount_per_test_units']))	$this->db->set('amount_per_test_units', $data['amount_per_test_units']);
+		if(isset($data['remaining_tests']))			$this->db->set('remaining_tests', $data['remaining_tests']);
+		if(isset($data['amount_on_hand']))			$this->db->set('amount_on_hand', $data['amount_on_hand']);
+		if(isset($data['threshold']))				$this->db->set('threshold', $data['threshold']);
+		if(isset($data['lot_number']))				$this->db->set('lot_number', $data['lot_number']);
+		if(isset($data['expiration_date']))			$this->db->set('expiration_date', $data['expiration_date']);
+		if(isset($data['location']))				$this->db->set('location', $data['location']);		
 //~ if(isset($data['resource_id']))		 $this->db->set('useridadd', $data['useridadd']);
 //~ if(isset($data['resource_id']))		 $this->db->set('useridmod', $data['useridmod']);
 		
@@ -75,6 +78,27 @@ if(isset($data['location']))				$this->db->set('location', $data['location']);
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////
+
+	//~ function create_inventory($data)
+	//~ {
+		//~ // create an inventory type resource
+		//~ $data['group_id'] = $this->input->post('group_id')
+		//~ $data['resource_name']
+		//~ $data['resource_type']
+		//~ $data['xml']
+		//~ $data['size']
+		//~ $data['hash']
+		//~ 
+		//~ $resource = $this->db->insert('resources');
+		//~ $data['resource_id'] = $this->db->insert_id();
+		//~ 
+		//~ // attach it to a group
+		//~ 
+		//~ 
+		//~ 
+		//~ $r_g = $this->db->insert('resource_group');
+		//~ 
+	//~ }
 
 	function read($resource_id, $field='', $comparison='', $comp_value='')
 	{

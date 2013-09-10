@@ -201,6 +201,23 @@ class Backstage extends Loggedin_Controller //MY_Controller //CI_Controller
 		
 	}
 
+////////////////////////////////////////////////////////////////////////
+	function my_account()
+	{
+		//load the navbar with bootstrap and jquery 
+		$head = $this->load->view('header_v', '', true);
+	//load the membership/users controller	
+		$usermodule = $this->load->module('membership/users');
+		
+		
+		$userid = $this->session->userdata['logged_in']['userid'];
+		
+		$body = $usermodule->my_account($userid);
+		
+		
+		
+		echo $head.$body;
+	}
 
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
@@ -339,7 +356,7 @@ class Backstage extends Loggedin_Controller //MY_Controller //CI_Controller
  * loads the cytometers module
  * loads the backstage menu bar
  * loops through logged-in user's groups' resources
-	* calls 'cytometers->edit($address_id)' for each resource where resource_type is 'address'
+	* calls 'cytometers->edit($cytometer_id)' for each resource where resource_type is 'cytometer'
 	* concatenates all strings returned from cytometers->edit() loop
  * 
  * echoes the menubar and the concatenated string of partials
@@ -376,7 +393,7 @@ class Backstage extends Loggedin_Controller //MY_Controller //CI_Controller
  * calls 'cytometers->edit($cytometers_id)' 
  * echoes the menu bar and the form
  * 
- * pass in no parameter for empty form (create a new address)
+ * pass in no parameter for empty form (create a new cytometer)
  */
 	function edit_cytometer($cytometer_id = '')
 	{
@@ -417,7 +434,7 @@ class Backstage extends Loggedin_Controller //MY_Controller //CI_Controller
  * loads the backstage menu bar
  * calls cytometers->xml() 
  * 
- * echoes the menu bar and a <textarea> filled with the address's XML (so you can see the structure in your browser)
+ * echoes the menu bar and a <textarea> filled with the cytometer's XML (so you can see the structure in your browser)
  * 
  */
 	function cytometer_xml($resource_id)
@@ -439,7 +456,7 @@ class Backstage extends Loggedin_Controller //MY_Controller //CI_Controller
  * loads the backstage menu bar
  * calls cytometers->array() 
  * 
- * echoes the menu bar and a <textarea> filled with the address's array (so you can see the structure in your browser)
+ * echoes the menu bar and a <textarea> filled with the cytometer's array (so you can see the structure in your browser)
  * 
  */
 	function cytometer_array($resource_id)
@@ -473,7 +490,7 @@ class Backstage extends Loggedin_Controller //MY_Controller //CI_Controller
 		$head = $this->load->view('header_v', '', true);
 		$body = '';
 		
-	// get my addresses from SESSION
+	// get my panels from SESSION
 		foreach($this->session->userdata['groups'] as $group)
 		{
 			foreach($group['resources'] as $resource)
@@ -560,7 +577,7 @@ $panel_c = $this->load->module('panels');
  * loads the backstage menu bar
  * calls panels->xml() 
  * 
- * echoes the menu bar and a <textarea> filled with the address's XML (so you can see the structure in your browser)
+ * echoes the menu bar and a <textarea> filled with the panel's XML (so you can see the structure in your browser)
  * 
  */
 	function panel_xml($resource_id)
@@ -581,7 +598,7 @@ $panel_c = $this->load->module('panels');
  * loads the backstage menu bar
  * calls panels->array() 
  * 
- * echoes the menu bar and a <textarea> filled with the address's array (so you can see the structure in your browser)
+ * echoes the menu bar and a <textarea> filled with the panel's array (so you can see the structure in your browser)
  * 
  */
 	function panel_array($resource_id)
@@ -760,6 +777,22 @@ $panel_c = $this->load->module('panels');
 		echo $head.$body;
 	}
 	
+	
+////////////////////////////////////////////////////////////////////////
+	/**
+	 *  show the form that creates an inventory type resource and resource_group
+	 * 
+	 */
+	 function create_inventory_form()
+	 {
+		 
+		$inventory_c = $this->load->module('inventory');
+		$head = $this->load->view('header_v', '', true);
+		
+		$body= $inventory_c->create_inventory_form();
+		
+		echo $head.$body;
+	 }
 ////////////////////////////////////////////////////////////////////////
 /** 
  * loads the addresses module

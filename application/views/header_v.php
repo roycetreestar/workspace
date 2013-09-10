@@ -61,6 +61,7 @@
 					<li><a tabindex="-1" href="<?=base_url().'backstage/get_user_xml/'.$this->session->userdata['logged_in']['userid']?>">my_user as xml</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/display_user/'.$this->session->userdata['logged_in']['userid']?>">display my_user</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/user_profile/'.$this->session->userdata['logged_in']['userid']?>">user profile</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/my_account/'.$this->session->userdata['logged_in']['userid']?>">my account form</a></li>
 					
 					
 					
@@ -110,6 +111,7 @@
 					<li class="divider"></li>
 					<li><a tabindex="-1" href="<?=base_url().'inventory/get_form_show_fields'?>">Show_Fields Form (inventory preferences)</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'inventory/get_form_filter'?>">Filter Inventory Items</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/create_inventory_form'?>">Create a new Inventory Resource for your group</a></li>
 				</ul>
 			</div>
 			

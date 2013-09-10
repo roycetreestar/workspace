@@ -216,6 +216,12 @@ class Users extends Entities //CI_Controller
 		return $xml;
 	}
 ////////////////////////////////////////////////////////////////////////
+	function my_account($userid)
+	{
+		$data = $this->users_m->get_user($userid);
+//~ die('<textarea>'.print_r($data, true).'</textarea>');		
+		return $this->load->view('partials/form_my_account_p', $data, true);
+	}
 }//end class
 
 ?>

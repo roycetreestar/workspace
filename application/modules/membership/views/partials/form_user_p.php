@@ -50,7 +50,7 @@
 		$('#edit_user_result').html('');
 		
 
-alert('about to save a user. the values are:\n'+values);
+//alert('about to save a user. the values are:\n'+values);
 
 		$.ajax(
 		{

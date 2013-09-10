@@ -98,10 +98,38 @@ class Inventory extends Resources //Loggedin_Controller
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
-	function create_inventory()
+/** 
+ * creates an inventory resource to hold inventory items
+ * 
+ *	parameters
+		$data['group_id'] 
+		$data['resource_name']
+		$data['resource_type']
+		$data['xml']
+		$data['size']
+		$data['hash']
+ */
+	function create_inventory($data = NULL)
 	{
-		$this->load->view('header_v');
-		echo '<h2>create_inventory() isn\'t working yet, but will eventually be the form for creating a new inventory container for your group</h2><br/><br/>';
+		if($data === null)
+			$data = $this->input->post();
+		
+		$resource = $this->resources_m->create_resource($data);
+		
+		if($resource)
+			return true;
+		else
+			return false;
+	}
+	/**
+	 * loads the form to create an inventory resource
+	 * this form submits to $this->create_inventory()
+	 */
+	function create_inventory_form()
+	{
+		$data['managed_groups_dropdown'] = '<select name="group_id" id="group_id"><option>some group id</option><option>some other group id</option></select>';
+	
+		return $this->load->view('partials/create_inventory_form_p', $data, true);
 	}
 ////////////////////////////////////////////////////////////////////////////////
 	function edit()
@@ -109,6 +137,7 @@ class Inventory extends Resources //Loggedin_Controller
 		//~ $this->index('form');
 		$this->my_inventories('form');
 	}
+////////////////////////////////////////////////////////////////////////////////
 	function display($resource_id)
 	{
 		$this->index('display');
@@ -127,6 +156,7 @@ class Inventory extends Resources //Loggedin_Controller
 	//~ }
 	
 	
+////////////////////////////////////////////////////////////////////////////////
 	function my_inventories($widget_type = 'display')
 	{
 	//if the user has defined filters to limit what is shown, store them in variables
@@ -523,6 +553,7 @@ $data['resource_id'] = $resource_id;
 		$this->load->view('header_v');
 		$this->load->view('partials/inventory_item_form_p');
 	}
+	
 	
 	
 }//end class
