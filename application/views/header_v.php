@@ -96,7 +96,7 @@
 			<div class="dropdown pull-right">
 				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Inventory Stuff <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-					<li><a tabindex="-1" href="<?=base_url().'inventory/create_inventory'?>">create a new inventory</a></li>
+				<!--	<li><a tabindex="-1" href="<?=base_url().'inventory/create_inventory'?>">create a new inventory</a></li>	-->
 					<li><a tabindex="-1" href="<?=base_url().'inventory/my_inventories'?>">Display My Inventories</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'inventory/edit'?>">Edit My Inventories</a></li>
 					<li class="divider"></li>
