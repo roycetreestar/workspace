@@ -224,5 +224,5 @@ class Users extends Entities //CI_Controller
 	}
 }//end class
 
-?>
+
 
