@@ -17,19 +17,22 @@ class Fluorish extends Loggedin_Controller //MY_Controller //CI_Controller
 	function __construct()
 	{
 	  parent::__construct();
-	  //~ $this->load->model('cytometers_m');
-	  	   $this->load->helper('url');
+	  	//~ $this->load->model('cytometers_m');
+			$this->load->helper('url');
 		//~ $membership_mod = $this->load->module('membership');
 		
 		//~ $this->users_model = $this->load->model('membership/users_m');
 	
-	// make checking if user is logged in a bit easier to type:	
+		// make checking if user is logged in a bit easier to type:	
+		
 		if(isset($this->session->userdata['logged_in']['userid']))
 		{
 			$this->userid = $this->session->userdata['logged_in']['userid'];
 			$this->membership = $this->load->module('membership');
 		}
 		
+		
+		// Fluorish Dashboard Theme Settings (Some of these are now obsolete)
 		defined('APP_NAME') || define('APP_NAME', 'Fluorish');
 		defined('APP_VERSION') || define('APP_VERSION', 'v1.0');
 		defined('APP_THEME') || define('APP_THEME', '../fluorish_dashboard/common/');
@@ -49,31 +52,39 @@ class Fluorish extends Loggedin_Controller //MY_Controller //CI_Controller
 		defined('SKIN_CUSTOM') || define('SKIN_CUSTOM', false);
 		// edit SKIN_CUSTOM abov
 		defined('SKIN') || define('SKIN', SKIN_JS ? false : SKIN_CUSTOM);
-		
-		
-		
+		// function to allow url for Prototype and Live data in workflow
 		function getURL(){
 			$path = base_url().'fluorish_dashboard/common/'; 
+			return $path;
+			}
+			
+		function getTheme(){
+			$path = base_url().'public/themes/fluorish2013/'; 
 			return $path;
 			}
 		
 	}
 
-
+/**
+ * This is the public theme page for Fluorish.
+ */
 function index()
+	{
+		$this->load->view('../../../../public/themes/fluorish2013/views/layouts/default.php');
+	}
+
+
+function dashboard()
 	{
 		//load the navbar with bootstrap and jquery 
 		//$head = $this->load->view('header_v', '', true);
-	//load the membership/users controller	
+		//load the membership/users controller	
 		$usermodule = $this->load->module('membership/users');
-		
 		
 		$userid = $this->session->userdata['logged_in']['userid'];
 		$data['form'] = $usermodule->my_account($userid);
 		$this->load->view('../../../fluorish_dashboard/php/pages/header.php');
 		$this->load->view('../../../fluorish_dashboard/php/pages/my_account',$data);
 		$this->load->view('../../../fluorish_dashboard/php/pages/footer.php');
-		
-		
 	}
 }

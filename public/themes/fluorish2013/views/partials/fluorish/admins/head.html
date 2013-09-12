@@ -1,0 +1,48 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]> <html class="no-js" lang="en"> 		   <![endif]--><head>
+<meta charset="utf-8">
+
+<!-- You can use .htaccess and remove these lines to avoid edge case issues. -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>{{ settings:site_name }} &raquo; {{ template:title }}</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+
+<!-- Mobile viewport optimized -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- Set a base location for assets -->
+<base href="{{ url:base }}"/>
+<!-- End base -->
+
+<!-- CSS. No need to specify the media attribute unless specifically targeting a media type, leaving blank implies media=all-->
+    {{ theme:css file="bootstrap.css" }}
+    {{ theme:css file="bootstrap-responsive.css" }}
+    {{ theme:css file="flexslider.css" }}
+    {{ theme:css file="jquery.fancybox-1.3.4.css" }}
+    {{ theme:css file="style.css" }}
+    <!-- End CSS-->
+    
+    <!-- Googlelicious -->
+    
+    
+<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Syncopate:400,700">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Michroma">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet">
+
+    <!-- Load up some favicons -->
+    {{ theme:favicon }}
+    
+    {{ template:metadata }}
+    
+    <!-- Google Analytics -->
+    {{ integration:analytics }}
+    
+    <!-- Add some theme option variables for styling -->
+    
+    <style type="text/css"></style>
+</head>
+<body>

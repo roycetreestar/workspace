@@ -223,6 +223,3 @@ class Users extends Entities //CI_Controller
 		return $this->load->view('partials/form_my_account_p', $data, true);
 	}
 }//end class
-
-
-

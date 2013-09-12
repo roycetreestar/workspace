@@ -360,5 +360,12 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
+$modules_location = '../gui';
+
+$config['modules_locations'] = array(
+APPPATH.'modules/' => '../modules/',
+APPPATH . $modules_location .'/' => '../'.$modules_location.'/',
+); 
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */
