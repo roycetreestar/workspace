@@ -66,6 +66,24 @@ class Membership extends Loggedin_Controller //MY_Controller
 	    
     }
  
+ 
+	/**
+	 * Login
+	 *
+	 * A function to load the singular partial,
+	 * the login form only
+	 *
+	 * @access	public
+	 */
+	 
+	 function login()
+	 {
+		$this->load->view('partials/login_p');
+	    
+	 }
+	 
+ 
+ 
 //////////////////////////////////////////////////////////////////////////////////
 /**
  *  builds the userdata part of the session array

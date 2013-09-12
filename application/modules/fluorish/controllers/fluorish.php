@@ -72,6 +72,7 @@ function index()
 	{
 		$this->load->view('../../../../public/themes/fluorish2013/views/layouts/default.php');
 	}
+	
 
 
 function dashboard()

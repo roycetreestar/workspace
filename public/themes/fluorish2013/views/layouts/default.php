@@ -54,19 +54,22 @@
 <!-- Nav -->
 <nav class="nav-collapse collapse">
 <ul class="nav pull-right">
-<li><a href="#about"><i class="icon-tasks icon-white"></i>About Fluorish</a></li>
+<li><a href="<?=site_url('fluorish');?>#about"><i class="icon-tasks icon-white"></i>About Fluorish</a></li>
 <li class="divider-vertical"></li>
-<li><a href="#reagentsearch"><i class="icon-search icon-white"></i>Search Reagents</a></li>
+<li><a href="<?=site_url('fluorish');?>#reagentsearch"><i class="icon-search icon-white"></i>Search Reagents</a></li>
 <li class="divider-vertical"></li>
-<li><a href="#download"><i class="icon-download icon-white"></i>Panel Builder<span class="badge ">Download</span></a></li>
+<li><a href="<?=site_url('fluorish');?>#download"><i class="icon-download icon-white"></i>Panel Builder<span class="badge ">Download</span></a></li>
 <li class="divider-vertical"></li>
-<li><a href="#contact"><i class="icon-comment icon-white"></i>Contact</a></li>
+<li><a href="<?=site_url('fluorish');?>#contact"><i class="icon-comment icon-white"></i>Contact</a></li>
 <li class="divider-vertical"></li>
-<li><a href="register"><span class="register btn"> Join Fluorish</span></a></li>
+<li><a href="<?=site_url('membership');?>"><span class="register btn"> Join Fluorish</span></a></li>
 <li class="divider-vertical"></li>
 <li class="dropdown"> <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
   <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;"> 
-    <!-- Login form here -->
+  
+   <?php echo Modules::run( 'membership/membership/login' ); ?>
+  
+    <!-- Login form here 
     <form action="{{ url:site uri='users/login' }}" class="navbar-search pull-right" method="post" accept-charset="utf-8" id="login-small">
       <input type="hidden" name="redirect_to" value="{{ url:current }}" />
       <label>Email Address</label>
@@ -81,7 +84,7 @@
         <a href="#">Reset Password</a> | <a href="#">Join Fluorish</a>
         </p>
       </div>
-    </form>
+    </form>-->
   </div>
 </li>
 </nav>
@@ -184,7 +187,7 @@
   <div class="container">
     <p class="lead">Our database features antibody catalogs by: </p>
     <div class="row">
-      <div class="span1 vendorlogo"> <a href="<?php echo getTheme(); ?>img/vendors/1.png" class="thumbnail fancybox"> <img src="addons/shared_addons/themes/fluorish/img/vendors/1.png" alt=""></a> </div>
+      <div class="span1 vendorlogo"> <a href="<?php echo getTheme(); ?>img/vendors/1.png" class="thumbnail fancybox"> <img src="<?php echo getTheme(); ?>img/vendors/1.png" alt=""></a> </div>
       <div class="span1 vendorlogo"> <a href="<?php echo getTheme(); ?>img/vendors/2.png" class="thumbnail fancybox"> <img src="<?php echo getTheme(); ?>img/vendors/2.png" alt=""></a> </div>
       <div class="span1 vendorlogo"> <a href="<?php echo getTheme(); ?>img/vendors/3.png" class="thumbnail fancybox"> <img src="<?php echo getTheme(); ?>img/vendors/3.png" alt=""></a> </div>
       <div class="span1 vendorlogo"> <a href="<?php echo getTheme(); ?>img/vendors/4.png" class="thumbnail fancybox"> <img src="<?php echo getTheme(); ?>img/vendors/4.png" alt=""></a> </div>
@@ -268,13 +271,13 @@
 </div>
 <!-- About END --> 
 <!-- Reagent Search -->
-<div id="reagentsearch" class="row">
-  <div class="container">
-    <div class="span12 topmargin2">
-      <h2 class="bottommargin5">Reagent Search</h2>
-    </div>
-  </div>
-</div>
+		<?php 
+		//$search = $this->load->module('membership/groups');
+		//echo $search->edit();
+		//echo Modules::run( 'membership/groups/edit' ); 
+		echo Modules::run( 'search/search/index' );
+		?>
+    
 <!-- Reagent Search END --> 
 <!-- Download -->
 <div id="download" class="topmargin2" >
@@ -306,12 +309,15 @@
         <div id="downloadbox-ios" class="span3 downloadbox"> <a href="#" class="btn btn-primary btn-large bottommargin10 topmargin10">OSX Download</a> </div>
         <!-- Download box iOS END --> 
       </div>
-      </p>
+      
+      
       <!-- Screen Shot Carousel -->
       <div class="row">
         <div class="span6">
+          
           <div id="myCarousel" class="flexslider">
             <ul class="slides">
+            	<!-- Slider 1 -->
               <li id="slider-item-1">
                 <div class="container">
                   <div class="row">
@@ -319,6 +325,7 @@
                   </div>
                 </div>
               </li>
+              <!-- Slider item 1 END -->
               <li id="slider-item-2">
                 <div class="container">
                   <div class="row">
@@ -336,18 +343,18 @@
               <li id="slider-item-4">
                 <div class="container">
                   <div class="row">
-                    <div class="span6"> <a href="#" class="thumbnail fancybox"><img src="<?php echo getTheme(); ?>img/screenshots/thumb4.jpg"</a> </div>
+                    <div class="span6"> <a href="#" class="thumbnail fancybox"><img src="<?php echo getTheme(); ?>img/screenshots/thumb4.jpg"></a> </div>
                   </div>
                 </div>
               </li>
-              <li id="slider-item-4">
+              <li id="slider-item-5">
                 <div class="container">
                   <div class="row">
                     <div class="span6"> <a href="#" class="thumbnail fancybox"><img src="<?php echo getTheme(); ?>img/screenshots/thumb5.jpg"></a> </div>
                   </div>
                 </div>
               </li>
-              <li id="slider-item-4">
+              <li id="slider-item-6">
                 <div class="container">
                   <div class="row">
                     <div class="span6"> <a href="#" class="thumbnail fancybox"><img src="<?php echo getTheme(); ?>img/screenshots/thumb6.jpg"></a> </div>
@@ -356,6 +363,7 @@
               </li>
             </ul>
           </div>
+          
         </div>
       </div>
       <!-- End Screen Shot Carousel --> 
@@ -421,6 +429,7 @@
 <script src="<?php echo getTheme(); ?>js/jquery.fancybox-1.3.4.pack.js"></script> 
 <script>
 $(document).ready(function() {
+	
 	// Hero slider settings //
 	$('#hero-slider').flexslider({
 		// You should better not change these settings //
@@ -433,10 +442,12 @@ $(document).ready(function() {
 		slideshowSpeed: 7000,	//Integer: Set the speed of the slideshow cycling, in milliseconds
 		animationSpeed: 600		//Integer: Set the speed of animations, in milliseconds
 	});
+	
 	// General slider settings //
-	$('.flexslider').flexslider({
+	$('#myCarousel').flexslider({
 		// You should better not change these settings //
 		animation: "slide",
+		controlNav: false,
 		prevText: "&lsaquo;",
 		nextText: "&rsaquo;",
 		// You can change these settings //

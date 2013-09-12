@@ -344,12 +344,12 @@ p .featurebox {
 	
 }
 #downloadbox-ios {
-	background: #596167 url(../img/fl/ios-bg-downloadbox.jpg);
+	background: #596167 ;
 	background-size: 100%;
 	margin-left:5px;
 }
 #downloadbox-windows {
-	background: #7FBA00 url(../../img/fl/windowsphone-bg-downloadbox.jpg);
+	background: #7FBA00 ;
 	background-size: 100%;
 	margin-left:5px;
 }
@@ -496,7 +496,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0037', end
 /* Higher than 980px (Desktop big and normal) */
 @media only screen and (min-width: 980px) {
 	body {
-		background: #EFEFEF url(../img/bg.jpg) repeat-y top center;
+		/*background: #EFEFEF url(../img/bg.jpg) repeat-y top center;*/
 	}
 	#hero {
 		margin-top: 40px;
