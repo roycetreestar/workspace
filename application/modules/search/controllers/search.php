@@ -12,7 +12,7 @@ class Search extends Loggedin_Controller //MY_Controller //CI_Controller
  */
 function index()
 	{
-		$this->load->view('../../../../fluorish_dashboard/php/pages/search_home.php');
+		$this->load->view('../../fluorish_dashboard/php/pages/search_home.php');
 	}
 	
 }
