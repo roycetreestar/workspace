@@ -20,10 +20,15 @@
     	height: 32px;
     	vertical-align: top;
     	width: 32px;
-		
 	
 }
-
+.icon64.icomoon-icon-myfluorish {
+	height: 64px;
+	width: 64px;
+	background-color: transparent;
+	background-image: url(../../../assets/images/my_fluorish_64.png);
+	background-repeat: no-repeat;
+}
 
 .icon64.icomoon-icon-cores {
 	height: 64px;

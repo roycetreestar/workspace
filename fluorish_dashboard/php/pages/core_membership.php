@@ -83,6 +83,9 @@
     </div>
   </div>
   <div class="separator bottom"></div>
+  
+  <!-- Cores Available -->
+  <div id="core-join">
   <div class="box">
     <div class="title">
       <h4 class=""> Cores Available</h4>
@@ -158,6 +161,8 @@
       </div>
     </div>
   </div>
-  <!-- --> 
+  </div>
+  <!-- // Cores Available -->
+
 </div>
 <br/>

@@ -16,8 +16,8 @@ defined('APP_VERSION') || define('APP_VERSION', 'v1.0');
  * Config
  */
 
-// Current / dashboard page
-$page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+// Current / default page
+$page = isset($_GET['page']) ? $_GET['page'] : 'account_setup';
 
 // relative path to theme common resources (styles/images/etc)
 // used for generating the final download package
@@ -52,6 +52,21 @@ defined('SKIN_CUSTOM') || define('SKIN_CUSTOM', false);
 defined('SKIN') || define('SKIN', SKIN_JS ? false : SKIN_CUSTOM);
 
 /*
+ * Other variables
+ * Used mainly for documentation
+ */
+
+$section = isset($_GET['section']) ? $_GET['section'] : 'index';
+$sub_section = isset($_GET['ss']) ? $_GET['ss'] : 'index';
+$_LEVEL = LEVEL; // used for getURL function paths
+
+/*
+ * Zend_Translate
+ */
+define('APP_PATH',	realpath(dirname(__FILE__)));
+//define('APP_LANG',	APP_PATH . '/lang');
+
+/*
  * Functions
  */
 
@@ -83,12 +98,19 @@ switch ($page)
 		require_once 'pages/error.php';
 		break;
 		
+	case 'account_setup':	
 	case 'dashboard':
 	case 'membership':
 	case 'core_membership':
 	case 'lab_membership':
+	case 'core_preferences':
+	case 'lab_preferences':
 	case 'my_account':
 	case 'instruments':
+	case 'inventory':
+	case 'search':
+	case 'upload':
+	case 'registration':
 	
 		// header
 		require_once 'pages/header.php';

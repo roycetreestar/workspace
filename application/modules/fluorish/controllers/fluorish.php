@@ -66,7 +66,7 @@ class Fluorish extends Loggedin_Controller //MY_Controller //CI_Controller
 	}
 
 /**
- * This is the public theme page for Fluorish.
+ * This is the public theme pages for Fluorish.
  */
 function index()
 	{
