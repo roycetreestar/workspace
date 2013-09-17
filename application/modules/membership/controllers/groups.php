@@ -161,10 +161,10 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 			{
 			   $keepit = true;
 
-				$groupid = $this_group['id'];
+				$groupid = $this_group['entity_id'];
 			    foreach($this->session->userdata['groups'] as $sess_group)
 			    {
-				    if($this_group['id'] === $sess_group['group_id'])
+				    if($this_group['entity_id'] === $sess_group['group_id'])
 					    $keepit = false;
 			    }
 			    if($keepit)
@@ -176,6 +176,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 	    else
 		    $this->data['available_groups'] = $all_groups;
 
+		return $this->data['available_groups'];
     }
     
     
@@ -218,8 +219,50 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 		}
 		
     }
-
-   
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * returns a partial of users with a record in entity_groups table for the given groupid
+ * where status = 0 (pending)
+ * 
+ * @param (int) $group_id - the entity_id of the group whose pending members will be shown in the returned partial
+ * 
+ */
+	function pending_members($group_id)
+	{
+		$data['pending_members'] = array();
+		$usermodule = $this->load->module('membership/users');
+		$pending_members = $this->groups_m->pending_members($group_id);
+		foreach ($pending_members as $user)
+		{
+			$user_arr = $usermodule->get_array($user['entity_id']);
+			$data['pending_members'][] = array_merge($user, $user_arr);
+		}		
+		return $this->load->view('partials/group_pending_members_p', $data, true);
+	}
+////////////////////////////////////////////////////////////////////////////////
+	function current_members($group_id)
+	{
+		$data['current_members'] = array();
+		$usermodule = $this->load->module('membership/users');
+		$current_members = $this->groups_m->current_members($group_id);
+		foreach ($current_members as $user)
+		{
+			$user_arr = $usermodule->get_array($user['entity_id']);
+			$data['current_members'][] = array_merge($user, $user_arr);
+		}		
+		return $this->load->view('partials/group_members_p', $data, true);
+	}
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * if a user has joined a private (access=0) group, they must be accepted by a manager of that group
+ * This function sets the entity_group 'status' field from 0 (pending) to 1 (accepted as member)
+ * 
+ * 
+ */
+   function accept_member($groupid, $userid)
+   {
+		return $this->groups_m->accept_member($groupid, $userid);
+   }
 ////////////////////////////////////////////////////////////////////////////////
     
     function remove_from_group($entityid, $groupid)
@@ -251,6 +294,11 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 	}
     
 ////////////////////////////////////////////////////////////////////////////////
+/**
+ * returns a php array of the given group's data
+ * 
+ * @param (int) $groupid - the entity_id of the group
+ */
     function get_array($groupid)
     {
 		$this_group = $this->groups_m->get_group_data($groupid);
@@ -259,6 +307,11 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
+/**
+ * returns a string of XML  containing the given group's data
+ * 
+ * $param (int) $groupid - the entity_id of the group
+ */
 	function get_xml($groupid)
 	{
 		$this_group = $this->groups_m->get_group_data($groupid);
@@ -281,6 +334,117 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 	}
 	
 	
+	
 ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+	function labs_managed($userid=''){return $this->groups_managed('lab', $userid);}		//redirects to groups_managed()
+	function cores_managed($userid=''){return $this->groups_managed('core', $userid);}		//redirects to groups_managed()
+	
+	function groups_managed($group_type = '', $userid='')
+	{
+		$groups_mgd = array();
+	//straighten out the group_type input	
+		if($group_type == 'lab' || $group_type == 1)
+		{
+			$group_type_num = 1;
+			$group_type_str = 'lab';
+		}
+		else if($group_type == 'core' || $group_type == 2)
+		{
+			$group_type_num = 2;
+			$group_type_str = 'core';
+		}
+		else if($group_type == 'personal' || $group_type == 3)
+		{
+			$group_type_num = 3;
+			$group_type_str = 'personal';
+		}
+		
+		$data['group_type_str'] = $group_type_str;
+		
+		$userid = $this->session->userdata['logged_in']['userid'];
+			
+	//collect the user's groups of the proper type	
+		if($group_type == '')
+			$groups_mgd = $this->session['groups'];
+		else
+		{
+			foreach($this->session->userdata['groups'] as $group)
+			{
+				if($group['group_type'] == $group_type_num)
+				{
+					$groups_mgd[$group['group_id']] = array("group_id" => $group['group_id'], "group_name" => $group['group_name'] , "permission" => $group['permission']);
+				}
+			}
+		}
+			$data['my_groups'] = $groups_mgd;
+			$partial = $this->load->view('partials/groups_managed_p', $data, true);
+
+			return $partial;
+
+	}
+	
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+	function labs_joined($userid=''){return $this->groups_joined('lab', $userid);}		//redirects to groups_managed()
+	function cores_joined($userid=''){return $this->groups_joined('core', $userid);}	//redirects to groups_managed()
+
+	function groups_joined($group_type='')
+	{
+		$groups_joined = array();
+	//straighten out the group_type input	
+		if($group_type == 'lab' || $group_type == 1)
+		{
+			$group_type_num = 1;
+			$group_type_str = 'lab';
+		}
+		else if($group_type == 'core' || $group_type == 2)
+		{
+			$group_type_num = 2;
+			$group_type_str = 'core';
+		}
+		else if($group_type == 'personal' || $group_type == 3)
+		{
+			$group_type_num = 3;
+			$group_type_str = 'personal';
+		}
+		
+		$data['group_type_str'] = $group_type_str;
+		
+		$userid = $this->session->userdata['logged_in']['userid'];
+			
+	//collect the user's groups of the proper type	
+		if($group_type == '')
+			$groups_joined = $this->session['groups'];
+		else
+		{
+			foreach($this->session->userdata['groups'] as $group)
+			{
+				if($group['group_type'] == $group_type_num)
+				{
+					$groups_joined[$group['group_id']] = array("group_id" => $group['group_id'], "group_name" => $group['group_name'], "permission"=>$group['permission'], "status" => $group['status'] );
+					
+				}
+			}
+		}
+			$data['my_groups'] = $groups_joined;
+			$partial = $this->load->view('partials/groups_joined_p', $data, true);
+
+			return $partial;
+
+	}
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+	function groups_available($group_type='')
+	{
+		
+	}
+////////////////////////////////////////////////////////////////////////////////
+	function group_info($group_id)
+	{
+		$data['group_data'] = $this->groups_m->get_group_data($group_id);
+//~ die('membership/groups.php group_data:<textarea>'.print_r($data['group_data'], true).'</textarea>');	
+		return $this->load->view('partials/group_information_p', $data, true);
+	}
 ////////////////////////////////////////////////////////////////////////////////
 }//end class

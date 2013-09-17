@@ -55,7 +55,6 @@
 	
 ?>
 <div class="well ">
-	<h2>form_panel_p</h2>
 	<form action='<?=base_url('panels/'.$function)?>' method='post'>
 		<table>
 			<tr><th>	resource data:</th></tr>

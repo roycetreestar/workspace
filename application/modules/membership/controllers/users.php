@@ -157,7 +157,7 @@ class Users extends Entities //CI_Controller
 	     
 //	    $this->data['user_address'] = $this->membership_m->get_addresses($userid);
 	    
-	    $this->load->view('partials/display_user_p', $data);
+	    return $this->load->view('partials/display_user_p', $data, true);
 	    
     }
     
@@ -222,6 +222,15 @@ class Users extends Entities //CI_Controller
 //~ die('<textarea>'.print_r($data, true).'</textarea>');		
 		return $this->load->view('partials/form_my_account_p', $data, true);
 	}
+////////////////////////////////////////////////////////////////////////
+
+	function login_form()
+	{
+		return $this->load->view('partials/login_p', '', true);
+	}
+
+
+////////////////////////////////////////////////////////////////////////
 }//end class
 
 ?>

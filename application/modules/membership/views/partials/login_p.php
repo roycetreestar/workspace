@@ -5,10 +5,10 @@ if(isset($message))
 else
 	$message_value = '';
 ?>
-<div class="well" >
-	<h3>login_p</h3>
+<div  >
 
-	<div class="well" id="login_message"> <?= $message_value ?> </div>
+
+	<div id="login_message"> <?= $message_value ?> </div>
 
 	<form action="<?= base_url('membership/users/do_login') ?>" method="post">
 	

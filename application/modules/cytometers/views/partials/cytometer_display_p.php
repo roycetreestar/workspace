@@ -28,7 +28,7 @@ if($cytometerName == '')
 	
 	
 <!-- PICTURE AND BASIC DATA	-->					
-	<div class="span3 well cytometerConfigDiv_<?=$cytometerid?>" id="cytometer_<?= $cytometerid ?>" >
+	<div class="cytometerConfigDiv_<?=$cytometerid?>" id="cytometer_<?= $cytometerid ?>" >
 		<h3>	<?= $cytometerName ?>  </h3>	
 		<img src="<?=$img_src?>" />
 		<br/>

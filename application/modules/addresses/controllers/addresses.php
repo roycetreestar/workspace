@@ -117,10 +117,11 @@ die('addresses.php/list_addresses(): '.print_r($cytometers));
 		else $data = '';
 //~ die('<textarea>'.print_r($data, true).'</textarea>');
 		//~ $this->load->view('header_v');
-		$this->load->view('partials/form_address_p', $data);
+		return $this->load->view('partials/form_address_p', $data, true);
 	}
 ////////////////////////////////////////////////////////////////////////////////
-
+	function get_xml($resource_id)
+	{ 	return $this->xml($resource_id); }
 	function xml($resource_id)
 	{
 		$resource = $this->addresses_m->get_address_by_id($resource_id);

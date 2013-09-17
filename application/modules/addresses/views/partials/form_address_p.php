@@ -2,8 +2,8 @@
 	if(!isset($form_action))
 		$form_action = 'addresses/save';
 ?>
-<div class="well">
-		<div class="well" id="edit_address_result"></div>
+<div>
+		<div  id="edit_address_result"></div>
 	
 	<form action="" method="post" id="edit_address_form" >
 		<h3>Add/Edit an Address</h3>
@@ -12,9 +12,9 @@
 		<table class="table">
 			
 			<tr>
-				<td>groupid: <input type="text" name="group_id" value="<?=isset($id) ? $id : '' ?>" readonly/></td>
-				<td>resource_type: <input type="text" name="resource_type" value="address" readonly/></td>
-				<td>resource_id: <input type="text" name="resource_id" value="<?=isset($resource_id) ? $resource_id : '' ?>" readonly/></td>
+				<td>groupid: <input type="text" name="group_id" value="<?=isset($id) ? $id : '' ?>" readonly /></td>
+				<td>resource_type: <input type="text" name="resource_type" value="address" readonly /></td>
+				<td>resource_id: <input type="text" name="resource_id" value="<?=isset($resource_id) ? $resource_id : '' ?>" readonly /></td>
 			</tr>
 
 			<tr>

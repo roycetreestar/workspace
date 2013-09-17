@@ -1,45 +1,7 @@
-<!--
-<div class="row-fluid">
-<form>
-	<div class="span5">
-
-		<label for="first_name" >First Name</label>
-		<input type="text" id="first_name" value="<?= $first_name?>" />
-		<label for="last_name" >Last Name</label>
-		<input type="text" id="first_name" value="<?= $last_name?>" />
-		<label for="email" >Email</label>
-		<input type="text" id="email" value="<?= $email?>" />
-		<label for="institution" >Institution</label>
-		<input type="text" id="institution" value="<?= $institution?>" />
-	
-	</div>
-	
-
-	<div class="span5">
-		
-		<label for="old_password" >Old Password</label>
-		<input type="text" id="old_password" placeholder="Leave blank for no change" />
-		<label for="inputPasswordNew1" >New Password</label>
-		<input type="text" id="inputPasswordNew1" placeholder="Leave blank for no change" />
-		<label for="inputPasswordNew2" >New Password</label>
-		<input type="text" id="inputPasswordNew2" placeholder="Leave blank for no change" />
-		
-
-	</div>
-	
-	<div style="margin: 0;" class="form-actions">
-		<button class="btn btn-icon btn-primary glyphicons circle_ok" type="submit"><i></i>Save changes</button>
-		<button class="btn btn-icon btn-default glyphicons circle_remove" type="button"><i></i>Cancel</button>
-	</div>
-</form>
-</div>
-<hr/><hr/><hr/>
--->
-
- <div class="tab-pane active" id="account-settings">
+<div class="tab-pane active" id="account-settings">
 	<div class="widget widget-2">
 		<div class="widget-head">
-			<h4 class="heading glyphicons edit"><i></i>User Profile</h4>
+			<h4 class="heading glyphicons edit"><i></i>Registration</h4>
 		</div>
 		<div class="widget-body" style="padding-bottom: 0;">
 			<div class="row-fluid">

@@ -60,7 +60,7 @@ class Inventory extends Resources //Loggedin_Controller
 		$comp_value = $this->input->post('comp_value');
 		
 	// load the navbar/header view	
-		$this->load->view('header_v');
+		//~ $this->load->view('header_v');
 		
 		foreach($this->data['labs'] as $lab)
 		{
@@ -159,7 +159,7 @@ class Inventory extends Resources //Loggedin_Controller
 ////////////////////////////////////////////////////////////////////////////////
 	function my_inventories($widget_type = 'display')
 	{
-	//if the user has defined filters to limit what is shown, store them in variables
+	//if the user has defined filters to limit which columns are shown, store them in variables
 		$field=$this->input->post('dbfield');
 		$comparison = $this->input->post('comparison');
 		$comp_value = $this->input->post('comp_value');
@@ -185,10 +185,10 @@ class Inventory extends Resources //Loggedin_Controller
 			
 
 		
-			$this->load->view('header_v');
+			//~ $this->load->view('header_v');
 			
 
-			$this->load->view('inventory_view', $this->data);
+			return $this->load->view('inventory_view', $this->data, true);
 	}
 	
 	
@@ -219,9 +219,9 @@ class Inventory extends Resources //Loggedin_Controller
 ////////////////////////////////////////////////////////////////////////////////
 	function get_form_show_fields()
 	{
-		$this->load->view('header_v');
+		//~ $this->load->view('header_v');
 		
-		$this->load->view( 'partials/show_fields_p', $this->data);
+		return $this->load->view( 'partials/show_fields_p', $this->data, true);
 		
 		//~ $the_form = $this->load->view( 'partials/show_fields_partial', $this->data, true);
 		//~ return $the_form;
@@ -526,16 +526,16 @@ class Inventory extends Resources //Loggedin_Controller
 	{
 //~ die('resource_id: '.$resource_id);
 $data['resource_id'] = $resource_id;
-		$this->load->view('header_v');
-		$this->load->view('partials/add_manually_p', $data);
+		//~ $this->load->view('header_v');
+		return $this->load->view('partials/add_manually_p', $data, true);
 		
 	}		
 		
 ////////////////////////////////////////////////////////////////////////////////	
 	function get_form_add_cat_num()
 	{
-		$this->load->view('header_v');
-		$this->load->view('partials/add_by_cat_num_p');
+		//~ $this->load->view('header_v');
+		return $this->load->view('partials/add_by_cat_num_p', '', true);
 		
 	}
 	
@@ -543,15 +543,14 @@ $data['resource_id'] = $resource_id;
 ////////////////////////////////////////////////////////////////////////////////
 	function get_form_filter()
 	{
-		$this->load->view('header_v');
-		$this->load->view('partials/filter_inventory_p');
-		
+		//~ $this->load->view('header_v');
+		return $this->load->view('partials/filter_inventory_p', '', true);
 	}
 	
 	function form_inventory_item()
 	{
-		$this->load->view('header_v');
-		$this->load->view('partials/inventory_item_form_p');
+		//~ $this->load->view('header_v');
+		return $this->load->view('partials/inventory_item_form_p', '', true);
 	}
 	
 	

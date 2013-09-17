@@ -118,6 +118,8 @@ $this->load->library('misc_functions');
 		return $resource;
 	}
 ////////////////////////////////////////////////////////////////////////////////
+	function get_xml($resource_id)
+	{ return $this->xml($resource_id); }
 	function xml($resource_id)
 	{
 		$resource = $this->panels_m->get_panel_by_id($resource_id);

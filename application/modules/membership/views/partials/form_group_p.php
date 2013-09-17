@@ -17,7 +17,7 @@ if(!isset($group))
 	<div class="well" id="edit_group_result"></div>
 	
 	<form action="" method="post" id="edit_group_form" >
-		<h3>form_group_p</h3>
+	<!--	<h3>form_group_p</h3>		-->
 		
 		<input type="text" name="entity_id" value="<?= isset($entity_id)? $entity_id : '' ?>" readonly />
 		<table class="table">

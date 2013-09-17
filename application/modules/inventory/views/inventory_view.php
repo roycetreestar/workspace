@@ -1,31 +1,10 @@
-<!--<script>
-////autocomplete for add-a-reagent form elements
-//	$(function()	
-//	{
-//		var vendor_list =		[<?= $vendor_list ?>];
-//		var target_list =		[<?= $target_list ?>	];
-//		var chrome_list =		[<?= $chrome_list ?>	];
-//		var clone_list =		[<?= $clone_list ?>	];
-//
-//		var src_species_list =	[<?= $src_species_list ?>	];
-//		
-//
-//		$(".company_name, form #company").autocomplete({ source: vendor_list	});
-//		$(".target_name").autocomplete({ source: target_list	});
-//		$(".chrome_name").autocomplete({ source: chrome_list	});
-//		$(".clone_name").autocomplete({ source: clone_list	});
-//
-//		$(".src_species_name").autocomplete({ source: src_species_list	});
-//	});
-</script>-->
-
-
 <script type="text/javascript" src="<?= base_url().'assets/js/inventory.js'?>" ></script>
+<!--
 <link rel="stylesheet" type="text/css" href="<?= base_url().'assets/css/inventory.css'?>" />
-
+-->
 <div class="container-fluid" >
-<h2>inventory/views/inventory_view.php</h2>
-<!---->
+<!--	<h2>inventory/views/inventory_view.php</h2>
+-->
 	<div class="row">
 		<h3>Filter your inventory:</h3>
 		<?php // $template['partials']['filter_inventory_partial']; ?>

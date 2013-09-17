@@ -56,31 +56,18 @@ class Cytometers extends Resources
 			$membership = $this->load->module("membership");
 			
 			$this->data['managedGroupsDropdown'] = $membership->managed_groups_dropdown();
-//~ die($this->data['managedGroupsDropdown'].'<br/><textarea>'.print_r($this->session->userdata, true).'</textarea>');
-			//~ 
-			//~ foreach($this->cores_model->get_managed_cores($this->data['userid']) as $arr)
-			//~ {
-				//~ $this->data['cores_managed'][$arr['coreid']] = $arr['corename'];	 
-			//~ }
+
 		}
 		else
 		{
-//~ die('get_xml_from_session():<br/><textarea>'.print_r($this->get_xml_from_session($cytometerid), true).'</textarea>
-	//~ <textarea>'.print_r($this->session, true).'</textarea>');
 			$this->data['thisCytometer'] = $this->get_xml_from_session($cytometerid);
-
-			$this->data['thisCytometer']['cyt'] =  new SimpleXMLElement($this->data['thisCytometer']['xml']);
-			
+//~ die('$cytometerid:'.$cytometerid.'<br/>$this->data[\'thisCytometer\']<textarea>'.print_r($this->data['thisCytometer'], true).'</textarea><br/>session:<textarea>'.print_r($this->session->userdata, true).'</textarea>');
+			//~ $this->data['thisCytometer']['cyt'] =  new SimpleXMLElement( $this->data['thisCytometer']['xml'] );
+			$this->data['thisCytometer']['cyt'] =  new SimpleXMLElement($this->get_xml($cytometerid));
 			$this->data['cytometerModelDropdown'] = $this->cytometerModelDropdown();
 			$this->data['manufacturerDropdown'] = $this->manufacturerDropdown();
 		}
-
-		//~ $this->template
-			//~ ->append_js('module::cytometer_config.js')
-			//~ ->build('cytometer_config_view', $this->data);
-		
-		//~ $this->load->view('header_v');	
-		$this->load->view('cytometer_config_v', $this->data);
+		return	$this->load->view('cytometer_config_v', $this->data, true);
 		
 	}//end config()
 	
@@ -278,7 +265,7 @@ if($resource_id)
 					
 					//~ return $this->load->view('partials/cytometer_display_p', $data, true);
 					//~ $this->load->view('header_v');
-					$this->load->view('partials/cytometer_display_p', $data);
+					return $this->load->view('partials/cytometer_display_p', $data, true);
 				}
 			}
 		}
@@ -348,6 +335,12 @@ if($resource_id)
   * 
   * calls $this->get_xml_from_session(), then strips out and returns the xml string
   */
+	function get_xml($resource_id)
+	{	
+		$cyt = $this->cytometers_m->get_cytometer_by_id($resource_id);
+//~ die('cytometers/get_xml():<textarea>'.print_r($cyt, true).'</textarea>');
+		return $cyt['xml'];
+	}
   function xml($resource_id)
   {
 	  $xml = $this->get_xml_from_session($resource_id);

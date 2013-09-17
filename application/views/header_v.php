@@ -15,16 +15,16 @@
 	
 	<body>
 		<div id="navbar">
-			<a class='btn' href="<?php echo base_url('backstage/logout') ?>">logout</a>
-			<a class='btn' href="<?php echo base_url('fluorish_gui') ?>">dashboard</a>
+			<a class='btn pull-left' href="<?php echo base_url('backstage/logout') ?>">logout</a>
+			<a class='btn pull-left' href="<?php echo base_url('fluorish_gui') ?>">dashboard</a>
 		<?php 
 		if(isset( $this->session->userdata['logged_in']))
 		{
 		?>
 
-			<a class='btn ' href="<?php echo base_url('backstage/debug_page') ?>">debug_page</a>
-			<a class='btn pull-right' href="<?php echo base_url('backstage/user_profile/'.$this->session->userdata['logged_in']['userid']) ?>">profile</a>
-		<!--	<a class='btn pull-right' href="<?php //echo base_url('cytometers/edit') ?>">cytometer config</a>-->
+			<a class='btn  pull-left' href="<?php echo base_url('backstage/debug_page') ?>">debug_page</a>	
+		<!--	<a class='btn pull-right' href="<?php echo base_url('backstage/user_profile/'.$this->session->userdata['logged_in']['userid']) ?>">profile</a>		-->
+		<!--	<a class='btn pull-right' href="<?php //echo base_url('cytometers/edit') ?>">cytometer config</a>		-->
 		
 		
 		
@@ -32,7 +32,20 @@
 		
 		
 		
-		
+<!-- howto stuff -->	
+			<div class="dropdown pull-left">
+				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">howto <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto'?>">How to talk to george</a></li>
+					<li class="divider"></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/addresses'?>">addresses</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/cytometers'?>">cytometers</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/groups'?>">groups</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/inventory'?>">inventory</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/panels'?>">panels</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/users'?>">users</a></li>
+				</ul>
+			</div>	
 		
 		
 		
@@ -43,7 +56,7 @@
 		
 <!-- group/user stuff -->	
 			<div class="dropdown pull-right">
-				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">group/user Stuff <span class="caret"></span></a>
+				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">groups <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 					<li><a tabindex="-1" href="<?=base_url().'backstage/edit_group/'?>">form create a group</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/edit_group/'.key($this->session->userdata['groups'])?>">edit group</a></li>
@@ -54,7 +67,14 @@
 <!--				<li><a tabindex="-1" href="<?php //base_url().'membership/groups/display_group/'.key($this->session->userdata['groups'])?>">display_group_p </a></li> -->
 					<li><a tabindex="-1" href="<?=base_url().'backstage/my_groups/'.$this->session->userdata['logged_in']['userid']?>">my groups</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/available_groups/'.$this->session->userdata['logged_in']['userid']?>">available groups</a></li>
-				<li class="divider"></li>
+					</ul>
+			</div>	
+			
+			
+			
+			<div class="dropdown pull-right">
+				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">users <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 					<li><a tabindex="-1" href="<?=base_url().'backstage/edit_user'?>">user registration form</a></li>					
 					<li><a tabindex="-1" href="<?=base_url().'backstage/edit_user/'.$this->session->userdata['logged_in']['userid']?>">edit my_user</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/get_user_array/'.$this->session->userdata['logged_in']['userid']?>">my_user as an array</a></li>
@@ -74,12 +94,13 @@
 			
 <!-- cytometer stuff -->	
 			<div class="dropdown pull-right">
-				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Cytometer Stuff <span class="caret"></span></a>
+				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Cytometers<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 					<li><a tabindex="-1" href="<?=base_url().'cytometers/my_instruments'?>">Display My Cytometers</a></li>
 					<li><a tabindex="-1" href="<?php echo base_url('cytometers/edit') ?>">Cytometer Form (configurator)</a></li>	
+					
 					<li class="divider"></li>
-					<li class="divider"></li>
+					
 					<li><a tabindex="-1" href="<?php echo base_url('backstage/my_cytometers') ?>">		backstage/my_cytometers</a></li>
 					<li><a tabindex="-1" href="<?php echo base_url('backstage/display_cytometer') ?>">	backstage/display_cytometer</a></li>
 					<li><a tabindex="-1" href="<?php echo base_url('backstage/edit_cytometer') ?>">		backstage/edit_cytometer</a></li>
@@ -94,7 +115,7 @@
 			
 <!-- inventory stuff -->
 			<div class="dropdown pull-right">
-				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Inventory Stuff <span class="caret"></span></a>
+				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Inventories<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 				<!--	<li><a tabindex="-1" href="<?=base_url().'inventory/create_inventory'?>">create a new inventory</a></li>	-->
 					<li><a tabindex="-1" href="<?=base_url().'inventory/my_inventories'?>">Display My Inventories</a></li>
@@ -123,7 +144,7 @@
 			
 <!-- panel stuff -->	
 			<div class="dropdown pull-right">
-				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Panel Stuff <span class="caret"></span></a>
+				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Panels<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 					<li><a tabindex="-1" href="<?=base_url().'backstage/my_panels/'?>">backstage/my_panels</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/display_panel'?>">backstage/display_panel</a></li>
@@ -138,7 +159,7 @@
 			
 <!-- address stuff -->	
 			<div class="dropdown pull-right">
-				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">address Stuff <span class="caret"></span></a>
+				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">addresses<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 					<li><a tabindex="-1" href="<?=base_url().'backstage/my_addresses'?>">backstage/my_addresses</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/edit_address' ?>">backstage/edit_address </a></li>

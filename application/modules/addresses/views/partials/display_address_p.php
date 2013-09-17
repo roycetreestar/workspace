@@ -1,5 +1,4 @@
-<div class='well'>
-	<h3>display_address_p</h3>
+<div>
 	<table>
 		<tr><td>resource_id: </td>		<td> <?= isset($resource_id) 	?	$resource_id 	: '' ?></td></tr>
 		<tr><td>address name:</td>		<td> <?= isset($resource_name)	?	$resource_name	: '' ?></td></tr>

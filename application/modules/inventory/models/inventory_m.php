@@ -128,8 +128,9 @@ class Inventory_m extends CI_Model
 		$query = $this->db->get('inventory');
 //~ die('resource_id: '.$resource_id.'<br/>$field: '.$field.'<br/>$comparison:'.$comparison.'<br/>$comp_value: '.$comp_value.'<br/><textarea>'.print_r($query, true).'</textarea>');		
 		//~ $query = $this->db->query("SELECT * FROM cores WHERE coreid=".$coreid);
-		
-		return $query->result_array();
+		if($query)
+			return $query->result_array();
+		else return false;
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////

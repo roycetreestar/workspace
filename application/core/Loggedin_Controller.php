@@ -71,6 +71,7 @@ class Loggedin_Controller extends MY_Controller {
 //die('login/get_session: <br/><textarea>'.print_r($this->session->userdata, true).'</textarea>');			
 //			 redirect('membership', 'refresh');
 			//~ redirect('membership/users/profile/'.$result['entity_id'], 'refresh');
+			//~ redirect("/");
 			redirect(base_url());
 		}
 		else

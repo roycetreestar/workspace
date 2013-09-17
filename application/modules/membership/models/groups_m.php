@@ -131,6 +131,43 @@ Class Groups_m extends CI_Model
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
+	function current_members($group_id)
+	{
+		$this->db->where('group_id', $group_id);
+		$this->db->where('status', 1);
+		$result = $this->db->get('entity_group')->result_array();
+		
+		return $result;
+	}
+////////////////////////////////////////////////////////////////////////////////
+/**
+ *  returns an array of pending members for $group_id
+ */
+	function pending_members($group_id)
+	{
+		$this->db->where('group_id', $group_id);
+		$this->db->where('status', 0);
+		$result = $this->db->get('entity_group')->result_array();
+		
+		return $result;
+	}
+////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * private groups have a pending status. New members to private groups
+	 * must be accepted by a manager of that group before gaining access.
+	 * This function sets the status of $userid to 1 (accepted) for $groupid 
+	 * in the entity_group table.
+	 */
+	function accept_member($groupid, $userid)
+	{
+		$this->db->where('entity_id', $userid)
+			->where('group_id', $groupid)
+			->set('status' , 1);
+		$result = $this->db->update('entity_group');
+		
+		return $result;
+	}
+////////////////////////////////////////////////////////////////////////////////
 	function remove_from_group($entity_id, $group_id)
 	{
 		$this->db->where('entity_id', $entity_id);
@@ -201,7 +238,7 @@ Class Groups_m extends CI_Model
 	
 ////////////////////////////////////////////////////////////////////////////////
 	
-		function my_groups_recursive($entityid, $returnable = array())
+	function my_groups_recursive($entityid, $returnable = array())
 	{
 //echo 'got to my_groups_recursive()<br/>';
 //			$returnable = array();

@@ -21,7 +21,7 @@ class Inventory_show_fields_m extends CI_Model
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////
-
+	
 	function create($data)
 	{
 		$this->db->set('userid', $data['userid']);
@@ -33,7 +33,46 @@ class Inventory_show_fields_m extends CI_Model
 
 		return $this->db->affected_rows();
 	}
-
+	function new_user($userid)
+	{
+		//~ catalog_number
+		//~ item_name
+		//~ vendor_name
+		//~ target
+		//~ format
+		//~ clone
+		//~ isotype
+		//~ unit_size
+		//~ package_size
+		//~ price
+		//~ product_url
+		//~ source_species
+		//~ target_species
+		//~ regulatory_status
+		//~ applications
+		//~ category
+		//~ date_created
+		//~ date_updated
+		//~ edit_modified
+		//~ description
+		//~ amount_per_test
+		//~ amount_per_test_units
+		//~ remaining_tests
+		//~ threshold
+		//~ lot_number
+		//~ expiration_date
+		//~ location
+		//~ titration_amount
+		//~ id
+		//~ format_canonical
+		//~ application_id
+		//~ user_id_add
+		//~ user_id_mod
+		//~ resource_id
+		//~ target_canonical
+		//~ remaining_tests
+		//~ amount_on_hand
+	}
 //////////////////////////////////////////////////////////////////////////////////////////
 
 	function read_by_labid($labid)
