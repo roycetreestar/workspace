@@ -15,7 +15,7 @@
 		echo '<h3>Register for Fluorish</h3>';
 	?>
 	
-	<div class="well " id="edit_user_result" ></div>
+	<div class="" id="edit_user_result" ></div>
 	
 	<form action="" method="post" id="edit_user_form" >		
 		

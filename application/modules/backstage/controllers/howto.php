@@ -142,6 +142,7 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 	//basic display
 		$data['display'] = $usermodule->display($userid);
 	//basic form
+		$data['new'] = $usermodule->edit();
 		$data['form'] = $usermodule->edit($userid);
 	//registration form
 		$data['registration_form'] = $usermodule->my_account($userid);

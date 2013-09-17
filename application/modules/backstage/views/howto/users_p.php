@@ -156,6 +156,9 @@
 					<div style="border:solid 5px green;">
 						<?= $form ?>
 					</div>
+					<div style="border:solid 5px green;">
+						<?= $new ?>
+					</div>
 				</div>
 				
 			</div><!-- end .row-fluid -->

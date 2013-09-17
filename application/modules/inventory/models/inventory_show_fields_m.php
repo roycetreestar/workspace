@@ -35,43 +35,51 @@ class Inventory_show_fields_m extends CI_Model
 	}
 	function new_user($userid)
 	{
-		//~ catalog_number
-		//~ item_name
-		//~ vendor_name
-		//~ target
-		//~ format
-		//~ clone
-		//~ isotype
-		//~ unit_size
-		//~ package_size
-		//~ price
-		//~ product_url
-		//~ source_species
-		//~ target_species
-		//~ regulatory_status
-		//~ applications
-		//~ category
-		//~ date_created
-		//~ date_updated
-		//~ edit_modified
-		//~ description
-		//~ amount_per_test
-		//~ amount_per_test_units
-		//~ remaining_tests
-		//~ threshold
-		//~ lot_number
-		//~ expiration_date
-		//~ location
-		//~ titration_amount
-		//~ id
-		//~ format_canonical
-		//~ application_id
-		//~ user_id_add
-		//~ user_id_mod
-		//~ resource_id
-		//~ target_canonical
-		//~ remaining_tests
-		//~ amount_on_hand
+		
+		
+		$this->db->set('userid', $userid)->set('field_name', 'catalog_number' )			->set('show', 'y')->set('order', 1)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'item_name' )				->set('show', 'y')->set('order', 2)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'vendor_name' )			->set('show', 'y')->set('order', 3)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'target' )					->set('show', 'y')->set('order', 4)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'format' )					->set('show', 'y')->set('order', 5)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'clone' )					->set('show', 'y')->set('order', 6)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'isotype' )				->set('show', 'y')->set('order', 7)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'unit_size' )				->set('show', 'y')->set('order', 8)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'package_size' )			->set('show', 'y')->set('order', 9)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'price' )					->set('show', 'y')->set('order', 10)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'product_url' )			->set('show', 'y')->set('order', 11)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'source_species' )			->set('show', 'y')->set('order', 12)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'target_species' )			->set('show', 'y')->set('order', 13)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'regulatory_status' )		->set('show', 'n')->set('order', 14)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'applications' )			->set('show', 'n')->set('order', 15)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'category' )				->set('show', 'n')->set('order', 16)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'date_created' )			->set('show', 'n')->set('order', 17)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'date_updated' )			->set('show', 'n')->set('order', 18)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'edit_modified' )			->set('show', 'n')->set('order', 19)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'description' )			->set('show', 'y')->set('order', 20)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'amount_per_test' )		->set('show', 'y')->set('order', 21)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'amount_per_test_units' )	->set('show', 'y')->set('order', 22)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'remaining_tests' )		->set('show', 'y')->set('order', 23)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'threshold' )				->set('show', 'y')->set('order', 24)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'lot_number' )				->set('show', 'n')->set('order', 25)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'expiration_date' )		->set('show', 'n')->set('order', 26)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'location' )				->set('show', 'y')->set('order', 27)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'titration_amount' )		->set('show', 'y')->set('order', 28)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'id' )						->set('show', 'n')->set('order', 29)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'format_canonical' )		->set('show', 'y')->set('order', 30)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'application_id' )			->set('show', 'n')->set('order', 31)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'user_id_add' )			->set('show', 'y')->set('order', 32)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'user_id_mod' )			->set('show', 'y')->set('order', 33)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'resource_id' )			->set('show', 'y')->set('order', 34)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'target_canonical' )		->set('show', 'y')->set('order', 35)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'remaining_tests' )		->set('show', 'n')->set('order', 36)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'user_id_add' )			->set('show', 'n')->set('order', 37)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'user_id_mod' )			->set('show', 'n')->set('order', 38)->insert('inventory_show_fields');
+		$this->db->set('userid', $userid)->set('field_name', 'amount_on_hand' )			->set('show', 'y')->set('order', 39)->insert('inventory_show_fields');
+		
+
+		
+		
 	}
 //////////////////////////////////////////////////////////////////////////////////////////
 

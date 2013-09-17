@@ -121,10 +121,10 @@ class Inventory extends Resources //Loggedin_Controller
 		else
 			return false;
 	}
-	/**
-	 * loads the form to create an inventory resource
-	 * this form submits to $this->create_inventory()
-	 */
+/**
+ * loads the form to create an inventory resource
+ * this form submits to $this->create_inventory()
+ */
 	function create_inventory_form()
 	{
 		$data['managed_groups_dropdown'] = '<select name="group_id" id="group_id"><option>some group id</option><option>some other group id</option></select>';
@@ -294,8 +294,15 @@ class Inventory extends Resources //Loggedin_Controller
 		redirect('inventory');
 		
 	}
-	
-	
+/** 
+ * When creating a user, also create an entry in the inventory_show_fields table
+ * for each column in the inventory table.
+ */	
+	function create_show_fields($userid)
+	{
+		$result = $this->inventory_show_fields_m->new_user($userid);
+		return $result;
+	}
 	
 	
 ////////////////////////////////////////////////////////////////////////////////

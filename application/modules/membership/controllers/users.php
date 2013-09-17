@@ -96,8 +96,6 @@ class Users extends Entities //CI_Controller
 			//create the user
 				$this->users_m->create_user($this->data);
 				
-					
-
 			//create default personal-resources group
 			//create the group entity
 				$this->data['entity_name'] = $this->data['entity_name'].'\'s personal resources';
@@ -119,6 +117,12 @@ class Users extends Entities //CI_Controller
 				$this->data['permission'] = 1;
 				$this->data['entity_type'] = 1;
 				$this->groups_m->join_group($this->data);
+			
+							
+			//create the user preferences entries in inventory_show_fields table	
+				$this->load->module('inventory');
+				$this->inventory->create_show_fields($this->data['entityid']);
+				
 				
 			$this->db->trans_complete();
 		
