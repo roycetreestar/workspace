@@ -1,0 +1,19 @@
+<!-- IF NOT LOGGED IN -->
+{{ if not user:logged_in }}
+    {{ theme:partial name="home/head" }}
+    {{ theme:partial name="home/header" }}
+    {{ if { url:segments segment="1" } == '' }}
+		{{ theme:partial name="home/home" }}
+	{{ else }}
+    	{{ theme:partial name="home/main" }}
+    {{ endif }}    		
+    {{ theme:partial name="home/footer" }}
+{{ endif}}
+
+<!-- IF LOGGED IN AS A USER -->
+{{ if user:logged_in }}
+    {{ theme:partial name="fluorish/users/head" }}
+    {{ theme:partial name="fluorish/users/header" }}
+    {{ theme:partial name="fluorish/users/home" }}
+    {{ theme:partial name="fluorish/users/footer" }}
+{{ endif }}

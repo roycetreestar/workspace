@@ -22,36 +22,7 @@ $(function()
 		
 		$(this).bootstrapWizard(
 		{
-			onNext: function(tab, navigation, index) 
-			{
-				if(index==1)
-				{
-					// Make sure we entered the title
-					if(!wiz.find('#inputTitle').val()) {
-						alert('You must enter the product title');
-						wiz.find('#inputTitle').focus();
-						return false;
-					}
-				}
-			}, 
-			onLast: function(tab, navigation, index) 
-			{
-				// Make sure we entered the title
-				if(!wiz.find('#inputTitle').val()) {
-					alert('You must enter the product title');
-					wiz.find('#inputTitle').focus();
-					return false;
-				}
-			}, 
-			onTabClick: function(tab, navigation, index) 
-			{
-				// Make sure we entered the title
-				if(!wiz.find('#inputTitle').val()) {
-					alert('You must enter the product title');
-					wiz.find('#inputTitle').focus();
-					return false;
-				}
-			},
+			
 			onTabShow: function(tab, navigation, index) 
 			{
 				var $total = navigation.find('li:not(.status)').length;
@@ -69,7 +40,7 @@ $(function()
 				
 				// update status
 				if (wiz.find('.step-current').length) wiz.find('.step-current').html($current);
-				if (wiz.find('.steps-total').length) wiz.find('.steps-total').html($total);
+				if (wiz.find('.steps-total').length) wiz.find('.steps-total').html($total-2);
 				if (wiz.find('.steps-complete').length) wiz.find('.steps-complete').html(($current-1));
 				
 				// mark all previous tabs as complete
@@ -77,8 +48,10 @@ $(function()
 				navigation.find('li:not(.status):lt('+($current-1)+')').addClass('primary');
 	
 				// If it's the last tab then hide the last button and show the finish instead
-				if($current >= $total) {
+				if($current >= $total-1) {
 					wiz.find('.pagination .next').hide();
+					wiz.find('#bar').hide();
+					wiz.find('#wiz').hide();
 					wiz.find('.pagination .finish').show();
 					wiz.find('.pagination .finish').removeClass('disabled');
 				} else {
@@ -93,10 +66,10 @@ $(function()
 			lastSelector: '.last'
 		});
 
-		wiz.find('.finish').click(function() 
-		{
-			alert('Finished!, Starting over!');
-			wiz.find("a[data-toggle*='tab']:first").trigger('click');
-		});
+		//wiz.find('.finish').click(function() 
+		//{
+			//alert('Finished!, Starting over!');
+			//wiz.find("a[data-toggle*='tab']:first").trigger('click');
+		//});
 	});
 });

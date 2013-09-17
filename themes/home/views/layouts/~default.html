@@ -1,0 +1,28 @@
+<!-- IF NOT LOGGED IN -->
+{{ if not user:logged_in  }}
+		{{ theme:partial name="home/head" }}
+		{{ theme:partial name="home/header" }}
+		{{ theme:partial name="home/home" }}
+{{ endif }}
+
+<!-- IF LOGGED IN AS A USER -->
+{{ user:group }}
+{{ if user:logged_in AND user:group == 'user' }}
+		{{ theme:partial name="fluorish/users/head" }}
+		{{ theme:partial name="fluorish/users/header" }}
+		{{ theme:partial name="fluorish/users/home" }}
+{{ endif }}
+
+<!-- IF LOGGED IN AS A VENDOR -->
+{{ if user:logged_in AND user:group == 'vendors' }}
+		{{ theme:partial name="fluorish/admins/head" }}
+		{{ theme:partial name="fluorish/admins/header" }}
+		{{ theme:partial name="fluorish/admins/home" }}
+{{ endif }} 
+
+<!-- IF LOGGED IN AS A ADMIN -->
+{{ if user:logged_in AND user:group == 'admin' }}
+		{{ theme:partial name="fluorish/admins/head" }}
+		{{ theme:partial name="fluorish/admins/header" }}
+		{{ theme:partial name="fluorish/admins/home" }}
+{{ endif }}

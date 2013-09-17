@@ -57,9 +57,10 @@ h3 span,
 h4 span,
 h5 span,
 h6 span {
-  color: #333;
+  color: #dadada;
   font-weight: 400;
   padding: 0 5px;
+  font-style: italic;
   font-size: 70%;
 }
 h1,

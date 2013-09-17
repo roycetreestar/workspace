@@ -222,6 +222,7 @@ class Users extends Entities //CI_Controller
 //~ die('<textarea>'.print_r($data, true).'</textarea>');		
 		return $this->load->view('partials/form_my_account_p', $data, true);
 	}
+
 ////////////////////////////////////////////////////////////////////////
 
 	function login_form()
@@ -232,6 +233,3 @@ class Users extends Entities //CI_Controller
 
 ////////////////////////////////////////////////////////////////////////
 }//end class
-
-?>
-

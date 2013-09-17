@@ -78,12 +78,13 @@
 .chat-form {
   background-color: #E9EFF3;
   clear: both;
-  margin-top: 15px;
+  margin-top: 0px;
+  margin-bottom: 25px;
   overflow: hidden;
   padding: 10px;
 }
 .chat-form .input-cont {
-  margin-right: 55px;
+  margin-right: 0px;
 }
 .chat-form .input-cont .m-wrap {
   margin-bottom: 0;
