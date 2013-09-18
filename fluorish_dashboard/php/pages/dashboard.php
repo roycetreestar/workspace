@@ -61,7 +61,7 @@ if(isset($_GET["role"]) && trim($_GET["role"]) == 'user'){
         </div>
       </div>
       <div class="row-fluid accordion-toggle">
-        <div class="span2 offset10 right"> <span class="pull-right"> <a class="accordion-toggle" id="toggle-1" data-toggle="collapse" data-parent="#group-0" href="#group-0"><i class="g0 icon-chevron-down"></i> Details</span></a> 
+        <div class="span2 offset10 right"> <span class="pull-right"> <a class="accordion-toggle" id="toggle-1" data-toggle="collapse" data-parent="#group-0" href="#group-0"><i id="" class="icon-chevron-down"></i> Details</span></a> 
           <!--<a href="#"><i class="g2"></i>preferences</span></a>
             <a href="#"><i class="g2"></i>Default<input type="checkbox" checked="checked" value="1" class="checkbox" style="opacity: 0;"></span></a>--> 
         </div>
@@ -151,7 +151,7 @@ if(isset($_GET["role"]) && trim($_GET["role"]) == 'user'){
         </div>
       </div>
       <div class="row-fluid accordion-toggle">
-        <div class="span2 offset10 right"> <span class="pull-right"> <a class="accordion-toggle" id="toggle-1" data-toggle="collapse" data-parent="#group-0" href="#group-0"><i class="g0 icon-chevron-down"></i> Details</span></a> 
+        <div class="span2 offset10 right"> <span class="pull-right"> <a class="accordion-toggle" id="toggle-1" data-toggle="collapse" data-parent="#group-0" href="#group-0"><i id="" class="icon icon-chevron-down"></i> Details</span></a> 
           <!--<a href="#"><i class="g2"></i>preferences</span></a>
             <a href="#"><i class="g2"></i>Default<input type="checkbox" checked="checked" value="1" class="checkbox" style="opacity: 0;"></span></a>--> 
         </div>
@@ -242,7 +242,7 @@ if(isset($_GET["role"]) && trim($_GET["role"]) == 'user'){
         </div>
       </div>
       <div class="row-fluid accordion-toggle">
-        <div class="span2 offset10 right"> <span class="pull-right"> <a class="accordion-toggle" id="toggle-1" data-toggle="collapse" data-parent="#group-1" href="#group-1"><i class="g1 icon-chevron-down"></i> Details</span></a> 
+        <div class="span2 offset10 right"> <span class="pull-right"> <a class="accordion-toggle" id="toggle-1" data-toggle="collapse" data-parent="#group-1" href="#group-1"><i id="g-1" class="icon icon-chevron-down"></i> Details</span></a> 
           <!--<a href="#"><i class="g2"></i>preferences</span></a>
             <a href="#"><i class="g2"></i>Default<input type="checkbox" checked="checked" value="1" class="checkbox" style="opacity: 0;"></span></a>--> 
         </div>
@@ -324,7 +324,7 @@ if(isset($_GET["role"]) && trim($_GET["role"]) == 'user'){
         </div>
       </div>
       <div class="row-fluid accordion-toggle">
-        <div class="span2 offset10 right"> <span class="pull-right"> <a class="accordion-toggle" id="toggle-1" data-toggle="collapse" data-parent="#group-2" href="#group-2"><i class="g2 icon-chevron-down"></i> Details</span></a> </div>
+        <div class="span2 offset10 right"> <span class="pull-right"> <a class="accordion-toggle" id="toggle-1" data-toggle="collapse" data-parent="#group-2" href="#group-2"><i id="g-2" class="icon-chevron-down"></i> Details</span></a> </div>
       </div>
       <div id="group-2" class="accordion-body collapse">
         <div class="accordion-inner"> 
