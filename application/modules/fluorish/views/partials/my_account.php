@@ -1,8 +1,3 @@
-
-
---
-<?php echo $form; ?>
---
 <div class="separator bottom"></div>
 <!-- -->
 <div class="heading-buttons">

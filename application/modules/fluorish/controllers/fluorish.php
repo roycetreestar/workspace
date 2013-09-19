@@ -18,7 +18,7 @@ class Fluorish extends Loggedin_Controller //MY_Controller //CI_Controller
 	{
 	  parent::__construct();
 	  	//~ $this->load->model('cytometers_m');
-			$this->load->helper('url');
+		$this->load->helper('url');
 		//~ $membership_mod = $this->load->module('membership');
 		
 		//~ $this->users_model = $this->load->model('membership/users_m');
@@ -31,8 +31,8 @@ class Fluorish extends Loggedin_Controller //MY_Controller //CI_Controller
 			$this->membership = $this->load->module('membership');
 		}
 		
+		$this->load->library('template');
 		
-		// Fluorish Dashboard Theme Settings (Some of these are now obsolete)
 		defined('APP_NAME') || define('APP_NAME', 'Fluorish');
 		defined('APP_VERSION') || define('APP_VERSION', 'v1.0');
 		defined('APP_THEME') || define('APP_THEME', '../fluorish_dashboard/common/');
@@ -62,8 +62,7 @@ class Fluorish extends Loggedin_Controller //MY_Controller //CI_Controller
 			$path = base_url().'public/themes/fluorish2013/'; 
 			return $path;
 			}
-		
-	}
+}
 
 /**
  * This is the public theme pages for Fluorish.
@@ -73,8 +72,40 @@ function index()
 		$this->load->view('../../../../public/themes/fluorish2013/views/layouts/default.php');
 	}
 	
+function login(){
+	 $usermodule = $this->load->module('membership/users');
+	 $userid = $this->session->userdata['logged_in']['userid'];
+	 $data['form'] = $usermodule->my_account($userid);
+	 $this->template
+	 	->set_partial('header', 'partials/header')
+		->set_partial('content', '../../modules/membership/views/partials/login_p',$data)
+		->set_partial('footer', 'partials/footer')
+		->set_layout('default') // application/views/layouts/two_col.php
+		->build('partials/dashboard'); // views/welcome_message
+	 
+	
+}
+
+function dashboard(){
+	 $usermodule = $this->load->module('membership/users');
+	 $userid = $this->session->userdata['logged_in']['userid'];
+	 $data['form'] = $usermodule->my_account($userid);
+	 
+	 $this->template
+	 	->set_partial('header', 'partials/header')
+		->set_partial('content', '../../modules/membership/views/partials/display_user_p',$data)
+		->set_partial('footer', 'partials/footer')
+		->set_layout('default') // application/views/layouts/two_col.php
+		->build('partials/dashboard'); // views/welcome_message
+	 
+	
+}
 
 
+
+
+
+/*
 function dashboard()
 	{
 		//load the navbar with bootstrap and jquery 
@@ -88,4 +119,40 @@ function dashboard()
 		$this->load->view('../../../fluorish_dashboard/php/pages/my_account',$data);
 		$this->load->view('../../../fluorish_dashboard/php/pages/footer.php');
 	}
-}
+
+function dashboard2()
+	{
+		
+		//~ $this->load->view('fluorish_gui_header_v.php');	
+		$this->load->view('../../../../fluorish_dashboard/php/pages/header.php');
+		$this->load->view('partials/global_account_header_p.php');
+		
+		
+if(isset($this->session->userdata['logged_in']))		
+		foreach( $this->session->userdata('groups') as $group)
+		{
+			
+			// collect resource_types for this group's resources	
+			$group['c'] = false;
+			$group['p'] = false;
+			$group['i'] = false;
+			$group['a'] = false;
+			foreach($group['resources'] as $resource)
+			{
+				if($resource['resource_type'] === 'cytometer')
+					$group['c'] = true;
+				if($resource['resource_type'] === 'panel')
+					$group['p'] = true;
+				if($resource['resource_type'] === 'inventory')
+					$group['i'] = true;
+				if($resource['resource_type'] === 'address')
+					$group['a'] = true;
+			}
+			
+			$this->load->view('partials/accordian_p', $group);
+		}
+else $this->load->view('backstage/landing_page_v');	
+	$this->load->view('../../../../fluorish_dashboard/php/pages/footer.php');
+	}
+	*/
+}//end class
