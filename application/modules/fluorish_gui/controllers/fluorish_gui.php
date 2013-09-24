@@ -67,7 +67,12 @@ if(isset($this->session->userdata['logged_in']))
 			
 			$this->load->view('partials/accordian_p', $group);
 		}
-else $this->load->view('backstage/landing_page_v');	
+else 
+{
+	$mem_module = $this->load->module('membership');
+	$data['dd']['institution_dd'] = $mem_module->institution_dropdown();
+	$this->load->view('backstage/landing_page_v', $data);	
+}
 	$this->load->view('../../../../fluorish_dashboard/php/pages/footer.php');
 	}
 	

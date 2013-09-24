@@ -115,7 +115,7 @@ die('addresses.php/list_addresses(): '.print_r($cytometers));
 		if($resource_id !== NULL)
 			$data = $this->addresses_m->get_address_by_id($resource_id);
 		else $data = '';
-//~ die('<textarea>'.print_r($data, true).'</textarea>');
+//~ die('addresses/edit() $data: <textarea>'.print_r($data, true).'</textarea>');
 		//~ $this->load->view('header_v');
 		return $this->load->view('partials/form_address_p', $data, true);
 	}

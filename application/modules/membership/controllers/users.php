@@ -180,9 +180,10 @@ class Users extends Entities //CI_Controller
 ////////////////////////////////////////////////////////////////////////
 	function edit($userid = '')
 	{
+		$mem_module = $this->load->module('membership/membership');		//for grabbing the institution dropdown
 		
 		$data = $this->users_m->get_user($userid);
-		
+		$data['institution_dd'] = $mem_module->institution_dropdown();
 //~ die('$data:<textarea>'.print_r($data, true).'</textarea>');
 		
 		return $this->load->view('partials/form_user_p', $data, true);
@@ -222,7 +223,9 @@ class Users extends Entities //CI_Controller
 ////////////////////////////////////////////////////////////////////////
 	function my_account($userid)
 	{
+		$mem_module = $this->load->module('membership');
 		$data = $this->users_m->get_user($userid);
+		$data['institution_dd'] = $mem_module->institution_dropdown();
 //~ die('<textarea>'.print_r($data, true).'</textarea>');		
 		return $this->load->view('partials/form_my_account_p', $data, true);
 	}

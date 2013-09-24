@@ -69,10 +69,13 @@ Class Addresses_m extends Resources_m//CI_Model
 	    $adata = $this->db->get('addresses')->row_array();
 	    
 	    $this->db->where('resource_id', $resourceid);
-	    $ra_data = $this->db->get('resource_group')->row_array();
+	    $rg_data = $this->db->get('resource_group')->row_array();
 	    
-	    $data = array_merge($rdata, $adata, $ra_data);
-//~ die(print_r($data));	    
+	    $data = array_merge($rdata, $adata, $rg_data);
+//~ die('addresses_m $data:<pre>'.print_r($data, true).'</pre><hr/>
+	//~ $rdata:<pre>'.print_r($rdata, true).'</pre><hr/>
+	//~ $adata:<pre>'.print_r($adata, true).'</pre><hr/>
+	//~ $rg_data:<pre>'.print_r($rg_data, true).'</pre>');	    
 	    if($data)
 		    return $data;
 	    else

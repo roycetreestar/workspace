@@ -31,7 +31,8 @@
 			  <div class="control-group">
 				<label class="control-label">Institution</label>
 				<div class="controls"> 
-				  <input type="text" value="<?= $institution?>" class="span10 institutions" />
+<!--				  <input type="text" value="<?= $institution?>" class="span10 institutions" />		-->
+					<?=$institution_dd?>
 				<span style="margin: 0;" class="btn-action single glyphicons circle_question_mark" data-toggle="tooltip" data-placement="top" data-original-title="An Institution is mandatory"><i></i></span> </div>
 			  </div>
 			  

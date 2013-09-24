@@ -222,5 +222,26 @@ function managed_groups_dropdown()
 		}
 	}
     
+    
+/**
+ * returns an HTML <select> dropdown where <option value=$institution_id>$institution_name</option>
+ */
+    function institution_dropdown($institution_id = '')
+    {
+		$mem_module = $this->load->model('entities_m');
+		$inst_arr = $this->entities_m->get_institution_arr();
+		$dd = '<select name="institution">';
+		
+		foreach($inst_arr as $institution)
+		{
+			if($institution_id == $institution['id'])
+				$selected = 'selected="selected"';
+			else $selected = '';
+			$dd .= '<option value="'.$institution['id'].'" '.$selected.' >'.$institution['institution_name'].'</option>';
+		}
+		
+		$dd .= '</select>';
+		return $dd;
+	}
 ////////////////////////////////////////////////////////////////////////////////
 }//end class

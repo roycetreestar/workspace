@@ -1,0 +1,119 @@
+<?php
+/**
+ * Fluorish Models
+ *
+ *
+ * @package    	Fluorish
+ * @category	Models
+ * @author     	
+ * @version    	0.1b
+ */
+class Catalog_m extends CI_Model
+{
+
+	
+	
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+
+		$this->db->set_dbprefix('');
+		
+		
+		
+	}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Creates a new vendors record
+ *
+ * @param $data - an array containing
+ * 		'name' *required*,
+ * 		'url',
+ * 		'is_current' - 1 if a current partner, 0 otherwise
+ * 		'if_contains - ???
+ * 		'email' - *required*
+ *			
+ */
+	function insert($data)
+	{
+		$current_timestamp = date("Y-m-d H:i:s");
+		
+		$this->db->set('catalog_number', $data['catalog_number']);
+		$this->db->set('vendorid', $data['vendorid']);
+		$this->db->set('target', $data['target']);
+		$this->db->set('format', $data['format']);
+		$this->db->set('clone', $data['clone']);
+		$this->db->set('isotype', $data['isotype']);
+		$this->db->set('unit_size', $data['unit_size']);
+		$this->db->set('price', $data['price']);
+		$this->db->set('product_url', $data['product_url']);		
+		$this->db->set('source_species', $data['source_species']);
+		$this->db->set('target_species', $data['target_species']);
+//		$this->db->set('regulatory_statusid', $data['regulatory_statusid']);
+//		$this->db->set('categoryid', $data['categoryid']);
+		$this->db->set('applicationid', $data['applicationid']);
+		$this->db->set('date_created', $current_timestamp );
+		$this->db->set('date_updated', $current_timestamp );
+//		$this->db->set('edit_modified', $data['edit_modified']);
+		if(isset($data['regulatory_status']))
+			$this->db->set('regulatory_status', $data['regulatory_status']);
+		else
+			$this->db->set('regulatory_status', 'RUO');
+		
+		$this->db->insert('catalog');
+
+		if($this->db->affected_rows() > 0)
+			return true;
+		else 
+			return false;
+	}
+
+	
+	function update($data)
+	{
+		$current_timestamp = date("Y-m-d H:i:s");
+		
+		$this->db->where('catalog_number', $data['catalog_number']);
+		$this->db->set('vendorid', $data['vendorid']);
+		$this->db->set('target', $data['target']);
+		$this->db->set('format', $data['format']);
+		$this->db->set('clone', $data['clone']);
+		$this->db->set('isotype', $data['isotype']);
+		$this->db->set('unit_size', $data['unit_size']);
+		$this->db->set('price', $data['price']);
+		$this->db->set('product_url', $data['product_url']);		
+		$this->db->set('source_species', $data['source_species']);
+		$this->db->set('target_species', $data['target_species']);
+//		$this->db->set('regulatory_statusid', $data['regulatory_statusid']);
+//		$this->db->set('categoryid', $data['categoryid']);
+		$this->db->set('applicationid', $data['applicationid']);
+//		$this->db->set('date_updated');//, $data['date_updated']);
+//		$this->db->set('edit_modified', $data['edit_modified']);
+		$this->db->set('date_updated', $current_timestamp );
+		if(isset($data['regulatory_status']))
+			$this->db->set('regulatory_status', $data['regulatory_status']);
+		else
+			$this->db->set('regulatory_status', 'RUO');
+		
+		$this->db->update('catalog');
+
+		if($this->db->affected_rows() > 0)
+			return true;
+		else 
+			return false;
+	}
+	
+	function exists($catalog_number)
+	{
+		$this->db->where('catalog_number', $catalog_number);
+		$query=$this->db->get('catalog');
+		
+		if($query->num_rows() > 0)
+			return true;
+		else 
+			return false;
+	}
+	
+}//end class

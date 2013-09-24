@@ -23,6 +23,7 @@ Class Entities_m extends CI_Model
 	{
 		$this->db->set('entity_name', $data['entity_name']);
 		$this->db->set('email', $data['email']);
+		$this->db->set('institution', $data['institution']);
 		if(isset($data['phone']))  $this->db->set('phone', $data['phone']);
 //		$this->db->set('timestamp', $timestamp);
 		
@@ -41,7 +42,11 @@ Class Entities_m extends CI_Model
 		$query = $this->db->get('entities');
 		
 		if($query->num_rows() > 0 )
-			return $query->row_array(); //result();
+		{
+			$query = $query->row_array();
+			$query['institution'] = $this->get_insitution_name_by_id($query['institution']);
+			return $query;
+		}
 		else
 			return false;
 	}
@@ -54,6 +59,7 @@ Class Entities_m extends CI_Model
 		$this->db->set('entity_name', $data['entity_name']);
 		$this->db->set('email', $data['email']);
 		$this->db->set('phone', $data['phone']);
+		$this->db->set('institution', $data['institution']);
 //		$this->db->set('timestamp', $timestamp);
 		
 		//~ $query =
@@ -80,6 +86,15 @@ Class Entities_m extends CI_Model
 		else return false;
 	}
 	
-	
-	
+	function get_insitution_name_by_id($inst_id)
+	{
+		$this->db->where('id', $inst_id);
+		$inst = $this->db->get('institutions')->row_array();
+		if($inst)
+			return $inst['institution_name'];
+	}
+	function get_institution_arr()
+	{
+		return $this->db->get('institutions')->result_array();
+	}
 }//end class

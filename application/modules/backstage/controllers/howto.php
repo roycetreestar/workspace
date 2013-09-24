@@ -44,7 +44,7 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 ////////////////////////////////////////////////////////////////////////
 	function addresses()
 	{
-		$addr_id = '23';
+		$addr_id = '13';
 		
 		$addr_module = $this->load->module('addresses');
 		
@@ -189,11 +189,120 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 	}
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
-
+	function thesaurus()
+	{
+		$thesaurus_module = $this->load->module('thesaurus');
+	//the full page (all lookup partials)
+		//~ $data['full'] = $thesaurus_module->index();
+	//catalog header lookup partial
+		$data['cat_head_lookup'] = $thesaurus_module->get_catalog_header_lookup_form();
+		$data['cat_head_alt_form'] = $thesaurus_module->get_catalog_header_alternates_form();	
 	
+	//chromes 
+		$data['chromes_lookup'] = $thesaurus_module->get_chrome_lookup_form();
+		$data['add_chrome_form']= $thesaurus_module->get_chromes_form();	
+		$data['add_chrome_alt_form']= $thesaurus_module->get_chromes_alternates_form();	
+		
+	//clones
+		//~ $data['clones_lookup'] = $thesaurus_module->get_clone_lookup_form()
+		$data['add_clone_form'] = $thesaurus_module->get_clones_form();	
+		//~ $data['add_clone_alt_form'] = $thesaurus_module->get_clone_alternates_form();	
+	//species
+		$data['species_lookup'] = $thesaurus_module->get_species_lookup_form();
+		$data['add_species_form'] = $thesaurus_module->get_species_form();	
+		$data['add_species_alt_form'] = $thesaurus_module->get_species_alternates_form();	
+	//targets
+		$data['targets_lookup'] = $thesaurus_module->get_target_lookup_form();
+		$data['add_target_form'] = $thesaurus_module->get_targets_form();	
+		$data['add_target_alt_form'] = $thesaurus_module->get_targets_alternates_form();	
+	
+		$this->load->view('header_v'); 
+		$this->load->view('howto/thesaurus_p', $data);
+		
+	}
+	function catalog_headers()
+	{
+		$thesaurus_module = $this->load->module('thesaurus');
+		
+		$add_alt = $thesaurus_module->get_catalog_header_alternates_form();	
+		
+		$header = $this->load->view('header_v', '', true); 
+		echo $header.$add_alt;
+	}
+	function chromes()
+	{
+		$thesaurus_module = $this->load->module('thesaurus');
+		$add_chrome = $thesaurus_module->get_chromes_form();	
+		$add_alt = $thesaurus_module->get_chromes_alternates_form();	
+		
+		$header = $this->load->view('header_v', '', true); 
+		echo $header.$add_chrome.$add_alt;
+	}
+	function species()
+	{
+		$thesaurus_module = $this->load->module('thesaurus');
+		$add_species = $thesaurus_module->get_species_form();	
+		$add_alt = $thesaurus_module->get_species_alternates_form();	
+		
+		$header = $this->load->view('header_v', '', true); 
+		echo $header.$add_species.$add_alt;
+	}
+	function targets()
+	{
+		$thesaurus_module = $this->load->module('thesaurus');
+		$add_target = $thesaurus_module->get_targets_form();	
+		$add_alt = $thesaurus_module->get_targets_alternates_form();	
+		
+		$header = $this->load->view('header_v', '', true); 
+		echo $header.$add_target.$add_alt;
+	}
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
+	function search()
+	{
+		$search_module = $this->load->module('catalog/search');
+		$thesaurus_module = $this->load->module('thesaurus');
+		
+		$vendor_module = $this->load->module('catalog/vendors');
+		//~ $catalog_module = $this->load->module('catalog');
+		
+		//~ $data['vendors'] = $vendor_module->get_all_vendors();
+		$data['vendors'] = $vendor_module->get_current_vendors();
+		
+		$data['species_dd'] = $thesaurus_module->species_dropdown();
+		
+		$all_targets = $search_module->get_all_target_names();
+		$data['targets'] = json_encode($all_targets);
+		
+		$all_chromes = $search_module->get_all_chrome_names();
+		$data['chromes'] = json_encode($all_chromes);
+
+		
+		$all_clones = $search_module->get_all_clone_names();
+		$data['clones'] = json_encode($all_clones);
+		
+		
+//~ die('backstage/howto/search(): <br/>$data:<textarea style="width:90%; height:90%" >'.print_r($data, true).'</textarea>');		
+		$header = $this->load->view('header_v', '', true); 
+		$search_partial = '<div class="well">'. $search_module->get_search_form($data).'</div>';
+		
+		echo $header.$search_partial;
+	}
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+	function edit_vendor($vendor_id)
+	{
+		$thesaurus = $this->load->module('catalog/vendors');
+		
+		$vendor_form = $thesaurus->edit_vendor($vendor_id);
+
+
+		$header = $this->load->view('header_v', '', true); 
+		
+		echo $header.$vendor_form;
+	}
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 }//end class

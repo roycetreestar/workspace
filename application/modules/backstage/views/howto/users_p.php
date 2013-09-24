@@ -38,7 +38,9 @@
 
 	<div class="row-fluid" >
 		<div class="well span2" id="leftmenu" >
-			<div>
+			<?=$this->load->view('menu_p');?>
+<!--			<div>
+
 				<h4>howto pages</h4>
 				<a href="<?=base_url()?>backstage/howto/addresses">addresses</a><br/>
 				<a href="<?=base_url()?>backstage/howto/cytometers">cytometers</a><br/>
@@ -61,7 +63,7 @@
 				<a href="#login">The login form</a><br/>
 			
 			</div>
-		</div>
+-->		</div>
 		
 
 

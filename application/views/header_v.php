@@ -10,10 +10,13 @@
 		
 		<!-- make sure we've got the greek characters rendering properly -->
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
+		<style>
+			body{ background-color:black; }
+		</style>
 	</head>
 	
 	<body>
+<div class="row-fluid">
 		<div id="navbar">
 			<a class='btn pull-left' href="<?php echo base_url('backstage/logout') ?>">logout</a>
 			<a class='btn pull-left' href="<?php echo base_url('fluorish_gui') ?>">dashboard</a>
@@ -169,7 +172,36 @@
 					
 				</ul>
 			</div>	
+			
+			
+			
+<!-- Thesaurus stuff -->	
+			<div class="dropdown pull-right">
+				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Thesaurus<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/thesaurus'?>">thesaurus</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/chromes'?>">add chromes</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/species'?>">add species</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/targets'?>">add targets</a></li>
+			
+				</ul>
+			</div>	
+			
+			
+<!--	CATALOG IMPORTS	-->
+			<div class="dropdown pull-right">
+				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Catalog<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+					<li><a tabindex="-1" href="<?=base_url().'catalog/catalog_imports'?>">Catalog Imports</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/search'?>">Search the Catalog</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/vendors'?>">Add/Edit Vendors</a></li>
+				</ul>
+			</div>
+			
+
+			
 		<?php
 		}
 		?>
 		</div>
+</div><!-- end .row-fluid -->

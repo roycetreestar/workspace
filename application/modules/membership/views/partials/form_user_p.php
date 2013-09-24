@@ -20,11 +20,27 @@
 	<form action="" method="post" id="edit_user_form" >		
 		
 		<table class="">
-				<tr><td>email:			</td><td>	<input type="text" name="email" 		value="<?=isset($email)? $email : '' ?>" />			</td></tr>
-				<tr><td>password:		</td><td>	<input type="password" name="password" 	value="<?=isset($password)? $password : '' ?>" />	</td></tr>
-				<tr><td>first_name:		</td><td>	<input type="text" name="first_name" 	value="<?=isset($first_name)? $first_name : '' ?>"/>		</td></tr>
-				<tr><td>last_name:		</td><td>	<input type="text" name="last_name" 	value="<?=isset($last_name)? $last_name : '' ?>"/>		</td></tr>
-				<tr><td>institution		</td><td>	<input type="text" name="institution" 	value="<?=isset($institution)? $institution : '' ?>"/>	</td></tr>
+				<tr>
+					<td>email:			</td>
+					<td>	<input type="text" name="email" 		value="<?=isset($email)? $email : '' ?>" />			</td>
+				</tr>
+				<tr>
+					<td>password:		</td>
+					<td>	<input type="password" name="password" 	value="<?=isset($password)? $password : '' ?>" />	</td>
+				</tr>
+				<tr>
+					<td>first_name:		</td>
+					<td>	<input type="text" name="first_name" 	value="<?=isset($first_name)? $first_name : '' ?>"/>		</td>
+				</tr>
+				<tr>
+					<td>last_name:		</td>
+					<td>	<input type="text" name="last_name" 	value="<?=isset($last_name)? $last_name : '' ?>"/>		</td>
+				</tr>
+				<tr>
+					<td>institution		</td>
+					<td><?=$institution_dd?></td>
+<!--					<td><input type="text" name="institution" 	value="<?=isset($institution)? $institution : '' ?>"/>	</td>
+-->				</tr>
 
 					<input type="hidden" name="entity_id" 	value="<?=isset($id)		? $id 			: '' ?>" />
 					<input type="hidden" name="id" 			value="<?=isset($id)		? $id 			: '' ?>" />	

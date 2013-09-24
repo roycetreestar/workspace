@@ -25,7 +25,8 @@
 
 <!-- the left-hand menu -->
 		<div class="well span2" id="leftmenu" >
-			<div>
+		<?=$this->load->view('menu_p');?>
+<!--			<div>
 				<h4>howto pages</h4>
 				<a href="<?=base_url()?>backstage/howto/addresses">addresses</a><br/>
 				<a href="<?=base_url()?>backstage/howto/cytometers">cytometers</a><br/>
@@ -47,10 +48,9 @@
 				<a href="#filter">filter_inventory_p</a><br/>
 				<a href="#fields">show_fields_p</a><br/>
 				<a href="#cat_num">add_by_cat_num_p</a><br/>
-		<!--		<a href="#add_single">add_single_item_p</a><br/>		-->
 				<a href="#add_manual">add_manually_p</a><br/>
 			
-			</div>
+-->			</div>
 		</div>
 
 		<div class="span10">

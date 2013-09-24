@@ -855,9 +855,24 @@ $panel_c = $this->load->module('panels');
 		
 		echo $head.'<textarea style="width:90%; height:500px;">'.$inventory_xml.'</textarea>';
 	}
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+/////////////		VENDORS					////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
-
-
+	function vendors()
+	{
+		$vendor_module = $this->load->module('catalog/vendors');
+		//~ $catalog_module = $this->load->module('catalog');
+		
+		$data['vendors'] = $vendor_module->get_all_vendors();
+//~ die('backstage/backstage/vendors(): $data:<pre>'.print_r($data, true).'</pre>');		
+		$header = $this->load->view('header_v', '', true);
+		$table = $vendor_module->load->view('partials/vendor_table_p', $data, true);
+		
+		echo $header.$table;
+	}
 
 
 }

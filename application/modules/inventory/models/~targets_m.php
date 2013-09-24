@@ -27,7 +27,7 @@ class Targets_m extends MY_Model {
 	{
 
 		$this->db->where('id', $id);
-		$query = $this->db->get('targets_new');
+		$query = $this->db->get('targets');
 
 		return $query->result_array();
 
@@ -36,7 +36,7 @@ class Targets_m extends MY_Model {
 ////////////////////////////////////////////////////////////////////////	
 	function read_all()
 	{
-		$query = $this->db->get('targets_new');
+		$query = $this->db->get('targets');
 		$result = $query->result_array();
 		
 		return $result;

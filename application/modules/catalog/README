@@ -1,0 +1,7 @@
+This module depends on the Thesaurus Module to find canonical names of 
+everything
+
+
+Remember to set php.ini upload_max_filesize to greater than the maximum file size
+or large catalogs will fail.
+
