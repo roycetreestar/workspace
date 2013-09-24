@@ -116,7 +116,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 ////////////////////////////////////////////////////////////////////////////////
 	function exists_clone($term)
 	{
-		$this->db->where('name', $term);
+		$this->db->where('clone_name', $term);
 		$query = $this->db->get('clones');
 		if($query->num_rows() > 0)
 			return true;
