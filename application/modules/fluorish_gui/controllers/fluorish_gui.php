@@ -26,17 +26,24 @@ class Fluorish_gui extends Loggedin_Controller
 		defined('SKIN_CUSTOM') || define('SKIN_CUSTOM', false);
 		// edit SKIN_CUSTOM abov
 		defined('SKIN') || define('SKIN', SKIN_JS ? false : SKIN_CUSTOM);
-		
-		
-		
+		//		
 		function getURL(){
 			$path = base_url().'fluorish_dashboard/common/'; 
 			return $path;
 			}
 		
 		}
-		
-	function index()
+
+function index()
+{
+	
+	$this->load->view('../../../../fluorish_dashboard/php/pages/header.php');
+	
+	$this->load->view('../../../../fluorish_dashboard/php/pages/footer.php');
+	
+	}
+	
+function dashboard()
 	{
 		
 		//~ $this->load->view('fluorish_gui_header_v.php');	

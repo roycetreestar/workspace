@@ -32,7 +32,7 @@
 			$(document).ready(function(){
 			 
 			  $("a.core-manage").click(function(){
-				$("#core-manage").load("pages/my_account.php #core-details");
+				$("#core-manage").load("pages/core_preferences.php #core-details");
 			  });
 			  
 			  $("a.core-join").click(function(){
@@ -40,7 +40,7 @@
 			  });
 			  
 			  $("a.lab-manage").click(function(){
-				  $("#lab-manage").load("pages/my_account.php #lab-details");
+				  $("#lab-manage").load("pages/lab_preferences.php #lab-details");
 				  $("#lab-order").show("display", "block");
 			   });
 			   

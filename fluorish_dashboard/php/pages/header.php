@@ -101,107 +101,97 @@
 <!-- LESS 2 CSS -->
 <script src="<?php echo getURL(); ?>theme/scripts/plugins/system/less-1.3.3.min.js"></script>
 <style>
-
-body { 
-  background: url(../assets/images/bg.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='.myBackground.jpg', sizingMethod='scale');
--ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')";
+body {
+	background: url(../assets/images/bg.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+ filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='.myBackground.jpg', sizingMethod='scale');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')";
 }
-
-.icon-my-preferences{
-   background: url(../assets/images/my_preferences_32.png) no-repeat;
-   width: 32px;
-   height: 32px;
-   border: none;
-   margin-right:10px;
-   
-   display:inline-block;
+.icon-my-preferences {
+	background: url(../assets/images/my_preferences_32.png) no-repeat;
+	width: 32px;
+	height: 32px;
+	border: none;
+	margin-right: 10px;
+	display: inline-block;
 }
-.icon-lab-preferences{
-   background: url(../assets/images/lab_preferences_32.png) no-repeat;
-   width: 32px;
-   height: 32px;
-   border: none;
-   margin-right:10px;
-   
-   display:inline-block;
+.icon-lab-preferences {
+	background: url(../assets/images/lab_preferences_32.png) no-repeat;
+	width: 32px;
+	height: 32px;
+	border: none;
+	margin-right: 10px;
+	display: inline-block;
 }
-.icon-core-preferences{
-   background: url(../assets/images/core2_preferences_32.png) no-repeat;
-   width: 32px;
-   height: 32px;
-   border: none;
-   margin-right:10px;
-   
-   display:inline-block;
+.icon-core-preferences {
+	background: url(../assets/images/core2_preferences_32.png) no-repeat;
+	width: 32px;
+	height: 32px;
+	border: none;
+	margin-right: 10px;
+	display: inline-block;
 }
-.icon-panels{
-   background: url(../assets/images/panels_32.png) no-repeat;
-   width: 32px;
-   height: 32px;
-   border: none;
-   margin-right:10px;
-   display:inline-block;
+.icon-panels {
+	background: url(../assets/images/panels_32.png) no-repeat;
+	width: 32px;
+	height: 32px;
+	border: none;
+	margin-right: 10px;
+	display: inline-block;
 }
-.icon-core{
-   background: url(../assets/images/core2_32.png) no-repeat;
-   width: 32px;
-   height: 32px;
-   border: none;
-   margin-right:10px;
-   display:inline-block;
+.icon-core {
+	background: url(../assets/images/core2_32.png) no-repeat;
+	width: 32px;
+	height: 32px;
+	border: none;
+	margin-right: 10px;
+	display: inline-block;
 }
-.icon-lab{
-   background: url(../assets/images/lab_32.png) no-repeat;
-   width: 32px;
-   height: 32px;
-   border: none;
-   margin-right:10px;
-   display:inline-block;
+.icon-lab {
+	background: url(../assets/images/lab_32.png) no-repeat;
+	width: 32px;
+	height: 32px;
+	border: none;
+	margin-right: 10px;
+	display: inline-block;
 }
-.icon-orders{
-   background: url(../assets/images/orders_pending_32.png) no-repeat;
-   width: 32px;
-   height: 32px;
-   border: none;
-   margin-right:10px;
-   display:inline-block;
+.icon-orders {
+	background: url(../assets/images/orders_pending_32.png) no-repeat;
+	width: 32px;
+	height: 32px;
+	border: none;
+	margin-right: 10px;
+	display: inline-block;
 }
-
-.icon-messages{
-   background: url(../assets/images/messages_32.png) no-repeat;
-   width: 32px;
-   height: 32px;
-   border: none;
-   margin-right:10px;
-   display:inline-block;
+.icon-messages {
+	background: url(../assets/images/messages_32.png) no-repeat;
+	width: 32px;
+	height: 32px;
+	border: none;
+	margin-right: 10px;
+	display: inline-block;
 }
-
-
-
 .glyphicons.myfluorish i {
 	background-image: url(../assets/images/my_fluorish_32.png);
 	background-position: center;
 	background-repeat: no-repeat;
-	 margin-right: 10px;
+	margin-right: 10px;
 }
 .glyphicons.core i {
 	background-image: url(../assets/images/core_32.png);
 	background-position: center;
 	background-repeat: no-repeat;
-	 margin-right: 10px;
+	margin-right: 10px;
 }
 .glyphicons.lab i {
 	background-image: url(../assets/images/lab_32.png);
 	background-position: center;
 	background-repeat: no-repeat;
-	 margin-right: 10px;
+	margin-right: 10px;
 }
-
 .glyphicons.pb i {
 	background-image: url(../assets/images/pb_32.png);
 	background-position: center;
@@ -253,24 +243,23 @@ body {
 	margin-top: 15px;
 }
 #dashboard-group-select > h4 {
-    margin-right: 1px;
+	margin-right: 1px;
 }
-
 #dashboard-group-select > a {
-    font-size: 11px;
+	font-size: 11px;
 }
 #dashboard-group-select > span {
-	color:#666;
-    border-left: 1px solid #CCCCCC;
-    margin-left: 20px;
-    padding-left: 15px;
-	 margin-right: 5px;
+	color: #666;
+	border-left: 1px solid #CCCCCC;
+	margin-left: 20px;
+	padding-left: 15px;
+	margin-right: 5px;
 }
-.fluorishicon  {
+.fluorishicon {
 	display: inline-block;
 	position: relative;
-	*display: inline;
-	*zoom: 1;
+ *display: inline;
+ *zoom: 1;
 	height: 64px;
 	text-align: right;
 	padding-top: 15px;
@@ -282,49 +271,42 @@ body {
 <script>
 $(document).ready(function () {
 	
-	//$("[id^='group-']").on('click', function()
+
+
+//$("[id^='toggle-']").on('click', function()
 //	{
 //		var ID = $(this).attr("id");
 //		var id = ID.substr(ID.lastIndexOf('_')+1);
 //		
-//		if($('#group-'+id).is(':visible'))
+//		if($('#toggle-'+id).is(':visible'))
 //		{
-//			$('#g-'+id).removeClass("icon-chevron-down").addClass("icon-chevron-up");
+//			$('#g'+id).removeClass("icon-chevron-down").addClass("icon-chevron-up");
 //		}
 //		else
 //		{
-//			$('#g-'+id).removeClass("icon-chevron-up").addClass("icon-chevron-down");
+//			$('#g'+id).removeClass("icon-chevron-up").addClass("icon-chevron-down");
 //		}
 //	});
+//	
 	
-	//Show
-	$('#group-0').on('shown', function () {
-		//$(".t1").text('Close');
-		$(".g0.icon-chevron-down").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+	$("[id^='group-']").on('shown', function () {
+		
+		var ID = $(this).attr("id");
+		var id = ID.substr(ID.lastIndexOf('-')+1);
+		
+		//$("#g-"+id).text('Close');
+		$("#g-"+id).removeClass("icon-chevron-down").addClass("icon-chevron-up");
     });
-	$('#group-1').on('shown', function () {
-		//$(".t1").text('Close');
-		$(".g1.icon-chevron-down").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+
+	$("[id^='group-']").on('hidden', function () {
+		var ID = $(this).attr("id");
+		var id = ID.substr(ID.lastIndexOf('-')+1);
+		
+        //$("#g-"+id).text('View Details');
+		$("#g-"+id).removeClass("icon-chevron-up").addClass("icon-chevron-down");
     });
-	$('#group-2').on('shown', function () {
-		//$(".t1").text('Close');
-		$(".g2.icon-chevron-down").removeClass("icon-chevron-down").addClass("icon-chevron-up");
-    });
-	
-	//Hide
-	$('#group-0').on('hidden', function () {
-        //$(".t1").text('View Details');
-		$(".g0.icon-chevron-up").removeClass("icon-chevron-up").addClass("icon-chevron-down");
-    });
-    $('#group-1').on('hidden', function () {
-        //$(".t1").text('View Details');
-		$(".g1.icon-chevron-up").removeClass("icon-chevron-up").addClass("icon-chevron-down");
-    });
-	$('#group-2').on('hidden', function () {
-        //$(".t1").text('View Details');
-		$(".g2.icon-chevron-up").removeClass("icon-chevron-up").addClass("icon-chevron-down");
-    });
-	
+
+
 	$('#select-group').editable({
             inputclass: 'input-large m-wrap',
             select2: {
@@ -348,21 +330,21 @@ $(document).ready(function () {
 <body>
 <!-- Start Content -->
 <div class="container-fluid menu-hidden fixed">
-<div class="navbar main hidden-print">
- 
-  <a href="#" class="appbrand"></a>
-  <!--<button type="button" class="btn btn-navbar"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>-->
- 
+<div class="navbar main hidden-print"> <a href="#" class="appbrand"></a>
   <ul class="topnav pull-right">
     <li><a href=""><span class=""><img src="../assets/images/dl.png" width="175" height="40"></span></a></li>
     <li><a href="">Send Invites</a></li>
     <li><a href="">Contact</a></li>
-
-    <li class="account">
-      
+    <li class="account"> <a href="#" class="glyphicons logout lock"><span class="hidden-phone text">Welcome <strong>guest</strong></span><i></i></a> <a data-toggle="dropdown" href="#" class="glyphicons logout lock"><span class="hidden-phone text">Royce Cano</span><i></i></a>
+      <ul class="dropdown-menu pull-right">
+        <li><a href="#" class="glyphicons cogwheel">Settings<i></i></a></li>
+        <li><a href="#" class="glyphicons cogwheel">Core Membership<i></i></a></li>
+        <li><a href="#" class="glyphicons cogwheel">Lab Membership<i></i></a></li>
+        <li class="highlight profile"> <span> <span class="heading">Profile <a href="#" class="pull-right">edit</a></span> <span class="img"></span> <span class="details"> <a href="#">Fluorish</a> royce@fluorish.com </span> <span class="clearfix"></span> </span> </li>
+        <li> <span> <a class="btn btn-default btn-small pull-right" style="padding: 2px 10px; background: #fff;" href="#">Sign Out</a> </span> </li>
+      </ul>
     </li>
   </ul>
 </div>
-
 <div id="wrapper">
 <div id="content">

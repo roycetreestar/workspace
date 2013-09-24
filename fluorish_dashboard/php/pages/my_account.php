@@ -18,9 +18,8 @@
 </div>
 <div class="innerLR">
   <div class="tab-content"> 
-  <?php echo $form; ?>
-
-    <!-- account-settings 
+  
+    <!-- account-settings -->
     <div class="tab-pane active" id="account-settings">
       <div class="widget widget-2">
         <div class="widget-head">
@@ -90,7 +89,7 @@
           </div>
         </div>
       </div>
-    </div>-->
+    </div>
     <!-- account-seetings tab end -->
     
     <!-- orders -->
