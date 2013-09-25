@@ -1,10 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-//~// if you want to this class to extend some class from another module, require() the file first:
-//~ require_once  APPPATH.'modules/membership/controllers/resources.php';
-//~ require_once  APPPATH.'modules/membership/controllers/groups.php';
-//~ require_once  APPPATH.'modules/membership/controllers/users.php';
-
 class Backstage extends Loggedin_Controller //MY_Controller //CI_Controller 
 {
 	
@@ -17,17 +12,14 @@ class Backstage extends Loggedin_Controller //MY_Controller //CI_Controller
 	function __construct()
 	{
 	  parent::__construct();
-	  //~ $this->load->model('cytometers_m');
+
 	  	   $this->load->helper('url');
-		//~ $membership_mod = $this->load->module('membership');
-		
-		//~ $this->users_model = $this->load->model('membership/users_m');
-	
+
 	// make checking if user is logged in a bit easier to type:	
 		if(isset($this->session->userdata['logged_in']['userid']))
 		{
 			$this->userid = $this->session->userdata['logged_in']['userid'];
-			$this->membership = $this->load->module('membership');
+			//~ $this->membership = $this->load->module('membership');
 		}
 	}
 	

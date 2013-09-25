@@ -25,29 +25,9 @@
 <!-- the left-hand menu -->
 		<div class="well span2" id="leftmenu" >
 			<?=$this->load->view('menu_p');?>
-<!--			<div>
-				<h4>howto pages</h4>
-				<a href="<?=base_url()?>backstage/howto/addresses">addresses</a><br/>
-				<a href="<?=base_url()?>backstage/howto/cytometers">cytometers</a><br/>
-				<a href="<?=base_url()?>backstage/howto/groups">groups</a><br/>
-				<a href="<?=base_url()?>backstage/howto/inventory">inventory</a><br/>
-				<a href="<?=base_url()?>backstage/howto/panels">panels</a><br/>
-				<a href="<?=base_url()?>backstage/howto/users">users</a><br/>
-			</div>
-			<hr/>
-			<div>
-				<h4>Address data</h4>
-				<a href="#xml">get address xml</a><br/>
-				<a href="#array">get address array</a><br/>
-				<br/>
-				<h4>partials about address:</h4>
-				<a href="#display">display an address</a><br/>
-				<a href="#edit">edit an address</a><br/>
-			
-			</div>
--->		</div>
+		</div>
 
-		<div class="span10">
+		<div class="span10 pageContent">
 
 <!-- XML -->
 			<div class="row-fluid">					

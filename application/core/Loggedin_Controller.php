@@ -4,39 +4,39 @@ class Loggedin_Controller extends MY_Controller {
 
 
 	public $data = array();
+	public $userid;
+	
+	
 
 	public function __construct() 
 	{
+//~ echo 'Loggedin_Controller/construct() <hr/>';
 		parent::__construct();
-//		if (is_logged_in() == FALSE) 
-//		{
-//			$this->session->set_userdata('return_to', uri_string());
-//			$this->session->set_flashdata('message', 'You need to log in.');
-//			redirect('/home');
-//		}
-//		$this->load->library('session');
 		$this->load->model('membership/resources_m');
 		$this->load->model('membership/groups_m');
 		$this->load->model('membership/users_m');
-		
+	
 		//if user is logged in, refresh their session array
 		if(isset($this->session->userdata['logged_in']))
+		{	
+//~ echo 'Loggedin_Controller/construct()  ... back from parent::__construct() and userdata["logged_in"] is set<hr/>';
 			$this->get_session();
-
+			$this->userid = $this->session->userdata['logged_in']['userid'];
+		}
+//~ else
+//~ echo 'end of Loggedin_Controller/construct() - no $this->session->userdata[\'logged_in\']<br/>
+	//~ session->userdata:<pre>'.print_r($this->session->userdata, true).'</pre><hr/>';
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
 	function index()
 	{
+//~ die('Loggedin_Controller/index()<hr/>');
 		if(!$this->is_logged_in() )
-		{
-				//~ $this->load->view('landing_page_v') ;
-			redirect('backstage');
-		}	
+		{	
+			redirect('backstage');		}	
 		else
-		{
-			$this->get_session();
-		}
+		{	$this->get_session();		}
 	}
 	
 	
@@ -67,11 +67,6 @@ class Loggedin_Controller extends MY_Controller {
 	
 			$this->get_session();
 
-	
-//die('login/get_session: <br/><textarea>'.print_r($this->session->userdata, true).'</textarea>');			
-//			 redirect('membership', 'refresh');
-			//~ redirect('membership/users/profile/'.$result['entity_id'], 'refresh');
-			//~ redirect("/");
 			redirect(base_url());
 		}
 		else
@@ -95,43 +90,19 @@ function get_session()
 	$membership = $this->load->module('membership');
 	$this->session->set_userdata('groups', $membership->get_session());
 }
-	//~ function get_session()
-	//~ {
-//~ //		$this->session->set_userdata('groups', $this->groups_m->my_groups($result['userid']));
-		//~ if(!isset($this->session->userdata['logged_in']))
-		//~ {
-			//~ redirect('membership/users');
-		//~ }
-		//~ //set up the groups session subarray			
-			//~ $group_arr = array();
-//~ //
-//~ //		$my_groups = $this->groups_m->my_groups($this->session->userdata['logged_in']['userid']);
-			//~ $my_groups = $this->groups_m->my_groups_recursive($this->session->userdata['logged_in']['userid']);
-//~ //echo '<hr/>$my_groups: <br/><textarea>'.print_r($my_groups, true).'</textarea><hr/>';		
-		//~ if($my_groups)
-			//~ foreach($my_groups as $group)
-			//~ {		
-				//~ $resources = $this->resources_m->get_resources_by_groupid($group['group_id']);
-				//~ $group['resources'] = $resources;
-				//~ 
-				//~ $group_arr[$group['group_id']] = $group;
-				//~ 
-			//~ }
-			//~ 
-//~ //die('login/get_session: <br/><textarea>'.print_r($group_arr, true).'</textarea>');
-			//~ $this->session->set_userdata('groups',$group_arr);
-//~ //die('login/get_session: <br/><textarea>'.print_r($this->session->userdata, true).'</textarea>');		
-	//~ }
+
 	
 ////////////////////////////////////////////////////////////////////////////////
-
+/**
+ * Logs the user out by unsetting the session's userdata and destroying 
+ * the session's array then redirecting the user to the dashboard page.
+ */
 	function logout()
 	{
 		$this->session->unset_userdata('logged_in');
 		$this->session->sess_destroy();
-//		$this->load->view('landing_page_v');
-		//~ redirect('backstage', 'refresh');
-		redirect('fluorish_gui', 'refresh');
+
+		redirect('fluorish_gui/dashboard', 'refresh');
 		
 		
 	}

@@ -18,10 +18,10 @@ class Entities extends Loggedin_Controller //CI_Controller
 	
 	function __construct()
 	{
+//~ echo 'membership/entities/construct()<hr/>';
 	  parent::__construct();
 	  
-	  $this->load->model('entities_m');
-	  
+	  $this->load->model('entities_m');	  
 	}
 	
 	

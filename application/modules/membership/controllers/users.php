@@ -7,7 +7,7 @@ class Users extends Entities //CI_Controller
 {
 
 	
-	private $userid;
+	public $userid;
 	//~ private $user_name;
 	private $password;
 	private $first_name;
@@ -19,11 +19,15 @@ class Users extends Entities //CI_Controller
 	
 	private $groups = array();
 	
+//set $reset_pw_email_path to the place that will send a "reset my password" email to the user
+	private $reset_pw_email_path = '';
+	
 	
 	
 ////////////////////////////////////////////////////////////////////////
 	function __construct()
 	{
+//~ echo 'membership/users/construct() ... heading for parent::__construct()<hr/>';
 	  parent::__construct();
 
 	  $this->load->helper('url');
@@ -31,14 +35,9 @@ class Users extends Entities //CI_Controller
 	  $this->load->model('membership_m');
 	  $this->load->model('resources_m');
 	  $this->load->model('groups_m');
-//	  $this->load->library('session');
-	  
-//	  $this->load->library('login');
-	  
-		//~ if($this->session->userdata('logged_in'))
-			//~ $this->get_session();
-		//~ else
-			//~ redirect('backstage');
+//~ echo 'end of membership/users/construct()<hr/>';
+//~ die('DIED AT :end of membership/users/construct()<br/>
+//~ base_url():'.base_url().'<hr/>');
 	}
 
 ////////////////////////////////////////////////////////////////////////
@@ -47,10 +46,13 @@ class Users extends Entities //CI_Controller
 	//   $this->load->view('partials/login_p');
 	//   $this->load->view('partials/create_user_p');
 		//~ $this->load->view('landing_page_v');
+//~ die('membership/controllers/index()');
 		
 		if($this->session->userdata('logged_in'))
-			$this->get_session();
+die('membership/users/index() would now be going for the get_session() function<hr/>');
+			//~ $this->get_session();
 		else
+die('membership/users/index() would now be redirecting to backstage');
 			redirect('backstage');
 		//~ redirect('backstage');
 	}
@@ -83,10 +85,16 @@ class Users extends Entities //CI_Controller
 	//if it's a new user (no userid passed in), create a new user (in entities table and users table) and their personal resources group
 	    else
 	    {
-		//insert the new user into each table within a single transaction so if any one INSERT fails, they all revert 
+				$this->data = $this->input->post();
+	// make sure the user isn't re-registering
+		if($this->users_m->email_exists($data['email']) )
+		{
+			echo 'This email address is already in use<br/><a href="'.$this->reset_pw_email_path.'">Click here to reset your password</a>.';
+		}
+		else
+		{		//insert the new user into each table within a single transaction so if any one INSERT fails, they all revert 
 			$this->db->trans_start();
 			
-				$this->data = $this->input->post();
 
 			//create the user entity
 				$this->data['entity_name'] = $this->data['first_name'].' '.$this->data['last_name']; //$this->data['username'];
@@ -134,7 +142,9 @@ class Users extends Entities //CI_Controller
 			{
 				echo '<h1> you\'re registered</h1>';
 			}
-		 		  
+}//end if(email_exists)
+
+
 	    }
 	    //~ else 
 	    //~ {

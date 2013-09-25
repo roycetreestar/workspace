@@ -8,62 +8,47 @@ class Membership extends Loggedin_Controller //MY_Controller
     {
         parent::__construct();
 
-//        $this->load->library('form_validation');
-//        $this->form_validation->CI =& $this;
-	   
 	   $this->load->helper('url');
-//	   $this->load->library('jquery');
 	   
 	   $this->load->model('membership/membership_m');
 	   $this->load->model('membership/resources_m');
 	   $this->load->model('membership/groups_m');
 	   $this->load->model('membership/users_m');
 	   $this->load->model('addresses/addresses_m');
-	   //~ $this->load->model('membership/cytometers_m');
-	   //~ $this->load->model('membership/panels_m');
+
 	   $this->load->model('panels/panels_m');
-	   
-	   
-	   //~ if ( !$this->session->userdata('logged_in'))
-        //~ { 
-            //~ redirect(base_url());
-        //~ }
-//	   $this->get_session();
+
+//~ echo 'membership/construct() <hr/>';
     }
 ////////////////////////////////////////////////////////////////////////////////
     
     function index()
     {
-		
+	//if not logged in, redirect to root level	
 		if ( !$this->session->userdata('logged_in'))
         { 
+//~ die('Not logged in, so membership/index() is redirecting to base_url() : '.base_url() );
             redirect(base_url());
-        }
-        
-        
+        }        
+//~ die('logged in, so proceeding with membership/index()');        
 	    $this->data['users'] = $this->users_m->get_all_users();
 	    
-// get all groups user is not a member of
+	// get all groups user is not a member of
 	    $this->available_groups($this->session->userdata['logged_in']['userid']);
-//get user's groups
-
+	//get user's groups
 	    if(!empty($this->session->userdata['groups']))
 	    {
 		    foreach($this->session->userdata['groups'] as $this_group)
 		    {
 			    $this->data['my_groups'][$this_group['group_id']] = $this->groups_m->get_group_data($this_group['group_id']);
-		    }
-		    
+		    }		    
 	    }
 	    
 	    $this->data = array_merge($this->data, $this->display_user($this->session->userdata['logged_in']['userid']) );
-	    
-	    
-//load the primary views	    
+	    	    
+	//load the primary views	    
 	    $this->load->view('header_v');
 	    $this->load->view('membership_v', $this->data);
-	    
-	    
     }
  
  

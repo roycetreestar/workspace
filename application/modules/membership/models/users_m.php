@@ -112,8 +112,22 @@ Class Users_m extends CI_Model
     
     
     
-    
-    
+/**
+ * Check if the given email is already being used by one of our users
+ *  Returns true if we already have this email address
+ * 	Returns false if we do not have a user with this email address 
+ */
+    function email_exists($email)
+    {
+		$this->db->where('email', $email);
+		$result= $this->db->get('users')->result_array();
+		
+		if(count($result) >0)
+//~ die('membership/users_m email_exists() says:<br/>count of results = '.count($result));
+			return true;
+		else 
+			return false;
+	}
     
  ////////////////////////////////////////////////////////////////////////////////
 //	function get_user($userid)
