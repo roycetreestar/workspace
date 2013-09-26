@@ -47,6 +47,7 @@
 					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/inventory'?>">inventory</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/panels'?>">panels</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/users'?>">users</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/search'?>">search</a></li>
 				</ul>
 			</div>	
 		
@@ -193,7 +194,7 @@
 				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Catalog<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 					<li><a tabindex="-1" href="<?=base_url().'catalog/catalog_imports'?>">Catalog Imports</a></li>
-					<li><a tabindex="-1" href="<?=base_url().'backstage/search'?>">Search the Catalog</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/search'?>">Search the Catalog</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/vendors'?>">Add/Edit Vendors</a></li>
 				</ul>
 			</div>

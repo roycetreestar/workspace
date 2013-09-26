@@ -26,9 +26,13 @@ class Search extends Loggedin_Controller// Secure_Controller
 		$this->load->model('clones_model');
 		$this->load->model('species_model');
 		$this->load->model('targets_model');
+		$this->load->model('catalog_m');
 		
+		$this->load_modules();
 	}
 	
+////////////////////////////////////////////////////////////////////////
+
 ////////////////////////////////////////////////////////////////////////
 	function userCytometers()
 	{
@@ -125,19 +129,46 @@ die('detailed was TRUE and targets was <pre>"'.print_r($targets, true).'"</pre>'
 	}
 	
 	
+////////////////////////////////////////////////////////////////////////
 	function get_search_form($data)
 	{
 		return $this->load->view('partials/search_p', $data, true);
 	}
+
+	
+////////////////////////////////////////////////////////////////////////
+	function results()
+	{
+		$data = $this->input->post();
+//~ echo 'catalog search params ($data):<hr/> <pre>'.print_r($data, true).'</pre>';		
+		$data['results'] = $this->catalog_m->search($data);
+		
+		
+		
+		if($data['results'])
+		{
+			foreach($data['results'] as $result)
+			{
+				//~ if(trim($result['vendor_name']) == '')
+					$result['vendor_name'] == "custom";//$this->vendors_module->get_vendor_name($result['vendorid']);
+			}
+//~ die('search results:<br/><pre>'.print_r($data['results'], true).'</pre>');
+			echo $this->load->view('partials/search_results_p', $data, true);
+			
+		}
+		else
+			echo 'No Products Found';
+		//~ die('catalog search params ($results):<hr/> <pre>'.print_r($results, true).'</pre>');
+	}
 	
 	
-	
-	
+////////////////////////////////////////////////////////////////////////
 	function get_all_targets($starts_with='')
 	{
 		//~ $this->load->model('targets_model');
 		return $this->targets_model->get_all($starts_with);
 	}
+////////////////////////////////////////////////////////////////////////
 	function get_all_target_names($starts_with='')
 	{
 		$targets = $this->get_all_targets($starts_with);
@@ -149,17 +180,20 @@ die('detailed was TRUE and targets was <pre>"'.print_r($targets, true).'"</pre>'
 		return $returnable;
 	}
 	
+////////////////////////////////////////////////////////////////////////
 	function get_all_species($starts_with = '')
 	{
 		//~ $this->load->model('species_model');
 		return $this->species_model->get_all($starts_with);
 	}
 	
+////////////////////////////////////////////////////////////////////////
 	function get_all_chromes($starts_with='')
 	{
 	//~ $this->load->model('chromes_model');
 		return $this->chromes_model->get_all($starts_with);
 	}
+////////////////////////////////////////////////////////////////////////
 	function get_all_chrome_names($starts_with='')
 	{
 		$chromes = $this->get_all_chromes($starts_with);
@@ -170,11 +204,13 @@ die('detailed was TRUE and targets was <pre>"'.print_r($targets, true).'"</pre>'
 		}
 		return $returnable;
 	}
+////////////////////////////////////////////////////////////////////////
 	function get_all_clones($starts_with='')
 	{
 		//~ $this->load->model('clones_model');
 		return $this->clones_model->get_all($starts_with);
 	}
+////////////////////////////////////////////////////////////////////////
 	function get_all_clone_names($starts_with = '')
 	{
 		$clones = $this->get_all_clones($starts_with);

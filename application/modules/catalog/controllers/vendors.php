@@ -29,18 +29,21 @@ class Vendors extends Loggedin_Controller// Secure_Controller
 		$this->load->model('vendors_model');
 	}
 	
+////////////////////////////////////////////////////////////////////////
 	function index()
 	{
 echo 'you got to the vendors controller ... CONTROL THEM VENDORS!';	
 		
 	}
 	
+////////////////////////////////////////////////////////////////////////
 	function add_vendor()
 	{
 		//~ $this->load->view('header_v');
 		return $this->load->view('partials/vendor_form_p', '', true);
 	}
 	
+////////////////////////////////////////////////////////////////////////
 	function edit_vendor($vendor_id)
 	{
 		//~ $this->load->view('header_v');
@@ -49,6 +52,7 @@ echo 'you got to the vendors controller ... CONTROL THEM VENDORS!';
 		return $this->load->view('partials/vendor_form_p', $data, true);
 	}
 	
+////////////////////////////////////////////////////////////////////////
 	function save_vendor($data = '')
 	{
 		if($data == '')
@@ -66,10 +70,14 @@ echo 'you got to the vendors controller ... CONTROL THEM VENDORS!';
 			echo 'failure';
 	}
 	
-	function get_vendor($vendor_id)
+////////////////////////////////////////////////////////////////////////
+	function get_vendor_name($vendor_id)
 	{
+		$vendor = $this->vendors_model->read_by_id($vendor_id);
 		
+		return $vendor['vendor_name'];
 	}
+////////////////////////////////////////////////////////////////////////
 	function get_all_vendors()
 	{
 		$result = $this->vendors_model->read_all();
@@ -78,6 +86,7 @@ echo 'you got to the vendors controller ... CONTROL THEM VENDORS!';
 		else 
 			return false;
 	}
+////////////////////////////////////////////////////////////////////////
 	function get_current_vendors()
 	{
 		$result = $this->vendors_model->read_current();
@@ -86,4 +95,5 @@ echo 'you got to the vendors controller ... CONTROL THEM VENDORS!';
 		else 
 			return false;
 	}
+////////////////////////////////////////////////////////////////////////
 }//end class

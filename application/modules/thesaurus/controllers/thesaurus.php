@@ -509,7 +509,10 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		$species_arr = $this->thesaurus_m->get_all_species();
 		$dd = '<select name="species_name">';
-		
+		$dd.= '<option></option>';
+		$dd.= '<option value="human">Human</option>';
+		$dd.= '<option value="mouse">Mouse</option>';
+		$dd.= '<option></option>';
 		foreach($species_arr as $species)
 		{
 			$dd.= '<option value="'.$species['species_name'].'">'.$species['species_name'].'</option>';

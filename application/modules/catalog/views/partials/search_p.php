@@ -1,6 +1,20 @@
 <!-- search -->
+<form id="search_form" action="<?=base_url().'catalog/search/results'?>" method="post">
   <div id="tabAll" class="tab-pane active">
     <div class="accordion accordion-2" id="accordion-1">
+		
+		<hr/>
+
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
       <div class="accordion-group">
         <div class="accordion-heading dashboard">
           <div class="row-fluid accordion-header">
@@ -24,12 +38,7 @@
 				</div>
 				<div class="span5" style="margin-left:-50px">
 					<?=$species_dd?>
-<!--					<select name="target_species">
-						<option>Choose one...</option>
-						<option>Mouse</option>
-						<option>Rat</option>
-                  </select>
--->                </div>
+               </div>
             </div>
             <div class="span11 group-title">
 <!-- END TARGET SPECIES DROPDOWN	--> 
@@ -40,27 +49,27 @@
               
 <!-- SEARCH FIELDS	-->              
 				<div class="filter-bar search2" style="background:none; border:none">
-					<form>
+				<!--	<form>	-->
 						<div>
 							<div class="input-append">
-								<input id="targets" name="target" type="text" class="input" placeholder="Target (Specificity)" data-provide="typeahead" data-source='<?=$targets?>' >
+								<input type="text" id="targets" name="target"  class="input" placeholder="Target (Specificity)" data-provide="typeahead" data-source='<?=$targets?>' >
 								<span class="add-on glyphicons "><i></i></span> 
 							</div>
 						</div>
 						<div>
 							<div class="input-append">
-								<input type="text" class="input"  data-provide="typeahead" placeholder="Format" data-source='<?=$chromes?>'  >
+								<input type="text" id="format" name="format" class="input" data-provide="typeahead" placeholder="Format" data-source='<?=$format?>'  >
 								<span class="add-on glyphicons "><i></i></span> 
 							</div>
 						</div>
 						<div>
 							<div class="input-append">
-								<input type="text" class="input" placeholder="Clone" data-provide="typeahead" data-source="<?=$clones?>" >
+								<input type="text" id="clones" name="clone" class="input" data-provide="typeahead" placeholder="Clone" data-source='<?=$clones?>' >
 								<span class="add-on glyphicons "><i></i></span> 
 							</div>
 						</div>
 						<div class="clearfix"></div>
-					</form>
+			<!--		</form>		-->
 				</div>
 <!-- END SEARCH FIELDS	-->  
 				
@@ -167,8 +176,28 @@
           </div>
           <!-- --> 
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+      </div><!-- end .accordion-heading dashboard	-->
+
+    </div><!-- end .accordion-group	-->
+    
+    
+    
+    
+</form>
+    
+    
+    
+    
+    
+    
+    	    
+    
+    
+    
+    
+    
+    
+    
+<!--  </div> end #accordion-1	-->
+<!--</div> end #tabAll -->
 <!-- // search -->

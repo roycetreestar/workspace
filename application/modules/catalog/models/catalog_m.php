@@ -13,6 +13,7 @@ class Catalog_m extends CI_Model
 
 	
 	
+////////////////////////////////////////////////////////////////////////	
 	function __construct()
 	{
 		parent::__construct();
@@ -71,6 +72,7 @@ class Catalog_m extends CI_Model
 	}
 
 	
+////////////////////////////////////////////////////////////////////////	
 	function update($data)
 	{
 		$current_timestamp = date("Y-m-d H:i:s");
@@ -105,6 +107,7 @@ class Catalog_m extends CI_Model
 			return false;
 	}
 	
+////////////////////////////////////////////////////////////////////////	
 	function exists($catalog_number)
 	{
 		$this->db->where('catalog_number', $catalog_number);
@@ -115,5 +118,31 @@ class Catalog_m extends CI_Model
 		else 
 			return false;
 	}
+////////////////////////////////////////////////////////////////////////	
+	function search($data)
+	{
+		if(isset($data['target_species']) && $data['target_species'] !='')
+			$this->db->where('LOWER(target_species)', strtolower($data['target_species']));
+			
+		if(isset($data['target']) && $data['target']!='')
+			$this->db->where('LOWER(target)', strtolower($data['target']));
+			
+		if(isset($data['format']) && $data['format']!='')
+			$this->db->where('LOWER(format)', strtolower($data['format']));
+			
+		if(isset($data['clone']) && $data['clone'] != '')
+			$this->db->where('LOWER(clone)', strtolower($data['clone']));
+		$result = $this->db->get('catalog')->result_array();
+
+//~ die('query run: '. $this->db->last_query().'<hr/> result:<textarea style="width:90%; height:90%">'.print_r($result, true).'</textarea>');
+		
+		if(count($result) > 0)
+			return $result;
+		else 
+			return false;
+	}
+	
+	
+	
 	
 }//end class

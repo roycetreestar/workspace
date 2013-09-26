@@ -1,10 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-//~// if you want to this class to extend some class from another module, require() the file first:
-//~ require_once  APPPATH.'modules/membership/controllers/resources.php';
-//~ require_once  APPPATH.'modules/membership/controllers/groups.php';
-//~ require_once  APPPATH.'modules/membership/controllers/users.php';
-
 class Howto extends Loggedin_Controller //MY_Controller //CI_Controller 
 {
 	
@@ -19,15 +14,13 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 	  parent::__construct();
 	  //~ $this->load->model('cytometers_m');
 	  	   $this->load->helper('url');
-		//~ $membership_mod = $this->load->module('membership');
+	//load the modules so they can be accessed by name
 		$this->load_modules();
-		//~ $this->users_model = $this->load->model('membership/users_m');
 	
 	// make checking if user is logged in a bit easier to type:	
 		if(isset($this->session->userdata['logged_in']['userid']))
 		{
 			$this->userid = $this->session->userdata['logged_in']['userid'];
-			//~ $this->membership = $this->load->module('membership');
 		}
 	}
 	
@@ -46,9 +39,6 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 	{
 		$addr_id = '13';
 		
-		//~ $address_module = $this->load->module('addresses');
-		
-		
 		$data['xml'] = $this->address_module->get_xml($addr_id); 
 		$data['array'] = $this->address_module->get_array($addr_id); 
 		$data['new'] = $this->address_module->edit(); 
@@ -65,8 +55,6 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 	function cytometers()
 	{
 		$cytometer_id = '26';
-		//~ $cytometer_module = $this->load->module('cytometers');
-		
 		
 		$data['xml'] = $this->cytometer_module->get_xml($cytometer_id); 
 		$data['array'] = $this->cytometer_module->get_array($cytometer_id); 
@@ -82,9 +70,7 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 ////////////////////////////////////////////////////////////////////////
 	function inventory()
 	{
-		$inventory_id = '10';
-		//~ $inventory_module = $this->load->module('inventory');
-		
+		$inventory_id = '10';		
 		
 		//~ $data['xml'] = $inventory_module->get_xml($inventory_id); 
 		//~ $data['array'] = $inventory_module->get_array($inventory_id); 
@@ -110,9 +96,7 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 ////////////////////////////////////////////////////////////////////////
 	function panels()
 	{
-		$panel_id = '14';
-		//~ $panel_module = $this->load->module('panels');
-		
+		$panel_id = '14';		
 		
 		$data['xml'] = $this->panel_module->get_xml($panel_id); 
 		$data['array'] = $this->panel_module->get_array($panel_id); 
@@ -133,7 +117,6 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		
 		
 	//load the membership/users controller	
-		//~ $usermodule = $this->load->module('membership/users');
 	//get the xml			
 		$data['user_xml'] = $this->users_module->get_xml($userid);
 	//get the array
@@ -157,7 +140,6 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 	{
 		$groupid = key($this->session->userdata['groups']);
 		
-		//~ $groupmodule = $this->load->module('membership/groups');
 		
 	//get the xml
 		$data['group_xml'] = $this->groups_module->get_xml($groupid);
@@ -191,7 +173,6 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 ////////////////////////////////////////////////////////////////////////
 	function thesaurus()
 	{
-		//~ $thesaurus_module = $this->load->module('thesaurus');
 	//the full page (all lookup partials)
 		//~ $data['full'] = $thesaurus_module->index();
 	//catalog header lookup partial
@@ -222,8 +203,6 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 	}
 	function catalog_headers()
 	{
-		//~ $thesaurus_module = $this->load->module('thesaurus');
-		
 		$add_alt = $this->thesaurus_module->get_catalog_header_alternates_form();	
 		
 		$header = $this->load->view('header_v', '', true); 
@@ -231,7 +210,6 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 	}
 	function chromes()
 	{
-		//~ $thesaurus_module = $this->load->module('thesaurus');
 		$add_chrome = $this->thesaurus_module->get_chromes_form();	
 		$add_alt = $this->thesaurus_module->get_chromes_alternates_form();	
 		
@@ -240,7 +218,6 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 	}
 	function species()
 	{
-		//~ $thesaurus_module = $this->load->module('thesaurus');
 		$add_species = $this->thesaurus_module->get_species_form();	
 		$add_alt = $this->thesaurus_module->get_species_alternates_form();	
 		
@@ -249,7 +226,6 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 	}
 	function targets()
 	{
-		//~ $thesaurus_module = $this->load->module('thesaurus');
 		$add_target = $this->thesaurus_module->get_targets_form();	
 		$add_alt = $this->thesaurus_module->get_targets_alternates_form();	
 		
@@ -261,13 +237,11 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 
 	function search()
 	{
-		//~ $search_module = $this->load->module('catalog/search');
-		//~ $thesaurus_module = $this->load->module('thesaurus');
+		//~ $this->vendors_module = $this->load->module('catalog/vendors');
+		//~ $this->thesaurus_module = $this->load->module('thesaurus');
+		//~ $this->search_module = $this->load->module('catalog/search');
 		
-		//~ $vendor_module = $this->load->module('catalog/vendors');
-		//~ $catalog_module = $this->load->module('catalog');
 		
-		//~ $data['vendors'] = $this->vendors_module->get_all_vendors();
 		$data['vendors'] = $this->vendors_module->get_current_vendors();
 		
 		$data['species_dd'] = $this->thesaurus_module->species_dropdown();
@@ -276,7 +250,7 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		$data['targets'] = json_encode($all_targets);
 		
 		$all_chromes = $this->search_module->get_all_chrome_names();
-		$data['chromes'] = json_encode($all_chromes);
+		$data['format'] = json_encode($all_chromes);
 
 		
 		$all_clones = $this->search_module->get_all_clone_names();
@@ -285,16 +259,16 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		
 //~ die('backstage/howto/search(): <br/>$data:<textarea style="width:90%; height:90%" >'.print_r($data, true).'</textarea>');		
 		$header = $this->load->view('header_v', '', true); 
-		$search_partial = '<div class="well">'. $this->search_module->get_search_form($data).'</div>';
-		
-		echo $header.$search_partial;
+		$data['search_partial'] = '<div class="well">'. $this->search_module->get_search_form($data).'</div>';
+		$data['search_results'] = '<div class="well" id="search_results"></div>';
+		echo $header;//.$search_partial.$search_results;
+		$this->load->view('backstage_search_v', $data);
 	}
 
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 	function edit_vendor($vendor_id)
 	{
-		//~ $thesaurus = $this->load->module('catalog/vendors');
 		
 		$vendor_form = $this->vendors_module->edit_vendor($vendor_id);
 

@@ -11,47 +11,61 @@ if(!isset($group))
 	if(!isset($form_action))
 		$form_action = 'membership/groups/save';
 ?>
+<!-- -->
+		
 
-<div class="well " >
-	
-	<div class="well" id="edit_group_result"></div>
-	
+ 
+ 
+ 
+<div class="widget "  id="form_group_<?= isset($entity_id)? $entity_id : '' ?>" >
+ 
+ 
+	<div class="" id="edit_group_result"></div>
+ 
+ 
 	<form action="" method="post" id="edit_group_form" >
 	<!--	<h3>form_group_p</h3>		-->
 		
-		<input type="text" name="entity_id" value="<?= isset($entity_id)? $entity_id : '' ?>" readonly />
-		<table class="table">
-			<tr><td>group_name:				</td><td>	<input type="text" name="group_name" value="<?= isset($group_name)? $group_name : ''?>" />				</td></tr>
-			<tr><td>group_type:				</td><td>	
-							<select name="group_type">
-								<option value="3">Personal Resources Group</option>
-								<option value="1">Lab</option>
-								<option value="2">Core</option>
-							</select></td>
-			</tr>
-			<tr><td>long_group_name:			</td><td>	<input type="text" name="long_group_name" value="<?= isset($long_group_name)? $long_group_name : ''?>" />			</td></tr>
-	<!--		<tr><td>parent_group:			</td><td>	<input type="text" name="parent_group" value="<?php //$group['entity_id']?>" readonly/>			</td></tr>	-->
-			<tr><td>access:	</td><td>	
-							<select name="access">
-								<option value="0" <?=isset($access) && $access==0 ? 'selected="selected"': '' ?> >Public</option>
-								<option value="1" <?=isset($access) && $access==1 ? 'selected="selected"': '' ?> >Private</option>
-							</select></td>
-			</tr>
-			<tr><td>group email address:	</td><td>	<input type="text" name="email"			value="<?= isset($email)? $email : ''?>" />					</td></tr>
-			<tr><td>group phone number:		</td><td>	<input type="text" name="phone" 		value="<?= isset($phone)? $phone : ''?>" />					</td></tr>
-			<tr><td>additional information:	</td><td>	<textarea name="additional_information"	 ><?= isset($additional_information)? trim($additional_information) : ''?></textarea>	</td></tr>
-
-			<tr><td>						</td><td>	<input type="submit" />							</td></tr>
-		</table>
+		<input class="id_container" type="text" name="entity_id" value="<?= isset($entity_id)? $entity_id : '' ?>" readonly />
+		group_name:
+			<input type="text" name="group_name" value="<?= isset($group_name)? $group_name : ''?>" />			
+	
+		group_type:		
+			<select name="group_type">
+				<option value="3">Personal Resources Group</option>
+				<option value="1">Lab</option>
+				<option value="2">Core</option>
+			</select>
 		
+		long_group_name:
+			<input type="text" name="long_group_name" value="<?= isset($long_group_name)? $long_group_name : ''?>" />			
+
+		access:
+			<select name="access">
+				<option value="0" <?=isset($access) && $access==0 ? 'selected="selected"': '' ?> >Public</option>
+				<option value="1" <?=isset($access) && $access==1 ? 'selected="selected"': '' ?> >Private</option>
+			</select>
+			
+		group email address:	
+			<input type="text" name="email"			value="<?= isset($email)? $email : ''?>" />					
+	
+		group phone number:			
+			<input type="text" name="phone" 		value="<?= isset($phone)? $phone : ''?>" />					
+	
+		additional information:		
+			<textarea name="additional_information"	 ><?= isset($additional_information)? trim($additional_information) : ''?></textarea>	
+
+		<input type="submit" />		
 	</form>	
-</div>
+
+</div><!-- end .widget	-->
 
 
 
 
 
 <script>
+
 	$('#edit_group_form').submit( function(event)
 	{
 		event.preventDefault();				
@@ -83,4 +97,5 @@ if(!isset($group))
 			}
 		});
 	});
+
 </script>
