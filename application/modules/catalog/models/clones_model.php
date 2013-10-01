@@ -63,5 +63,19 @@ class Clones_model extends CI_Model
 		return $this->db->affected_rows();
 	}
 
+	function clones_by_target($target)
+	{
+		$this->db->select('clone as name, count(*) as count');
+		$this->db->where('target', $target);
+		$this->db->group_by('clone');
+		$result = $this->db->get('catalog')->result_array();
+		//~ $clones = array();
+		//~ foreach($result as $r)
+		//~ {
+			//~ $clones[] = $r['clone'];
+		//~ }
+		return $result;
+		//~ return $clones;
 
+	}
 }//end class

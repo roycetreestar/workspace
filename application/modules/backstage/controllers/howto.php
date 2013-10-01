@@ -201,6 +201,20 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		$this->load->view('howto/thesaurus_p', $data);
 		
 	}
+	function thesaurus_lookups()
+	{
+		$data['full_thesaurus_p'] = $this->load->view('thesaurus/partials/full_thesaurus_p','', true);
+		$data['thesaurus_catalog_headers_p'] = $this->load->view('thesaurus/partials/thesaurus_catalog_headers_p','', true);
+		$data['thesaurus_chromes_p'] = $this->load->view('thesaurus/partials/thesaurus_chromes_p','', true);
+		$data['thesaurus_species_p'] = $this->load->view('thesaurus/partials/thesaurus_species_p','', true);
+		$data['thesaurus_targets_p'] = $this->load->view('thesaurus/partials/thesaurus_targets_p','', true);
+		$data['thesaurus_catalog_headers_p'] = $this->load->view('thesaurus/partials/thesaurus_catalog_headers_p','', true);
+		
+		$this->load->view('header_v');
+		$this->load->view('thesaurus/thesaurus_v', $data);
+
+		
+	}
 	function catalog_headers()
 	{
 		$add_alt = $this->thesaurus_module->get_catalog_header_alternates_form();	
@@ -261,6 +275,8 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		$header = $this->load->view('header_v', '', true); 
 		$data['search_partial'] = '<div class="well">'. $this->search_module->get_search_form($data).'</div>';
 		$data['search_results'] = '<div class="well" id="search_results"></div>';
+		$data['userCytometers'] = '<div class="well">'.$this->load->view('backstage/partials/pb_user_cytometers_p', '', true).'</div>';
+		
 		echo $header;//.$search_partial.$search_results;
 		$this->load->view('backstage_search_v', $data);
 	}

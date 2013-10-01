@@ -7,7 +7,9 @@
 	<?=$search_results?>
 </div>
 
-
+<div class="row-fluid">
+	<?=$userCytometers?>
+</div>
 
 
 

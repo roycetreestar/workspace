@@ -91,7 +91,15 @@ class Thesaurus_m extends CI_Model// MY_Model
 		else return false;
 
 	}
-	
+	function get_targets_alternates($term)
+	{
+		//~ $target = $this->get_targets_canonical($term);
+		
+		$this->db->select('alternate_name');
+		$this->db->where('target_name', $term);
+		return $this->db->get('targets_alternate_name')->result_array();
+		
+	}
 	function get_catalog_header_canonical($term)
 	{
 		

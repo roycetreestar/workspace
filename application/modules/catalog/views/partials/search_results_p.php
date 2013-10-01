@@ -5,7 +5,7 @@
 			<th>Target (Specificity)</th>
 			<th>Format (Fluorochrome)</th>
 			<th>Clone</th>
-			<th>Amount></th>
+			<th>Amount</th>
 			<th>Recent Price</th>
 			<th>Catalog Number/Datasheet</th>
 			<th>Regulatory Status</th>

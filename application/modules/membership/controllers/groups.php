@@ -333,7 +333,15 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 		return $xml;
 	}
 	
-	
+/**
+ * Gets a user's groups by their user_id, as opposed to getting groups for the logged-in user
+ * 
+ */
+	function get_user_groups($userid)
+	{
+		$groups = $this->groups_m->my_groups_recursive($userid);
+		return $groups;
+	}
 	
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

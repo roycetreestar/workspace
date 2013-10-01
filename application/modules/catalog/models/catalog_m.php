@@ -142,7 +142,18 @@ class Catalog_m extends CI_Model
 			return false;
 	}
 	
+////////////////////////////////////////////////////////////////////////	
+	function reagent_by_target_clone($target, $clone='')
+	{
+		$this->db->where('target', $target);
+		if(isset($clone) && $clone!='')
+			$this->db->where('clone', $clone);
+		$reagents = $this->db->get('catalog');
+			
+		return $reagents->result_array();
+	}
 	
 	
-	
+////////////////////////////////////////////////////////////////////////
+
 }//end class

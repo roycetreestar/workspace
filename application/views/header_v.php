@@ -48,6 +48,7 @@
 					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/panels'?>">panels</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/users'?>">users</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/search'?>">search</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/thesaurus'?>">thesaurus</a></li>
 				</ul>
 			</div>	
 		
@@ -180,6 +181,7 @@
 			<div class="dropdown pull-right">
 				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Thesaurus<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/thesaurus_lookups'?>">lookups</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/thesaurus'?>">thesaurus</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/chromes'?>">add chromes</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'backstage/howto/species'?>">add species</a></li>
@@ -199,7 +201,23 @@
 				</ul>
 			</div>
 			
+<!-- PB API stuff -->	
+			<div class="dropdown pull-left">
+				<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">PB API <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+					<li><a tabindex="-1" href="<?=base_url().'catalog/search/user_cytometers/12'?>">catalog/search/user_cytometers/12</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'api/targets?species=mouse'?>">api/targets?species=mouse</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'api/targets?detailed=true&targets=CD3,CD4,CD8'?>">api/targets?detailed=true&amp;targets=CD3,CD4,CD8</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'api/fluorochromes'?>">api/fluorochromes</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'api/reagents?target=CD4'?>">api/reagents?target=CD4&amp;clone=[optional]</a></li>
+					<li class="divider"></li>
+					<li><a tabindex="-1" href="<?=base_url().'api/inventory?target=CD4'?>">api/inventory?target=CD4&amp;clone=[optional]</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'api/session'?>">api/session</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'api/login'?>">api/login</a></li>
+					<li><a tabindex="-1" href="<?=base_url().'api/logout'?>">api/logout</a></li>
 
+				</ul>
+			</div>	
 			
 		<?php
 		}

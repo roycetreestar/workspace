@@ -207,6 +207,7 @@ Class Groups_m extends CI_Model
 	
 ////////////////////////////////////////////////////////////////////////////////
 /**
+ * 		returns an array of the groups belonging to user $entityid
  * 
  * @param type $entityid
  * @return boolean
@@ -237,7 +238,9 @@ Class Groups_m extends CI_Model
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
-	
+/** returns an array of all groups $entityid is a member of or manages
+ * and all groups those groups belong to (recursively)
+ */	
 	function my_groups_recursive($entityid, $returnable = array())
 	{
 //echo 'got to my_groups_recursive()<br/>';

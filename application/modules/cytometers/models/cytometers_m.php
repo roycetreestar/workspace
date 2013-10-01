@@ -57,6 +57,19 @@ Class Cytometers_m extends Resources_m
 		return $cytometer;
 			
 	}
+	//~ function get_cytometers_by_groupid($group_id)
+	//~ {
+		//~ $cytometers = array();
+		//~ $this->db->where('group_id', $group_id);
+		//~ $this->db->where('resource_type', 'cytometer');
+		//~ $resources = $this->db->get('resource_group')->result_array();
+		//~ 
+		//~ foreach($resources as $resource)
+		//~ {
+			//~ $cytometers[] = $this->get_cytometer_by_id($resource['resource_id']);
+		//~ }
+		//~ return $cytometers;
+	//~ }
 /**an alternative to get_cytometer(), 
  * but the name matches other resource types
  * and it grabs data from both the cytometers table and the resources table

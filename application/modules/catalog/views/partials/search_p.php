@@ -124,40 +124,56 @@
 				
 				
 <?php
+//We want the vendor names to be evenly split between four columns in this section
+//Each column is going to be a span3
 	$v_count = count($vendors);
-	$v_per_col = $v_count/4;
-	
+	$v_per_col = ceil($v_count/4);
+	$count = 1;
+	$total = 1;
+
 	foreach($vendors as $vendor)
 	{
         //if(start of column)
-        echo '      <div class="span3">
+        if($count == 1)
+		{	echo '      <div class="span3" >
                 <div class="widget widget-4 uniformjs">
                   <div class="separator"></div>
               ';    
+        }
                   
          //always         
-        echo '          <label class="checkbox">
-                  <div class="checker" id="uniform-undefined"><span class="checked">
-                    <input type="checkbox" checked="checked" value="1" class="checkbox" >
-                    </span></div>
-                  '.$vendor['vendor_name'].'
-                  </label>
+        echo '<label class="checkbox">
+                <div class="checker" id="uniform-undefined">
+					<span class="checked">
+						<input type="checkbox" checked="checked" value="'.trim($vendor['vendor_name']).'" class="checkbox" name="vendors[]">
+                    </span>
+                </div>
+                '.$vendor['vendor_name'].'
+            </label>
          ';
          //end always 
                   
                   
-                  
-		//if(end of column)
-        echo '        </div>
-              </div>
-         ';     
+        if($count == $v_per_col || $v_count == $total)
+        { 
+			//if(end of column)
+			echo '        </div>
+				</div>
+				';
+			$count = 1;
+			$total ++;
+		}
+		else
+		{	$count++;
+			$total++;
+		}
     }          
    ?>          
               
 
               
  
-            
+		
  <!--	END VENDOR CHECKBOXES	-->           
             
   </div>
@@ -192,7 +208,7 @@
     
     	    
     
-    
+
     
     
     

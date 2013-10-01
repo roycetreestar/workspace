@@ -92,8 +92,24 @@ class Cytometers extends Resources
 		return false;
 	}
 
-
-
+//~ /**
+ //~ * get cytometer XMLs for the given userid
+ //~ * finds all groups $userid manages or is member of
+ //~ * finds all resources available to those groups
+ //~ * collects XML from each of those resources where resource_type == 'cytometer'
+ //~ */
+//~ function get_xml_from_userid($userid)
+//~ {
+	//~ $returnable = array();
+	//~ $this->groups_module = $this->load->module('membership/groups');
+	//~ $groups = $this->groups_module->get_user_groups($userid);
+//~ die('cytometers/get_xml_from_userid()<br/>		$groups:<br/>	<textarea style="width:80%; height:80%">'.print_r($groups, true).'</textarea>');
+	//~ 
+	//~ foreach($groups as $g)
+	//~ {
+		//~ $returnable[] = 
+	//~ }
+//~ }
 ////////////////////////////////////////////////////////////////////////
 
 /**
@@ -350,6 +366,9 @@ if($resource_id)
   }
   
 ////////////////////////////////////////////////////////////////////////////////
+/**
+ * Get cytometer data by its resource_id
+ */
 	function get_array($resource_id)
 	{
 		$resource = $this->cytometers_m->get_cytometer_by_id($resource_id);
