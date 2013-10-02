@@ -34,7 +34,7 @@ class Loggedin_Controller extends MY_Controller {
 //~ die('Loggedin_Controller/index()<hr/>');
 		if(!$this->is_logged_in() )
 		{	
-			redirect('backstage');		}	
+			redirect('fluorish_gui/dashboard');		}	
 		else
 		{	$this->get_session();		}
 	}
