@@ -1,8 +1,3 @@
-
-
---
-<?php echo $form; ?>
---
 <div class="separator bottom"></div>
 <!-- -->
 <div class="heading-buttons">
@@ -32,6 +27,9 @@
         </div>
         <div class="widget-body" style="padding-bottom: 0;">
           <div class="row-fluid">
+          
+          <?//=$registration_form ?>
+          <!--
             <div class="span6">
             
               <div class="control-group">
@@ -87,6 +85,7 @@
 			</div>
               
             </div>
+            -->
           </div>
           <div style="margin: 0;" class="form-actions">
             <button class="btn btn-icon btn-primary glyphicons circle_ok" type="submit"><i></i>Save changes</button>
