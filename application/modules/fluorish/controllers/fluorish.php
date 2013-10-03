@@ -72,15 +72,33 @@ function index()
 		$this->load->view('../../../../public/themes/fluorish2013/views/layouts/default.php');
 	}
 	
+/**
+ * This is the register page for Fluorish.
+ */	
+function register(){
+	
+	$this->load->view('../../../../public/themes/fluorish2013/views/layouts/register.php');
+	
+}
+
 function login(){
 	 $usermodule = $this->load->module('membership/users');
 	 $userid = $this->session->userdata['logged_in']['userid'];
 	 $data['form'] = $usermodule->my_account($userid);
+	 
+	 
+/*	 $this->load->view('partials/header');
+	 $this->load->view('../../modules/membership/views/partials/login_p',$data);
+	 $this->load->view('../../modules/membership/views/partials/login_p',$data);
+	 $this->load->view('../../modules/membership/views/partials/login_p',$data);
+	 $this->load->view('partials/footer');*/
+	 
 	 $this->template
 	 	->set_partial('header', 'partials/header')
-		->set_partial('content', '../../modules/membership/views/partials/login_p',$data)
+		->set_partial('left', '../../modules/membership/views/partials/login_p',$data)
+		->set_partial('right', 'partials/my_account', $data)
 		->set_partial('footer', 'partials/footer')
-		->set_layout('default') // application/views/layouts/two_col.php
+		->set_layout('2_col') // application/views/layouts/two_col.php
 		->build('partials/dashboard'); // views/welcome_message
 	 
 	
@@ -89,14 +107,16 @@ function login(){
 function dashboard(){
 	 $usermodule = $this->load->module('membership/users');
 	 $userid = $this->session->userdata['logged_in']['userid'];
-	 $data['form'] = $usermodule->my_account($userid);
-	 
+	 $data['registration_form'] = $usermodule->my_account($userid);
+	 //$data['display'] = $usermodule->display($userid);
+	 //$data['form'] = $usermodule->edit($userid);
+	
 	 $this->template
 	 	->set_partial('header', 'partials/header')
-		->set_partial('content', '../../modules/membership/views/partials/display_user_p',$data)
+		->set_partial('content', 'partials/my_account', $data)
 		->set_partial('footer', 'partials/footer')
 		->set_layout('default') // application/views/layouts/two_col.php
-		->build('partials/dashboard'); // views/welcome_message
+		->build('partials/dashboard');
 	 
 	
 }

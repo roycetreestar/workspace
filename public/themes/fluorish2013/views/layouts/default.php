@@ -62,7 +62,7 @@
 <li class="divider-vertical"></li>
 <li><a href="<?=site_url('fluorish');?>#contact"><i class="icon-comment icon-white"></i>Contact</a></li>
 <li class="divider-vertical"></li>
-<li><a href="<?=site_url('membership');?>"><span class="register btn"> Join Fluorish</span></a></li>
+<li><a href="<?=site_url('fluorish/register');?>"><span class="register btn"> Join Fluorish</span></a></li>
 <li class="divider-vertical"></li>
 <li class="dropdown"> <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
   <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;"> 
