@@ -136,11 +136,11 @@ die('membership/users/index() would now be redirecting to backstage');
 		
 			if (!$this->db->trans_status())
 			{
-				echo '<h1> fail</h1>';
+				echo 'You have failed to register.';
 			} 
 			else
 			{
-				echo '<h1> you\'re registered</h1>';
+				echo 'You have registered, please login.';
 			}
 }//end if(email_exists)
 

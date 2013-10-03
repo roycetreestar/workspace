@@ -33,7 +33,26 @@ class Search extends Loggedin_Controller// Secure_Controller
 	
 ////////////////////////////////////////////////////////////////////////
 
+function index()
+       {
+               $data['vendors'] = $this->vendors_module->get_current_vendors();
+               
+               $data['species_dd'] = $this->thesaurus_module->species_dropdown();
+               
+               $all_targets = $this->search_module->get_all_target_names();
+               $data['targets'] = json_encode($all_targets);
+               
+               $all_chromes = $this->search_module->get_all_chrome_names();
+               $data['format'] = json_encode($all_chromes);
 
+               
+               $all_clones = $this->search_module->get_all_clone_names();
+               $data['clones'] = json_encode($all_clones);
+               
+               
+              //$this->get_search_form($data);
+			   echo'<div class="well">'. $this->search_module->get_search_form($data).'</div>';
+       }
 	
 
 	

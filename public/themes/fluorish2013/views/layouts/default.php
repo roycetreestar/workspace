@@ -64,27 +64,11 @@
 <li class="divider-vertical"></li>
 <li><a href="<?=site_url('fluorish/register');?>"><span class="register btn"> Join Fluorish</span></a></li>
 <li class="divider-vertical"></li>
-<li class="dropdown"> <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-  <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;"> 
-  
-   <?php echo Modules::run( 'membership/membership/login' ); ?>
-  
-    <!-- Login form here 
-    <form action="{{ url:site uri='users/login' }}" class="navbar-search pull-right" method="post" accept-charset="utf-8" id="login-small">
-      <input type="hidden" name="redirect_to" value="{{ url:current }}" />
-      <label>Email Address</label>
-      <input type="text" id="email" name="email" maxlength="120" placeholder="{{ helper:lang line="global:email" }}" />
-      <label>Password</label>
-      <input type="password" id="password" name="password" maxlength="20" placeholder="{{ helper:lang line="global:password" }}" />
-      <input type="submit" value="{{ helper:lang line='user:login_btn' }}" name="btnLogin" class="btn" id="login_nav" />
-      <div id="login">
-        <p>
-          <input type="checkbox" id="remember-checksidebar" name="remember" value="1"  />
-        <hr />
-        <a href="#">Reset Password</a> | <a href="#">Join Fluorish</a>
-        </p>
-      </div>
-    </form>-->
+
+
+<li class="dropdown"> <a data-toggle="dropdown" href="#" class="dropdown-toggle">Sign In <strong class="caret"></strong></a>
+  <div style="padding: 15px; padding-bottom: 0px;" class="dropdown-menu">
+    <?php echo Modules::run( 'membership/membership/login' ); ?>
   </div>
 </li>
 </nav>
@@ -275,6 +259,7 @@
 		//$search = $this->load->module('membership/groups');
 		//echo $search->edit();
 		//echo Modules::run( 'membership/groups/edit' ); 
+		
 		echo Modules::run( 'search/search/index' );
 		?>
     

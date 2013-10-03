@@ -20,7 +20,7 @@ class Fluorish extends Loggedin_Controller //MY_Controller //CI_Controller
 	  	//~ $this->load->model('cytometers_m');
 		$this->load->helper('url');
 		//~ $membership_mod = $this->load->module('membership');
-		
+		//$this->load_modules();
 		//~ $this->users_model = $this->load->model('membership/users_m');
 	
 		// make checking if user is logged in a bit easier to type:	
@@ -78,6 +78,12 @@ function index()
 function register(){
 	
 	$this->load->view('../../../../public/themes/fluorish2013/views/layouts/register.php');
+	
+}
+
+function reset_pass(){
+	
+	echo '<h1>Need partial to submit email and a hook to fire the email with new password or password reset page.</h1>';
 	
 }
 
