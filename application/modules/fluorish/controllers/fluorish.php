@@ -81,98 +81,47 @@ function register(){
 	
 }
 
-function login(){
-	 $usermodule = $this->load->module('membership/users');
-	 $userid = $this->session->userdata['logged_in']['userid'];
-	 $data['form'] = $usermodule->my_account($userid);
-	 
-	 
-/*	 $this->load->view('partials/header');
-	 $this->load->view('../../modules/membership/views/partials/login_p',$data);
-	 $this->load->view('../../modules/membership/views/partials/login_p',$data);
-	 $this->load->view('../../modules/membership/views/partials/login_p',$data);
-	 $this->load->view('partials/footer');*/
-	 
-	 $this->template
-	 	->set_partial('header', 'partials/header')
-		->set_partial('left', '../../modules/membership/views/partials/login_p',$data)
-		->set_partial('right', 'partials/my_account', $data)
-		->set_partial('footer', 'partials/footer')
-		->set_layout('2_col') // application/views/layouts/two_col.php
-		->build('partials/dashboard'); // views/welcome_message
-	 
-	
-}
-
-function dashboard(){
-	 $usermodule = $this->load->module('membership/users');
-	 $userid = $this->session->userdata['logged_in']['userid'];
-	 $data['registration_form'] = $usermodule->my_account($userid);
-	 //$data['display'] = $usermodule->display($userid);
-	 //$data['form'] = $usermodule->edit($userid);
-	
-	 $this->template
-	 	->set_partial('header', 'partials/header')
-		->set_partial('content', 'partials/my_account', $data)
-		->set_partial('footer', 'partials/footer')
-		->set_layout('default') // application/views/layouts/two_col.php
-		->build('partials/dashboard');
-	 
-	
-}
-
-
-
-
-
-/*
 function dashboard()
 	{
-		//load the navbar with bootstrap and jquery 
-		//$head = $this->load->view('header_v', '', true);
-		//load the membership/users controller	
-		$usermodule = $this->load->module('membership/users');
-		
-		$userid = $this->session->userdata['logged_in']['userid'];
-		$data['form'] = $usermodule->my_account($userid);
-		$this->load->view('../../../fluorish_dashboard/php/pages/header.php');
-		$this->load->view('../../../fluorish_dashboard/php/pages/my_account',$data);
-		$this->load->view('../../../fluorish_dashboard/php/pages/footer.php');
-	}
-
-function dashboard2()
-	{
-		
-		//~ $this->load->view('fluorish_gui_header_v.php');	
-		$this->load->view('../../../../fluorish_dashboard/php/pages/header.php');
-		$this->load->view('partials/global_account_header_p.php');
-		
-		
-if(isset($this->session->userdata['logged_in']))		
-		foreach( $this->session->userdata('groups') as $group)
+		if(isset($this->session->userdata['logged_in']))
 		{
+			//~ $this->load->view('fluorish_gui_header_v.php');	
+			$this->load->view('../../../../fluorish_dashboard/php/pages/header.php');
+			$this->load->view('partials/global_account_header_p.php');
 			
-			// collect resource_types for this group's resources	
-			$group['c'] = false;
-			$group['p'] = false;
-			$group['i'] = false;
-			$group['a'] = false;
-			foreach($group['resources'] as $resource)
+			if(isset($this->session->userdata['logged_in']))		
+			foreach( $this->session->userdata('groups') as $group)
 			{
-				if($resource['resource_type'] === 'cytometer')
-					$group['c'] = true;
-				if($resource['resource_type'] === 'panel')
-					$group['p'] = true;
-				if($resource['resource_type'] === 'inventory')
-					$group['i'] = true;
-				if($resource['resource_type'] === 'address')
-					$group['a'] = true;
+				
+				// collect resource_types for this group's resources	
+				$group['c'] = false;
+				$group['p'] = false;
+				$group['i'] = false;
+				$group['a'] = false;
+				foreach($group['resources'] as $resource)
+				{
+					if($resource['resource_type'] === 'cytometer')
+						$group['c'] = true;
+					if($resource['resource_type'] === 'panel')
+						$group['p'] = true;
+					if($resource['resource_type'] === 'inventory')
+						$group['i'] = true;
+					if($resource['resource_type'] === 'address')
+						$group['a'] = true;
+				}
+				
+				$this->load->view('partials/accordian_p', $group);
 			}
-			
-			$this->load->view('partials/accordian_p', $group);
+		
+			else 
+			{
+				$mem_module = $this->load->module('membership');
+				$data['dd']['institution_dd'] = $mem_module->institution_dropdown();
+				$this->load->view('backstage/landing_page_v', $data);	
+			}
+				$this->load->view('../../../../fluorish_dashboard/php/pages/footer.php');
+			}
+			else
+			$this->index();
 		}
-else $this->load->view('backstage/landing_page_v');	
-	$this->load->view('../../../../fluorish_dashboard/php/pages/footer.php');
-	}
-	*/
 }//end class

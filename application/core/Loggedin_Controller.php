@@ -34,7 +34,7 @@ class Loggedin_Controller extends MY_Controller {
 //~ die('Loggedin_Controller/index()<hr/>');
 		if(!$this->is_logged_in() )
 		{	
-			redirect('fluorish_gui/dashboard');		}	
+			redirect('fluorish/dashboard');		}	
 		else
 		{	$this->get_session();		}
 	}
@@ -67,7 +67,7 @@ class Loggedin_Controller extends MY_Controller {
 	
 			$this->get_session();
 
-			redirect(base_url());
+			redirect(base_url().'fluorish/dashboard');
 		}
 		else
 		{
@@ -102,7 +102,7 @@ function get_session()
 		$this->session->unset_userdata('logged_in');
 		$this->session->sess_destroy();
 
-		redirect('fluorish_gui/dashboard', 'refresh');
+		redirect('fluorish/dashboard', 'refresh');
 		
 		
 	}

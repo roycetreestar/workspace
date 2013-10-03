@@ -36,6 +36,8 @@
 
 <!-- Add some theme option variables for styling -->
 <style type="text/css"></style>
+<script src="<?php echo getTheme(); ?>js/jquery-1.10.2.js"></script> 
+<script src="<?php echo getTheme(); ?>js/bootstrap.min.js"></script> 
 </head>
 <body>
 <!-- Header -->
@@ -48,7 +50,7 @@
 <!-- Nav Toggle on Smartphone END --> 
 
 <!-- Logo --> 
-<a class="brand" href="{{ url:base }}"></a> 
+<a class="brand" href="<?php echo base_url(); ?>"></a> 
 <!-- Logo END --> 
 
 <!-- Nav -->
@@ -98,7 +100,7 @@
     <div class="container page">
       <div class="span6">
         <h2 id="page_title" class="page-title">Registration</h2>
-        <?php echo Modules::run( 'membership/users/my_account' ); ?>
+        <?php echo Modules::run( 'membership/users/edit' ); ?>
       </div>
       <div class="span6">
         <h2 id="page_title" class="page-title">Already A Member</h2>
@@ -157,51 +159,6 @@
 
 <!-- JavaScript
 ================================================== --> 
-<script src="<?php echo getTheme(); ?>js/jquery-1.8.3.min.js"></script> 
-<script src="<?php echo getTheme(); ?>js/bootstrap.min.js"></script> 
-<script src="<?php echo getTheme(); ?>js/jquery.flexslider-min.js"></script> 
-<script src="<?php echo getTheme(); ?>js/jquery.fitvids.js"></script> 
-<script src="<?php echo getTheme(); ?>js/jquery.smooth-scroll.min.js"></script> 
-<script src="<?php echo getTheme(); ?>js/jquery.fancybox-1.3.4.pack.js"></script> 
-<script>
-$(document).ready(function() {
-	
-	// Hero slider settings //
-	$('#hero-slider').flexslider({
-		// You should better not change these settings //
-		animation: "slide",
-		controlNav: false,
-		prevText: "&lsaquo;",
-		nextText: "&rsaquo;",
-		// You can change these settings //
-		slideshow: true,		//Boolean: Animate slider automatically
-		slideshowSpeed: 7000,	//Integer: Set the speed of the slideshow cycling, in milliseconds
-		animationSpeed: 600		//Integer: Set the speed of animations, in milliseconds
-	});
-	
-	// General slider settings //
-	$('#myCarousel').flexslider({
-		// You should better not change these settings //
-		animation: "slide",
-		controlNav: false,
-		prevText: "&lsaquo;",
-		nextText: "&rsaquo;",
-		// You can change these settings //
-		slideshow: true,		//Boolean: Animate slider automatically
-		slideshowSpeed: 7000,	//Integer: Set the speed of the slideshow cycling, in milliseconds
-		animationSpeed: 600		//Integer: Set the speed of animations, in milliseconds
-	});
-	
-	// FitVid
-    $(".container").fitVids();
-	
-	// smoothScroll
-	$('a').smoothScroll();
-	
-	//Fancybox
-	//$("a.fancybox").fancybox();
-	
-});
-</script>
+
 </body>
 </html>
