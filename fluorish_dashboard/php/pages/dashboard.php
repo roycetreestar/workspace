@@ -6,7 +6,6 @@ else
 if(isset($_GET["role"]) && trim($_GET["role"]) == 'user'){
 	$role = 'user';
 }
-
 ?>
 <!-- START Global Account Section -->
 

@@ -4,29 +4,42 @@
 	//~ else if ($group['permission'] == 1)
 		//~ $permission = 'manager';
 ?>
-
-<!-- group -->
+<!-- Dashboard Expand Panels -->
+<div class="innerLR">
+<!-- group-1 -->
 <div class="tab-pane active" id="tabAll">
   <div class="accordion accordion-2" id="accordion-1">
       <div class="accordion-group"> 
         <!-- widget header -->
         <div class="accordion-heading dashboard">
           <div class="row-fluid accordion-header">
-<div class="span8 group-title"><a class="accordion-toggle glyphicons type-<?=$group_type?>" data-toggle="collapse" data-parent="#accordion" href="#group-<?=$group_id?>"><i></i><h3><?= $group_name?><span><?= $permission?></span></h3>
+            <div class="span8 group-title">
+            	<a href="#group-<?=$group_id?>" data-parent="#accordion" data-toggle="collapse" class="accordion-toggle glyphicons group-type-<?=$group_type?>">
+                <i></i><h3><?= $group_name?><span><?= $permission?></span></h3>
 				</a>
            </div>
-           <div class="span4 right">
-          <a data-original-title="Account Settings" data-placement="top" data-toggle="tooltip" class="icon-my-preferences" href="#"></a> 
-          <?php if($p){ ?>
-          <a data-original-title="Panels" data-placement="top" data-toggle="tooltip" class="icon-panels" href="panels/list_view/<?=$group_id?>"></a> 
-          <?php } if($c) { ?>
-          <a data-original-title="Cores and Instruments" data-placement="top" data-toggle="tooltip" class="icon-core" href="cytometers/list_view/<?=$group_id?>"></a> 
-          <?php } if($i) { ?>
-          <a data-original-title="Labs and Inventory" data-placement="top" data-toggle="tooltip" class="icon-lab" href="inventory/list_view/<?=$group_id?>"></a>
-          <?php } ?> 
-          <a data-original-title="Orders" data-placement="top" data-toggle="tooltip" class="icon-orders" href="#"></a> </div>
-        </div>
-        </div>
+            <div class="span4 right group-resources">
+              <?php if($p)
+			  {
+				  ?>
+                  <a href="panels/list_view/<?=$group_id?>" class="btn-icon glyphicons cogwheel" data-toggle="tooltip" data-placement="top" data-original-title="Panels"> Panels <i></i> </a>
+				  <?php
+                  }
+				  if($i)
+				  {
+					  ?>
+                      <a href="inventory/list_view/<?=$group_id?>" class="btn-icon glyphicons stats" data-toggle="tooltip" data-placement="top" data-original-title="Inventory">Inventory<i></i></a>
+					  <?php
+                      }
+					  if($c)
+					  {
+						  ?>
+                          <a href="cytometers/list_view/<?=$group_id?>" class="btn-icon glyphicons cogwheel" data-toggle="tooltip" data-placement="top" data-original-title="Cytometers">Cytometers<i></i></a>
+						  <?php
+                          }
+						  ?>
+            </div>
+          </div>
          </div>
         <div class="row-fluid accordion-toggle">
           <div class="span2 offset10 right">
@@ -53,7 +66,7 @@
                 <?= $this->load->view('partials/group_additional_info_p'); ?>
               </div>
               <!-- // Dashboard Group Information Right End-->
-              <div class="span3" style="margin-top:30px">
+              <div class="span3">
                 <?php $this->load->view('membership/partials/group_resources_p');?>
               </div>
             </div>
@@ -69,6 +82,7 @@
         <!-- // end openable/closable content container --> 
       </div>
     </div>
-<!-- // End group -->
-<div class="separator bottom"></div>
-<div class="separator bottom"></div>
+</div>
+<!-- // End group-1 -->
+</div>
+<!-- // End Dashboard Expand Panels -->

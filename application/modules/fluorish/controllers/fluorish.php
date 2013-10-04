@@ -57,6 +57,10 @@ class Fluorish extends Loggedin_Controller //MY_Controller //CI_Controller
 			$path = base_url().'fluorish_dashboard/common/'; 
 			return $path;
 			}
+		function getAssets(){
+			$path = base_url().'fluorish_dashboard/assets/'; 
+			return $path;
+			}
 			
 		function getTheme(){
 			$path = base_url().'public/themes/fluorish2013/'; 
@@ -91,11 +95,14 @@ function dashboard()
 	{
 		if(isset($this->session->userdata['logged_in']))
 		{
-			//~ $this->load->view('fluorish_gui_header_v.php');	
-			$this->load->view('../../../../fluorish_dashboard/php/pages/header.php');
-			$this->load->view('partials/global_account_header_p.php');
+			//$this->load->view('fluorish_gui_header_v.php');
+			$data = $this->session->userdata['logged_in'];
 			
-			if(isset($this->session->userdata['logged_in']))		
+			$this->load->view('../../../../fluorish_dashboard/php/pages/header.php',$data);
+			
+			$this->load->view('partials/global_account_header_p.php');	
+			
+			if(isset($this->session->userdata['logged_in']))
 			foreach( $this->session->userdata('groups') as $group)
 			{
 				
@@ -125,6 +132,7 @@ function dashboard()
 				$data['dd']['institution_dd'] = $mem_module->institution_dropdown();
 				$this->load->view('backstage/landing_page_v', $data);	
 			}
+				$this->load->view('../../../../fluorish_dashboard/php/pages/search.php');
 				$this->load->view('../../../../fluorish_dashboard/php/pages/footer.php');
 			}
 			else
