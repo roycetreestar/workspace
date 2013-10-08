@@ -231,7 +231,7 @@ die('membership/users/index() would now be redirecting to backstage');
 		return $xml;
 	}
 ////////////////////////////////////////////////////////////////////////
-	function my_account($userid)
+	function my_account($userid = '' )
 	{
 		$mem_module = $this->load->module('membership');
 		$data = $this->users_m->get_user($userid);

@@ -1,7 +1,7 @@
 <?php //	THESE REQUIRED FIELDS WERE NOT FOUND	?>
 
 
-<div class="well span6">
+<div class="well">
 	<h3>These required fields were not found in your spreadsheet:</h3>
 	<hr/>
 	<?php 

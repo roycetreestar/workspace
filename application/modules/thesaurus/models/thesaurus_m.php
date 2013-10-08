@@ -22,7 +22,11 @@ class Thesaurus_m extends CI_Model// MY_Model
 		$this->db->set_dbprefix('');
 		
 	}
-	
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////	GET CANONICAL NAMES	////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 	
 	function get_all_canonical($term)
@@ -39,12 +43,9 @@ class Thesaurus_m extends CI_Model// MY_Model
 		
 		return false;
 	}
-	
 ////////////////////////////////////////////////////////////////////////////////
-	
 	function get_chromes_canonical($term)
-	{
-				
+	{			
 		$this->db->where('chrome_name', urldecode($term) );
 		$this->db->or_where('alternate_name', urldecode($term) );
 		$query = $this->db->get('chromes_alternate_name');
@@ -56,9 +57,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 		}	
 		else return false;
 	}
-
 ////////////////////////////////////////////////////////////////////////////////
-	
 	function get_species_canonical($term)
 	{
 		$this->db->where('species_name', urldecode($term));
@@ -74,9 +73,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 		else return false;
 
 	}
-	
 ////////////////////////////////////////////////////////////////////////////////
-	
 	function get_targets_canonical($term)
 	{
 		$this->db->where('target_name', urldecode($term) );
@@ -89,22 +86,10 @@ class Thesaurus_m extends CI_Model// MY_Model
 			return $result[0]['target_name'];
 		}	
 		else return false;
+	}
 
-	}
-	function get_targets_alternates($term)
-	{
-		//~ $target = $this->get_targets_canonical($term);
-		
-		$this->db->select('alternate_name');
-		$this->db->where('target_name', $term);
-		return $this->db->get('targets_alternate_name')->result_array();
-		
-	}
 	function get_catalog_header_canonical($term)
 	{
-		
-////////////////////////////////////////////////////////////////////////////////
-//		die('got to thesaurus_m/get_catalog_header_canonical(). term:'.$term);
 		$this->db->join('catalog_field_canonical', 'catalog_field_canonical.id = catalog_field_alternate_names.canonical_nameid');
 		$this->db->where('canonical_name', urldecode($term) );
 		$this->db->or_where('alternate_name', urldecode($term) );
@@ -113,15 +98,177 @@ class Thesaurus_m extends CI_Model// MY_Model
 		if ($query->num_rows() > 0)
 		{
 			$result = $query->result_array();
-
 			return $result[0]['canonical_name'];
 		}	
 		else 
 			return false;
+	}
+	
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////	GET ALTERNATE NAMES	////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+	function get_all_alternates($term)
+	{
+		$chrome =  $this->get_chrome_alternates($term);
+		if($chrome) return $chrome;
+		$target = $this->get_target_alternates($term);
+		if($target) return $target;
+		$species = $this->get_species_alternates($term);
+		if($species) return $species;
+		$cat_head = $this->get_catalog_header_alternates($term);
+		if($cat_head) return $cat_head;		
+	//if none of these has a result, we don't know that term	
+		return false;
+	}
+	function get_chrome_alternates($term)
+	{
+		$this->db->where('chrome_name', urldecode($term) );
+		$this->db->or_where('alternate_name', urldecode($term) );
+		$query = $this->db->get('chromes_alternate_name')->row_array();
 		
-
+		
+		if ($query)//->num_rows() > 0)
+		{
+//~ die($query['chrome_name']);
+			$canonical = $query['chrome_name'];
+			
+			$this->db->where('chrome_name', $canonical);
+			$result = $this->db->get('chromes_alternate_name')->result_array();
+			
+			//~ $result = $query->result_array();
+			return $result;
+		}	
+		else return false;
 	}
 ////////////////////////////////////////////////////////////////////////////////
+	function get_species_alternates($term)
+	{
+		//~ $this->db->where('species_name', urldecode($term));
+		//~ $this->db->or_where('alternate_name', urldecode($term) );
+		//~ $query = $this->db->get('species_alternate_name');
+				//~ 
+		//~ if ($query->num_rows() > 0)
+		//~ {
+			//~ $result = $query->result_array();
+			//~ return $result;
+		//~ }	
+		//~ else return false;
+		$this->db->where('species_name', urldecode($term) );
+		$this->db->or_where('alternate_name', urldecode($term) );
+		$query = $this->db->get('species_alternate_name')->row_array();
+		
+		
+		if ($query)//->num_rows() > 0)
+		{
+//~ die($query['chrome_name']);
+			$canonical = $query['species_name'];
+			
+			$this->db->where('species_name', $canonical);
+			$result = $this->db->get('species_alternate_name')->result_array();
+			
+			//~ $result = $query->result_array();
+			return $result;
+		}	
+		else return false;
+	}
+////////////////////////////////////////////////////////////////////////////////
+	function get_target_alternates($term)
+	{
+		//~ // $this->db->select('alternate_name');
+		//~ // $this->db->where('target_name', $term);
+		//~ // return $this->db->get('targets_alternate_name')->result_array();	
+		//~ $this->db->where('target_name', urldecode($term) );
+		//~ $this->db->or_where('alternate_name', urldecode($term) );
+		//~ $query = $this->db->get('targets_alternate_name');
+		//~ 
+		//~ if ($query->num_rows() > 0)
+		//~ {
+			//~ $result = $query->result_array();
+			//~ return $result;
+		//~ }	
+		//~ else return false;	
+		$this->db->where('target_name', urldecode($term) );
+		$this->db->or_where('alternate_name', urldecode($term) );
+		$query = $this->db->get('targets_alternate_name')->row_array();
+		
+		
+		if ($query)//->num_rows() > 0)
+		{
+//~ die($query['chrome_name']);
+			$canonical = $query['target_name'];
+			
+			$this->db->where('target_name', $canonical);
+			$result = $this->db->get('targets_alternate_name')->result_array();
+			
+			//~ $result = $query->result_array();
+			return $result;
+		}	
+		else return false;
+	}
+////////////////////////////////////////////////////////////////////////////////
+	function get_application_alternates($term)
+	{
+		//~ $this->db->join('catalog_applications', 'catalog_applications.id = catalog_application_alternate_names.application_id');
+		//~ $this->db->where('name', urldecode($term) );
+		//~ $this->db->or_where('alternate_name', urldecode($term) );
+		//~ $query = $this->db->get('catalog_application_alternate_names');
+		
+		$this->db->where('alternate_name', urldecode($term));
+		$app_id = $this->db->get('catalog_application_alternate_names');
+		if($app_id->num_rows() <1)
+			return false;
+		else
+		{
+			$app_id = $app_id->result_array();
+			$app_id = $app_id[0]['application_id'];
+		}
+		$this->db->join('catalog_applications', 'catalog_applications.id = catalog_application_alternate_names.application_id');
+		$this->db->where('application_id', $app_id);
+		$query = $this->db->get('catalog_application_alternate_names');
+		
+//~ die('thesaurus_m/get_application_alternates() <br/>$term:'.$term.'<br/> $query:<br/><textarea>'.print_r($query->result_array(), true).'</textarea>');
+		if ($query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+			return $result;
+		}	
+		else 
+			return false;
+	}
+	
+	function get_catalog_header_alternates($term)
+	{
+		$this->db->join('catalog_field_canonical', 'catalog_field_canonical.id = catalog_field_alternate_names.canonical_nameid');
+		$this->db->where('canonical_name', urldecode($term) );
+		$this->db->or_where('alternate_name', urldecode($term) );
+		$query = $this->db->get('catalog_field_alternate_names');
+		
+		if ($query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+			return $result;
+		}	
+		else 
+			return false;
+	}
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////	DO THINGS EXIST?	////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+	function exists_application($term)
+	{
+		$this->db->where('alternate_name', $term);
+		$query = $this->db->get('catalog_application_alternate_names');
+		if($query->num_rows() > 0)
+			return true;
+		else
+			return false;
+	}
 	function exists_clone($term)
 	{
 		$this->db->where('clone_name', $term);
@@ -140,12 +287,17 @@ class Thesaurus_m extends CI_Model// MY_Model
 		$this->db->where('chrome_name', $term);
 		$query = $this->db->get('chromes');
 		if($query->num_rows() > 0)
+		{	
+			//~ die('chrome exists');
 			return true;
-		
+		}
 		$this->db->where('alternate_name', $term);
 		$query = $this->db->get('chromes_alternate_name');
 		if($query->num_rows() >0)
+		{	
+			//~ die('chrome alternate name exists');
 			return true;
+		}
 		
 		//~ $this->db->where('exception_name', $term);
 		//~ $query = $this->db->get('chrome_exceptions');
@@ -200,7 +352,12 @@ class Thesaurus_m extends CI_Model// MY_Model
 			return false;	
 	}
 	
-	
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+///////////////////		HELPERS			 ///////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////	
 	function get_applicationid($application_name)
 	{
 		$this->db->where('alternate_name', $application_name);
@@ -209,13 +366,14 @@ class Thesaurus_m extends CI_Model// MY_Model
 		{
 			$result = $query->result_array();
 //die('result_array:<textarea>'.print_r($query->result_array(), true).'</textarea>');
-			return $result[0]['applicationid'];
+			return $result[0]['application_id'];
 		}
 		else
 			return false;
 		
 	}
-		function get_categoryid($category_name)
+////////////////////////////////////////////////////////////////////////////////
+	function get_categoryid($category_name)
 	{
 		$this->db->where('category_alternate_name', $category_name);
 		$query = $this->db->get('catalog_category_alternate_names');
@@ -232,11 +390,26 @@ class Thesaurus_m extends CI_Model// MY_Model
 	
 	
 	
-	
+	 
 ////////////////////////////////////////////////////////////////////////////////
-///////////	INSERTS	///////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+///////////		INSERTS		////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////	
+////////////////////////////////////////////////////////////////////////////////
 	
+	function insert_cat_head_alternate($data)
+	{
+//~ die('thesaurus_m/insert_cat_head_alternate() $data:<br/><textarea>'.print_r($data, true).'</textarea>');
+		$this->db->set('canonical_nameid', $data['canonical_name']);
+		$this->db->set('alternate_name', $data['alternate_name']);
+		
+		$this->db->insert('catalog_field_alternate_names');
+
+		if($this->db->affected_rows() > 0)
+			return true;
+		else 
+			return false;			
+	}
 	function insert_chrome($data)
 	{
 		
@@ -337,10 +510,52 @@ class Thesaurus_m extends CI_Model// MY_Model
 			return false;
 	}
 	
+	function insert_application($data)
+	{ 
+//~ die('thesaurus_m/insert_application()<br/><textarea>'.print_r($data, true).'</textarea>');
+		$this->db->set('name', $data['name']);
+		$this->db->insert('catalog_applications');
+		
+		if($this->db->affected_rows() >0)
+		{
+			$data['application_id'] = $this->db->insert_id();
+			$data['alternate_name'] = $data['name'];
+			$alt_result = $this->insert_applications_alternate($data);
+			if($alt_result)
+				return true;
+		}
+		return false;
+	}
+	function insert_applications_alternate($data)
+	{
+		$this->db->set('application_id', $data['application_id']);
+		$this->db->set('alternate_name', $data['alternate_name']);
+		
+		$this->db->insert('catalog_application_alternate_names');
+		
+		if($this->db->affected_rows() >0)
+			return true;
+		else
+			return false;
+	}
 	
+	
+	
+	
+	
+	
+	function get_all_cat_heads()
+	{
+		$this->db->order_by('canonical_name', 'asc');
+		return $this->db->get('catalog_field_canonical')->result_array();
+	}
+	function get_all_applications()
+	{
+		return $this->db->get('catalog_applications')->result_array();
+	}
 	function get_all_chromes()
 	{
-	return $this->db->get('chromes')->result_array();
+		return $this->db->get('chromes')->result_array();
 	}
 	function get_all_species()
 	{

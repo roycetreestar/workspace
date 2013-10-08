@@ -62,6 +62,29 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		return $this->load->view('partials/thesaurus_targets_p', $this->data, true);
 	}
+	
+	
+	function get_catalog_header_alternates_lookup_form()
+	{
+		return $this->load->view('partials/thesaurus_catalog_header_alternates_p', $this->data, true);
+	}
+	function get_chrome_alternates_lookup_form()
+	{
+		return $this->load->view('partials/thesaurus_chrome_alternates_p', $this->data, true);
+	}
+	//~ function get_clone_alternates_lookup_form()
+	//~ {
+		//~ return $this->load->view('partials/thesaurus_clone_alternates_p', $this->data, true);
+	//~ }
+	function get_species_alternates_lookup_form()
+	{
+		return $this->load->view('partials/thesaurus_species_alternates_p', $this->data, true);
+	}
+	function get_target_alternates_lookup_form()
+	{
+		return $this->load->view('partials/thesaurus_target_alternates_p', $this->data, true);
+	}
+	
 //////////////////////////////////////////////////////////////////////////////////////////
 /**
  * if the second parameter, $return, is set true, the value will be returned.
@@ -154,7 +177,29 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		}
 	}
 	
-	
+	function get_catalog_header_alternates($searchterm='', $return=false)
+	{
+		if($searchterm === '')
+			$searchterm = $this->input->get('search_string');
+
+		$result = $this->thesaurus_m->get_catalog_header_alternates($searchterm);
+		
+		if($return)
+		{
+			if($result)				return $result;
+			else 					return $result;
+		}
+		else 
+		{
+			$returnable = 'Canonical Name: '.$result[0]['canonical_name'].'<br/>';
+			foreach($result as $r)
+			{
+				$returnable.= '<br/>'.$r['alternate_name'];
+			}
+			if(!$result)			echo 'no results found';
+			else					echo $result;
+		}
+	}
 //////////////////////////////////////////////////////////////////////////////////////////
 /**
  * if the second parameter, $return, is set true, the value will be returned.
@@ -182,7 +227,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 				echo $result;
 		}
 	}
-	
+
 	
 //////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -257,14 +302,130 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 ///////////////////		ALTERNATE NAMES		/////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+	function get_application_alternate_names($searchterm='', $return=false)
+	{
+		if($searchterm === '')
+			$searchterm = $this->input->get('search_string');
+//die('search_string: '.$searchterm);
+		$result = $this->thesaurus_m->get_application_alternates(trim($searchterm));
+		
+		if($return)
+		{
+			if($result)
+				return $result;
+			else 
+				return $result;
+		}
+		else 
+		{
+			if(!$result)
+				echo 'no result found';
+			else
+			{
+//~ die('thesaurus/get_chrome_alternates() got a result:<br/><textarea>'.print_r($result, true).'</textarea>');
+				$returnable = '<strong>canonical name:</strong> '.$result[0]['name'].'<br/><br/><strong>alternate names:</strong>';
+				foreach($result as $application)
+					$returnable.= '<br/>'.$application['alternate_name'];
+				echo $returnable;
+			}
+		}
+	}
+	
+/////////////////////////////////////////////////////////////////////////
 	function get_target_alternates($searchterm)
 	{
 		$target = $this->get_target_canonical($searchterm, true);
 		return $this->thesaurus_m->get_targets_alternates($target);
 	}
 
+/////////////////////////////////////////////////////////////////////////
+	function get_chrome_alternate_names($searchterm='', $return=false)
+	{
+		if($searchterm === '')
+			$searchterm = $this->input->get('search_string');
+//die('search_string: '.$searchterm);
+		$result = $this->thesaurus_m->get_chrome_alternates(trim($searchterm));
+		
+		if($return)
+		{
+			if($result)
+				return $result;
+			else 
+				return $result;
+		}
+		else 
+		{
+			if(!$result)
+				echo 'no result found';
+			else
+			{
+//~ die('thesaurus/get_chrome_alternates() got a result:<br/><textarea>'.print_r($result, true).'</textarea>');
+				$returnable = '<strong>canonical name:</strong> '.$result[0]['chrome_name'].'<br/><br/><strong>alternate names:</strong>';
+				foreach($result as $chrome)
+					$returnable.= '<br/>'.$chrome['alternate_name'];
+				echo $returnable;
+			}
+		}
+	}
 
-
+/////////////////////////////////////////////////////////////////////////
+	function get_species_alternate_names($searchterm='', $return=false)
+	{
+		if($searchterm === '')
+			$searchterm = $this->input->get('search_string');
+//die('search_string: '.$searchterm);
+		$result = $this->thesaurus_m->get_species_alternates(trim($searchterm));
+		
+		if($return)
+		{
+			if($result)
+				return $result;
+			else 
+				return $result;
+		}
+		else 
+		{
+			if(!$result)
+				echo 'no result found';
+			else
+			{
+//~ die('thesaurus/get_chrome_alternates() got a result:<br/><textarea>'.print_r($result, true).'</textarea>');
+				$returnable = '<strong>canonical name:</strong> '.$result[0]['species_name'].'<br/><br/><strong>alternate names:</strong>';
+				foreach($result as $species)
+					$returnable.= '<br/>'.$species['alternate_name'];
+				echo $returnable;
+			}
+		}
+	}
+/////////////////////////////////////////////////////////////////////////
+	function get_target_alternate_names($searchterm='', $return=false)
+	{
+		if($searchterm === '')
+			$searchterm = $this->input->get('search_string');
+//die('search_string: '.$searchterm);
+		$result = $this->thesaurus_m->get_target_alternates(trim($searchterm));
+		
+		if($return)
+		{
+			if($result)
+				return $result;
+			else 
+				return $result;
+		}
+		else 
+		{
+			if(!$result)
+				echo 'no result found';
+			else
+			{
+//~ die('thesaurus/get_chrome_alternates() got a result:<br/><textarea>'.print_r($result, true).'</textarea>');
+				$returnable = '<strong>canonical name:</strong> '.$result[0]['target_name'].'<br/><br/><strong>alternate names:</strong>';
+				foreach($result as $target)
+					$returnable.= '<br/>'.$target['alternate_name'];
+				echo $returnable;
+			}
+		}
+	}
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 //////////	DO THINGS EXIST ?	/////////////////////////////////////////
@@ -323,6 +484,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 				  //~ $this->load->view('partials/new_targets_alternates_form_p', $this->data);
 				break;
 			case 'all_forms':
+				$returnable .= $this->get_catalog_header_alternates_form();
 				$returnable  = $this->get_chromes_form();
 				$returnable .= $this->get_chrome_alternates_form();
 				$returnable .= $this->get_species_form();
@@ -354,14 +516,24 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		return $this->load->view('partials/new_catalog_headers_alternates_form_p', $this->data, true);
 	}
+	function get_application_alternates_form()
+	{
+		$this->data['applications_dd'] = $this->applications_dropdown();
+		
+		return $this->load->view('partials/new_applications_alternates_form_p', $this->data, true);
+	}
 	function get_chromes_form()
 	{
 		return $this->load->view('partials/new_chrome_form_p', $this->data, true);
 	}
-	function get_chromes_alternates_form()
+	function get_chromes_alternates_form($return_type = 'return')
 	{
 		$this->data['chromes_dd'] = $this->chromes_dropdown();
-		return  $this->load->view('partials/new_chrome_alternates_form_p', $this->data, true);
+		
+		if($return_type == 'ajax')
+			die( $this->load->view('partials/new_chrome_alternates_form_p', $this->data, true));
+		else if($return_type == 'return')
+			return  $this->load->view('partials/new_chrome_alternates_form_p', $this->data, true);
 	}
 	function get_clones_form()
 	{
@@ -375,19 +547,25 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		return $this->load->view('partials/new_species_form_p', $this->data, true);
 	}
-	function get_species_alternates_form()
+	function get_species_alternates_form($return_type = 'return')
 	{
 		$this->data['species_dd'] = $this->species_dropdown();
-		return $this->load->view('partials/new_species_alternates_form_p', $this->data, true);
+		if($return_type == 'ajax')
+			die( $this->load->view('partials/new_species_alternates_form_p', $this->data, true));
+		else if($return_type == 'return')
+			return $this->load->view('partials/new_species_alternates_form_p', $this->data, true);
 	}
 	function get_targets_form()
 	{
 		return $this->load->view('partials/new_target_form_p', $this->data, true);
 	}
-	function get_targets_alternates_form()
+	function get_targets_alternates_form($return_type = 'return')
 	{
 		$this->data['targets_dd'] = $this->targets_dropdown();
-		return  $this->load->view('partials/new_target_alternates_form_p', $this->data, true);
+		if($return_type == 'ajax')
+			die(  $this->load->view('partials/new_target_alternates_form_p', $this->data, true));
+		else if($return_type == 'return')
+			return  $this->load->view('partials/new_target_alternates_form_p', $this->data, true);
 	}
 /**
  * 
@@ -398,6 +576,12 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		switch($this->input->get('add_type'))
 		{
+			case 'cat_head_alt':
+				if($this->add_new_catalog_header_alternate() )
+					echo 'success';
+				else
+					echo $this->db->_error_message() ;  
+				break;
 			case 'chrome':
 				if($this->add_new_chrome() )
 					echo 'success';
@@ -434,9 +618,40 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 				else
 					echo $this->db->_error_message() ;  
 				break;
+			case 'application':
+				if($this->add_new_application())
+					echo 'success';
+				else
+					echo $this->db->_error_message() ;
+				break;
+			case 'applications_alt':
+				if($this->add_new_application_alternate() )
+					echo 'success';
+				else
+					echo $this->db->_error_message() ;  
+				break;
 		}
 	}
 	
+	function add_new_catalog_header_alternate($cat_head_name ='', $alternate_name='')
+	{
+		if($cat_head_name === '' && $alternate_name === '')
+		{
+			$data['canonical_name'] = trim($this->input->get('cat_head_name'));
+			$data['alternate_name'] = trim($this->input->get('alternate_name'));
+		}
+		else 
+		{
+			$data['chrome_name'] = trim($cat_head_name);
+			$data['alternate_name'] = trim($alternate_name);
+		}
+		$result = $this->thesaurus_m->insert_cat_head_alternate($data);
+//		if($result)
+			return $result;
+//
+//		else 
+//			echo $this->db->_error_message() ;  
+	}
 	function add_new_chrome()
 	{
 		$data['chrome_name'] = trim($this->input->get('name'));
@@ -512,14 +727,56 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		return $result;
 	}
 	
+	function add_new_application()
+	{
+		
+		$data['name'] = trim($this->input->get('application_name'));
+		
+		$result = $this->thesaurus_m->insert_application($data);
+		return $result;
+	}
+	function add_new_application_alternate()
+	{
+		$data['application_id'] = trim($this->input->get('application_id'));
+		$data['alternate_name'] = trim($this->input->get('alernate_name'));
+		
+		$result = $this->thesaurus_m->insert_applications_alternate($data);
+		return $result;
+	}
 	
-
+ 
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 ////////////	DROPDOWNS			 /////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
+	function catalog_header_dropdown()
+	{
+		$cat_head_arr = $this->thesaurus_m->get_all_cat_heads();	// FYI: cat_heads are catalog_headers. cat_heads are funnier, though
+
+		$dd = '<select name="cat_head_name">';
+		foreach($cat_head_arr as $cat_head)
+		{
+			$dd.= '<option value="'.$cat_head['id'].'">'.$cat_head['canonical_name'].'</option>';
+		}
+		$dd .= '</select>';
+		
+		return $dd;
+	}
+	function applications_dropdown()
+	{
+		$applications_arr = $this->thesaurus_m->get_all_applications();
+		
+		$dd = '<select name="application_name">';
+		foreach($applications_arr as $application)
+		{
+			$dd.= '<option value="'.$application['id'].'">'.$application['name'].'</option>';
+		}
+		$dd .= '</select>';
+		
+		return $dd;
+	}
 	function chromes_dropdown()
 	{
 		$chromes_arr = $this->thesaurus_m->get_all_chromes();

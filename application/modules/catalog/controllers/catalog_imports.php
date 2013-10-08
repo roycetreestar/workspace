@@ -63,7 +63,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 		$this->load->model('target_species_model');
 		$this->load->model('product_species_model');
 		
-		$this->load->module('thesaurus');
+		$this->thesaurus_module = $this->load->module('thesaurus');
 		$this->load->model('thesaurus/thesaurus_m');
 		
 		// load the thesaurus module to access its controller's functions
@@ -74,11 +74,14 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 		$this->data['errors']['upload_errors'] = array();
 		$this->data['errors']['parse_errors'] = array();
 		$this->data['errors']['unknown_fields'] = array();
+		$this->data['errors']['bad_application'] = array();
 		$this->data['errors']['missing_fields'] = array();
 		$this->data['errors']['missing_targets'] = array();
 		$this->data['errors']['missing_chromes'] = array();
 		$this->data['errors']['missing_clones'] = array();
 		$this->data['errors']['missing_species'] = array();
+		
+		
 		$this->data['excluded_rows'] = array();
 		
 		$this->spreadsheet_arr = array();
@@ -90,7 +93,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 		//catalogs can be big and imports can take a while, so bump up the max_execution_time for the duration of the import
 		ini_set('max_execution_time', 300);
 	}
-
+ 
 ////////////////////////////////////////////////////////////////////////////////
 /**
  * 
@@ -139,20 +142,22 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 				}
 				
 	
-				
+//~ die('catalog_imports/index()<br/>before saving, these are the errors found:<br/><textarea style="width:80%; height:80%;">'.print_r($this->data, true).'</textarea>');			
 			//if error-free, do the insert with rollback
 			// 'error-free' in this case doesn't care about unknown_fields, which won't be imported anyway
-				if(	   count($this->data['errors']['upload_errors'])	 == 0 
+				if(	   count($this->data['errors']['upload_errors'])   == 0 
 					&& count($this->data['errors']['missing_fields'])  == 0 
 					&& count($this->data['errors']['missing_targets']) == 0 
 					&& count($this->data['errors']['missing_chromes']) == 0 
-					&& count($this->data['errors']['missing_species']) == 0 )
+					&& count($this->data['errors']['missing_species']) == 0 
+					&& count($this->data['errors']['bad_application']) == 0	)
 				{
 					$this->do_insert();
 				}
 			//if there are errors, alert the user in the missing_X_p
 				else 
 				{	
+					
 					if(count($this->data['errors']['missing_chromes']) > 0)
 					{
 						$this->data['chromes_dd'] = $this->thesaurus->chromes_dropdown();
@@ -160,6 +165,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 						$this->data['missing_chromes_p'] = $this->load->view( 'partials/missing_chromes_p', $this->data, true);
 						$this->data['new_chromes_form_p'] = $this->load->view(  'thesaurus/partials/new_chrome_form_p', $this->data, true);
 						$this->data['new_chrome_alternates_form_p'] = $this->load->view( 'thesaurus/partials/new_chrome_alternates_form_p', $this->data, true);
+						$this->data['thesaurus_chrome_alternates_p'] = $this->load->view('thesaurus/partials/thesaurus_chrome_alternates_p', $this->data, true);
 					}
 					if(count($this->data['errors']['missing_targets']) > 0)
 					{
@@ -168,6 +174,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 						$this->data['missing_targets_p'] = $this->load->view('partials/missing_targets_p', $this->data, true);
 						$this->data['new_targets_form_p'] = $this->load->view( 'thesaurus/partials/new_target_form_p', $this->data, true);
 						$this->data['new_targets_alternates_form_p'] = $this->load->view( 'thesaurus/partials/new_target_alternates_form_p', $this->data, true);
+						$this->data['thesaurus_target_alternates_p'] = $this->load->view('thesaurus/partials/thesaurus_target_alternates_p', $this->data, true);
 
 					}
 					if(count($this->data['errors']['missing_species']) > 0)
@@ -177,14 +184,27 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 						$this->data['missing_species_p'] = $this->load->view( 'partials/missing_species_p', $this->data, true);
 						$this->data['new_species_form_p'] = $this->load->view( 'thesaurus/partials/new_species_form_p', $this->data, true);
 						$this->data['new_species_alternates_form_p'] = $this->load->view( 'thesaurus/partials/new_species_alternates_form_p', $this->data, true);
-						
+						$this->data['thesaurus_species_alternates_p'] = $this->load->view('thesaurus/partials/thesaurus_species_alternates_p', $this->data, true);
 					}
 					if(count($this->data['errors']['missing_fields']) > 0)
+					{
 						$this->data['missing_fields_p'] = $this->load->view( 'partials/missing_fields_p', $this->data, true);
+					}
 					if(count($this->data['errors']['upload_errors']) > 0)
+					{	
 						$this->data['upload_errors_p'] = $this->load->view( 'partials/upload_errors_p', $this->data, true);
+					}
 					if(count($this->data['errors']['parse_errors']) > 0)
+					{
 						$this->data['parse_errors_p'] = $this->load->view( 'partials/parse_errors_p', $this->data, true);
+					}
+					if(count($this->data['errors']['bad_application']) > 0)
+					{
+						$this->data['unknown_applications_p'] = $this->load->view( 'partials/unknown_applications_p', $this->data, true);
+						$this->data['new_application_alternates_form_p'] = $this->thesaurus_module->get_application_alternates_form();
+						$this->data['new_applications_form_p'] = $this->load->view('thesaurus/partials/new_application_form_p', $this->data, true);
+						$this->data['thesaurus_application_alternates_p'] = $this->load->view('thesaurus/partials/thesaurus_application_alternates_p', $this->data, true);
+					}
 				}
 			}
 			else//there were upload errors
@@ -206,16 +226,25 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 			//~ ->build('cat_import_view', $this->data);
 			
 			
-			
-			
-$this->load->view('header_v', $this->data);
+/* if we're not processing a file yet, just show the upload_form_partial */			
+if(!isset($_FILES['file']))			
+{	
+	$this->load->view('header_v', $this->data);
 
-$this->data['upload_form_partial'] = $this->load->view('partials/upload_form_partial', $this->data, true);
-$this->data['choose_file_partial'] = $this->load->view('partials/choose_file_partial', $this->data, true);
-$this->data['excluded_products_p'] = $this->load->view('partials/excluded_products_p', $this->data, true);
-$this->data['unknown_fields_p'] = $this->load->view('partials/unknown_fields_p', $this->data, true);
-
-$this->load->view('cat_import_view', $this->data);
+	$this->data['upload_form_partial'] = $this->load->view('partials/upload_form_partial', $this->data, true);
+	$this->load->view('cat_import_view', $this->data);
+}
+/* if we ARE processing a form, load everything else*/
+else
+{
+//~ $this->data['choose_file_partial'] = $this->load->view('partials/choose_file_partial', $this->data, true);
+	$this->data['excluded_products_p'] = $this->load->view('partials/excluded_products_p', $this->data, true);
+	$this->data['unknown_fields_p'] = $this->load->view('partials/unknown_fields_p', $this->data, true);
+	$this->data['cat_heads_dd'] = $this->thesaurus->catalog_header_dropdown();
+	$this->data['new_cat_head_alternates_form_p'] = $this->load->view('thesaurus/partials/new_catalog_headers_alternates_form_p', $this->data, true);
+	$this->load->view('cat_import_results_view', $this->data);
+}
+//~ $this->load->view('cat_import_view', $this->data);
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
@@ -329,14 +358,26 @@ $this->load->view('cat_import_view', $this->data);
 		$this->load->model('clone_exceptions_model');
 		$catalog_number;
 		$weblink;
+		$application;
+		$validateme = true; 	//if the product is not for Flow Cytometry applications, switch this to false to skip checks for exceptions
 
 	//for each row...
 		for($row=2; $row < $this->highestRow; $row++)		
-		{//for each column in the row, find the catalog number and weblink in case of exceptions	coming before the target, clone, or chrome column
+		{
+			$validateme = true;
+	//for each column in the row, find the catalog number and weblink in case of exceptions	coming before the target, clone, or chrome column
 			for($col=0; $col<$this->highestColumnIndex; $col++)
 			{
 				if(array_key_exists($col, $this->validated_fields ) )
 				{
+				//~ if($this->validated_fields[$col] === 'applications' && $this->spreadsheet_arr[$row][$col] !== 'FC')
+					if($this->validated_fields[$col] === 'applications') //'Flow Cytometry')
+					{
+						if(	$this->thesaurus_m->exists_application($this->spreadsheet_arr[$row][$col])
+							&& $this->thesaurus_m->get_applicationid($this->spreadsheet_arr[$row][$col]) !== '1'
+							)
+							$validateme = false;
+					}
 					if($this->validated_fields[$col] === 'catalog_number')
 						$catalog_number = $this->spreadsheet_arr[$row][$col];
 					if($this->validated_fields[$col] === 'product_url')
@@ -344,35 +385,64 @@ $this->load->view('cat_import_view', $this->data);
 				}
 
 			}
-		//for each column in the row find exceptions	
-			for($col=0; $col<$this->highestColumnIndex; $col++)		
+			if($validateme)
 			{
-				$this_item = $this->spreadsheet_arr[$row][$col];
-				if(array_key_exists($col,$this->validated_fields))
+			//for each column in the row find exceptions	
+				for($col=0; $col<$this->highestColumnIndex; $col++)		
 				{
-					switch($this->validated_fields[$col])
+					$this_item = $this->spreadsheet_arr[$row][$col];
+					if(array_key_exists($col,$this->validated_fields))
 					{
-						case 'target':
-							$this->validate_target($this_item, $catalog_number, $weblink);
-							break;
-						case 'format':
-							$this->validate_chrome($this_item, $catalog_number, $weblink);
-							break;
-						case 'clone':
-							$this->validate_clone($this_item, $catalog_number, $weblink);
-							break;
-						case 'target_species':		//fall-through so both species columns run the code here
-						case 'source_species':
-							$this->validate_species($this_item, $catalog_number, $weblink);
-							break;
+						switch($this->validated_fields[$col])
+						{
+							case 'applications':
+								$this->validate_applications($this_item, $catalog_number, $weblink);
+								break;
+							case 'category':
+								$this->validate_categories($this_item, $catalog_number, $weblink);
+								break;
+							case 'target':
+								$this->validate_target($this_item, $catalog_number, $weblink);
+								break;
+							case 'format':
+								$this->validate_chrome($this_item, $catalog_number, $weblink);
+								break;
+							case 'clone':
+								$this->validate_clone($this_item, $catalog_number, $weblink);
+								break;
+							case 'target_species':		//fall-through so both species columns run the code here
+							case 'source_species':
+								$this->validate_species($this_item, $catalog_number, $weblink);
+								break;
+						}
 					}
-				}
-			}
-		}
+				}//end for column in row
+			}//end if($validateme)
+		}// end foreach row
 		
 	}//end function
 	
 ////////////////////////////////////////////////////////////////////////////////
+	function validate_applications($application, $catalog_number, $weblink)
+	{
+		$application = trim($application);
+		$result = $this->thesaurus_m->exists_application($application);
+		if(!$result)
+		{
+			if(!isset($this->data['errors']['bad_application'][$application]	)	)
+				$this->data['errors']['bad_application'][$application] = "APPLICATIONS|".$application."|".$catalog_number."|".$weblink;
+		}
+	}
+	function validate_categories($category, $catalog_number, $weblink)
+	{
+		$category = trim($category);
+		$result = $this->thesaurus_m->exists_category($category);
+		if(!$result)
+		{
+			if(!isset$this->data['errors']['bad_category'][$category]	)	)
+				$this->data['errors']['bad_category'][$category] = "REAGENT_CATEGORY|".$category."|".$catalog_number."|".$weblink;
+		}
+	}
 /**
  * Passes $target to exclude_product() to see if it contains any matches to $EXCLUDE.
  * If a match is not found, checks to see if we know about the chrome. If not, 
@@ -386,7 +456,7 @@ $this->load->view('cat_import_view', $this->data);
 	function validate_target($target, $catalog_number, $weblink)
 	{
 		$target = trim($target);
-		if(!$this->exclude_product($target, 'target', $catalog_number, $weblink) )
+		if($target!= '' && !$this->exclude_product($target, 'target', $catalog_number, $weblink) )
 		{
 			$result = $this->thesaurus_m->exists_target($target);
 			if(!$result)
@@ -411,13 +481,14 @@ $this->load->view('cat_import_view', $this->data);
 	function validate_chrome($chrome, $catalog_number, $weblink)
 	{
 		$chrome = trim($chrome);
-		//if it contains a $EXCLUDE keyword, it fails validation and is put in the excluded_rows array
-		if(!$this->exclude_product($chrome, 'chrome', $catalog_number, $weblink) )
+		//if it isn't an empty field AND it contains a $EXCLUDE keyword, it fails validation and is put in the excluded_rows array
+		if($chrome!='' && !$this->exclude_product($chrome, 'chrome', $catalog_number, $weblink) )
 		{
 		//if we don't know about the chrome, add it to the missing_chromes array
 			$result = $this->thesaurus_m->exists_chrome($chrome);
 			if(!$result)
 			{
+			// don't duplicate entries. 
 				if(!isset($this->data['errors']['missing_chromes'][$chrome] ) )
 					 $this->data['errors']['missing_chromes'][$chrome] = "CHROME|".$chrome."|".$catalog_number."|".$weblink;
 			}
@@ -436,9 +507,9 @@ $this->load->view('cat_import_view', $this->data);
 	{
 		$clone=trim($clone);
 		$result = $this->thesaurus_m->exists_clone($clone);
-		if(!$result)
+		if(!$result )
 		{
-			if(!isset( $this->data['errors']['missing_clones'][$clone] ) )
+			if( !isset( $this->data['errors']['missing_clones'][$clone] ) )
 			{	
 				$this->data['errors']['missing_clones'][$clone] = "CLONE|".$clone."|".$catalog_number."|".$weblink;
 				$this->clones_model->insert($clone);
@@ -452,9 +523,9 @@ $this->load->view('cat_import_view', $this->data);
  * for the product are added to $this->data['errors']['missing_species'] so 
  * it can be reported to the user as not found.
  * 
- * @param type $species
- * @param type $catalog_number
- * @param type $weblink
+ * @param string $species
+ * @param string $catalog_number
+ * @param string $weblink
  */
 	function validate_species($species, $catalog_number, $weblink)
 	{
@@ -462,8 +533,8 @@ $this->load->view('cat_import_view', $this->data);
 		foreach($species_arr as $this_species)
 		{
 			$this_species = trim($this_species);
-			$result = $this->thesaurus_m->exists_species( $this_species );	
-			if(!$result)
+			//~ $result = $this->thesaurus_m->exists_species( $this_species );	
+			if($this_species!='' && !$this->thesaurus_m->exists_species( $this_species ))	//!$result)
 			{
 				if(!isset($this->data['errors']['missing_species'][$this_species] ) )
 				{	
@@ -518,6 +589,7 @@ $this->load->view('cat_import_view', $this->data);
 		$insert=true;
 		$exclude_row = false;
 		$data['vendor_id'] = $this->vendor_id;
+		$data['vendor_name'] = $this->vendors_model->get_vendor_name($data['vendor_id']);
 	
 	//start transaction
 		$this->db->trans_start();
@@ -562,7 +634,7 @@ $this->load->view('cat_import_view', $this->data);
 							$data['unit_size'] = $this_item;
 							break;
 						case 'price':
-							$data['price'] = $this_item;
+							$data['price'] = trim(str_replace('$', '', $this_item));
 							break;
 						case 'product_url':
 							$data['product_url'] = $this_item;
@@ -777,6 +849,7 @@ if(!isset($children['category']))
 		$vendors = $this->vendors_model->read_current();
 		
 		$dd = '<select class="vendor_id_dropdown" id="vendor_id_dropdown" name="vendor_id_dd">
+	<option value="-1">Select a Vendor</option>
 		';
 		foreach ($vendors as $v)
 		{
@@ -874,7 +947,13 @@ if(!isset($children['category']))
 	
 	
 	
-	
+	function strip_price_symbol($price)
+	{
+		$symbols = '$';//array('$', '€', '¢', '£', '¥', '₩', '₪', '฿', '₫', '₴', '₹');
+		
+		$price = strstr($price, '$');
+		return $price;
+	}
 	
 	
 	

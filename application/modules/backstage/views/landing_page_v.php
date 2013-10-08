@@ -21,6 +21,7 @@
 	
 	<div class="span5">
 		<?php $this->load->view('membership/partials/form_user_p', $dd) ?>
+
 	</div>
 	
 	<div class="span5">

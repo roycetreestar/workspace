@@ -46,8 +46,8 @@
 
 
 
-
-
+<!-- the loading spinner gets placed in any partial that's waiting on ajax -->
+<div id="load_spinner" style="display:none"><img src="<?=base_url()?>assets/img/loader.gif" id="loading_indicator"  /></div>
 
 <script>
 	$('#new_chromes_form').submit( function(event)
@@ -55,9 +55,9 @@
 		event.preventDefault();				
 		var values = $(this).serialize();	
 		
-		$('#new_chromes_result').html('');
+		$('#new_chromes_result').html($('#load_spinner').html());
 		
-//alert('submitted');
+//alert('The Spinnie ... it works!');
 		$.ajax(
 		{
 			url: '<?=base_url()?>thesaurus/add_from_form?'+values ,
@@ -78,5 +78,28 @@
 				$('#new_chromes_result').html(error_div).css('color', 'red');
 			}
 		});
+		
+		
+		
+		
+		
+//refresh the chrome_alternates_form if present		
+$('#chrome_alt_container').html($('#load_spinner').html());
+		$.ajax(
+		{
+			url: '<?=base_url()?>thesaurus/get_chromes_alternates_form',
+			type: 'get',
+			success:function(msg)
+			{
+/*
+alert(msg);				
+*/
+		$('#chrome_alt_container').html(msg);
+			}
+			
+		});
+		
+		
+		
 	});
 </script>

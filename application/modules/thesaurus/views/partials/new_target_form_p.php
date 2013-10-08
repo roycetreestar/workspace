@@ -18,6 +18,8 @@
 </div>
 
 
+<!-- the loading spinner gets placed in any partial that's waiting on ajax -->
+<div id="load_spinner" style="display:none"><img src="<?=base_url()?>assets/img/loader.gif" id="loading_indicator"  /></div>
 
 <script>
 	$('#new_target_form').submit( function(event)
@@ -25,7 +27,7 @@
 		event.preventDefault();				
 		var values = $(this).serialize();	
 		
-		$('#new_target_result').html('');
+		$('#new_target_result').html($('#load_spinner').html());
 		
 //alert('submitted');
 		$.ajax(
@@ -36,6 +38,7 @@
 			{
 //alert(msg);				
 		$('#new_target_result').html('New target saved').css('color', 'green');
+		reload_alts();
 			},
 			error: function (msg) 
 			{ 
@@ -49,4 +52,23 @@
 			}
 		});
 	});
+	
+	
+	
+//when the add form is successfully submitted, relaod the add-alternate-name partial so its dropdown has the new term
+	function reload_alts()
+	{	
+	//refresh the targets_alternates_form if present		
+		$('#target_alt_container').html($('#load_spinner').html());
+		$.ajax(
+		{
+			url: '<?=base_url()?>thesaurus/get_targets_alternates_form/ajax',
+			type: 'get',
+			success:function(msg)
+			{
+	//alert(msg);				
+				$('#target_alt_container').html(msg).css('color', 'green');
+			}			
+		});
+	}
 </script>

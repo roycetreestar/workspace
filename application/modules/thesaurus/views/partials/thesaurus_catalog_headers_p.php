@@ -13,7 +13,8 @@
 	</div>
 </div>
 
-
+<!-- the loading spinner gets placed in any partial that's waiting on ajax -->
+<div id="load_spinner" style="display:none"><img src="<?=base_url()?>assets/img/loader.gif" id="loading_indicator"  /></div>
 
 
 

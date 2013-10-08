@@ -63,8 +63,17 @@ class Vendors_model extends CI_Model
 	{
 		$this->db->where('vendor_id', $vendorid);
 		$query = $this->db->get('vendors');
-
-		return $query->row_array();
+		if($query)
+			return $query->row_array();
+		else return false;
+	}
+	function get_vendor_name($vendorid)
+	{
+		$vendor = $this->read_by_id($vendorid);
+		
+		if($vendor)
+			return $vendor['vendor_name'];
+		else return false;
 	}
 /**
  *	Returns an array representing the given row based on vendor name

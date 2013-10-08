@@ -1,17 +1,10 @@
-<?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
 <div class="well" >
-	<span id="new_species_result" ></span>
-	<h3>Add a species</h3>
-	<form action="<?=base_url()?>thesaurus/add_from_form" method="get" id="new_species_form">
-		<input type="hidden" value="species" name="add_type"/>
-		Species Name
-		<input type="text" id="species_name" name="species_name" />
+	<span id="new_application_result" ></span>
+	<h4>Add a product application</h4>
+	<form action="<?=base_url()?>thesaurus/add_from_form" method="get" id="new_application_form">
+		<input type="hidden" value="application" name="add_type"/>
+		Application Name
+		<input type="text" id="application_name" name="application_name" />
 		
 		<input type="submit" />
 	</form>
@@ -23,12 +16,12 @@
 
 
 <script>
-	$('#new_species_form').submit( function(event)
+	$('#new_application_form').submit( function(event)
 	{
 		event.preventDefault();				
 		var values = $(this).serialize();	
 		
-		$('#new_species_result').html($('#load_spinner').html());
+		$('#new_application_result').html($('#load_spinner').html());
 		
 //alert('submitted');
 		$.ajax(
@@ -38,7 +31,7 @@
 			success:function(msg)
 			{
 //alert(msg);				
-		$('#new_species_result').html('New species saved').css('color', 'green');
+		$('#new_application_result').html('New application saved').css('color', 'green');
 		reload_alts();
 			},
 			error: function (msg) 
@@ -49,7 +42,7 @@
 				var end = the_error.indexOf("</div>") + 7;
 				var error_div = the_error.substring(start, end);
 
-				$('#new_species_result').html(error_div).css('color', 'red');
+				$('#new_application_result').html(error_div).css('color', 'red');
 			}
 		});
 		
@@ -59,16 +52,16 @@
 	
 function reload_alts()
 {	
-	//refresh the species_alternates_form if present		
-	$('#species_alt_container').html($('#load_spinner').html());
+	//refresh the application_alternates_form if present		
+	$('#application_alt_container').html($('#load_spinner').html());
 	$.ajax(
 	{
-		url: '<?=base_url()?>thesaurus/get_species_alternates_form/ajax',
+		url: '<?=base_url()?>thesaurus/get_application_alternates_form/ajax',
 		type: 'get',
 		success:function(msg)
 		{
 //alert(msg);				
-			$('#species_alt_container').html(msg);
+			$('#application_alt_container').html(msg);
 		}
 		
 	});

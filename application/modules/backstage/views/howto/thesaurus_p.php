@@ -220,3 +220,4 @@
 		</div>
 
 
+<?=$add_application_alt_form?>

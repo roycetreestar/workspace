@@ -40,20 +40,26 @@ class Catalog_m extends CI_Model
 	function insert($data)
 	{
 		$current_timestamp = date("Y-m-d H:i:s");
-		
+//~ die('catalog_m/insert() $data:<br/><textarea>'.print_r($data, true).'</textarea>');		
 		$this->db->set('catalog_number', $data['catalog_number']);
-		$this->db->set('vendorid', $data['vendorid']);
+		$this->db->set('vendorid', $data['vendor_id']);
+		$this->db->set('vendor_name', $data['vendor_name']);
 		$this->db->set('target', $data['target']);
-		$this->db->set('format', $data['format']);
-		$this->db->set('clone', $data['clone']);
+		if(isset($data['format']))
+			$this->db->set('format', $data['format']);
+		if(isset($data['clone']))
+			$this->db->set('clone', $data['clone']);
 		$this->db->set('isotype', $data['isotype']);
 		$this->db->set('unit_size', $data['unit_size']);
 		$this->db->set('price', $data['price']);
-		$this->db->set('product_url', $data['product_url']);		
-		$this->db->set('source_species', $data['source_species']);
-		$this->db->set('target_species', $data['target_species']);
+		$this->db->set('product_url', $data['product_url']);	
+		if(isset($data['source_species']))
+			$this->db->set('source_species', $data['source_species']);
+		if(isset($data['target_species']))
+			$this->db->set('target_species', $data['target_species']);
 //		$this->db->set('regulatory_statusid', $data['regulatory_statusid']);
 //		$this->db->set('categoryid', $data['categoryid']);
+		if(isset($data['applicationid']))
 		$this->db->set('applicationid', $data['applicationid']);
 		$this->db->set('date_created', $current_timestamp );
 		$this->db->set('date_updated', $current_timestamp );
@@ -76,17 +82,25 @@ class Catalog_m extends CI_Model
 	function update($data)
 	{
 		$current_timestamp = date("Y-m-d H:i:s");
+		//~ $vendor_name = $this->vendors_model->get_vendor_name($data['vendor_id']);
 		
+		
+//~ die('catalog_m/update() <br/>$data:<br/><textarea>'.print_r($data, true).'</textarea>');		
 		$this->db->where('catalog_number', $data['catalog_number']);
-		$this->db->set('vendorid', $data['vendorid']);
+		$this->db->set('vendorid', $data['vendor_id']);
+		$this->db->set('vendor_name', $data['vendor_name'] );
 		$this->db->set('target', $data['target']);
 		$this->db->set('format', $data['format']);
-		$this->db->set('clone', $data['clone']);
-		$this->db->set('isotype', $data['isotype']);
+		if(isset($data['clone']))
+			$this->db->set('clone', $data['clone']);
+		if(isset($data['isotype']))
+			$this->db->set('isotype', $data['isotype']);
 		$this->db->set('unit_size', $data['unit_size']);
 		$this->db->set('price', $data['price']);
-		$this->db->set('product_url', $data['product_url']);		
-		$this->db->set('source_species', $data['source_species']);
+		if(isset($data['product_url']))
+			$this->db->set('product_url', $data['product_url']);
+		if(isset($data['source_species']))
+			$this->db->set('source_species', $data['source_species']);
 		$this->db->set('target_species', $data['target_species']);
 //		$this->db->set('regulatory_statusid', $data['regulatory_statusid']);
 //		$this->db->set('categoryid', $data['categoryid']);

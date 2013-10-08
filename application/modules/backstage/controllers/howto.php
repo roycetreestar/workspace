@@ -196,7 +196,9 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		$data['targets_lookup'] = $this->thesaurus_module->get_target_lookup_form();
 		$data['add_target_form'] = $this->thesaurus_module->get_targets_form();	
 		$data['add_target_alt_form'] = $this->thesaurus_module->get_targets_alternates_form();	
-	
+	//product applications
+		$data['add_application_alt_form'] = $this->thesaurus_module->get_application_alternates_form();
+		
 		$this->load->view('header_v'); 
 		$this->load->view('howto/thesaurus_p', $data);
 		
@@ -271,11 +273,11 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		$data['clones'] = json_encode($all_clones);
 		
 		
-//~ die('backstage/howto/search(): <br/>$data:<textarea style="width:90%; height:90%" >'.print_r($data, true).'</textarea>');		
+die('backstage/howto/search(): <br/>$data:<textarea style="width:90%; height:90%" >'.print_r($data, true).'</textarea>');		
 		$header = $this->load->view('header_v', '', true); 
 		$data['search_partial'] = '<div class="well">'. $this->search_module->get_search_form($data).'</div>';
 		$data['search_results'] = '<div class="well" id="search_results"></div>';
-		$data['userCytometers'] = '<div class="well">'.$this->load->view('backstage/partials/pb_user_cytometers_p', '', true).'</div>';
+		$data['userCytometers'] = '';//'<div class="well">'.$this->load->view('backstage/partials/pb_user_cytometers_p', '', true).'</div>';
 		
 		echo $header;//.$search_partial.$search_results;
 		$this->load->view('backstage_search_v', $data);
