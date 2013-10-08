@@ -439,7 +439,7 @@ else
 		$result = $this->thesaurus_m->exists_category($category);
 		if(!$result)
 		{
-			if(!isset$this->data['errors']['bad_category'][$category]	)	)
+			if(!isset($this->data['errors']['bad_category'][$category]	)	)
 				$this->data['errors']['bad_category'][$category] = "REAGENT_CATEGORY|".$category."|".$catalog_number."|".$weblink;
 		}
 	}
