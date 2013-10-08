@@ -33,6 +33,7 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 	
 ////////////////////////////////////////////////////////////////////////
 
+
 	function index()
 	{
 		$data['vendors'] = $this->vendors_module->get_current_vendors();
@@ -52,6 +53,7 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 		
 		echo '<div class="well">'. $this->search_module->get_search_form($data).'</div>';
 	}
+
 	
 
 	

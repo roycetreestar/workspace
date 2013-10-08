@@ -12,7 +12,9 @@ Class Users_m extends CI_Model
  
 	function login($email, $password)
 	{
+
 		//~ $this->db->select('entity_id, user_name, password');
+
 		$this->db->select('entity_id, user_name, first_name, last_name, phone, status, email, institution, password');
 		$this->db->from('users');
 		$this->db->where('email', $email);

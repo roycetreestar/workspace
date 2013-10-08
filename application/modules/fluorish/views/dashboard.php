@@ -6,6 +6,7 @@ else
 if(isset($_GET["role"]) && trim($_GET["role"]) == 'user'){
 	$role = 'user';
 }
+$role = 'user'
 ?>
 <!-- START Global Account Section -->
 
@@ -70,7 +71,7 @@ if(isset($_GET["role"]) && trim($_GET["role"]) == 'user'){
           <!-- -->
           <div class="row-fluid"> 
             <!-- Dashboard Group Information Left -->
-            <div class="span3 center" style="width:17.077%"> <img width="125" height="91" src="../assets/images/steve-o.jpg">
+            <div class="span3 center" style="width:17.077%"> <img width="125" height="91" src="../../../../fluorish_dashboard/php/assets/images/steve-o.jpg">
               <div class="separator bottom"></div>
               <address class="margin-none">
               <strong>1001 Potrero Avenue</strong><br>
@@ -160,7 +161,7 @@ if(isset($_GET["role"]) && trim($_GET["role"]) == 'user'){
           <!-- -->
           <div class="row-fluid"> 
             <!-- Dashboard Group Information Left -->
-            <div class="span3 center" style="width:17.077%"> <img width="125" height="91" src="../assets/images/johnny_knoxville.jpg">
+            <div class="span3 center" style="width:17.077%"> <img width="125" height="91" src="../../../../fluorish_dashboard/php/assets/images/johnny_knoxville.jpg">
               <div class="separator bottom"></div>
               <address class="margin-none">
               <strong>1001 Potrero Avenue</strong><br>
@@ -252,7 +253,7 @@ if(isset($_GET["role"]) && trim($_GET["role"]) == 'user'){
           <div class="row-fluid"> 
             <!-- Dashboard Group Information Left -->
             <div class="span3 center"><br />
-              <img width="200" height="182" src="../assets/images/UCSF_logo.png">
+              <img width="200" height="182" src="../../../../fluorish_dashboard/php/assets/images/UCSF_logo.png">
               <div class="separator bottom"></div>
               <h4> Division of Experimental Medicine</h4>
               <address class="margin-none">
@@ -331,7 +332,7 @@ if(isset($_GET["role"]) && trim($_GET["role"]) == 'user'){
           <div class="row-fluid"> 
             <!-- Dashboard Group Information Left -->
             <div class="span3 center"> <br />
-              <img width="200" height="182" src="../assets/images/UCSF_logo.png">
+              <img width="200" height="182" src="../../../../fluorish_dashboard/php/assets/images/UCSF_logo.png">
               <div class="separator bottom"></div>
               <h4> Division of Experimental Medicine</h4>
               <address class="margin-none">
@@ -382,4 +383,4 @@ if(isset($_GET["role"]) && trim($_GET["role"]) == 'user'){
   </div>
 </div>
 <!-- // group-2 -->
-<?php include("search.php") ?>
+<?php include("../../../../fluorish_dashboard/php/pages/search.php") ?>

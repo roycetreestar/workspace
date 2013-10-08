@@ -1,17 +1,4 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
-/**
- * CodeIgniter Template Class
- *
- * Build your CodeIgniter pages much easier with partials, breadcrumbs, layouts and themes
- *
- * @package			CodeIgniter
- * @subpackage		Libraries
- * @category		Libraries
- * @author			Philip Sturgeon
- * @license			http://philsturgeon.co.uk/code/dbad-license
- * @link			http://getsparks.org/packages/template/show
- */
 class Template
 {
 	private $_module = '';
@@ -46,7 +33,7 @@ class Template
 	private $_ci;
 
 	private $_data = array();
-
+	
 	/**
 	 * Constructor - Sets Preferences
 	 *
@@ -626,9 +613,14 @@ class Template
 		{
 			return $this->_ci->load->get_var('template_views');
 		}
-
-		// Base view folder
-		$view_folder = APPPATH.'views/';
+		
+		/**
+ 		* Page-level DocBlock
+ 		* @package unfinished
+ 		* @todo finish Base view folder need to make this non hardcoded
+ 		*/
+		$view_folder = APPPATH.'modules/fluorish/views/';
+		
 
 		// Using a theme? Put the theme path in before the view folder
 		if ( ! empty($this->_theme))
@@ -765,6 +757,6 @@ class Template
 	{
 		return pathinfo($file, PATHINFO_EXTENSION) ? '' : '.php';
 	}
-	
 }
+
 // END Template class

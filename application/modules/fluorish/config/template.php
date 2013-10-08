@@ -71,7 +71,7 @@ $config['layout'] = FALSE;
 |
 */
 
-$config['theme'] = 'home';
+$config['theme'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -83,10 +83,8 @@ $config['theme'] = 'home';
 |	Default: array(APPPATH.'themes/' => '../themes/')
 |
 */
-$themes_locations = '../themes';
+
 
 $config['theme_locations'] = array(
-	APPPATH.'../themes/',
-	//APPPATH . $themes_locations .'/' => '../'.$themes_locations.'/'
+	APPPATH.'themes/'
 );
-//print_r($config['theme_locations']);

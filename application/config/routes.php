@@ -39,7 +39,7 @@
 */
 
 //~ $route['default_controller'] = "membership/user_login";
-$route['default_controller'] = "fluorish_gui/dashboard";
+$route['default_controller'] = "fluorish";
 $route['404_override'] = '';
 
 

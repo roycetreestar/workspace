@@ -34,7 +34,7 @@ class Loggedin_Controller extends MY_Controller {
 //~ die('Loggedin_Controller/index()<hr/>');
 		if(!$this->is_logged_in() )
 		{	
-			redirect('fluorish_gui/dashboard');		}	
+			redirect('fluorish/dashboard');		}	
 		else
 		{	$this->get_session();		}
 	}
@@ -61,15 +61,24 @@ class Loggedin_Controller extends MY_Controller {
 		
 		if( $result )
 		{
-			//~ $session_array = array('userid' => $result['entity_id'], 'username' => $result['user_name']);
-			$session_array = array('userid' => $result['entity_id'], 'username' => $result['user_name'], 'first_name'=>$result['first_name'], 'last_name'=>$result['last_name'], 'phone'=>$result['phone'], 'status'=>$result['status'], 'email'=>$result['email'], 'institution'=>$result['institution']);
+			//$session_array = array('userid' => $result['entity_id'], 'username' => $result['user_name']);
 			
+			$session_array = array(
+					'userid' => $result['entity_id'],
+					'username' => $result['user_name'],
+					'first_name'=>$result['first_name'],
+					'last_name'=>$result['last_name'],
+					'phone'=>$result['phone'],
+					'status'=>$result['status'],
+					'email'=>$result['email'],
+					'institution'=>$result['institution']
+					);
 			
 			$this->session->set_userdata('logged_in', $session_array);
 	
 			$this->get_session();
 
-			redirect(base_url());
+			redirect(base_url().'fluorish/dashboard');
 		}
 		else
 		{
@@ -104,7 +113,7 @@ function get_session()
 		$this->session->unset_userdata('logged_in');
 		$this->session->sess_destroy();
 
-		redirect('fluorish_gui/dashboard', 'refresh');
+		redirect('fluorish/dashboard', 'refresh');
 		
 		
 	}

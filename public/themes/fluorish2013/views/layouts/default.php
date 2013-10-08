@@ -48,7 +48,7 @@
 <!-- Nav Toggle on Smartphone END --> 
 
 <!-- Logo --> 
-<a class="brand" href="{{ url:base }}"></a> 
+<a class="brand" href="<?php echo base_url(); ?>"></a> 
 <!-- Logo END --> 
 
 <!-- Nav -->
@@ -62,29 +62,13 @@
 <li class="divider-vertical"></li>
 <li><a href="<?=site_url('fluorish');?>#contact"><i class="icon-comment icon-white"></i>Contact</a></li>
 <li class="divider-vertical"></li>
-<li><a href="<?=site_url('membership');?>"><span class="register btn"> Join Fluorish</span></a></li>
+<li><a href="<?=site_url('fluorish/register');?>"><span class="register btn"> Join Fluorish</span></a></li>
 <li class="divider-vertical"></li>
-<li class="dropdown"> <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-  <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;"> 
-  
-   <?php echo Modules::run( 'membership/membership/login' ); ?>
-  
-    <!-- Login form here 
-    <form action="{{ url:site uri='users/login' }}" class="navbar-search pull-right" method="post" accept-charset="utf-8" id="login-small">
-      <input type="hidden" name="redirect_to" value="{{ url:current }}" />
-      <label>Email Address</label>
-      <input type="text" id="email" name="email" maxlength="120" placeholder="{{ helper:lang line="global:email" }}" />
-      <label>Password</label>
-      <input type="password" id="password" name="password" maxlength="20" placeholder="{{ helper:lang line="global:password" }}" />
-      <input type="submit" value="{{ helper:lang line='user:login_btn' }}" name="btnLogin" class="btn" id="login_nav" />
-      <div id="login">
-        <p>
-          <input type="checkbox" id="remember-checksidebar" name="remember" value="1"  />
-        <hr />
-        <a href="#">Reset Password</a> | <a href="#">Join Fluorish</a>
-        </p>
-      </div>
-    </form>-->
+
+
+<li class="dropdown"> <a data-toggle="dropdown" href="#" class="dropdown-toggle">Sign In <strong class="caret"></strong></a>
+  <div style="padding: 15px; padding-bottom: 0px;" class="dropdown-menu">
+    <?php echo Modules::run( 'membership/membership/login' ); ?>
   </div>
 </li>
 </nav>
@@ -214,7 +198,7 @@
         <h3>PANEL BUILDER</h3>
         <p>This FREE software package is designed to make the process of creating new, or expanding existing, flow cytometry reagent panels easier and faster. Don't reinvent the wheel!<br />
           Use PANEL SHARE to locate existing panels that other researchers have optimized and use them as a starting point.<br>
-          <a href="{{ url:site }}#download">Read More</a> </p>
+          <a href="<?php echo base_url(); ?>#download">Read More</a> </p>
       </div>
       <!-- Feature box 1 END --> 
       
@@ -223,7 +207,7 @@
         <p><img src="<?php echo getTheme(); ?>img/icon-feature2.png"></p>
         <h3>FLUORISH CORES</h3>
         <p>Fluorish Cores allow you to manage and share instruments with your users of the facility.  Users can view the details of the instrumentation and schedule appointments. Managers can track user appointments and create facility reports. <br>
-          <a href="{{ url:site }}fluorishcores ">Read More</a> </p>
+          <a href="<?php echo base_url(); ?>/fluorishcores ">Read More</a> </p>
       </div>
       <!-- Feature box 2 END --> 
       <!-- Feature box 3 -->
@@ -231,7 +215,7 @@
         <p><img src="<?php echo getTheme(); ?>img/icon-feature3.png"></p>
         <h3>FLUORISH LABS</h3>
         <p>Lab members can create a virtual lab inventory to track reagent stocks.  Monitor the use of antibodies, use the titration calculator to quickly update amounts after daily experiment, and set up notifications for reordering.<br />
-          <a href="{{ url:site }}fluorishlabs">Read More</a> </p>
+          <a href="<?php echo base_url(); ?>/fluorishlabs">Read More</a> </p>
       </div>
       <!-- Feature box 3 END --> 
       <!-- Feature box 4 -->
@@ -239,7 +223,7 @@
         <p><img src="<?php echo getTheme(); ?>img/icon-feature4.png"></p>
         <h3>SIMPLIFIED ORDERS</h3>
         <p>Save time and paperwork for you, and your purchasing agent, by submitting a single order to Fluorish.  Fluorish will use your institutional discounts that have been negotiated with each vendor, but process reagents for numerous companies in one order!  Plus, the more people order from Fluorish, the better the discounts.<br />
-          <a href="{{ url:site }}ordering">Read More</a> </p>
+          <a href="<?php echo base_url(); ?>/ordering">Read More</a> </p>
       </div>
       <!-- Feature box 4 END --> 
     </div>
@@ -275,6 +259,7 @@
 		//$search = $this->load->module('membership/groups');
 		//echo $search->edit();
 		//echo Modules::run( 'membership/groups/edit' ); 
+		
 		echo Modules::run( 'search/search/index' );
 		?>
     
@@ -390,16 +375,16 @@
         <h3>Support</h3>
         <ul>
           <li><a href="mailto:support@fluorish.com">Support@Fluorish.com</a></li>
-          <li><a href="{{ url:site }}contact">Leave Feedback or Comments</a></li>
-          <li><a href="{{ url:site }}videos">Videos</a></li>
-          <li><a href="{{ url:site }}faq">FAQ</a></li>
+          <li><a href="<?php echo base_url(); ?>/contact">Leave Feedback or Comments</a></li>
+          <li><a href="<?php echo base_url(); ?>/videos">Videos</a></li>
+          <li><a href="<?php echo base_url(); ?>/faq">FAQ</a></li>
         </ul>
       </div>
       <div class="span4" id="footer_partner">
         <h3>Partner center</h3>
         <ul>
-          <li><a href="{{ url:site }}partner" class="btn">Become a partner</a></li>
-          <li><a href="{{ url:site }}partner/admin/login" class="btn">Partner Dashboard Login</a></li>
+          <li><a href="<?php echo base_url(); ?>/partner" class="btn">Become a partner</a></li>
+          <li><a href="<?php echo base_url(); ?>/partner/admin/login" class="btn">Partner Dashboard Login</a></li>
         </ul>
       </div>
     </div>
@@ -410,7 +395,7 @@
 <footer id="footer">
   <div class="container">
     <div class="row">
-      <div class="span2" id="footer_terms"> <a href="{{ url:site }}privacy">Privacy</a> | <a href="{{ url:site }}terms">Terms</a> </div>
+      <div class="span2" id="footer_terms"> <a href="<?php echo base_url(); ?>/privacy">Privacy</a> | <a href="<?php echo base_url(); ?>/terms">Terms</a> </div>
       <div class="span9">
         <p> &copy; 2013 Fluorish. Design by <a href="http://fluorish.com" rel="nofollow">Fluorish, LLC</a>. All Rights Reserved.</p>
       </div>
@@ -421,7 +406,7 @@
 
 <!-- JavaScript
 ================================================== --> 
-<script src="<?php echo getTheme(); ?>js/jquery-1.8.3.min.js"></script> 
+<script src="<?php echo getTheme(); ?>js/jquery-1.10.2.js"></script> 
 <script src="<?php echo getTheme(); ?>js/bootstrap.min.js"></script> 
 <script src="<?php echo getTheme(); ?>js/jquery.flexslider-min.js"></script> 
 <script src="<?php echo getTheme(); ?>js/jquery.fitvids.js"></script> 
