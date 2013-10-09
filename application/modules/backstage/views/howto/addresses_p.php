@@ -15,6 +15,13 @@
 		<div class=" well span12">
 			<h3>Addresses</h3>
 			this is backstage/views/howto/addresses_p.php
+			The address module can be loaded with 
+			<span class="code"><span style="color:red">$name_I_want_to_call_the_address_module_when_I_reference_it</span> = $this->load_module('addresses');</span><br/>
+			<br/>
+			If your controller extends MY_Controller or Loggedin_Controller, you can load all the modules by calling <br/>
+			$this->load_modules();<br/>
+			from your __construct() function. Then you need to reference the address module with<br/>
+			"$this->address_module->function_name()"
 		</div>
 
 	</div>
@@ -67,7 +74,7 @@
 						<tr><td><strong>function:</strong></td><td>edit($address_id)</td></tr>
 						<tr><td><strong>parameter</strong></td><td>(int)</td><td>$address_id</td></tr>
 						<tr><td><strong>returns:</strong></td><td>(string)</td><td> a string of HTML for the edit-address form</td></tr>
-						<tr><td>In the controller:</td><td colspan="2">$data['display'] = $usermodule->display($userid);</td></tr>
+						<tr><td>In the controller:</td><td colspan="2">$data['display'] = $address_module->display($address_id);</td></tr>
 						<tr><td>In the view:</td><td colspan="2">&lt;div&gt;&lt;?=$display ?&gt;&lt;/div&gt;</td></tr>
 					</table>
 					
@@ -88,7 +95,7 @@
 					<tr><td><strong>function:</strong></td><td>edit($address_id)</td></tr>
 					<tr><td><strong>parameter</strong></td><td>(int)</td><td>$address_id</td></tr>
 					<tr><td><strong>returns:</strong></td><td>(string)</td><td> a string of HTML for the edit-address form</td></tr>
-					<tr><td>In the controller:</td><td colspan="2">$data['edit'] = $usermodule->edit($userid);<br/>or<br/>$data['edit'] = $usermodule->edit();</td></tr>
+					<tr><td>In the controller:</td><td colspan="2">$data['edit'] = $address_module->edit($address_id);<br/>or<br/>$data['edit'] = $address_module->edit();</td></tr>
 					<tr><td>In the view:</td><td colspan="2">&lt;div&gt;&lt;?=$edit ?&gt;&lt;/div&gt;</td></tr>
 				</table>
 				

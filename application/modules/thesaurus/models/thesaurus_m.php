@@ -269,6 +269,15 @@ class Thesaurus_m extends CI_Model// MY_Model
 		else
 			return false;
 	}
+	function exists_category($term)
+	{
+		$this->db->where('alternate_name', $term);
+		$query = $this->db->get('catalog_category_alternate_names');
+		if($query->num_rows() > 0)
+			return true;
+		else
+			return false;
+	}
 	function exists_clone($term)
 	{
 		$this->db->where('clone_name', $term);
@@ -365,7 +374,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 		if($query->num_rows() > 0)
 		{
 			$result = $query->result_array();
-//die('result_array:<textarea>'.print_r($query->result_array(), true).'</textarea>');
+//~ //die('result_array:<textarea>'.print_r($query->result_array(), true).'</textarea>');
 			return $result[0]['application_id'];
 		}
 		else
@@ -375,13 +384,13 @@ class Thesaurus_m extends CI_Model// MY_Model
 ////////////////////////////////////////////////////////////////////////////////
 	function get_categoryid($category_name)
 	{
-		$this->db->where('category_alternate_name', $category_name);
+		$this->db->where('alternate_name', $category_name);
 		$query = $this->db->get('catalog_category_alternate_names');
 		if($query->num_rows() > 0)
 		{
 			$result = $query->result_array();
 //die('result_array:<textarea>'.print_r($query->result_array(), true).'</textarea>');
-			return $result[0]['categoryid'];
+			return $result[0]['category_id'];
 		}
 		else
 			return false;
@@ -532,6 +541,35 @@ class Thesaurus_m extends CI_Model// MY_Model
 		$this->db->set('alternate_name', $data['alternate_name']);
 		
 		$this->db->insert('catalog_application_alternate_names');
+		
+		if($this->db->affected_rows() >0)
+			return true;
+		else
+			return false;
+	}
+	function insert_category($data)
+	{ 
+//~ die('thesaurus_m/insert_application()<br/><textarea>'.print_r($data, true).'</textarea>');
+		$this->db->set('category', $data['category']);
+		$this->db->insert('catalog_category');
+		
+		if($this->db->affected_rows() >0)
+		{
+			$data['category_id'] = $this->db->insert_id();
+			$data['alternate_name'] = $data['name'];
+			$alt_result = $this->insert_category_alternate($data);
+			if($alt_result)
+				return true;
+		}
+		else
+			return false;
+	}
+	function insert_category_alternate($data)
+	{
+		$this->db->set('category_id', $data['category_id']);
+		$this->db->set('alternate_name', $data['alternate_name']);
+		
+		$this->db->insert('catalog_category_alternate_names');
 		
 		if($this->db->affected_rows() >0)
 			return true;

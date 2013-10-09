@@ -35,6 +35,9 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 	private	$column_headers = array();
 	private	$validated_fields = array();					//correlates the column number (0, 1, 2, ...) with the canonical name of the column
 
+	private $update_num = 0;
+	private $insert_num = 0;
+	private $exclude_num = 0;
 	
 	
 	private	$uploads_folder = "uploads/catalog/";
@@ -47,7 +50,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 	
 //	private $excluded_rows = array();						//stores product_numbers of rows that match $EXCLUDE so they won't be imported during do_insert();
 	
-
+ 
 //////////////////////////////////////////////////////////////////////////////////////////
 	function __construct()
 	{
@@ -75,6 +78,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 		$this->data['errors']['parse_errors'] = array();
 		$this->data['errors']['unknown_fields'] = array();
 		$this->data['errors']['bad_application'] = array();
+		$this->data['errors']['bad_category'] = array();
 		$this->data['errors']['missing_fields'] = array();
 		$this->data['errors']['missing_targets'] = array();
 		$this->data['errors']['missing_chromes'] = array();
@@ -142,7 +146,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 				}
 				
 	
-//~ die('catalog_imports/index()<br/>before saving, these are the errors found:<br/><textarea style="width:80%; height:80%;">'.print_r($this->data, true).'</textarea>');			
+//~ die('catalog_imports.php<br/><textarea>'.print_r($this->data['errors'], true).'</textarea><br/>excluded_rows:<br/><textarea>'.print_r($this->data['excluded_rows'], true).'</textarea>');			
 			//if error-free, do the insert with rollback
 			// 'error-free' in this case doesn't care about unknown_fields, which won't be imported anyway
 				if(	   count($this->data['errors']['upload_errors'])   == 0 
@@ -150,7 +154,8 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 					&& count($this->data['errors']['missing_targets']) == 0 
 					&& count($this->data['errors']['missing_chromes']) == 0 
 					&& count($this->data['errors']['missing_species']) == 0 
-					&& count($this->data['errors']['bad_application']) == 0	)
+					&& count($this->data['errors']['bad_application']) == 0
+					&& count($this->data['errors']['bad_category']) == 0	)
 				{
 					$this->do_insert();
 				}
@@ -205,6 +210,13 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 						$this->data['new_applications_form_p'] = $this->load->view('thesaurus/partials/new_application_form_p', $this->data, true);
 						$this->data['thesaurus_application_alternates_p'] = $this->load->view('thesaurus/partials/thesaurus_application_alternates_p', $this->data, true);
 					}
+					if(count($this->data['errors']['bad_category']) > 0)
+					{
+						$this->data['unknown_category_p'] = $this->load->view( 'partials/unknown_category_p', $this->data, true);
+						$this->data['new_category_alternates_form_p'] = $this->thesaurus_module->get_application_alternates_form();
+						$this->data['new_category_form_p'] = $this->load->view('thesaurus/partials/new_category_form_p', $this->data, true);
+						$this->data['thesaurus_category_alternates_p'] = $this->load->view('thesaurus/partials/thesaurus_category_alternates_p', $this->data, true);
+					}
 				}
 			}
 			else//there were upload errors
@@ -215,15 +227,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 
 		$this->data['vendor_id_dropdown'] = $this->vendor_id_dropdown();
 
-	//prepare the views
-		//~ $this->template
-			//~ ->set_partial('upload_form_partial', 'partials/upload_form_partial', $this->data)
-			//~ ->set_partial('choose_file_partial', 'partials/choose_file_partial', $this->data)			
-			//~ ->set_partial('excluded_products_p', 'partials/excluded_products_p', $this->data)
-			//~ ->set_partial('unknown_fields_p', 'partials/unknown_fields_p', $this->data)
-//~ 
-			//~ ->append_css('module::cat_import.css')
-			//~ ->build('cat_import_view', $this->data);
+
 			
 			
 /* if we're not processing a file yet, just show the upload_form_partial */			
@@ -268,11 +272,42 @@ else
 			$this->data['errors']['upload_errors'][] = "Invalid file type";
 			return false;
 		}		
-		else
+		else 
 		{//next, make sure the upload worked properly	
-			if ($_FILES["file"]["error"] > 0)
+			if ($_FILES["file"]["error"] > 0)			//Value: 0; There is no error, the file uploaded with success. 
 			{
-				$this->data['errors']['upload_errors'][] = "Return Code: " . $_FILES["file"]["error"] . "<br>";
+				switch($_FILES["file"]["error"])
+				{
+					case 1:
+						$error_string = "Value: 1; The uploaded file exceeds the upload_max_filesize directive in php.ini.";
+						break;
+					case 2:
+					$error_string = "Value: 2; The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form. ";
+						break;
+					case 3:
+					$error_string = "Value: 3; The uploaded file was only partially uploaded. ";
+						break;
+					case 4:
+					$error_string = "Value: 4; No file was uploaded. ";
+						break;
+					case 5:
+					$error_string = "Value: 5 No description of this error was available in the PHP manual ";
+						break;
+					case 6:
+					$error_string = "Value: 6; Missing a temporary folder. Introduced in PHP 4.3.10 and PHP 5.0.3. ";
+						break;
+					case 7:
+					$error_string = "Value: 7; Failed to write file to disk. Introduced in PHP 5.1.0. ";
+						break;
+					case 8:
+					$error_string = "Value: 8; A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help. Introduced in PHP 5.2.0. ";
+						break;
+					default:
+						$error_string = "Unknown upload error - no error code thrown";
+						break;
+				}
+				
+				$this->data['errors']['upload_errors'][] = $error_string;
 			}
 			else
 			{// avoid filename confusion 	
@@ -366,15 +401,23 @@ else
 		{
 			$validateme = true;
 	//for each column in the row, find the catalog number and weblink in case of exceptions	coming before the target, clone, or chrome column
+	//We'll only bother validating products whose application is "Flow Cytometry" or whose category is "Antibody"
 			for($col=0; $col<$this->highestColumnIndex; $col++)
 			{
 				if(array_key_exists($col, $this->validated_fields ) )
 				{
-				//~ if($this->validated_fields[$col] === 'applications' && $this->spreadsheet_arr[$row][$col] !== 'FC')
+			
 					if($this->validated_fields[$col] === 'applications') //'Flow Cytometry')
 					{
 						if(	$this->thesaurus_m->exists_application($this->spreadsheet_arr[$row][$col])
-							&& $this->thesaurus_m->get_applicationid($this->spreadsheet_arr[$row][$col]) !== '1'
+							&& $this->thesaurus_m->get_applicationid($this->spreadsheet_arr[$row][$col]) > '1'	
+							)
+							$validateme = false;
+					}
+					if($this->validated_fields[$col] === 'category') //'Antibody')
+					{
+						if(	$this->thesaurus_m->exists_category($this->spreadsheet_arr[$row][$col])
+							&& $this->thesaurus_m->get_categoryid($this->spreadsheet_arr[$row][$col]) > '1'
 							)
 							$validateme = false;
 					}
@@ -420,27 +463,37 @@ else
 			}//end if($validateme)
 		}// end foreach row
 		
-	}//end function
+	}//end function 
 	
 ////////////////////////////////////////////////////////////////////////////////
 	function validate_applications($application, $catalog_number, $weblink)
 	{
 		$application = trim($application);
-		$result = $this->thesaurus_m->exists_application($application);
-		if(!$result)
+		if($application == '')
+			$this->data['errors']['bad_application'][$catalog_number] = "BLANK_APPLICATION|".$catalog_number."|".$weblink;
+		else
 		{
-			if(!isset($this->data['errors']['bad_application'][$application]	)	)
-				$this->data['errors']['bad_application'][$application] = "APPLICATIONS|".$application."|".$catalog_number."|".$weblink;
+			$result = $this->thesaurus_m->exists_application($application);
+			if(!$result)
+			{
+				if(!isset($this->data['errors']['bad_application'][$application]	)	)
+					$this->data['errors']['bad_application'][$application] = "REAGENT_APPLICATION|".$application."|".$catalog_number."|".$weblink;
+			}
 		}
 	}
 	function validate_categories($category, $catalog_number, $weblink)
 	{
 		$category = trim($category);
-		$result = $this->thesaurus_m->exists_category($category);
-		if(!$result)
+		if($category == '')
+			$this->data['errors']['bad_category'][$catalog_number] = "BLANK_CATEGORY|".$catalog_number."|".$weblink;
+		else
 		{
-			if(!isset($this->data['errors']['bad_category'][$category]	)	)
-				$this->data['errors']['bad_category'][$category] = "REAGENT_CATEGORY|".$category."|".$catalog_number."|".$weblink;
+			$result = $this->thesaurus_m->exists_category($category);
+			if(!$result)
+			{
+				if(!isset($this->data['errors']['bad_category'][$category]	)	)
+					$this->data['errors']['bad_category'][$category] = "REAGENT_CATEGORY|".$category."|".$catalog_number."|".$weblink;
+			}
 		}
 	}
 /**
@@ -606,17 +659,18 @@ else
 				{
 					switch($this->validated_fields[$col])
 					{
+					// If the catalog_number is already in the database, do an update. Otherwise, do an insert.
 						case 'catalog_number':
 							if(array_key_exists($this_item, $this->data['excluded_rows']))
 							{
 								$exclude_row = true;
 							}
-							else
-							{
+							//~ else
+							//~ {
 								$data['catalog_number'] = $this_item;
 								if($this->catalog_m->exists($data['catalog_number']))
 									$insert=false;
-							}
+							//~ }
 							break;
 						case 'target':
 							$data['target'] = $this_item;
@@ -659,24 +713,33 @@ else
 							$categoryid = $this->thesaurus_m->get_categoryid($this_item);
 							$data['categoryid'] = $categoryid;
 							break;
-						
+						case 'item_name':
+							$data['item_name'] = $this_item;
+							break;
 						
 					}
 				}
 			}
-			if(!$exclude_row)
-			{
+			//~ if(!$exclude_row)
+			//~ {
 				if($insert)
-					$this->catalog_m->insert($data);
+				{
+					if($this->catalog_m->insert($data))
+						$this->insert_num++;
+				}
 				else 
-					$this->catalog_m->update($data);
-				
-				
+				{
+					if($this->catalog_m->update($data))
+						$this->update_num++;
+				}
+				if($exclude_row)
+					$this->exclude_num++;
+					
 			//check target_species to make sure we have this target to all its species
 				$this->check_target_species($data['target'], $data['target_species']);
 			//check product_species to make sure we have this product to each of its species
 				$this->check_product_species($this->db->insert_id(), $data['target_species']);
-			}
+			//~ }//end if(!$exclude_row)
 			$insert=true;
 			$exclude_row = false;
 		}
@@ -686,7 +749,10 @@ else
 	//alert to success or failure of transaction
 		if($this->db->trans_status() === TRUE)
 		{
-			$this->data['insert_success_p'] = $this->load->view( 'partials/insert_success_p', '', true);
+			$import_counts['insert_num'] = $this->insert_num;
+			$import_counts['update_num'] = $this->update_num;
+			$import_counts['exclude_num'] = $this->exclude_num;
+			$this->data['insert_success_p'] = $this->load->view( 'partials/insert_success_p', $import_counts, true);
 		}
 		else
 		{

@@ -1,7 +1,7 @@
 <?php
 /**
  * Fluorish Models
- *
+ * 
  *
  * @package    	Fluorish
  * @category	Models

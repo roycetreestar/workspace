@@ -53,6 +53,17 @@
 			
 			echo '</div>';
 		}
+		if(count($errors['bad_category']) > 0)
+		{
+			echo '<div class="row-fluid errors_div" style="background-color:gray; margin-top:20px; margin-bottom:20px;">';
+			echo '<div class="span7">'. $unknown_category_p .'</div>';
+			echo '<div class="span3" id="category_form_container">'.$new_category_form_p.'</div>';
+			echo '<div class="span3" id="category_alt_form_container">'.$new_category_alternates_form_p.'</div>';
+			echo '<div class="well span3" id="find_category_alts_container" >'.$thesaurus_category_alternates_p.'</div>';
+			
+			
+			echo '</div>';
+		}
 		if(count($errors['missing_chromes']) > 0 )
 		{
 			echo '<div class="row-fluid errors_div" style="background-color:gray; margin-top:20px; margin-bottom:20px;">';

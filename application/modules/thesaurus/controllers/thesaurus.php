@@ -330,7 +330,34 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 			}
 		}
 	}
-	
+/////////////////////////////////////////////////////////////////////////
+	function get_category_alternate_names($searchterm='', $return=false)
+		{
+		if($searchterm === '')
+			$searchterm = $this->input->get('search_string');
+//die('search_string: '.$searchterm);
+		$result = $this->thesaurus_m->get_category_alternates(trim($searchterm));
+		
+		if($return)
+		{
+			if($result)
+				return $result;
+			else 
+				return $result;
+		}
+		else 
+		{
+			if(!$result)
+				echo 'no result found';
+			else
+			{
+				$returnable = '<strong>canonical name:</strong> '.$result[0]['name'].'<br/><br/><strong>alternate names:</strong>';
+				foreach($result as $category)
+					$returnable.= '<br/>'.$category['alternate_name'];
+				echo $returnable;
+			}
+		}
+	}
 /////////////////////////////////////////////////////////////////////////
 	function get_target_alternates($searchterm)
 	{
@@ -522,6 +549,12 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		
 		return $this->load->view('partials/new_applications_alternates_form_p', $this->data, true);
 	}
+	function get_category_alternates_form()
+	{
+		$this->data['categories_dd'] = $this->categories_dropdown();
+		
+		return $this->load->view('partials/new_category_alternates_form_p', $this->data, true);
+	}
 	function get_chromes_form()
 	{
 		return $this->load->view('partials/new_chrome_form_p', $this->data, true);
@@ -630,6 +663,18 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 				else
 					echo $this->db->_error_message() ;  
 				break;
+			case 'category':
+				if($this->add_new_category())
+					echo 'success';
+				else
+					echo $this->db->_error_message() ;
+				break;
+			case 'categories_alt':
+				if($this->add_new_category_alternate() )
+					echo 'success';
+				else
+					echo $this->db->_error_message() ;  
+				break;
 		}
 	}
 	
@@ -710,6 +755,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		return $result;
 	}
 	
+//////////////////////////////////////////////////////////////////////////////////////////
 	function add_new_target()			//($target_arr)
 	{
 		$data['target_name'] = trim($this->input->get('target_name'));
@@ -718,6 +764,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		return $result;
 	}
 	
+//////////////////////////////////////////////////////////////////////////////////////////
 	function add_new_target_alternate()			//($target_name, $alternate_name)
 	{
 		$data['target_name'] = trim($this->input->get('target_name'));
@@ -727,6 +774,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		return $result;
 	}
 	
+//////////////////////////////////////////////////////////////////////////////////////////
 	function add_new_application()
 	{
 		
@@ -735,12 +783,32 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		$result = $this->thesaurus_m->insert_application($data);
 		return $result;
 	}
+//////////////////////////////////////////////////////////////////////////////////////////
 	function add_new_application_alternate()
 	{
 		$data['application_id'] = trim($this->input->get('application_id'));
 		$data['alternate_name'] = trim($this->input->get('alernate_name'));
 		
 		$result = $this->thesaurus_m->insert_applications_alternate($data);
+		return $result;
+	}
+	
+//////////////////////////////////////////////////////////////////////////////////////////
+	function add_new_category()
+	{
+		
+		$data['category'] = trim($this->input->get('category_name'));
+		
+		$result = $this->thesaurus_m->insert_category($data);
+		return $result;
+	}
+//////////////////////////////////////////////////////////////////////////////////////////
+	function add_new_category_alternate()
+	{
+		$data['category_id'] = trim($this->input->get('category_id'));
+		$data['alternate_name'] = trim($this->input->get('alternate_name'));
+		
+		$result = $this->thesaurus_m->insert_category_alternate($data);
 		return $result;
 	}
 	
@@ -772,6 +840,19 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		foreach($applications_arr as $application)
 		{
 			$dd.= '<option value="'.$application['id'].'">'.$application['name'].'</option>';
+		}
+		$dd .= '</select>';
+		
+		return $dd;
+	}
+	function categories_dropdown()
+	{
+		$categories_arr = $this->thesaurus_m->get_all_categories();
+		
+		$dd = '<select name="category_name">';
+		foreach($categories_arr as $category)
+		{
+			$dd.= '<option value="'.$category['id'].'">'.$category['name'].'</option>';
 		}
 		$dd .= '</select>';
 		

@@ -639,14 +639,11 @@ $panel_c = $this->load->module('panels');
 			foreach($group['resources'] as $resource)
 			{
 				if ($resource['resource_type'] == 'address')
-				{	
-					//~ echo 'group_id:'.$group['group_id'].' -_- resource_id:'.$resource['id'].'<br/>';
+				{
 					$body .= $addr_c->display($resource['id']);
-					//~ echo $body.'<hr/>';
 				}
 			}
-		}
-//~ die('<textarea>'.var_dump($body).'</textarea>');		
+		}		
 		echo $head.$body;
 	}
 	

@@ -5,9 +5,11 @@
 	<h3>These applications in the spreadsheet couldn't be found in the database:</h3>
 	<hr/>
 	<?php 
+	$count = 1;
 		foreach ($errors['bad_application'] as $application_name)
 		{
-			echo $application_name.'<br/>';
+			echo $count.' -- '.$application_name.'<br/>';
+			$count++;
 		}
 	?>
 </div>
