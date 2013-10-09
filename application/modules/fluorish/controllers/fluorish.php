@@ -132,7 +132,7 @@ function dashboard()
 				$data['dd']['institution_dd'] = $mem_module->institution_dropdown();
 				$this->load->view('backstage/landing_page_v', $data);	
 			}
-				$this->load->view('../../../../fluorish_dashboard/php/pages/search.php');
+				$this->load->view('../../catalog/views/partials/search_p.php');
 				$this->load->view('../../../../fluorish_dashboard/php/pages/footer.php');
 			}
 			else
