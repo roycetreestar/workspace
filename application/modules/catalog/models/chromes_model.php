@@ -83,18 +83,34 @@ class Chromes_model extends CI_Model
  * returns a 2D array of all chromes
  * 
  */
-	function read_all()
+	//~ function read_all()
+	//~ {
+		//~ $query = $this->db->get('chromes');
+//~ 
+		//~ return $query->result_array();
+	//~ }
+	function get_all($starts_with='')
 	{
-		$query = $this->db->get('chromes');
-
-		return $query->result_array();
+		if($starts_with !='')
+			$this->db->like('alternate_name', $starts_with, 'after'); 
+		$this->db->where('is_exception', '0');
+		$result = $this->db->get('chromes_alternate_name')->result_array();
+		
+		return $result;
 	}
-	function get_all()
+	//~ function get_all()
+	//~ {
+		//~ return $this->read_all();
+	//~ }
+
+	function get_canonical($starts_with='')
 	{
-		return $this->read_all();
+		if($starts_with !='')
+			$this->db->like('chrome_name', $starts_with, 'after'); 
+		$result = $this->db->get('chromes')->result_array();
+		
+		return $result;
 	}
-
-
 
 
 

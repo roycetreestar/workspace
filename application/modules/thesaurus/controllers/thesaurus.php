@@ -425,6 +425,10 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		}
 	}
 /////////////////////////////////////////////////////////////////////////
+/**
+ * returns a 
+ * 
+ */
 	function get_target_alternate_names($searchterm='', $return=false)
 	{
 		if($searchterm === '')
@@ -447,8 +451,17 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 			{
 //~ die('thesaurus/get_chrome_alternates() got a result:<br/><textarea>'.print_r($result, true).'</textarea>');
 				$returnable = '<strong>canonical name:</strong> '.$result[0]['target_name'].'<br/><br/><strong>alternate names:</strong>';
+				
+				$returnable .= '<br/><table class="table table-bordered">
+					<tr><th>alternate name</th><th>is exception</th></tr>
+				';
+				
 				foreach($result as $target)
-					$returnable.= '<br/>'.$target['alternate_name'];
+				{
+					$returnable.= '<tr><td>'.$target['alternate_name'].'</td><td> '. ($target['is_exception']==1 ?  "yes" :  "") .'</td>	</tr>';
+				}				
+				$returnable.= '</table>';
+				
 				echo $returnable;
 			}
 		}
@@ -717,17 +730,19 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		
 	}
 	
-	function add_new_chrome_alternate($chrome_name ='', $alternate_name='')
+	function add_new_chrome_alternate($chrome_name ='', $alternate_name='', $is_exception=1)
 	{
 		if($chrome_name === '' && $alternate_name === '')
 		{
 			$data['chrome_name'] = trim($this->input->get('chrome_name'));
 			$data['alternate_name'] = trim($this->input->get('alternate_name'));
+			$data['is_exception'] = trim($this->input->get('is_exception'));
 		}
 		else 
 		{
 			$data['chrome_name'] = trim($chrome_name);
 			$data['alternate_name'] = trim($alternate_name);
+			$data['is_exception'] = trim($is_exception);
 		}
 		$result = $this->thesaurus_m->insert_chrome_alternate($data);
 //		if($result)
@@ -750,6 +765,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		$data['species_name'] = trim($this->input->get('species_name'));
 		$data['alternate_name'] = trim($this->input->get('alternate_name'));
+			$data['is_exception'] = trim($this->input->get('is_exception'));
 		
 		$result = $this->thesaurus_m->insert_species_alternate($data);
 		return $result;
@@ -769,6 +785,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		$data['target_name'] = trim($this->input->get('target_name'));
 		$data['alternate_name'] = trim($this->input->get('alternate_name'));
+			$data['is_exception'] = trim($this->input->get('is_exception'));
 		
 		$result = $this->thesaurus_m->insert_target_alternate($data);
 		return $result;
@@ -788,6 +805,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		$data['application_id'] = trim($this->input->get('application_id'));
 		$data['alternate_name'] = trim($this->input->get('alernate_name'));
+			$data['is_exception'] = trim($this->input->get('is_exception'));
 		
 		$result = $this->thesaurus_m->insert_applications_alternate($data);
 		return $result;
@@ -807,6 +825,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		$data['category_id'] = trim($this->input->get('category_id'));
 		$data['alternate_name'] = trim($this->input->get('alternate_name'));
+			$data['is_exception'] = trim($this->input->get('is_exception'));
 		
 		$result = $this->thesaurus_m->insert_category_alternate($data);
 		return $result;

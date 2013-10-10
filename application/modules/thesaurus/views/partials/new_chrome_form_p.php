@@ -66,6 +66,7 @@
 			{
 //alert(msg);				
 		$('#new_chromes_result').html('New fluorochrome saved').css('color', 'green');
+		refresh_chrome_alts();
 			},
 			error: function (msg) 
 			{ 
@@ -80,14 +81,16 @@
 		});
 		
 		
-		
+	});	
 		
 		
 //refresh the chrome_alternates_form if present		
+function refresh_chrome_alts()
+{
 $('#chrome_alt_container').html($('#load_spinner').html());
 		$.ajax(
 		{
-			url: '<?=base_url()?>thesaurus/get_chromes_alternates_form',
+			url: '<?=base_url()?>thesaurus/get_chromes_alternates_form/ajax',
 			type: 'get',
 			success:function(msg)
 			{
@@ -98,8 +101,8 @@ alert(msg);
 			}
 			
 		});
+}	
 		
 		
-		
-	});
+	
 </script>

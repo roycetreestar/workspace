@@ -273,7 +273,7 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		$data['clones'] = json_encode($all_clones);
 		
 		
-die('backstage/howto/search(): <br/>$data:<textarea style="width:90%; height:90%" >'.print_r($data, true).'</textarea>');		
+//~ die('backstage/howto/search(): <br/>$data:<textarea style="width:90%; height:90%" >'.print_r($data, true).'</textarea>');		
 		$header = $this->load->view('header_v', '', true); 
 		$data['search_partial'] = '<div class="well">'. $this->search_module->get_search_form($data).'</div>';
 		$data['search_results'] = '<div class="well" id="search_results"></div>';

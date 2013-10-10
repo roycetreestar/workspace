@@ -139,13 +139,13 @@ class Catalog_m extends CI_Model
 			$this->db->where('LOWER(target_species)', strtolower($data['target_species']));
 			
 		if(isset($data['target']) && $data['target']!='')
-			$this->db->where('LOWER(target)', strtolower($data['target']));
+			$this->db->where('LOWER(target)', strtolower($this->thesaurus_module->get_target_canonical($data['target'], true)));
 			
 		if(isset($data['format']) && $data['format']!='')
-			$this->db->where('LOWER(format)', strtolower($data['format']));
+			$this->db->where('LOWER(format)', strtolower($this->thesaurus_module->get_chromes_canonical($data['format'], true)));
 			
 		if(isset($data['clone']) && $data['clone'] != '')
-			$this->db->where('LOWER(clone)', strtolower($data['clone']));
+			$this->db->where('LOWER(clone)', strtolower($this->thesaurus_module->get_clones_canonical($data['clone'], true)));
 		$result = $this->db->get('catalog')->result_array();
 
 //~ die('query run: '. $this->db->last_query().'<hr/> result:<textarea style="width:90%; height:90%">'.print_r($result, true).'</textarea>');

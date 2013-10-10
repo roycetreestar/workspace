@@ -47,7 +47,7 @@ class Targets_model extends CI_Model
 		return $the_name;
 	}
 
-	function get_all($starts_with='')
+	function get_canonical($starts_with='')
 	{
 		if($starts_with !='')
 			$this->db->like('target_name', $starts_with, 'after'); 
@@ -55,7 +55,15 @@ class Targets_model extends CI_Model
 		
 		return $result;
 	}
-
+	function get_all($starts_with='')
+	{
+		if($starts_with !='')
+			$this->db->like('alternate_name', $starts_with, 'after'); 
+		$this->db->where('is_exception', '0');
+		$result = $this->db->get('targets_alternate_name')->result_array();
+		
+		return $result;
+	}
 	function update($name)
 	{
 		$this->db->where('target_name', $name);

@@ -124,7 +124,7 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 		$returnable = array();
 		foreach ($targets as $target)
 		{
-			$returnable[] = $target['target_name'];
+			$returnable[] = $target['alternate_name'];
 		}
 		return $returnable;
 	}
@@ -149,7 +149,8 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 		$returnable=array();
 		foreach($chromes as $chrome)
 		{
-			$returnable[]= $chrome['chrome_name'];
+			//~ $returnable[]= $chrome['chrome_name'];
+			$returnable[]= $chrome['alternate_name'];
 		}
 		return $returnable;
 	}

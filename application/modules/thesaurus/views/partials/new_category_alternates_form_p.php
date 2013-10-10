@@ -17,7 +17,10 @@
 		Alternate Name
 		<input type="text" id="alternate_name" name="alternate_name" />
 		<br/>
-		
+		Is exception: <input type="radio" id="is_exception" name="is_exception" value="1" />
+		<br/>
+		Is alternate: <input type="radio" id="is_alternate" name="is_exception" value="0" checked />
+		<br/>
 		<input type="submit" id="category_alt_submit" value="submit me" />
 	</form>
 	

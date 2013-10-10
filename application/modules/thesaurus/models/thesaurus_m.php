@@ -438,6 +438,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 		if($this->db->affected_rows() > 0)
 		{
 			$data['alternate_name'] = $data['chrome_name'];
+			$data['is_exception'] = 0;
 			$alt_result = $this->insert_chrome_alternate($data);
 			return true;
 		}
@@ -449,6 +450,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 	{
 		$this->db->set('chrome_name', $data['chrome_name']);
 		$this->db->set('alternate_name', $data['alternate_name']);
+		$this->db->set('is_exception', $data['is_exception']);
 		
 		$this->db->insert('chromes_alternate_name');
 
@@ -466,6 +468,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 		if($this->db->affected_rows() > 0)
 		{
 			$data['alternate_name'] = $data['species_name'];
+			$data['is_exception'] = 0;
 			$alt_result = $this->insert_species_alternate($data);
 			//~ if($alt_result)
 				return true;
@@ -480,6 +483,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 	{
 		$this->db->set('species_name', $data['species_name']);
 		$this->db->set('alternate_name', $data['alternate_name']);
+		$this->db->set('is_exception', $data['is_exception']);
 		
 		$this->db->insert('species_alternate_name');
 
@@ -497,6 +501,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 		if($this->db->affected_rows() > 0)
 		{
 			$data['alternate_name'] = $data['target_name'];
+			$data['is_exception'] = 0;
 			$alt_result = $this->insert_target_alternate($data);
 			//~ if($alt_result)
 				return true;
@@ -510,6 +515,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 	{
 		$this->db->set('target_name', $data['target_name']);
 		$this->db->set('alternate_name', $data['alternate_name']);
+		$this->db->set('is_exception', $data['is_exception']);
 		
 		$this->db->insert('targets_alternate_name');
 
@@ -529,6 +535,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 		{
 			$data['application_id'] = $this->db->insert_id();
 			$data['alternate_name'] = $data['name'];
+			$data['is_exception'] = 0;
 			$alt_result = $this->insert_applications_alternate($data);
 			if($alt_result)
 				return true;
@@ -539,6 +546,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 	{
 		$this->db->set('application_id', $data['application_id']);
 		$this->db->set('alternate_name', $data['alternate_name']);
+		$this->db->set('is_exception', $data['is_exception']);
 		
 		$this->db->insert('catalog_application_alternate_names');
 		
@@ -557,6 +565,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 		{
 			$data['category_id'] = $this->db->insert_id();
 			$data['alternate_name'] = $data['name'];
+			$data['is_exception'] = 0;
 			$alt_result = $this->insert_category_alternate($data);
 			if($alt_result)
 				return true;
@@ -568,6 +577,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 	{
 		$this->db->set('category_id', $data['category_id']);
 		$this->db->set('alternate_name', $data['alternate_name']);
+		$this->db->set('is_exception', $data['is_exception']);
 		
 		$this->db->insert('catalog_category_alternate_names');
 		
@@ -579,7 +589,11 @@ class Thesaurus_m extends CI_Model// MY_Model
 	
 	
 	
-	
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+///////////		GET_ALLs		////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////	
+////////////////////////////////////////////////////////////////////////////////
 	
 	
 	function get_all_cat_heads()
