@@ -1,3 +1,4 @@
 application/logs
 fluorish_design_source
 *.zip
+application/config/database.php

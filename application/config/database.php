@@ -49,9 +49,16 @@ $active_group = 'default';
 
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'sites.treestarinc.com';
-$db['default']['username'] = 'mswindle';
-$db['default']['password'] = 'secure@mswindle';
+ //$db['default']['hostname'] = 'sites.treestarinc.com';
+ //$db['default']['username'] = 'mswindle';
+ //$db['default']['password'] = 'secure@mswindle';
+ //
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'root';
+
+
+
 $db['default']['database'] = 'george';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
@@ -66,22 +73,10 @@ $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
 
-$db['development']['hostname'] = 'localhost';
-$db['development']['username'] = 'root';
-$db['development']['password'] = 'root';
-//
-$db['development']['database'] = 'george';
-$db['development']['dbdriver'] = 'mysql';
-$db['development']['dbprefix'] = '';
-$db['development']['pconnect'] = TRUE;
-$db['development']['db_debug'] = TRUE;
-$db['development']['cache_on'] = FALSE;
-$db['development']['cachedir'] = '';
-$db['development']['char_set'] = 'utf8';
-$db['development']['dbcollat'] = 'utf8_general_ci';
-$db['development']['swap_pre'] = '';
-$db['development']['autoinit'] = TRUE;
-$db['development']['stricton'] = FALSE;
+
+
+
+
 
 
 

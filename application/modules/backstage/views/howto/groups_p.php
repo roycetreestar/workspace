@@ -126,7 +126,8 @@
 				</table>
 				
 				<div class="span9 offset1">
-					<textarea><?=print_r($available, true)?></textarea>
+					<!--<textarea><?=print_r($available, true)?></textarea>	-->
+					<?=$available?>
 				
 				</div>
 			

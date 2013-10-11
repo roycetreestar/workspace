@@ -30,7 +30,7 @@ class Clones_model extends CI_Model
  */
 	function insert($name)
 	{
-		$this->db->set('name', $name);		
+		$this->db->set('clone_name', $name);		
 		
 		$this->db->insert('clones');
 
@@ -39,7 +39,7 @@ class Clones_model extends CI_Model
 
 	function read_by_name($name)
 	{
-		$this->db->where('name', $name);
+		$this->db->where('clone_name', $name);
 		
 		$the_name = $this->db->get('clones')->results_array();
 
@@ -57,7 +57,7 @@ class Clones_model extends CI_Model
 
 	function delete($name)
 	{
-		$this->db->where('name', $name);
+		$this->db->where('clone_name', $name);
 		$this->db->delete('clones');
 
 		return $this->db->affected_rows();
