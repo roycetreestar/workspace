@@ -6,6 +6,8 @@ class Dash extends Loggedin_Controller
 	{
 	  parent::__construct();
 	  $this->load_modules();
+	  $this->load->helper('array');
+	  
 	  defined('APP_NAME') || define('APP_NAME', 'Fluorish');
 		defined('APP_VERSION') || define('APP_VERSION', 'v1.0');
 		defined('APP_THEME') || define('APP_THEME', '../fluorish_dashboard/common/');
@@ -42,8 +44,9 @@ class Dash extends Loggedin_Controller
 	  
 	}
 
+
 function index(){
-	$groupid = 103;
+	
 	echo $this->page_head();
 	
 	foreach($this->session->userdata['groups'] as $group)
@@ -69,7 +72,7 @@ function group_accordian($groupid){
 	//
 	$group_col1 = $this->group_col1($groupid);
 	 //
-	$group_col2 = $this->group_col2();
+	$group_col2 = $this->group_col2($groupid);
 	 //
 	 //group_col3($groupid);
 	 
@@ -162,8 +165,14 @@ function group_col1($groupid){
 	
 }
 
-function group_col2(){
-	return '<div class="span3" style="background:blue"></div>';
+function group_col2($groupid){
+	
+	foreach($this->session->userdata['groups'] as $group)
+	{
+		if($group['group_id'] == $groupid)
+		return $this->load->view('membership/partials/group_resources_p', $group, TRUE);
+	}
+	
 }
 	
 function group_col3($groupid){
