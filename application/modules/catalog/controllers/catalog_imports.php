@@ -89,7 +89,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 		$this->data['excluded_rows'] = array();
 		
 		$this->spreadsheet_arr = array();
-		$this->data['userid'] = $this->session->userdata['logged_in']['userid'];	//$this->data['fl_user']['id'];
+		//$this->data['userid'] = $this->session->userdata['logged_in']['userid'];	//$this->data['fl_user']['id'];
 //		$this->labid = $this->input->post('labid');
 //		$this->extension = end(explode(".", $_FILES["file"]["name"]));
 		
