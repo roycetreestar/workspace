@@ -118,7 +118,7 @@ body {
 	margin-right: 10px;
 	display: inline-block;
 }
-.icon-lab-preferences {
+.icon-lab-preferences, .icon-1-preferences {
 	background: url(<?php echo getAssets() ?>images/lab_preferences_32.png) no-repeat;
 	width: 32px;
 	height: 32px;
@@ -126,7 +126,7 @@ body {
 	margin-right: 10px;
 	display: inline-block;
 }
-.icon-core-preferences {
+.icon-core-preferences, .icon-2-preferences {
 	background: url(<?php echo getAssets() ?>images/core2_preferences_32.png) no-repeat;
 	width: 32px;
 	height: 32px;
