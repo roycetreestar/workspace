@@ -176,7 +176,8 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 	    else
 		    $this->data['available_groups'] = $all_groups;
 
-		return $this->data['available_groups'];
+		//~ return $this->data['available_groups'];
+		return $this->load->view('partials/available_groups_p', $this->data, true);
     }
     
     
@@ -185,7 +186,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
     
     function join_group($entityid='', $groupid='', $permission='', $entity_type='')
     {
-
+//~ die('you\'re trying to join groupid '.$groupid.' and your userid is '.$entityid);
 	    $from_form = false;
 
 			$data['entityid'] = $entityid;
@@ -379,6 +380,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 		{
 			foreach($this->session->userdata['groups'] as $group)
 			{
+//~ die('membership/groups/groups_managed() $group:<textarea>'.print_r($group, true).'</textarea>');
 				if($group['group_type'] == $group_type_num)
 				{
 					$groups_mgd[$group['group_id']] = array("group_id" => $group['group_id'], "group_name" => $group['group_name'] , "permission" => $group['permission']);
