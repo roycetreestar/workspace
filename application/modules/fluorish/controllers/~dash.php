@@ -2,8 +2,6 @@
 
 class Dash extends Loggedin_Controller
 {
-	public $data = array();
-	
 	function __construct()
 	{
 	  parent::__construct();
@@ -51,67 +49,58 @@ function index(){
 	
 	echo $this->page_head();
 	
+	
 	foreach($this->session->userdata['groups'] as $group)
 	{
-		echo $this->group_accordian($group['group_id']);
+		echo '<div class="span9 well">'.$this->group_accordian($group['group_id']).'</div>';
 	}
-	
-	echo modules::run('catalog/search/index');
-	
-	echo '<div id="search_results" class=""></div>';
 	echo $this->load->view('../../../../fluorish_dashboard/php/pages/footer.php','', true);
 }
 	
 function page_head(){
-	$this->data = $this->session->userdata['logged_in'];
-	$header = $this->load->view('../../../../fluorish_dashboard/php/pages/header.php',$this->data, true);
+	$data = $this->session->userdata['logged_in'];
+	$header = $this->load->view('../../../../fluorish_dashboard/php/pages/header.php',$data, true);
 	$header.= $this->load->view('partials/global_account_header_p.php','',true);	
 	
 	return $header;
 	
 }
 
-function group_accordian($group_id){
+function group_accordian($groupid){
 	
 	//
-	//$head_accordian = $this->head_accordian($group_id);
-	$this->data['groupid'] = $group_id;
-	
-	$this->head_accordian($group_id);
-	$this->group_col1($group_id);
-	$this->group_col2($group_id);
-	$returnable = $this->load->view('acc',$this->data, true);
-	
+	$head_accordian = $this->head_accordian($groupid).'</div></div></div>';
 	//
-	//$group_col1 = $this->group_col1($group_id);
+	$group_col1 = $this->group_col1($groupid);
 	 //
-	//$group_col2 = $this->group_col2($group_id);
+	$group_col2 = $this->group_col2($groupid);
 	 //
-	 //group_col3($group_id);
+	 //group_col3($groupid);
 	 
-	 /*$returnable = '<div class="span12">'.$head_accordian.'</div><br>
+	 $returnable = '<div class="span12">'.$head_accordian.'</div><br>
 	 <div class="span6">'.$group_col1.'</div>
-	 <div class="span6">'.$group_col2.'</div>';*/
+	 <div class="span6">'.$group_col2.'</div>';
 	 
 	 return $returnable;
 }
 
-function head_accordian($group_id){
+function head_accordian($groupid){
 	 //
-	$this->accordian_head_left($group_id);
-	$this->accordian_head_right($group_id);
-	// return $data;
+	 $data = '<div id="tabAll" class="tab-pane active">
+  <div class="accordion accordion-2" id="accordion-1">
+    <div class="accordion-group">
+      <div class="accordion-heading dashboard">
+        <div class="row-fluid accordion-header">'.$this->accordian_head_left($groupid).'</div> | <div>'.$this->accordian_head_right($groupid).'</div>';
+	 return $data;
 }
 
-function accordian_head_left($group_id){
-	$this->data['grouptype'] = $this->session->userdata['groups'][$group_id]['group_type'];
-	$this->data['groupname']= $this->session->userdata['groups'][$group_id]['group_name'];
-	$this->data['username'] = $this->session->userdata['logged_in']['first_name'].' '.$this->session->userdata['logged_in']['last_name'];
-		//return $data;
+function accordian_head_left($groupid){
+		$data= ' <div class="span4 right">'.$this->session->userdata['groups'][$groupid]['group_name'].' '.$this->session->userdata['logged_in']['first_name'].' '.$this->session->userdata['logged_in']['last_name'];
+		return $data;
 	}
 
-function accordian_head_right($group_id){
-		$this_group = $this->session->userdata['groups'][$group_id];
+function accordian_head_right($groupid){
+		$this_group = $this->session->userdata['groups'][$groupid];
 		$group_type = $this_group['group_type'];
 		if($group_type == 1 || $group_type == 2)
 		{
@@ -120,9 +109,9 @@ function accordian_head_right($group_id){
 			if($this_group['permission'] == 1)
 				// manager get icons - Meesgaes/Lab Prefs
 				{
-					$this->data['icons']= '
-					<a data-original-title="Messages" data-placement="top" data-toggle="tooltip" class="icon-messages" href="messages/'.$group_id.'"></a>
-					<a data-original-title="Preferences" data-placement="top" data-toggle="tooltip" class="icon-'.$group_type.'-preferences" href="preferences/'.$group_id.'"></a>';
+					$data= '
+					<a data-original-title="Messages" data-placement="top" data-toggle="tooltip" class="icon-messages" href="messages/'.$groupid.'"></a>
+					<a data-original-title="Preferences" data-placement="top" data-toggle="tooltip" class="icon-'.$group_type.'-preferences" href="preferences/'.$groupid.'"></a>';
 					}
 			}
 		else	
@@ -130,18 +119,19 @@ function accordian_head_right($group_id){
 		{
 			// My Fluorish
 				// All Icons with id Account Setings / Panels / Cytomerets / Inventory / Orders
-				$this->data['icons']='
+				$data='
+				<div class="span4 right">
 				<a href="#" class="icon-my-preferences" data-toggle="tooltip" data-placement="top" data-original-title="Account Settings"></a> 
 				<a href="#" class="icon-panels" data-toggle="tooltip" data-placement="top" data-original-title="Panels"></a> 
 				<a href="#" class="icon-core" data-toggle="tooltip" data-placement="top" data-original-title="Cores and Instruments"></a> 
 				<a href="#" class="icon-lab" data-toggle="tooltip" data-placement="top" data-original-title="Labs and Inventory"></a> 
 				<a href="#" class="icon-orders" data-toggle="tooltip" data-placement="top" data-original-title="Orders"></a>
-				';
+				</div>';
 			}
 		else
-		$this->data = NULL;
+		$data = NULL;
 			
-			//return $data;
+			return $data;
 	}
 
 /*
@@ -150,10 +140,10 @@ function accordian_head_right($group_id){
 * @todo multiple addresses to determine which is primary, secondary, etc
 *
 */
-function group_col1($group_id){
+function group_col1($groupid){
 	//get group profile image and group profile address
 	$image = NULL;
-	foreach($this->session->userdata['groups'][$group_id]['resources'] as $resource)
+	foreach($this->session->userdata['groups'][$groupid]['resources'] as $resource)
 	{
 		if ($resource['resource_type'] == 'address')
 			$address = $resource;
@@ -163,35 +153,33 @@ function group_col1($group_id){
 	
 	if (!isset ($address))
 	{
-		$this->data['display'] = 'No Address Availabel<br><a href="#">Add Address</a>';
+		$data['display'] = 'No Address Availabel<br><a href="#">Add Address</a>';
 	}
 	else
-	$this->data['display'] = $this->address_module->display($address['id']);
+	$data['display'] = $this->address_module->display($address['id']);
 	
 	if (!isset ($image))
 	{
-		$this->data['myimage'] = 'No Image Available <br><img width="125" height="91" src="'.getAssets().'images/no_image.png" alt="No Image">';
+		$data['myimage'] = 'No Image Availabel<br><a href="#">Add Image</a>';
 	}
 	else
-	$this->data['myimage'] = '<img src="'.$image['path'].'" width="100px" height="100px" alt="No Image"/>';
+	$data['myimage'] = '<img src="'.$image['path'].'" width="100px" height="100px" alt="No Image"/>';
 	
-	//return $data;
+	return '<div class="span3">'.$data['myimage'].'<br>'.$data['display'].'</div>';
 	
 }
 
-function group_col2($group_id){
+function group_col2($groupid){
 	
 	foreach($this->session->userdata['groups'] as $group)
 	{
-		if($group['group_id'] == $group_id){
-		$this->data['group_data'] = $this->session->userdata['groups'][$group_id]['additional_information'];
-		$this->data['group_resources'] = $this->load->view('membership/partials/group_resources_p', $group, TRUE);
-		}
+		if($group['group_id'] == $groupid)
+		return $this->load->view('membership/partials/group_resources_p', $group, TRUE);
 	}
 	
 }
 	
-function group_col3($group_id){
+function group_col3($groupid){
 	
 }
 

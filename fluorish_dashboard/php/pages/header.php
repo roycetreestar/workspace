@@ -102,13 +102,14 @@
 <script src="<?php echo getURL(); ?>theme/scripts/plugins/system/less-1.3.3.min.js"></script>
 <style>
 body {
-	background: url(<?php echo getAssets() ?>images/bg.jpg) no-repeat center center fixed;
+	/*background: url(<?php echo getAssets() ?>images/bg.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='.myBackground.jpg', sizingMethod='scale');
 	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')";
+	*/
 }
 .icon-my-preferences {
 	background: url(<?php echo getAssets() ?>images/my_preferences_32.png) no-repeat;

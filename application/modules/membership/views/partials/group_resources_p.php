@@ -59,34 +59,4 @@
 		</div>	
 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-<script>
-// replace the #content container with the button's href:
-//for "edit" buttons
-	$("a[id^='edit_resource_link_']").click(function(event)
-	{
-		event.preventDefault();
-		
-		var buttonid = $(this).attr("id");
-		var id = buttonid.substring(buttonid.lastIndexOf("_")+1);
-		
-		var target = $(this).attr("href");
 
-		$("#content").load(target);		
-	});
-	
-//for "view" buttons	
-	$("a[id^='view_resource_link_']").click(function(event)
-	{
-		event.preventDefault();
-		
-		var buttonid = $(this).attr("id");
-		var id = buttonid.substring(buttonid.lastIndexOf("_")+1);
-		
-		var target = $(this).attr("href");
-
-		$("#content").load(target);		
-	});
-
-</script>
