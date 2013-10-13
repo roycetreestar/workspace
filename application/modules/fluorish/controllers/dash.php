@@ -65,7 +65,10 @@ function index(){
 function page_head(){
 	$this->data = $this->session->userdata['logged_in'];
 	$header = $this->load->view('../../../../fluorish_dashboard/php/pages/header.php',$this->data, true);
-	$header.= $this->load->view('partials/global_account_header_p.php','',true);	
+	$this->data = $this->session->userdata['groups'];
+	
+	
+	$header.= $this->load->view('partials/global_account_header_p.php',$this->data, true);	
 	
 	return $header;
 	
@@ -170,10 +173,14 @@ function group_col1($group_id){
 	
 	if (!isset ($image))
 	{
-		$this->data['myimage'] = 'No Image Available <br><img width="125" height="91" src="'.getAssets().'images/no_image.png" alt="No Image">';
+		//$this->data['myimage'] = 'No Image Available <br><img width="125" height="91" src="'.getAssets().'images/no_image.png" alt="No Image">';
+		$this->data['myimage'] = '
+		<a data-original-title="Drop Picture Here" data-placement="top" data-toggle="tooltip" href="#">
+		<img width="125" height="91" src="'.getAssets().'images/no_image.png" alt="No Image">
+		</a>';
 	}
 	else
-	$this->data['myimage'] = '<img src="'.$image['path'].'" width="100px" height="100px" alt="No Image"/>';
+	$this->data['myimage'] = '<img src="'.$image['path'].'" width="100px" height="100px" alt="Image"/>';
 	
 	//return $data;
 	

@@ -45,29 +45,13 @@
               <h4 class="heading-arrow">Searches</h4>
               <div class="">
                 <ul class="list-timeline">
-                  <li> <span class="ellipsis"><a href="#">anti-Human CD3 FITC"</a></span>
-                    <div class="clearfix"></div>
-                  </li>
-                  <li> <span class="ellipsis"><a href="#">anti-Human CD4 APC"</a></span>
-                    <div class="clearfix"></div>
-                  </li>
-                  <li> <span class="ellipsis"><a href="#">anti-Human CD69 PE"</a></span>
-                    <div class="clearfix"></div>
-                  </li>
-                  <li> <span class="ellipsis"><a href="#">anti-Human CD4 Pacific Blue"</a></span>
-                    <div class="clearfix"></div>
-                  </li>
+                  <li> You have no recent searches</li>
                 </ul>
                  </div>
                 <h4 class="heading-arrow">Messages</h4>
               <div class="">
                 <ul class="list-timeline">
-                  <li> <span class="date">03/13</span><span class="ellipsis"><strong>  UCSF Flow Core</strong>: The LSRII MArs will be down until October 4th. please schedule the LSRII Jupiter for similar configurations.</span>
-                    <div class="clearfix"></div>
-                  </li>
-                  <li> <span class="date">03/13</span><span class="ellipsis"><strong>  Ostaut Lab</strong>: Lab meeting has been moved to 10:00AM today.</span>
-                    <div class="clearfix"></div>
-                  </li>
+                  <li>You have no messages</li>
                 </ul>
                  </div>
               <!-- // About END --> 
