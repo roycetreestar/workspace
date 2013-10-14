@@ -72,7 +72,11 @@ class Catalog_m extends CI_Model
 		$this->db->insert('catalog');
 
 		if($this->db->affected_rows() > 0)
-			return true;
+		{
+			//$product_id = $this->db->insert_id();
+			return $this->db->insert_id(); 		//$product_id;
+			//return true;
+		}
 		else 
 			return false;
 	}
@@ -116,7 +120,11 @@ class Catalog_m extends CI_Model
 		$this->db->update('catalog');
 
 		if($this->db->affected_rows() > 0)
-			return true;
+		{
+			$product_id = $this->get_product_id_by_catalog_number($data['catalog_number']);
+			return $product_id;
+			//return true;
+		}
 		else 
 			return false;
 	}
@@ -169,5 +177,14 @@ class Catalog_m extends CI_Model
 	
 	
 ////////////////////////////////////////////////////////////////////////
+
+	function get_product_id_by_catalog_number($catalog_number)
+	{
+		$this->db->where('catalog_number', $catalog_number);
+		$product = $this->db->get('catalog')->row_array();
+		
+		return $product['id'];
+		
+	}
 
 }//end class

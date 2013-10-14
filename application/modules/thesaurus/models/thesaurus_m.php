@@ -527,7 +527,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 	
 	function insert_application($data)
 	{ 
-//~ die('thesaurus_m/insert_application()<br/><textarea>'.print_r($data, true).'</textarea>');
+ //die('thesaurus_m/insert_application()<br/><textarea>'.print_r($data, true).'</textarea>');
 		$this->db->set('name', $data['name']);
 		$this->db->insert('catalog_applications');
 		
@@ -544,6 +544,8 @@ class Thesaurus_m extends CI_Model// MY_Model
 	}
 	function insert_applications_alternate($data)
 	{
+//die('thesaurus_m/insert_applications_alternate()<br/><textarea>'.print_r($data, true).'</textarea>');
+
 		$this->db->set('application_id', $data['application_id']);
 		$this->db->set('alternate_name', $data['alternate_name']);
 		$this->db->set('is_exception', $data['is_exception']);
@@ -575,6 +577,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 	}
 	function insert_category_alternate($data)
 	{
+//die("thesaurus_m/insert_category_alternate()<br/>DATA:<textarea>".print_r($data, true)."</textarea>");
 		$this->db->set('category_id', $data['category_id']);
 		$this->db->set('alternate_name', $data['alternate_name']);
 		$this->db->set('is_exception', $data['is_exception']);
@@ -582,8 +585,11 @@ class Thesaurus_m extends CI_Model// MY_Model
 		$this->db->insert('catalog_category_alternate_names');
 		
 		if($this->db->affected_rows() >0)
+		{	
 			return true;
+		}
 		else
+		//die("could not insert<br/>".$this->db->_error_message()	);
 			return false;
 	}
 	
@@ -604,6 +610,10 @@ class Thesaurus_m extends CI_Model// MY_Model
 	function get_all_applications()
 	{
 		return $this->db->get('catalog_applications')->result_array();
+	}
+	function get_all_categories()
+	{
+		return $this->db->get('catalog_category')->result_array();
 	}
 	function get_all_chromes()
 	{

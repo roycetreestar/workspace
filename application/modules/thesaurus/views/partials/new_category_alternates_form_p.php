@@ -11,7 +11,7 @@
 	<form action="<?=base_url()?>thesaurus/add_from_form" method="post" id="new_category_alternates_form">
 		<input type="hidden" value="category_alt" name="add_type"/>
 		Product category Name
-		<?=$category_dd?>
+		<?=$categories_dd?>
 	<!--	<input type="text" id="chrome_name" name="chrome_name" />		-->
 		<br/>
 		Alternate Name
@@ -42,7 +42,10 @@
 			type: 'get',
 			success:function(msg)
 			{
-				$('#category_alt_result').html('New alternate name saved').css('color', 'green');
+/*				$('#category_alt_result').html(msg).css('color', 'violet');
+
+*/				$('#category_alt_result').html('New alternate name saved').css('color', 'green');
+
 			},
 			error: function (msg) 
 			{ 

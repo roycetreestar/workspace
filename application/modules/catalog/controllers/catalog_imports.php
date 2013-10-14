@@ -213,7 +213,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 					if(count($this->data['errors']['bad_category']) > 0)
 					{
 						$this->data['unknown_category_p'] = $this->load->view( 'partials/unknown_category_p', $this->data, true);
-						$this->data['new_category_alternates_form_p'] = $this->thesaurus_module->get_application_alternates_form();
+						$this->data['new_category_alternates_form_p'] = $this->thesaurus_module->get_category_alternates_form();
 						$this->data['new_category_form_p'] = $this->load->view('thesaurus/partials/new_category_form_p', $this->data, true);
 						$this->data['thesaurus_category_alternates_p'] = $this->load->view('thesaurus/partials/thesaurus_category_alternates_p', $this->data, true);
 					}
@@ -466,18 +466,22 @@ else
 	}//end function 
 	
 ////////////////////////////////////////////////////////////////////////////////
-	function validate_applications($application, $catalog_number, $weblink)
+	function validate_applications($applications, $catalog_number, $weblink)
 	{
-		$application = trim($application);
-		if($application == '')
-			$this->data['errors']['bad_application'][$catalog_number] = "BLANK_APPLICATION|".$catalog_number."|".$weblink;
-		else
+		$app_arr = explode(',', $applications);
+		foreach($app_arr as $application)
 		{
-			$result = $this->thesaurus_m->exists_application($application);
-			if(!$result)
+			$application = trim($application);
+			if($application == '')
+				$this->data['errors']['bad_application'][$catalog_number] = "BLANK_APPLICATION | ".$catalog_number." | ".$weblink;
+			else
 			{
-				if(!isset($this->data['errors']['bad_application'][$application]	)	)
-					$this->data['errors']['bad_application'][$application] = "REAGENT_APPLICATION|".$application."|".$catalog_number."|".$weblink;
+				$result = $this->thesaurus_m->exists_application($application);
+				if(!$result)
+				{
+					if(!isset($this->data['errors']['bad_application'][$application]	)	)
+						$this->data['errors']['bad_application'][$application] = "REAGENT_APPLICATION | ".$application." | ".$catalog_number." | ".$weblink;
+				}
 			}
 		}
 	}
@@ -485,14 +489,14 @@ else
 	{
 		$category = trim($category);
 		if($category == '')
-			$this->data['errors']['bad_category'][$catalog_number] = "BLANK_CATEGORY|".$catalog_number."|".$weblink;
+			$this->data['errors']['bad_category'][$catalog_number] = "BLANK_CATEGORY | ".$catalog_number." | ".$weblink;
 		else
 		{
 			$result = $this->thesaurus_m->exists_category($category);
 			if(!$result)
 			{
 				if(!isset($this->data['errors']['bad_category'][$category]	)	)
-					$this->data['errors']['bad_category'][$category] = "REAGENT_CATEGORY|".$category."|".$catalog_number."|".$weblink;
+					$this->data['errors']['bad_category'][$category] = "REAGENT_CATEGORY | ".$category." | ".$catalog_number." | ".$weblink;
 			}
 		}
 	}
@@ -515,7 +519,7 @@ else
 			if(!$result)
 			{
 				if(!isset($this->data['errors']['missing_targets'][$target] ) )
-					 $this->data['errors']['missing_targets'][$target] = "TARGET|".$target."|".$catalog_number."|".$weblink;
+					 $this->data['errors']['missing_targets'][$target] = "TARGET | ".$target." | ".$catalog_number." | ".$weblink;
 			}
 		}
 	}
@@ -543,7 +547,7 @@ else
 			{
 			// don't duplicate entries. 
 				if(!isset($this->data['errors']['missing_chromes'][$chrome] ) )
-					 $this->data['errors']['missing_chromes'][$chrome] = "CHROME|".$chrome."|".$catalog_number."|".$weblink;
+					 $this->data['errors']['missing_chromes'][$chrome] = "CHROME | ".$chrome." | ".$catalog_number." | ".$weblink;
 			}
 		}
 	}
@@ -564,7 +568,7 @@ else
 		{
 			if( !isset( $this->data['errors']['missing_clones'][$clone] ) )
 			{	
-				$this->data['errors']['missing_clones'][$clone] = "CLONE|".$clone."|".$catalog_number."|".$weblink;
+				$this->data['errors']['missing_clones'][$clone] = "CLONE | ".$clone." | ".$catalog_number." | ".$weblink;
 				$this->clones_model->insert($clone);
 			}
 		}
@@ -591,7 +595,7 @@ else
 			{
 				if(!isset($this->data['errors']['missing_species'][$this_species] ) )
 				{	
-					$this->data['errors']['missing_species'][$this_species] = "SPECIES|".$this_species."|".$catalog_number."|".$weblink;
+					$this->data['errors']['missing_species'][$this_species] = "SPECIES | ".$this_species." | ".$catalog_number." | ".$weblink;
 				}
 			}
 		}
@@ -724,21 +728,23 @@ else
 			//~ {
 				if($insert)
 				{
-					if($this->catalog_m->insert($data))
-						$this->insert_num++;
+					$product_id = $this->catalog_m->insert($data);
+					if($product_id)
+						$this->insert_num++;		//counting this import's inserted products
 				}
 				else 
 				{
-					if($this->catalog_m->update($data))
-						$this->update_num++;
+					$product_id = $this->catalog_m->update($data);
+					if($product_id)
+						$this->update_num++;		//counting this import's updated products
 				}
 				if($exclude_row)
-					$this->exclude_num++;
+					$this->exclude_num++;			//counting this import's 'excluded' products
 					
 			//check target_species to make sure we have this target to all its species
 				$this->check_target_species($data['target'], $data['target_species']);
 			//check product_species to make sure we have this product to each of its species
-				$this->check_product_species($this->db->insert_id(), $data['target_species']);
+				$this->check_product_species($product_id,  $data['target_species']);		//($this->db->insert_id(), $data['target_species']);
 			//~ }//end if(!$exclude_row)
 			$insert=true;
 			$exclude_row = false;

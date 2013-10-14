@@ -42,7 +42,10 @@
 			type: 'get',
 			success:function(msg)
 			{
+				$('#applications_alt_result').html(msg).css('color', 'violet');
+/*
 				$('#applications_alt_result').html('New alternate name saved').css('color', 'green');
+*/
 			},
 			error: function (msg) 
 			{ 

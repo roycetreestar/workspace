@@ -208,9 +208,9 @@
 					<li><a tabindex="-1" href="<?=base_url().'catalog/search/user_cytometers/12'?>">catalog/search/user_cytometers/12</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'api/targets?species=mouse'?>">api/targets?species=mouse</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'api/targets?detailed=true&targets=CD3,CD4,CD8'?>">api/targets?detailed=true&amp;targets=CD3,CD4,CD8</a></li>
-					<li><a tabindex="-1" href="<?=base_url().'api/fluorochromes'?>">api/fluorochromes</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'api/reagents?target=CD4'?>">api/reagents?target=CD4&amp;clone=[optional]</a></li>
 					<li class="divider"></li>
+					<li><a tabindex="-1" href="<?=base_url().'api/fluorochromes'?>">api/fluorochromes</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'api/inventory?target=CD4'?>">api/inventory?target=CD4&amp;clone=[optional]</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'api/session'?>">api/session</a></li>
 					<li><a tabindex="-1" href="<?=base_url().'api/login'?>">api/login</a></li>

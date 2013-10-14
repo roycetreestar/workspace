@@ -362,7 +362,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	function get_target_alternates($searchterm)
 	{
 		$target = $this->get_target_canonical($searchterm, true);
-		return $this->thesaurus_m->get_targets_alternates($target);
+		return $this->thesaurus_m->get_target_alternates($target);
 	}
 
 /////////////////////////////////////////////////////////////////////////
@@ -620,6 +620,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
  */
 	function add_from_form()
 	{
+//die("thesaurus/add_from_form()<br/>input:<textarea>".print_r($this->input->get(), true)."</textarea>");
 		switch($this->input->get('add_type'))
 		{
 			case 'cat_head_alt':
@@ -682,7 +683,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 				else
 					echo $this->db->_error_message() ;
 				break;
-			case 'categories_alt':
+			case 'category_alt':
 				if($this->add_new_category_alternate() )
 					echo 'success';
 				else
@@ -803,10 +804,12 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 //////////////////////////////////////////////////////////////////////////////////////////
 	function add_new_application_alternate()
 	{
+//die("got to add_new_application_alternate()");
 		$data['application_id'] = trim($this->input->get('application_id'));
-		$data['alternate_name'] = trim($this->input->get('alernate_name'));
-			$data['is_exception'] = trim($this->input->get('is_exception'));
+		$data['alternate_name'] = trim($this->input->get('alternate_name'));
+		$data['is_exception'] = trim($this->input->get('is_exception'));
 		
+//die("thesaurus/add_new_application_alternates()<br/>DATA:<textarea>".print_r($data, true)."</textarea>");
 		$result = $this->thesaurus_m->insert_applications_alternate($data);
 		return $result;
 	}
@@ -825,9 +828,14 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		$data['category_id'] = trim($this->input->get('category_id'));
 		$data['alternate_name'] = trim($this->input->get('alternate_name'));
-			$data['is_exception'] = trim($this->input->get('is_exception'));
+		$data['is_exception'] = trim($this->input->get('is_exception'));
 		
+//die("thesaurus/add_new_category_alternate()<br/> category_id:". $data['category_id']."<br/>alternate_name:". $data['alternate_name']."<br/>is_exception: ".$data['is_exception']);
 		$result = $this->thesaurus_m->insert_category_alternate($data);
+if($result)
+	die("insert success");
+else
+	die("insert failure");
 		return $result;
 	}
 	
@@ -855,7 +863,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		$applications_arr = $this->thesaurus_m->get_all_applications();
 		
-		$dd = '<select name="application_name">';
+		$dd = '<select name="application_id">';
 		foreach($applications_arr as $application)
 		{
 			$dd.= '<option value="'.$application['id'].'">'.$application['name'].'</option>';
@@ -868,10 +876,10 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		$categories_arr = $this->thesaurus_m->get_all_categories();
 		
-		$dd = '<select name="category_name">';
+		$dd = '<select name="category_id">';
 		foreach($categories_arr as $category)
 		{
-			$dd.= '<option value="'.$category['id'].'">'.$category['name'].'</option>';
+			$dd.= '<option value="'.$category['category_id'].'">'.$category['category'].'</option>';
 		}
 		$dd .= '</select>';
 		

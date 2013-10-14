@@ -47,13 +47,29 @@ class Api extends MY_Controller// Loggedin_Controller// Secure_Controller
 ';
 			foreach($targets as $target)
 			{
-				$xml.='	<target>'.$target['target_name'].'</target>
+$alternate_names = $this->thesaurus_module->get_target_alternates($target['target_name']);
+				$xml.='	<target name="'.$target['target_name'].'">';
+if(!empty($alternate_names))
+	{
+		$xml.='
+	<alternate_names>';
+			foreach($alternate_names as $alt)
+			{
+				$xml.='
+		<name>'.$alt['alternate_name'].'</name>';
+			}
+		$xml.='
+	</alternate_names>';
+	}				
+				
+$xml.='
+	</target>
 ';			
 			}
 			$xml.='</targets>';
 			
-die('xml of targets for '.$species.':<br/><textarea style="width:100%; height:90%;" >'.$xml.'</textarea>');			
-			return $xml;			
+//die('xml of targets for '.$species.':<br/><textarea style="width:100%; height:90%;" >'.$xml.'</textarea>');			
+			echo $xml;			
 		}
 //----------------------------------------------------------------------		
 		
@@ -104,8 +120,8 @@ die('xml of targets for '.$species.':<br/><textarea style="width:100%; height:90
 			}
 			$xml .= '
 </targets>'; //.......
-			//~ return $xml;
-echo '<textarea>'.$xml.'</textarea>';
+			echo $xml;
+//echo '<textarea>'.$xml.'</textarea>';
 		}
 	}
 
@@ -179,8 +195,8 @@ die('<textarea>'.$xml.'</textarea>');
 		}		
 		$xml.='</reagents>';
 			
-			
-echo '<textarea>'.$xml.'</textarea>';
+		echo $xml;
+//echo '<textarea>'.$xml.'</textarea>';
 	}
 	
 	

@@ -199,7 +199,7 @@ class Cytometers extends Resources
 			$cytometer_string .='</LightSource>'; 	
 		}
 		
-		$the_xml = '<?xml version="1.0" encoding="UTF-8"?><Panel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.treestar.com/schemas/FlowJo/PanelWizard">
+		$the_xml = '
 			<FlowCytometer  >
 			 <GeneralInfo manufacturer="'.$manufacturer.'" model="'.$model.'"  />
 			 '.$cytometer_string.'

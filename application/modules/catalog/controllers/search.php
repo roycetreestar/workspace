@@ -239,7 +239,8 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 		
 //~ die('catalog/search/userCytometers()<br/>$xml:<br/>
 //~ '.$xml);
-echo '<textarea>'.$xml.'</textarea>';	
+//echo '<textarea>'.$xml.'</textarea>';	
+echo $xml;
 	}
 ////////////////////////////////////////////////////////////////////////
 /**
