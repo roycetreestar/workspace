@@ -199,6 +199,7 @@ function group_col1($group_id){
 	if (!isset ($address))
 	{
 		$this->data['display'] = 'No Address Availabel<br><a href="#">Add Address</a>';
+		$this->data['display'] = $this->address_module->display($address['id']);
 	}
 	else
 	$this->data['display'] = $this->address_module->display($address['id']);
