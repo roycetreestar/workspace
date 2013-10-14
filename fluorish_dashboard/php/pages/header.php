@@ -311,7 +311,7 @@ $(document).ready(function () {
 	$('#select-group').editable({
             inputclass: 'input-large m-wrap',
             select2: {
-                tags: [ 'Join A Core' , 'Join A Lab' ],
+                tags: ['Join A Core' , 'Join A Lab' ],
                 tokenSeparators: [",", " "]
             }
         });
@@ -340,12 +340,12 @@ $(document).ready(function () {
     <li class="account">
     <a class="glyphicons logout lock" href="#" data-toggle="dropdown"><span class="hidden-phone text"><?php echo $first_name.' '.$last_name ?></span><i></i></a>
     <ul class="dropdown-menu pull-right">
-        <li><a class="glyphicons cogwheel" href="my_account/">Settings<i></i></a></li>
+        
         <li><a class="glyphicons cogwheel" href="#">Core Membership<i></i></a></li>
         <li><a class="glyphicons cogwheel" href="#">Lab Membership<i></i></a></li>
         <li class="highlight profile">
         <span>
-        <span class="heading">Profile<a class="pull-right" href="#">edit</a></span>
+        <span class="heading">Profile<a class="pull-right" href="my_account/">edit</a></span>
         <span class="img"></span>
         <span class="details"><a href="#"><?php echo $first_name.' '.$last_name ?></a><br>
         <?php echo $email ?></span>
