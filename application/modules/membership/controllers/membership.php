@@ -229,4 +229,11 @@ function managed_groups_dropdown()
 		return $dd;
 	}
 ////////////////////////////////////////////////////////////////////////////////
+	function get_institution_name($institution_id)
+	{
+		$this->load->model('institutions_m');
+		$ins = $this->institutions_m->get_institution_by_id($institution_id);
+		return $ins['institution_name'];
+		
+	}
 }//end class

@@ -10,7 +10,6 @@ class Loggedin_Controller extends MY_Controller {
 
 	public function __construct() 
 	{
-//~ echo 'Loggedin_Controller/construct() <hr/>';
 		parent::__construct();
 		$this->load->model('membership/resources_m');
 		$this->load->model('membership/groups_m');
@@ -19,19 +18,15 @@ class Loggedin_Controller extends MY_Controller {
 		//if user is logged in, refresh their session array
 		if(isset($this->session->userdata['logged_in']))
 		{	
-//~ echo 'Loggedin_Controller/construct()  ... back from parent::__construct() and userdata["logged_in"] is set<hr/>';
 			$this->get_session();
 			$this->userid = $this->session->userdata['logged_in']['userid'];
 		}
-//~ else
-//~ echo 'end of Loggedin_Controller/construct() - no $this->session->userdata[\'logged_in\']<br/>
-	//~ session->userdata:<pre>'.print_r($this->session->userdata, true).'</pre><hr/>';
+
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
 	function index()
 	{
-//~ die('Loggedin_Controller/index()<hr/>');
 		if(!$this->is_logged_in() )
 		{	
 			redirect('fluorish/dash');		}	
@@ -56,13 +51,12 @@ class Loggedin_Controller extends MY_Controller {
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 
+		$this->membership_module = $this->load->module('membership');
 //compare username/password to the database
 		$result = $this->users_m->login($username, $password);
 		
 		if( $result )
 		{
-			//$session_array = array('userid' => $result['entity_id'], 'username' => $result['user_name']);
-			
 			$session_array = array(
 					'userid' => $result['entity_id'],
 					'username' => $result['user_name'],
@@ -71,9 +65,10 @@ class Loggedin_Controller extends MY_Controller {
 					'phone'=>$result['phone'],
 					'status'=>$result['status'],
 					'email'=>$result['email'],
-					'institution'=>$result['institution']
+					'institution_id'=>$result['institution'],
+					'institution'=> $this->membership_module->get_institution_name($result['institution'])
 					);
-			
+							
 			$this->session->set_userdata('logged_in', $session_array);
 	
 			$this->get_session();
