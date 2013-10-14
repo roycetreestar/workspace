@@ -51,7 +51,7 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 		$data['clones'] = json_encode($all_clones);
 		
 		
-		echo '<div class="well">'. $this->search_module->get_search_form($data).'</div>';
+		echo '<div class="">'. $this->search_module->get_search_form($data).'</div>';
 	}
 
 	
