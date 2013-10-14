@@ -153,8 +153,8 @@ function accordian_head_right($group_id){
 		{
 			// My Fluorish
 				// All Icons with id Account Setings / Panels / Cytomerets / Inventory / Orders
+				// <a href="'.$group_id.'" class="icon-my-preferences" data-toggle="tooltip" data-placement="top" data-original-title="Account Settings"></a>
 				$this->data['icons']='
-				<a href="'.$group_id.'" class="icon-my-preferences" data-toggle="tooltip" data-placement="top" data-original-title="Account Settings"></a> 
 				<a href="#" class="icon-panels" data-toggle="tooltip" data-placement="top" data-original-title="Panels"></a> 
 				<a href="#" class="icon-core" data-toggle="tooltip" data-placement="top" data-original-title="Cores and Instruments"></a> 
 				<a href="#" class="icon-lab" data-toggle="tooltip" data-placement="top" data-original-title="Labs and Inventory"></a> 

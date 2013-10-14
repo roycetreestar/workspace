@@ -311,7 +311,7 @@ $(document).ready(function () {
 	$('#select-group').editable({
             inputclass: 'input-large m-wrap',
             select2: {
-                tags: ['Join A Core' , 'Join A Lab' ],
+                tags: ['My Fluorish'],
                 tokenSeparators: [",", " "]
             }
         });

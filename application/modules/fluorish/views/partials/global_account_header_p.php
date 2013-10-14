@@ -7,9 +7,7 @@
       <span> Viewing:</span> 
       <!-- --> 
       <a data-original-title="Select Group"  data-pk="1" data-type="select2" id="select-group" href="#" class="editable editable-click" style="background-color: transparent;" data-placement="bottom">
-	  <?php foreach($this->session->userdata['groups'] as $group){ echo $this->data = $group['group_name'].',';}?>
-      
-      </a>      <!-- -->
+      My Fluorish</a>      <!-- -->
       <div class="clearfix" style="clear: both;"></div>
     </div>
     <div class="span5">
