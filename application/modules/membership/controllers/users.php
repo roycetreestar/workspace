@@ -106,7 +106,8 @@ die('membership/users/index() would now be redirecting to backstage');
 				
 			//create default personal-resources group
 			//create the group entity
-				$this->data['entity_name'] = $this->data['entity_name'].'\'s personal resources';
+				//$this->data['entity_name'] = $this->data['entity_name'].'\'s personal resources';
+				$this->data['entity_name'] = 'My Fluorish';
 				$this->create_entity($this->data);
 				$this->data['entity_id'] = $this->db->insert_id();
 				
