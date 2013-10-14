@@ -311,7 +311,7 @@ $(document).ready(function () {
 	$('#select-group').editable({
             inputclass: 'input-large m-wrap',
             select2: {
-                tags: [<?php foreach($this->session->userdata['groups'] as $group){ echo '"'.$this->data = $group['group_name'].'"," Join A Core "," Join A Lab "';}?>],
+                tags: [ 'Join A Core' , 'Join A Lab' ],
                 tokenSeparators: [",", " "]
             }
         });
