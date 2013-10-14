@@ -345,7 +345,7 @@ $(document).ready(function () {
         <li><a class="glyphicons cogwheel" href="#">Lab Membership<i></i></a></li>
         <li class="highlight profile">
         <span>
-        <span class="heading">Profile<a class="pull-right" href="dash/my_account/">edit</a></span>
+        <span class="heading">Profile<a class="pull-right" href="<?php echo base_url()?>fluorish/dash/my_account/">edit</a></span>
         <span class="img"></span>
         <span class="details"><a href="#"><?php echo $first_name.' '.$last_name ?></a><br>
         <?php echo $email ?></span>
