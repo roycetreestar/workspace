@@ -74,22 +74,34 @@ Class Users_m extends CI_Model
 	    
 	    $this->db->update('users');
 	    
-	    if($this->db->affected_rows() >0)
-		    return true;
-	    else
-		    return false;
+		return $this->db->_error_message();
+	    //if($this->db->affected_rows() >0)
+		    //return true;
+	    //else
+		    //return false;
 	}
 	
 	function update_password($data)
 	{
-		$this->db->where('entity_id', $data['entityid'])
-			->set('password', $data['password']);
-		$this->db->update('users');
+		if($data['old_password'] === $this->get_password($data) )
+		{
+			$this->db->where('entity_id', $data['entity_id'])
+				->set('password', $data['password1']);
+			$this->db->update('users');
+			
+			if($this->db->affected_rows() >0)
+				return true; 
+		}
+	    //else 
+		    return $this->db->_error_message();//false;		
+	}
+	
+	function get_password($data)
+	{
+		$this->db->where('entity_id', $data['entity_id']);
+		$result = $this->db->get('users')->row_array();
 		
-	    if($this->db->affected_rows() >0)
-		    return true;
-	    else
-		    return false;		
+		return $result['password'];	
 	}
 ////////////////////////////////////////////////////////////////////////////////    
 	function get_all_users()

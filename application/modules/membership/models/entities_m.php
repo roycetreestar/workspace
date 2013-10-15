@@ -59,7 +59,8 @@ Class Entities_m extends CI_Model
 		$this->db->where('id', $data['entity_id']);
 		$this->db->set('entity_name', $data['entity_name']);
 		$this->db->set('email', $data['email']);
-		$this->db->set('phone', $data['phone']);
+		if(isset($data['phone']))
+			$this->db->set('phone', $data['phone']);
 		$this->db->set('institution', $data['institution']);
 //		$this->db->set('timestamp', $timestamp);
 		
@@ -73,7 +74,9 @@ Class Entities_m extends CI_Model
 		//~ else if($this->db->affected_rows() == 0 )
 			//~ die($this->db->last_query() );
 		//~ else	return false;
-		return $result;
+		
+return $this->db->_error_message();
+		//return $result;
 	}
 	
 ////////////////////////////////////////////////////////////////////////

@@ -258,29 +258,29 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		//~ $this->search_module = $this->load->module('catalog/search');
 		
 		
-		$data['vendors'] = $this->vendors_module->get_current_vendors();
-		
-		$data['species_dd'] = $this->thesaurus_module->species_dropdown();
-		
-		$all_targets = $this->search_module->get_all_target_names();
-		$data['targets'] = json_encode($all_targets);
-		
-		$all_chromes = $this->search_module->get_all_chrome_names();
-		$data['format'] = json_encode($all_chromes);
-
-		
-		$all_clones = $this->search_module->get_all_clone_names();
-		$data['clones'] = json_encode($all_clones);
+		//$data['vendors'] = $this->vendors_module->get_current_vendors();
+		//
+		//$data['species_dd'] = $this->thesaurus_module->species_dropdown();
+		//
+		//$all_targets = $this->search_module->get_all_target_names();
+		//$data['targets'] = json_encode($all_targets);
+		//
+		//$all_chromes = $this->search_module->get_all_chrome_names();
+		//$data['format'] = json_encode($all_chromes);
+//
+		//
+		//$all_clones = $this->search_module->get_all_clone_names();
+		//$data['clones'] = json_encode($all_clones);
 		
 		
 //~ die('backstage/howto/search(): <br/>$data:<textarea style="width:90%; height:90%" >'.print_r($data, true).'</textarea>');		
 		$header = $this->load->view('header_v', '', true); 
-		$data['search_partial'] = '<div class="well">'. $this->search_module->get_search_form($data).'</div>';
-		$data['search_results'] = '<div class="well" id="search_results"></div>';
+		$data['search_partial'] = '<div class="well">'. $this->search_module->index().'</div>';//get_search_form($data).'</div>';
+		//$data['search_results'] = '<div class="well" id="search_results"></div>';
 		$data['userCytometers'] = '';//'<div class="well">'.$this->load->view('backstage/partials/pb_user_cytometers_p', '', true).'</div>';
 		
 		echo $header;//.$search_partial.$search_results;
-		$this->load->view('backstage_search_v', $data);
+		$this->load->view('howto/search_v', $data);
 	}
 
 ////////////////////////////////////////////////////////////////////////

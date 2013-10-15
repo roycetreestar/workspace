@@ -40,18 +40,18 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 		
 		$data['species_dd'] = $this->thesaurus_module->species_dropdown();
 		
-		$all_targets = $this->search_module->get_all_target_names();
+		$all_targets = $this->get_all_target_names();
 		$data['targets'] = json_encode($all_targets);
 		
-		$all_chromes = $this->search_module->get_all_chrome_names();
+		$all_chromes = $this->get_all_chrome_names();
 		$data['format'] = json_encode($all_chromes);
 
 		
-		$all_clones = $this->search_module->get_all_clone_names();
+		$all_clones = $this->get_all_clone_names();
 		$data['clones'] = json_encode($all_clones);
 		
 		
-		echo '<div class="">'. $this->search_module->get_search_form($data).'</div>';
+		return '<div class="">'. $this->get_search_form($data).'</div>';
 	}
 
 	
@@ -81,15 +81,24 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 ////////////////////////////////////////////////////////////////////////
 	function get_search_form($data)
 	{
-		return $this->load->view('partials/search_p', $data, true);
+		return $this->load->view('partials/form_search_p', $data, true);
 	}
 
 	
 ////////////////////////////////////////////////////////////////////////
 	function results()
 	{
-		$data = $this->input->post();
+		$data = $this->input->get();
+		$data = $_GET;
 //~ echo 'catalog search params ($data):<hr/> <pre>'.print_r($data, true).'</pre>';		
+//die("catalog/search/results() DATA:<textarea>".print_r($data, true)."</textarea>");
+		if(isset($data['target']))
+			$data['target'] = $this->thesaurus_module->get_target_canonical($data['target'], true);
+		if(isset($data['format']))
+			$data['format'] = $this->thesaurus_module->get_chrome_canonical($data['format'], true);
+		//if(isset($data['clone']))
+			//$data['clone'] = $this->thesaurus_module->get_clones_canonical($data['clone'], true);
+
 		$data['results'] = $this->catalog_m->search($data);
 		
 		

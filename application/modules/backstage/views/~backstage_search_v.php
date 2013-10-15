@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 <div class="row-fluid">
 	<?=$search_partial?>
 </div>

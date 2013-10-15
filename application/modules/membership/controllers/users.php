@@ -27,7 +27,6 @@ class Users extends Entities //CI_Controller
 ////////////////////////////////////////////////////////////////////////
 	function __construct()
 	{
-//~ echo 'membership/users/construct() ... heading for parent::__construct()<hr/>';
 	  parent::__construct();
 
 	  $this->load->helper('url');
@@ -35,19 +34,14 @@ class Users extends Entities //CI_Controller
 	  $this->load->model('membership_m');
 	  $this->load->model('resources_m');
 	  $this->load->model('groups_m');
-//~ echo 'end of membership/users/construct()<hr/>';
-//~ die('DIED AT :end of membership/users/construct()<br/>
-//~ base_url():'.base_url().'<hr/>');
+	  
+	  $this->load->database();
+
 	}
 
 ////////////////////////////////////////////////////////////////////////
 	function index()
 	{
-	//   $this->load->view('partials/login_p');
-	//   $this->load->view('partials/create_user_p');
-		//~ $this->load->view('landing_page_v');
-//~ die('membership/controllers/index()');
-		
 		if($this->session->userdata('logged_in'))
 die('membership/users/index() would now be going for the get_session() function<hr/>');
 			//~ $this->get_session();
@@ -60,90 +54,100 @@ die('membership/users/index() would now be redirecting to backstage');
 	
 ////////////////////////////////////////////////////////////////////////
     
-    function save($data = NULL)
+    function save($data = NULL) 
     {
 	//first, make sure $data contains any parameters or $_POST values
-	    if($data == NULL  )
+	    if($data === NULL  )
 	    {
 		    $data = $this->input->post();
 	    }
+	    //if($data === NULL  )
+	    //{
+		    //$data = $_POST;
+	    //}
+//die("membership/users/save()<br/>DATA: <textarea>".print_r($data, true)."</textarea>");
 	// if it's an edit of a current user, update that user's entries in users table and entities table 	    
-	    if(isset($data['id']) && $data['id'] != '')
+	    if(isset($data['entity_id']) && $data['entity_id'] != '')
 	    {
 			$data['entity_name'] = $data['first_name'].' '.$data['last_name'];
 		//try to update the entities table and the users table	
 			$this->db->trans_start();
 				$e_update = $this->entities_m->update_entity($data);
-				$u_update = $this->users_m->update($data);		
+				$u_update = $this->users_m->update($data);	
+if(isset($data['password1']))
+				$pw_update = $this->update_password($data);	
+else $pw_update = 'No PW Update Needed';
 			$this->db->trans_complete();
-			
-			if($e_update && $u_update)
-			{	echo '<h1> Update Successful </h1>';	}
-			else
-			{	echo '<h1 style="color:red;"> Update Failed</h1>';			} 
+//die('users/save() <br/>$u_update message: '.$u_update.'<br/>$e_update: '.$e_update);	
+
+						if($e_update && $u_update) 
+						{	echo ' Update Successful ';	}
+						else
+						{	echo 'Update Failed';			
+						} 
 		}
 	//if it's a new user (no userid passed in), create a new user (in entities table and users table) and their personal resources group
 	    else
 	    {
 				$this->data = $this->input->post();
-	// make sure the user isn't re-registering
-		if($this->users_m->email_exists($data['email']) )
-		{
-			echo 'This email address is already in use<br/><a href="'.$this->reset_pw_email_path.'">Click here to reset your password</a>.';
-		}
-		else
-		{		//insert the new user into each table within a single transaction so if any one INSERT fails, they all revert 
-			$this->db->trans_start();
-			
-
-			//create the user entity
-				$this->data['entity_name'] = $this->data['first_name'].' '.$this->data['last_name']; //$this->data['username'];
-				$this->create_entity($this->data);
-				$this->data['entityid'] = $this->db->insert_id();
-				
-			//create the user
-				$this->users_m->create_user($this->data);
-				
-			//create default personal-resources group
-			//create the group entity
-				//$this->data['entity_name'] = $this->data['entity_name'].'\'s personal resources';
-				$this->data['entity_name'] = 'My Fluorish';
-				$this->create_entity($this->data);
-				$this->data['entity_id'] = $this->db->insert_id();
-				
-			//create the group
-				$this->data['group_name'] = $this->data['entity_name']; //.'\'s personal resources';
-				$this->data['long_group_name'] = 'your private / shared personal resources';
-				$this->data['group_type'] = 3;								 //the personal resources group_type is 3
-				$this->data['parent_group'] = '';
-				$this->data['access'] = 0;
-				$this->data['additional_information'] =$this->data['entity_name'].'\'s personal resources group';		
-				$this->groups_m->create_group($this->data);	
-			
-			//create entity_group record of personal-resources group	
-				$this->data['groupid'] = $this->data['entity_id'];		//$this->db->insert_id();
-				
-				$this->data['permission'] = 1;
-				$this->data['entity_type'] = 1;
-				$this->groups_m->join_group($this->data);
-			
-							
-			//create the user preferences entries in inventory_show_fields table	
-				$this->load->module('inventory');
-				$this->inventory->create_show_fields($this->data['entityid']);
-				
-				
-			$this->db->trans_complete();
-		
-			if (!$this->db->trans_status())
+		// make sure the user isn't re-registering
+			if($this->users_m->email_exists($data['email']) )
 			{
-				echo 'You have failed to register.';
-			} 
-			else
-			{
-				echo 'You have registered, please login.';
+				echo 'This email address is already in use<br/><a href="'.$this->reset_pw_email_path.'">Click here to reset your password</a>.';
 			}
-}//end if(email_exists)
+			else
+			{	
+			//insert the new user into each table within a single transaction so if any one INSERT fails, they all revert 
+				$this->db->trans_start();				
+
+				//create the user entity
+					$this->data['entity_name'] = $this->data['first_name'].' '.$this->data['last_name']; //$this->data['username'];
+					$this->create_entity($this->data);
+					$this->data['entityid'] = $this->db->insert_id();
+					
+				//create the user
+					$this->users_m->create_user($this->data);
+					
+				//create default personal-resources group
+				//create the group entity
+					//$this->data['entity_name'] = $this->data['entity_name'].'\'s personal resources';
+					$this->data['entity_name'] = 'My Fluorish';
+					$this->create_entity($this->data);
+					$this->data['entity_id'] = $this->db->insert_id();
+					
+				//create the group
+					$this->data['group_name'] = $this->data['entity_name']; //.'\'s personal resources';
+					$this->data['long_group_name'] = 'your private / shared personal resources';
+					$this->data['group_type'] = 3;								 //the personal resources group_type is 3
+					$this->data['parent_group'] = '';
+					$this->data['access'] = 0;
+					$this->data['additional_information'] =$this->data['entity_name'].'\'s personal resources group';		
+					$this->groups_m->create_group($this->data);	
+				
+				//create entity_group record of personal-resources group	
+					$this->data['groupid'] = $this->data['entity_id'];		//$this->db->insert_id();
+					
+					$this->data['permission'] = 1;
+					$this->data['entity_type'] = 1;
+					$this->groups_m->join_group($this->data);
+				
+								
+				//create the user preferences entries in inventory_show_fields table	
+					$this->load->module('inventory');
+					$this->inventory->create_show_fields($this->data['entityid']);
+					
+					
+				$this->db->trans_complete();
+			
+				if (!$this->db->trans_status())
+				{
+					echo 'You have failed to register.';
+				} 
+				else
+				{
+					echo 'You have registered, please login.';
+				}
+			}//end else - new user inserts
 
 
 	    }
@@ -237,7 +241,7 @@ die('membership/users/index() would now be redirecting to backstage');
 		$mem_module = $this->load->module('membership');
 		$data = $this->users_m->get_user($userid);
 		$data['institution_dd'] = $mem_module->institution_dropdown();
-//~ die('<textarea>'.print_r($data, true).'</textarea>');		
+//die("membership/users/my_account()<br/><textarea>".print_r($data, true)."</textarea>");		
 		return $this->load->view('partials/form_my_account_p', $data, true);
 	}
 
@@ -248,6 +252,17 @@ die('membership/users/index() would now be redirecting to backstage');
 		return $this->load->view('partials/login_p', '', true);
 	}
 
-
+	function update_password($data)
+	{
+		if(isset($data['old_password']) && isset($data['password1']) && isset($data['password2'])
+			&& $data['old_password']!= '' && $data['password1']!= '' && $data['password2']!= '' 
+			&& $data['password1']===$data['password2'])
+		{
+			$result = $this->users_m->update_password($data);
+			if($result)
+				return true;
+		}
+		return false;
+	}
 ////////////////////////////////////////////////////////////////////////
 }//end class
