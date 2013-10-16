@@ -32,7 +32,7 @@
 			{
 //alert(msg);				
 		$('#new_category_result').html('New category saved').css('color', 'green');
-		reload_alts();
+		reload_cat_alts();
 			},
 			error: function (msg) 
 			{ 
@@ -50,7 +50,7 @@
 
 	});
 	
-function reload_alts()
+function reload_cat_alts()
 {	
 	//refresh the category_alternates_form if present		
 	$('#category_alt_container').html($('#load_spinner').html());

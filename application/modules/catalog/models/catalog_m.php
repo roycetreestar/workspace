@@ -48,7 +48,8 @@ class Catalog_m extends CI_Model
 			$this->db->set('format', $data['format']);
 		if(isset($data['clone']))
 			$this->db->set('clone', $data['clone']);
-		$this->db->set('isotype', $data['isotype']);
+		if(isset($data['isotype']))
+			$this->db->set('isotype', $data['isotype']);
 		$this->db->set('unit_size', $data['unit_size']);
 		$this->db->set('price', $data['price']);
 		$this->db->set('product_url', $data['product_url']);	

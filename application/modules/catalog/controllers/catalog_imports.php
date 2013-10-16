@@ -46,7 +46,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 //the $EXCLUDE array is keywords for products we won't carry, so any target 
 //	or chrome that contains one of these keywords can be dropped.
 //	eventually, we should have this in the database in an excluded-product-keywords table
-	private 	$EXCLUDE = array('2 Color','3 Color','AKP','Alkaline Phosphatase','Carrier-Free','cocktail','kit','Set','Solution','Buffer','ELISA','ELISA Std.','FIX','FluoroFix','Horseradish Peroxidase','HRP','HRP (Horseradish Peroxidase)','HRPO','legend','Lyophilized Supernatant','Misc Supplies','Monensin','Permeabilization','Propidium','RBC','recom','Serum','Solutions and Buffers','Supernatant','Support Products','TMB', 'BGAL','BIMA','Lyophilized','Dual color', 'multitest','tritest','simultest','Quantibrite','Multi-Clone','Agarose','Imag','Lineage Panel','Trucount', 'kit','flowcytomix','elisa','module set','elispot','buffer','solution','recombinant','horseradish','hrp','beads','assay','lysate','2 color','3 color','fusion protein','panel','control cells','substrate','cocktail','ready-set-go!','permeabilization','western blot','whole blood staining','plate', 'serum','immobilized','Cocktail','Alkaline Phosphatase','BIMA','BGAL','Puraflow 8x Sheath Fluid','Caspase Inhibitor','Brefeldin','Flex Set','Bead','Particles','Standard','Tubes','Reagent Set','Multi-Check','retic','Bundle','FACSCount','Sheath Fluid','Detector','Zero Foam','Disinfectant', 'Peroxidase', 'LINEAGE MIXTURE', 'Noxa', 'RIP3', 'p53NIDP1');
+	private 	$EXCLUDE = array('2 Color','3 Color','AKP','Carrier-Free','cocktail','kit','Set','Solution','Buffer','ELISA','ELISA Std.','FIX','FluoroFix','Horseradish Peroxidase','HRP','HRP (Horseradish Peroxidase)','HRPO','legend','Lyophilized Supernatant','Misc Supplies','Monensin','Permeabilization','Propidium','RBC','recom','Serum','Solutions and Buffers','Supernatant','Support Products','TMB', 'BGAL','BIMA','Lyophilized','Dual color', 'multitest','tritest','simultest','Quantibrite','Multi-Clone','Agarose','Imag','Lineage Panel','Trucount', 'kit','flowcytomix','elisa','module set','elispot','buffer','solution','recombinant','horseradish','hrp','beads','assay','lysate','2 color','3 color','fusion protein','panel','control cells','substrate','cocktail','ready-set-go!','permeabilization','western blot','whole blood staining','plate', 'serum','immobilized','Cocktail','Alkaline Phosphatase','BIMA','BGAL','Puraflow 8x Sheath Fluid','Caspase Inhibitor','Brefeldin','Flex Set','Bead','Particles','Standard','Tubes','Reagent Set','Multi-Check','retic','Bundle','FACSCount','Sheath Fluid','Detector','Zero Foam','Disinfectant', 'Peroxidase', 'LINEAGE MIXTURE', 'Noxa', 'RIP3', 'p53NIDP1', 'Alkaline Phos­-phatase');
 	
 //	private $excluded_rows = array();						//stores product_numbers of rows that match $EXCLUDE so they won't be imported during do_insert();
 	
@@ -390,6 +390,7 @@ else
 
 	function validate_others()
 	{
+
 		$this->load->model('clone_exceptions_model');
 		$catalog_number;
 		$weblink;
@@ -538,6 +539,8 @@ else
 	function validate_chrome($chrome, $catalog_number, $weblink)
 	{
 		$chrome = trim($chrome);
+//if($chrome == 'Alkaline Phosphatase' || $catalog_number == '130-090-462')
+//die("found chrome: Alkaline Phosphatase! chrome:".$chrome);
 		//if it isn't an empty field AND it contains a $EXCLUDE keyword, it fails validation and is put in the excluded_rows array
 		if($chrome!='' && !$this->exclude_product($chrome, 'chrome', $catalog_number, $weblink) )
 		{
@@ -619,11 +622,13 @@ else
 	
 	function exclude_product($item, $problem_field, $catalog_number, $weblink)
 	{
+//if(trim($item) == 'Alkaline Phosphatase')
+//die("Alkaline Phosphatase made it to exclude_product");
 		$is_excludable = false;
 		$str_arr = explode(' ', $item);
 		foreach($str_arr as $word)
 		{
-			if( in_array($word, $this->EXCLUDE) )
+			if( in_array(trim($word), $this->EXCLUDE) || in_array(trim($item), $this->EXCLUDE) )
 			{
 				$this->data['excluded_rows'][$catalog_number] = array('catalog_number'=>$catalog_number, 'problem_field'=>$problem_field, 'problem_string'=>$item, 'weblink'=>$weblink) ;
 				$is_excludable = true;

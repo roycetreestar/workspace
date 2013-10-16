@@ -39,7 +39,8 @@
 			{
 //alert(msg);				
 		$('#new_species_result').html('New species saved').css('color', 'green');
-		reload_alts();
+		$('#species_alt_container').html('reloading now');
+		reload_species_alts();
 			},
 			error: function (msg) 
 			{ 
@@ -57,7 +58,7 @@
 
 	});
 	
-function reload_alts()
+function reload_species_alts()
 {	
 	//refresh the species_alternates_form if present		
 	$('#species_alt_container').html($('#load_spinner').html());
@@ -69,7 +70,18 @@ function reload_alts()
 		{
 //alert(msg);				
 			$('#species_alt_container').html(msg);
-		}
+		},
+		
+		error: function (msg) 
+			{ 
+//alert(msg.responseText);
+				var the_error = msg.responseText;
+				var start = the_error.indexOf("<div");
+				var end = the_error.indexOf("</div>") + 7;
+				var error_div = the_error.substring(start, end);
+
+				$('#species_alt_container').html(error_div).css('color', 'red');
+			}
 		
 	});
 }
