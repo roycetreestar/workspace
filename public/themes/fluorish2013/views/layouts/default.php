@@ -258,7 +258,7 @@
 		<div class="topmargin2" >
     <div class="container">
     <div class="row">
-    <div class="span12" id="search"><?php echo modules::run('catalog/search/index');?></div>
+    <div class="span12" id="search"><?php //echo modules::run('catalog/search/index');?></div>
       <div class="span12" id="search_results">
       </div>
       </div>
