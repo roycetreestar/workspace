@@ -879,28 +879,28 @@ $panel_c = $this->load->module('panels');
 		//~ $data['full'] = $thesaurus_module->index();
 	//catalog header lookup partial
 		$data['cat_head_lookup'] = $this->thesaurus_module->get_catalog_header_lookup_form();
-		$data['cat_head_alts_lookup'] = $this->thesaurus_module->get_catalog_header_alts_lookup_form();
+		$data['cat_head_alts_lookup'] = $this->thesaurus_module->get_catalog_header_alternates_lookup_form();
 		$data['cat_head_alt_form'] = $this->thesaurus_module->get_catalog_header_alternates_form();	
 	
 	//chromes 
 		$data['chromes_lookup'] = $this->thesaurus_module->get_chrome_lookup_form();
-		$data['chrome_alts_lookup'] = $this->thesaurus_module->get_chrome_alts_lookup_form();
+		$data['chrome_alts_lookup'] = $this->thesaurus_module->get_chrome_alternates_lookup_form();
 		$data['add_chrome_form']= $this->thesaurus_module->get_chromes_form();	
 		$data['add_chrome_alt_form']= $this->thesaurus_module->get_chromes_alternates_form();	
 		
 	//clones
 		$data['clones_lookup'] = $this->thesaurus_module->get_clone_lookup_form();
-		$data['clone_alts_lookup'] = $this->thesaurus_module->get_clone_alts_lookup_form();
+		$data['clone_alts_lookup'] = $this->thesaurus_module->get_clone_alternates_lookup_form();
 		$data['add_clone_form'] = $this->thesaurus_module->get_clones_form();	
 		//~ $data['add_clone_alt_form'] = $this->thesaurus_module->get_clone_alternates_form();	
 	//species
 		$data['species_lookup'] = $this->thesaurus_module->get_species_lookup_form();
-		$data['species_alts_lookup'] = $this->thesaurus_module->get_species_alts_lookup_form();
+		$data['species_alts_lookup'] = $this->thesaurus_module->get_species_alternates_lookup_form();
 		$data['add_species_form'] = $this->thesaurus_module->get_species_form();	
 		$data['add_species_alt_form'] = $this->thesaurus_module->get_species_alternates_form();	
 	//targets
 		$data['targets_lookup'] = $this->thesaurus_module->get_target_lookup_form();
-		$data['target_alts_lookup'] = $this->thesaurus_module->get_target_alts_lookup_form();
+		$data['target_alts_lookup'] = $this->thesaurus_module->get_target_alternates_lookup_form();
 		$data['add_target_form'] = $this->thesaurus_module->get_targets_form();	
 		$data['add_target_alt_form'] = $this->thesaurus_module->get_targets_alternates_form();	
 	

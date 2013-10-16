@@ -123,12 +123,14 @@
 					<tr><td><strong>parameter:</strong> </td> 	<td>none</td></tr>					
 					<tr><td><strong>returns:</strong> </td>		<td> (php array) of groups the current user has not joined</td></tr>
 					<tr><td colspan="2">Searches the logged-in user's <a href="<?=base_url()?>/backstage/howto/users#session">session array</a> for their joined_groups and returns an array of groups that are not in the session array. Available cores or available labs can be specified by looping through this array in your controller class and peeling out the appropriate group_type  </td></tr>
+					<tr><td colspan="3"><button class=" span10 offset1 btn btn-warning" onclick="$('#available_groups_parent_container').toggle()"><strong style="color:blue">The available groups display can be quite long. Click here to show/hide the available groups container</strong></button></td></tr>
 				</table>
 				
-				<div class="span9 offset1">
-					<!--<textarea><?=print_r($available, true)?></textarea>	-->
-					<?=$available?>
-				
+				<div class="span9 offset1" >
+					<div id="available_groups_parent_container" >
+						<!--<textarea><?=print_r($available, true)?></textarea>	-->
+						<?=$available?>
+					</div>
 				</div>
 			
 			</div>

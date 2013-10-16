@@ -74,11 +74,10 @@ Class Users_m extends CI_Model
 	    
 	    $this->db->update('users');
 	    
-		return $this->db->_error_message();
-	    //if($this->db->affected_rows() >0)
-		    //return true;
-	    //else
-		    //return false;
+	    if($this->db->affected_rows() >0)
+		    return true;
+	    else
+		    return false;
 	}
 	
 	function update_password($data)
@@ -93,7 +92,8 @@ Class Users_m extends CI_Model
 				return true; 
 		}
 	    //else 
-		    return $this->db->_error_message();//false;		
+		    //return $this->db->_error_message();
+		    return false;		
 	}
 	
 	function get_password($data)

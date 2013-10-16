@@ -1,24 +1,24 @@
-<?php
-	echo $cat_head_lookup;
-	echo $cat_head_alts_lookup;
-	echo $cat_head_alt_form;
+
+	<?=$cat_head_lookup?>
+<div class=" well">	<?=$cat_head_alts_lookup?>	</div>
+<div class=" well">	<?=$cat_head_alt_form?>	</div>
 	
-	echo $chromes_lookup;
-	echo $chrome_altss_lookup;
-	echo $add_chrome_form;
-	echo $add_chrome_alt_form;
+	<?=$chromes_lookup?>
+<div class=" well">	<?=$chrome_alts_lookup?> </div>
+	<?=$add_chrome_form?>
+	<?=$add_chrome_alt_form?>
 	
-	echo $clones_lookup;
-	echo $clone_altss_lookup;
-	echo $add_clone_form;
+<div class=" well"><?=$clones_lookup?></div>
+<div class=" well"><?=$clone_alts_lookup?> </div>
+<div class=" well"><?=$add_clone_form?></div>
 	
-	echo $species_lookup;
-	echo $species_alts_lookup;
-	echo $add_species_form;
-	echo $add_species_alt_form;
+	<?=$species_lookup?>
+<div class=" well">	<?=$species_alts_lookup?>	</div>
+	<?=$add_species_form?>
+	<?=$add_species_alt_form?>
 	
 	
-	echo $targets_lookup;	
-	echo $target_alts_lookup;
-	echo $add_target_form;
-	echo $add_target_alt_form;
+	<?=$targets_lookup?>	
+<div class=" well">	<?=$target_alts_lookup?>	</div>
+	<?=$add_target_form?>
+	<?=$add_target_alt_form?>

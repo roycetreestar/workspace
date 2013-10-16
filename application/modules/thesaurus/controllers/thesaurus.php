@@ -63,25 +63,30 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		return $this->load->view('partials/thesaurus_targets_p', $this->data, true);
 	}
 	
-	
+///////	ALTERNATES LOOKUP FORMS		/////////	
 	function get_catalog_header_alternates_lookup_form()
 	{
+		$this->data['cat_heads_dd'] = $this->catalog_header_dropdown();
 		return $this->load->view('partials/thesaurus_catalog_header_alternates_p', $this->data, true);
 	}
 	function get_chrome_alternates_lookup_form()
 	{
+		$this->data['chromes_dd'] = $this->chromes_dropdown();		
 		return $this->load->view('partials/thesaurus_chrome_alternates_p', $this->data, true);
 	}
-	//~ function get_clone_alternates_lookup_form()
-	//~ {
-		//~ return $this->load->view('partials/thesaurus_clone_alternates_p', $this->data, true);
-	//~ }
+	 function get_clone_alternates_lookup_form()
+	{
+		$this->data['clones_dd'] = $this->clones_dropdown();
+		return $this->load->view('partials/thesaurus_clone_alternates_p', $this->data, true);
+	}
 	function get_species_alternates_lookup_form()
 	{
+		$this->data['species_dd'] = $this->species_dropdown();
 		return $this->load->view('partials/thesaurus_species_alternates_p', $this->data, true);
 	}
 	function get_target_alternates_lookup_form()
 	{
+		$this->data['targets_dd'] = $this->targets_dropdown();
 		return $this->load->view('partials/thesaurus_target_alternates_p', $this->data, true);
 	}
 	
@@ -927,7 +932,19 @@ else
 		
 		return $dd;
 	}
-
+	function clones_dropdown()
+	{
+		$clone_arr = $this->thesaurus_m->get_all_clones();
+		$dd = '<select name="clone_name">';
+		
+		foreach($clone_arr as $clone)
+		{
+			$dd.= '<option value="'.$clone['clone_name'].'">'.$clone['clone_name'].'</option>';
+		}
+		$dd .= '</select>';
+		
+		return $dd;
+	}
 
 
 

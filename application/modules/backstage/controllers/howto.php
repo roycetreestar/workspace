@@ -186,7 +186,7 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		
 	//clones
 		//~ $data['clones_lookup'] = $this->thesaurus_module->get_clone_lookup_form()
-		$data['add_clone_form'] = $this->thesaurus_module->get_clones_form();	
+		//$data['add_clone_form'] = $this->thesaurus_module->get_clones_form();	
 		//~ $data['add_clone_alt_form'] = $this->thesaurus_module->get_clone_alternates_form();	
 	//species
 		$data['species_lookup'] = $this->thesaurus_module->get_species_lookup_form();

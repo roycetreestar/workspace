@@ -75,8 +75,7 @@ Class Entities_m extends CI_Model
 			//~ die($this->db->last_query() );
 		//~ else	return false;
 		
-return $this->db->_error_message();
-		//return $result;
+		return $result;
 	}
 	
 ////////////////////////////////////////////////////////////////////////

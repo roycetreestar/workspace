@@ -103,7 +103,7 @@ class Thesaurus_m extends CI_Model// MY_Model
 		else 
 			return false;
 	}
-	
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////	GET ALTERNATE NAMES	////////////////////////////////////
@@ -626,6 +626,10 @@ class Thesaurus_m extends CI_Model// MY_Model
 	function get_all_targets()
 	{
 		return $this->db->get('targets')->result_array();
+	}
+	function get_all_clones()
+	{
+		return $this->db->get('clones')->result_array();
 	}
 }//end class
 	

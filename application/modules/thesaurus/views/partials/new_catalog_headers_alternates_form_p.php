@@ -4,7 +4,7 @@
  * This form adds new alternate names for a chrome
  */
 ?>
-<div class="well" id="new_cat_head_alternates_container">
+<div class="well what_the_heck" id="new_cat_head_alternates_container" >
 	<span id="cat_head_alt_result" ></span>
 	<h3>Add a catalog header alternate name</h3>
 		
@@ -25,7 +25,7 @@
 
 
 
-<script>
+<script type="text/javascript">
 	$('#new_cat_head_alternates_form').submit( function(event)
 	{
 		event.preventDefault();				
