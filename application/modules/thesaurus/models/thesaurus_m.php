@@ -190,10 +190,14 @@ class Thesaurus_m extends CI_Model// MY_Model
 			//~ return $result;
 		//~ }	
 		//~ else return false;	
-		$this->db->where('target_name', urldecode($term) );
-		$this->db->or_where('alternate_name', urldecode($term) );
-		$query = $this->db->get('targets_alternate_name')->row_array();
+		$where = '(target_name = \''.urldecode($term).'\' OR alternate_name = \''.urldecode($term).'\')';
 		
+		//$this->db->where('(target_name', urldecode($term) );
+		//$this->db->or_where('alternate_name', urldecode($term).')' );
+		$this->db->where($where);
+		$this->db->where('is_exception', '0');
+		$query = $this->db->get('targets_alternate_name')->row_array();
+//die("<span style='color:red'>thesaurus_m/get_target_alternates() last_query(): <br/>".$this->db->last_query()."</span>");		
 		
 		if ($query)//->num_rows() > 0)
 		{

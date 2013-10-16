@@ -25,7 +25,7 @@
 //alert('The Spinnie ... it works!');
 		$.ajax(
 		{
-			url: '<?=base_url()?>thesaurus/get_chrome_alternate_names?'+values ,
+			url: '<?=base_url()?>thesaurus/get_chrome_alternate_names_table?'+values ,
 			type: 'get',
 			success:function(msg)
 			{

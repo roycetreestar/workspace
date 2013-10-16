@@ -371,7 +371,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	}
 
 /////////////////////////////////////////////////////////////////////////
-	function get_chrome_alternate_names($searchterm='', $return=false)
+	function get_chrome_alternate_names_table($searchterm='', $return=false)
 	{
 		if($searchterm === '')
 			$searchterm = $this->input->get('search_string');
@@ -391,17 +391,34 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 				echo 'no result found';
 			else
 			{
-//~ die('thesaurus/get_chrome_alternates() got a result:<br/><textarea>'.print_r($result, true).'</textarea>');
+// // die('thesaurus/get_chrome_alternates() got a result:<br/><textarea>'.print_r($result, true).'</textarea>');
+				//$returnable = '<strong>canonical name:</strong> '.$result[0]['chrome_name'].'<br/><br/><strong>alternate names:</strong>';
+				//foreach($result as $chrome)
+					//$returnable.= '<br/>'.$chrome['alternate_name'];
+				//echo $returnable;
+				//~ die('thesaurus/get_chrome_alternates() got a result:<br/><textarea>'.print_r($result, true).'</textarea>');
+				
+				
+				
 				$returnable = '<strong>canonical name:</strong> '.$result[0]['chrome_name'].'<br/><br/><strong>alternate names:</strong>';
+				
+				$returnable .= '<br/><table class="table table-bordered">
+					<tr><th>alternate name</th><th>is exception</th></tr>
+				';
+				
 				foreach($result as $chrome)
-					$returnable.= '<br/>'.$chrome['alternate_name'];
+				{
+					$returnable.= '<tr><td>'.$chrome['alternate_name'].'</td><td> '. ($chrome['is_exception']==1 ?  "yes" :  "") .'</td>	</tr>';
+				}				
+				$returnable.= '</table>';
+				
 				echo $returnable;
 			}
 		}
 	}
 
 /////////////////////////////////////////////////////////////////////////
-	function get_species_alternate_names($searchterm='', $return=false)
+	function get_species_alternate_names_table($searchterm='', $return=false)
 	{
 		if($searchterm === '')
 			$searchterm = $this->input->get('search_string');
@@ -417,24 +434,41 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		}
 		else 
 		{
-			if(!$result)
-				echo 'no result found';
-			else
-			{
-//~ die('thesaurus/get_chrome_alternates() got a result:<br/><textarea>'.print_r($result, true).'</textarea>');
-				$returnable = '<strong>canonical name:</strong> '.$result[0]['species_name'].'<br/><br/><strong>alternate names:</strong>';
+			//if(!$result)
+				//echo 'no result found';
+			//else
+			//{
+//  //die('thesaurus/get_species_alternates() got a result:<br/><textarea>'.print_r($result, true).'</textarea>');
+				//$returnable = '<strong>canonical name:</strong> '.$result[0]['species_name'].'<br/><br/><strong>alternate names:</strong>';
+				//foreach($result as $species)
+					//$returnable.= '<br/>'.$species['alternate_name'];
+				//echo $returnable;
+			//}
+			
+			
+				$returnable = '<strong>canonical name:</strong> '.$result[0]['species_name'].'<br/>
+							<br/><strong>alternate names:</strong>';
+				
+				$returnable .= '<br/><table class="table table-bordered">
+					<tr><th>alternate name</th><th>is exception</th></tr>
+				';
+				
 				foreach($result as $species)
-					$returnable.= '<br/>'.$species['alternate_name'];
+				{
+					$returnable.= '<tr><td>'.$species['alternate_name'].'</td><td> '. ($species['is_exception']==1 ?  "yes" :  "") .'</td>	</tr>';
+				}				
+				$returnable.= '</table>';
+				
 				echo $returnable;
-			}
 		}
 	}
 /////////////////////////////////////////////////////////////////////////
 /**
- * returns a 
+ * returns a table of target alternate names/exceptions for the 
+ * targets alternates lookup widget
  * 
  */
-	function get_target_alternate_names($searchterm='', $return=false)
+	function get_target_alternate_names_table($searchterm='', $return=false)
 	{
 		if($searchterm === '')
 			$searchterm = $this->input->get('search_string');

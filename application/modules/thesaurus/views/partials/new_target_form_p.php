@@ -67,7 +67,7 @@
 			success:function(msg)
 			{
 	//alert(msg);				
-				$('#target_alt_container').html(msg).css('color', 'green');
+				$('#target_alt_container').html(msg);//.css('color', 'green');
 			}			
 		});
 	}
