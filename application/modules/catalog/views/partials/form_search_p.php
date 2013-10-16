@@ -36,7 +36,7 @@
 					<h5 class="glyphicons riflescope">
 					<i></i>Target Species:</h5>
 				</div>
-				<div class="span5" style="margin-left:-50px">
+				<div class="span5">
 					<?=$species_dd?>
                </div>
             </div>
