@@ -255,15 +255,16 @@
 </div>
 <!-- About END --> 
 <!-- Reagent Search -->
-		<?php 
-		//$search = $this->load->module('membership/groups');
-		//echo $search->edit();
-		//echo Modules::run( 'membership/groups/edit' ); 
-		
-		echo Modules::run( 'search/search/index' );
-		?>
-    
-<!-- Reagent Search END --> 
+		<div class="topmargin2" >
+    <div class="container">
+    <div class="row">
+    <div class="span12" id="search"><?php echo modules::run('catalog/search/index');?></div>
+      <div class="span12" id="search_results">
+      </div>
+      </div>
+    </div>
+    </div>
+   <!-- Reagent Search END --> 
 <!-- Download -->
 <div id="download" class="topmargin2" >
   <div class="container">
@@ -452,5 +453,41 @@ $(document).ready(function() {
 	
 });
 </script>
-</body>
+<script>
+
+	$('#search_form').submit( function(event)
+	{
+		event.preventDefault();				
+	//	var values = $("#search_form").serialize();	
+		var values = $("form").serialize();	
+	//	var values = $(this).serialize();
+
+		
+		$('#search_results').html('');
+/* 
+alert("values: "+values);
+*/
+		$.ajax(
+		{
+			url: "http://localhost/george/catalog/search/results?"+values,
+			type: 'get',
+		//	data: values,
+			success:function(msg)
+			{
+				$('#search_results').html(msg);
+			},
+			error: function (msg) 
+			{ 
+				var the_error = msg.responseText;
+				var start = the_error.indexOf("&lt;div");
+				var end = the_error.indexOf("&lt;/div&gt;") + 7;
+				var error_div = the_error.substring(start, end);
+
+				$('#search_results').html(error_div).css('color', 'red');
+			}
+		});
+/* */
+	});
+
+</script></body>
 </html>
