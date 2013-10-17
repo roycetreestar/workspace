@@ -29,7 +29,7 @@ class Groups extends Loggedin_Controller
 
 		
 		$this->get_session();
-		
+		$this->load_modules();
 	}
 ////////////////////////////////////////////////////////////////////////	
 	function index()
@@ -80,6 +80,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
     //~ function create_group($data = NULL)  
     function save($data = NULL)  
     {
+//die("got to groups/save()");
 	//first, make sure $data contains any parameters or $_POST values
 	    if($data == NULL  )
 	    {
@@ -89,6 +90,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 	//next, either save the data or load the form partial
 	    if($data != NULL)
 	    {
+
 		// if entity_id is set, do UPDATEs
 		    if(isset($data['entity_id']) && $data['entity_id'] != '')
 		    {
@@ -116,9 +118,10 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 				//create the group-entity and get its id
 					$data['entity_id'] = $this->entities_m->create_entity($data);									
 				//create the group
-					$this->groups_m->create_group($data);				
+					$data['group_result'] = $this->groups_m->create_group($data);				
 				//add creator to group as manager				
-					$this->join_group($this->session->userdata['logged_in']['userid'], $data['entity_id'], 1, 0);
+					$data['join_result'] = $this->join_group($this->session->userdata['logged_in']['userid'], $data['entity_id'], 1, 1);
+//die("data['join_result'] (meaning the success of join_group) is: ".$data['join_result']);
 				$this->db->trans_complete();
 			
 			// now reload the session array so the new group is accessible
@@ -128,7 +131,8 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 				{
 				// now reload the session array so the new group is accessible
 					$this->get_session();
-					echo 'failed';
+					//echo 'failed';
+					echo $data['entity_id'].'<hr/>'.$data['group_result'].'<hr/>'.$data['join_result'];
 				}
 				else	    
 					echo 'success';
@@ -206,8 +210,8 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 				echo 'success';
 //				redirect('/membership', 'refresh');
 			else
-//				return true;
-				echo 'success';
+				return true;
+				//echo 'success';
 		}
 		else
 		{
@@ -230,25 +234,29 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
  */
 	function pending_members($group_id)
 	{
+		$data['group'] = $this->get_array($group_id);
 		$data['pending_members'] = array();
-		$usermodule = $this->load->module('membership/users');
+		//$users_module = $this->load->module('membership/users');
 		$pending_members = $this->groups_m->pending_members($group_id);
 		foreach ($pending_members as $user)
 		{
-			$user_arr = $usermodule->get_array($user['entity_id']);
+			$user_arr = $this->users_module->get_array($user['entity_id']);
 			$data['pending_members'][] = array_merge($user, $user_arr);
 		}		
+//die("groups/pending_members() DATA:<textarea>".print_r($data, true)."</textarea>");
 		return $this->load->view('partials/group_pending_members_p', $data, true);
 	}
 ////////////////////////////////////////////////////////////////////////////////
 	function current_members($group_id)
-	{
+	{		
+		$data['group'] = $this->get_array($group_id);
 		$data['current_members'] = array();
-		$usermodule = $this->load->module('membership/users');
+		//$usermodule = $this->load->module('membership/users');
 		$current_members = $this->groups_m->current_members($group_id);
 		foreach ($current_members as $user)
 		{
-			$user_arr = $usermodule->get_array($user['entity_id']);
+			$user_arr = $this->users_module->get_array($user['entity_id']);
+			//$user_arr = $usermodule->get_array($user['entity_id']);
 			$data['current_members'][] = array_merge($user, $user_arr);
 		}		
 		return $this->load->view('partials/group_members_p', $data, true);
@@ -381,7 +389,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 			foreach($this->session->userdata['groups'] as $group)
 			{
 //~ die('membership/groups/groups_managed() $group:<textarea>'.print_r($group, true).'</textarea>');
-				if($group['group_type'] == $group_type_num)
+				if($group['group_type'] == $group_type_num && $group['permission'] == 1)
 				{
 					$groups_mgd[$group['group_id']] = array("group_id" => $group['group_id'], "group_name" => $group['group_name'] , "permission" => $group['permission']);
 				}

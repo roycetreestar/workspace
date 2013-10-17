@@ -1,5 +1,5 @@
 <div>
-		<h5>Pending Members</h5>
+		<h5>Pending Members for <?=$group['group_name']?></h5>
 		<div class="widget-timeline">
 			<ul class="list-timeline">
 
@@ -13,6 +13,7 @@
 				}
 				?>
 			</ul>
+			
 		</div>
 
 

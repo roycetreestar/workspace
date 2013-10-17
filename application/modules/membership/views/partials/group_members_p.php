@@ -1,5 +1,5 @@
 <div class="widget-timeline">
-	<h5>Current Members</h5>
+	<h5>Current Members in <?=$group['group_name']?></h5>
 	<table class="table table-bordered table-condensed">
 		<thead>
 			<tr>
