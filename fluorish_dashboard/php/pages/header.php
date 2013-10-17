@@ -347,7 +347,7 @@ $(document).ready(function () {
         <span>
         <span class="heading">Profile<a class="pull-right" href="<?php echo base_url()?>fluorish/dash/my_account/">edit</a></span>
         <span class="img"></span>
-        <span class="details"><a href="#"><?php echo $first_name.' '.$last_name ?></a><br>
+        <span class="details"><?php echo $first_name.' '.$last_name ?><br>
         <?php echo $email ?></span>
         <span class="clearfix"></span>
         </span>
