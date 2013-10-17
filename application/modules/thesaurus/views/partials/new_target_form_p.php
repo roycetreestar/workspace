@@ -38,7 +38,7 @@
 			{
 //alert(msg);				
 		$('#new_target_result').html('New target saved').css('color', 'green');
-		reload_alts();
+		reload_target_alts();
 			},
 			error: function (msg) 
 			{ 
@@ -56,7 +56,7 @@
 	
 	
 //when the add form is successfully submitted, relaod the add-alternate-name partial so its dropdown has the new term
-	function reload_alts()
+	function reload_target_alts()
 	{	
 	//refresh the targets_alternates_form if present		
 		$('#target_alt_container').html($('#load_spinner').html());
@@ -67,7 +67,7 @@
 			success:function(msg)
 			{
 	//alert(msg);				
-				$('#target_alt_container').html(msg).css('color', 'green');
+				$('#target_alt_container').html(msg);//.css('color', 'green');
 			}			
 		});
 	}

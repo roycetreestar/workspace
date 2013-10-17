@@ -32,7 +32,7 @@
 			{
 //alert(msg);				
 		$('#new_application_result').html('New application saved').css('color', 'green');
-		reload_alts();
+		reload_app_alts();
 			},
 			error: function (msg) 
 			{ 
@@ -50,7 +50,7 @@
 
 	});
 	
-function reload_alts()
+function reload_app_alts()
 {	
 	//refresh the application_alternates_form if present		
 	$('#application_alt_container').html($('#load_spinner').html());

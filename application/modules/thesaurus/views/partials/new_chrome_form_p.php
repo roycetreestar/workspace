@@ -66,7 +66,7 @@
 			{
 //alert(msg);				
 		$('#new_chromes_result').html('New fluorochrome saved').css('color', 'green');
-		refresh_chrome_alts();
+		reload_chrome_alts();
 			},
 			error: function (msg) 
 			{ 
@@ -85,7 +85,7 @@
 		
 		
 //refresh the chrome_alternates_form if present		
-function refresh_chrome_alts()
+function reload_chrome_alts()
 {
 $('#chrome_alt_container').html($('#load_spinner').html());
 		$.ajax(
