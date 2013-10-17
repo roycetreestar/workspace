@@ -168,7 +168,7 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 				$groupid = $this_group['entity_id'];
 			    foreach($this->session->userdata['groups'] as $sess_group)
 			    {
-				    if($this_group['entity_id'] === $sess_group['group_id'])
+				    if($this_group['entity_id'] === $sess_group['group_id'] || $this_group['group_type'] === '3')
 					    $keepit = false;
 			    }
 			    if($keepit)

@@ -11,7 +11,6 @@
 				
 				<?php	foreach($my_groups as $my_group)
 						{
-echo 'this is an iteration of the foreach() loop in groups_managed_p <br/>';
 							//if($my_group['permission'] == 1)	//group permissions: 0=member, 1=manager
 							//{
 								echo '
