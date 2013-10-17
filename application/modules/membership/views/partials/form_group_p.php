@@ -71,7 +71,7 @@ if(!isset($group))
 			success:function(msg)
 			{
 				if(msg == 'success' || msg == 'successsuccess')
-					$('#edit_group_result_<?= isset($entity_id)? $entity_id : '' ?>').html('Group Saved).css('color', 'green');
+					$('#edit_group_result_<?= isset($entity_id)? $entity_id : '' ?>').html('Group Saved').css('color', 'green');
 				else
 					$('#edit_group_result_<?= isset($entity_id)? $entity_id : '' ?>').html(msg).css('color', 'red');
 			},
