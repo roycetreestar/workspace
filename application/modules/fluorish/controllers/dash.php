@@ -43,6 +43,8 @@ class Dash extends Loggedin_Controller
 			$path = base_url().'public/themes/fluorish2013/'; 
 			return $path;
 			}
+		
+		$this->output->enable_profiler(TRUE);
 	  
 	}
 
