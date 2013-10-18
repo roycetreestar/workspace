@@ -9,29 +9,29 @@
 
 <?php if(isset($email)) echo '<h2 id="page_title" class="page-title">Edit User '.$email.'</h2>'; else echo '<h2 id="page_title" class="page-title">Register for Fluorish</h2>'; ?>
 <form action="" method="post" id="edit_user_form" accept-charset="utf-8" >
-  <label>Email Address</label>
-  <input type="text" name="email" 		value="<?=isset($email)? $email : '' ?>" class="span5"/>
-  <label>Password</label>
-  <input type="password" name="password" 	value="<?=isset($password)? $password : '' ?>" class="span5"/>
-  <label>First Name</label>
-  <input type="text" name="first_name" 	value="<?=isset($first_name)? $first_name : '' ?>" class="span5"/>
-  <label for="last_name">Last Name</label>
-  <div class="input">
-    <input type="text" name="last_name" 	value="<?=isset($last_name)? $last_name : '' ?>" class="span5"/>
-  </div>
-    <label for="">Institution</label>
-    <div class="input">
-      <?=$institution_dd?>
-    </div>
-    <input type="hidden" name="entity_id" 	value="<?=isset($id)		? $id 			: '' ?>" />
-    <input type="hidden" name="id" 			value="<?=isset($id)		? $id 			: '' ?>" />
-    <input type="hidden" name="phone" 		value="<?=isset($phone)		? $phone 		: '' ?>" />
-    <input type="hidden" name="entity_name" value="<?=isset($entity_name)? $entity_name : '' ?>" />
-    <div class="" id="edit_user_result" ></div>
-    <input type="submit" value="Register" name="btnLogin" class="btn span5" id="login_nav" style="width:50%">
-    
-  </li>
-  </ul>
+	<label>Email Address</label>
+	<input type="text" name="email" 		value="<?=isset($email)? $email : '' ?>" class="span5"/>
+	<label>Password</label>
+	<input type="password" name="password" 	value="<?=isset($password)? $password : '' ?>" class="span5"/>
+	<label>First Name</label>
+	<input type="text" name="first_name" 	value="<?=isset($first_name)? $first_name : '' ?>" class="span5"/>
+	<label for="last_name">Last Name</label>
+	<div class="input">
+		<input type="text" name="last_name" 	value="<?=isset($last_name)? $last_name : '' ?>" class="span5"/>
+	</div>
+	<label for="">Institution</label>
+	<div class="input">
+		<?=$institution_dd?>
+	</div>
+	<input type="hidden" name="entity_id" 	value="<?=isset($id)		? $id 			: '' ?>" />
+	<input type="hidden" name="id" 			value="<?=isset($id)		? $id 			: '' ?>" />
+	<input type="hidden" name="phone" 		value="<?=isset($phone)		? $phone 		: '' ?>" />
+	<input type="hidden" name="entity_name" value="<?=isset($entity_name)? $entity_name : '' ?>" />
+	<div class="" id="edit_user_result" ></div>
+	<input type="submit" value="Register" name="btnLogin" class="btn span5" id="login_nav" style="width:50%">
+
+	</li>
+	</ul>
 </form>
 
 <script>

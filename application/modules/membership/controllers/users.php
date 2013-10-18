@@ -198,7 +198,7 @@ else $pw_update = 'No PW Update Needed';
 		$mem_module = $this->load->module('membership/membership');		//for grabbing the institution dropdown
 		
 		$data = $this->users_m->get_user($userid);
-		$data['institution_dd'] = $mem_module->institution_dropdown();
+		$data['institution_dd'] = $mem_module->institution_dropdown();		
 //~ die('$data:<textarea>'.print_r($data, true).'</textarea>');
 		
 		return $this->load->view('partials/form_user_p', $data, true);
@@ -241,6 +241,7 @@ else $pw_update = 'No PW Update Needed';
 		$mem_module = $this->load->module('membership');
 		$data = $this->users_m->get_user($userid);
 		$data['institution_dd'] = $mem_module->institution_dropdown();
+		$data['institution_arr'] = $mem_module->institution_arr();
 //die("membership/users/my_account()<br/><textarea>".print_r($data, true)."</textarea>");		
 		return $this->load->view('partials/form_my_account_p', $data, true);
 	}

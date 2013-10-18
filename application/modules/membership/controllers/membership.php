@@ -208,6 +208,11 @@ function managed_groups_dropdown()
 	}
     
     
+	function institution_arr()
+	{
+		//die("the institution array:<textarea>". $this->entities_m->get_institution_arr()."</textarea>");
+		return $this->entities_m->get_institution_arr();
+	}
 /**
  * returns an HTML <select> dropdown where <option value=$institution_id>$institution_name</option>
  */
@@ -215,7 +220,7 @@ function managed_groups_dropdown()
     {
 		$mem_module = $this->load->model('entities_m');
 		$inst_arr = $this->entities_m->get_institution_arr();
-		$dd = '<select name="institution">';
+		$dd = '<select name="institution" data-provide="typeahead" data-items="4">';
 		
 		foreach($inst_arr as $institution)
 		{
