@@ -8,7 +8,7 @@ else
 
 <!-- -->
 <div id="login_message"> <?= $message_value ?> </div>
-  <form id="login-small" accept-charset="utf-8" method="post" class="navbar-search" action="<?= base_url('membership/users/do_login/backstage') ?>">
+  <form id="login-small" accept-charset="utf-8" method="post" class="navbar-search" action="<?= base_url('membership/users/do_login') ?>">
     <input type="hidden" value="<?php echo base_url()?>" name="redirect_to">
     <label>Email Address</label>
     <input type="text" placeholder="E-mail" maxlength="120" name="email" id="email">
