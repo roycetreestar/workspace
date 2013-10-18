@@ -472,7 +472,7 @@ alert("values: "+values);
 */
 		$.ajax(
 		{
-			url: "http://localhost/george/catalog/search/results?"+values,
+			url: "http://webdev.treestar.com/george/catalog/search/results?"+values,
 			type: 'get',
 		//	data: values,
 			success:function(msg)
