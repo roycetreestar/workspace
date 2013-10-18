@@ -36,6 +36,7 @@
 
 <!-- Add some theme option variables for styling -->
 <style type="text/css"></style>
+<script src="<?php echo getTheme(); ?>js/jquery-1.10.2.js"></script> 
 </head>
 <body>
 <!-- Header -->
@@ -64,12 +65,8 @@
 <li class="divider-vertical"></li>
 <li><a href="<?=site_url('fluorish/register');?>"><span class="register btn"> Join Fluorish</span></a></li>
 <li class="divider-vertical"></li>
-
-
 <li class="dropdown"> <a data-toggle="dropdown" href="#" class="dropdown-toggle">Sign In <strong class="caret"></strong></a>
-  <div style="padding: 15px; padding-bottom: 0px;" class="dropdown-menu">
-    <?php echo Modules::run( 'membership/membership/login' ); ?>
-  </div>
+  <div style="padding: 15px; padding-bottom: 0px;" class="dropdown-menu"> <?php echo Modules::run( 'membership/membership/login' ); ?> </div>
 </li>
 </nav>
 </div>
@@ -255,16 +252,15 @@
 </div>
 <!-- About END --> 
 <!-- Reagent Search -->
-		<div class="topmargin2" >
-    <div class="container">
+<div class="topmargin2" >
+  <div class="container">
     <div class="row">
-    <div class="span12" id="search"><?php echo modules::run('catalog/search/index'); //('/search/index');?></div>
-      <div class="span12" id="search_results">
-      </div>
-      </div>
+      <div class="span12" id="search"><?php echo modules::run('catalog/search/index'); //('/search/index');?></div>
+      <div class="span12" id="search_results"> </div>
     </div>
-    </div>
-   <!-- Reagent Search END --> 
+  </div>
+</div>
+<!-- Reagent Search END --> 
 <!-- Download -->
 <div id="download" class="topmargin2" >
   <div class="container">
@@ -296,14 +292,12 @@
         <!-- Download box iOS END --> 
       </div>
       
-      
       <!-- Screen Shot Carousel -->
       <div class="row">
         <div class="span6">
-          
           <div id="myCarousel" class="flexslider">
             <ul class="slides">
-            	<!-- Slider 1 -->
+              <!-- Slider 1 -->
               <li id="slider-item-1">
                 <div class="container">
                   <div class="row">
@@ -349,7 +343,6 @@
               </li>
             </ul>
           </div>
-          
         </div>
       </div>
       <!-- End Screen Shot Carousel --> 
@@ -391,7 +384,7 @@
     </div>
   </div>
 </div>
-<!-- Contact END -->
+<!-- Contact END --> 
 <!-- Footer -->
 <footer id="footer">
   <div class="container">
@@ -407,7 +400,6 @@
 
 <!-- JavaScript
 ================================================== --> 
-<script src="<?php echo getTheme(); ?>js/jquery-1.10.2.js"></script> 
 <script src="<?php echo getTheme(); ?>js/bootstrap.min.js"></script> 
 <script src="<?php echo getTheme(); ?>js/jquery.flexslider-min.js"></script> 
 <script src="<?php echo getTheme(); ?>js/jquery.fitvids.js"></script> 
@@ -452,47 +444,6 @@ $(document).ready(function() {
 	//$("a.fancybox").fancybox();
 	
 });
-</script>
-
-
-
-<script>
-
-	$('#search_form').submit( function(event)
-	{
-		event.preventDefault();				
-	//	var values = $("#search_form").serialize();	
-		var values = $("form").serialize();	
-	//	var values = $(this).serialize();
-
-		
-		$('#search_results').html('');
-/* 
-alert("values: "+values);
-*/
-		$.ajax(
-		{
-			url: "http://webdev.treestar.com/george/catalog/search/results?"+values,
-			type: 'get',
-		//	data: values,
-			success:function(msg)
-			{
-				$('#search_results').html(msg);
-			},
-			error: function (msg) 
-			{ 
-				var the_error = msg.responseText;
-				var start = the_error.indexOf("&lt;div");
-				var end = the_error.indexOf("&lt;/div&gt;") + 7;
-				var error_div = the_error.substring(start, end);
-
-				$('#search_results').html(error_div).css('color', 'red');
-			}
-		});
-/* */
-	});
-
-</script>
+</script> 
 </body>
 </html>
-
