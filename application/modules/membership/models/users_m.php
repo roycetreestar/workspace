@@ -14,7 +14,8 @@ Class Users_m extends CI_Model
 	{
 
 		//~ $this->db->select('entity_id, user_name, password');
-
+if($email == '' || $password== '')
+return false;
 		$this->db->select('entity_id, user_name, first_name, last_name, phone, status, email, institution, password');
 		$this->db->from('users');
 		$this->db->where('email', $email);
@@ -22,8 +23,9 @@ Class Users_m extends CI_Model
 		$this->db->limit(1);
 
 		$query = $this->db->get();
-
-		if($query -> num_rows() == 1)
+//die("users_m/login() last query:<br/>".$this->db->last_query() );
+		//if($query->num_rows() == 1)
+		 if($this->db->affected_rows() >0)
 		{
 			return $query->row_array();
 		}

@@ -28,7 +28,7 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 		$this->load->model('targets_model');
 		$this->load->model('catalog_m');
 		
-		$this->load_modules();
+		//$this->load_modules();
 	}
 	
 ////////////////////////////////////////////////////////////////////////
@@ -36,6 +36,10 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 
 	function index()
 	{
+		$this->vendors_module= $this->load->module('catalog/vendors');
+		$this->thesaurus_module= $this->load->module('thesaurus');
+		
+		
 		$data['vendors'] = $this->vendors_module->get_current_vendors();
 		
 		$data['species_dd'] = $this->thesaurus_module->species_dropdown();
@@ -61,6 +65,7 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 ////////////////////////////////////////////////////////////////////////
 	function targets_for_species($species)
 	{
+		$this->thesaurus_module= $this->load->module('thesaurus');
 		$this->load->model('target_species_model');
 		
 		$species = $this->thesaurus->get_species_canonical($species, true );
@@ -88,6 +93,7 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 ////////////////////////////////////////////////////////////////////////
 	function results()
 	{
+		$this->thesaurus_module= $this->load->module('thesaurus');
 		$data = $this->input->get();
 		$data = $_GET;
 //~ echo 'catalog search params ($data):<hr/> <pre>'.print_r($data, true).'</pre>';		

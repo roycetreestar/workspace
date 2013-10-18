@@ -247,9 +247,11 @@ else $pw_update = 'No PW Update Needed';
 
 ////////////////////////////////////////////////////////////////////////
 
-	function login_form()
+	function login_form($success_path='', $fail_path='')
 	{
-		return $this->load->view('partials/login_p', '', true);
+		$data['success_path'] = $success_path;
+		$data['fail_path'] = $fail_path;
+		return $this->load->view('partials/login_p', $data , true);
 	}
 
 	function update_password($data)

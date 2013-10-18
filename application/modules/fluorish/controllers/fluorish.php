@@ -31,7 +31,7 @@ class Fluorish extends Loggedin_Controller //MY_Controller //CI_Controller
 			$this->membership = $this->load->module('membership');
 		}
 		
-		$this->load->library('template');
+		//$this->load->library('template');
 		
 		defined('APP_NAME') || define('APP_NAME', 'Fluorish');
 		defined('APP_VERSION') || define('APP_VERSION', 'v1.0');

@@ -46,14 +46,15 @@ class Loggedin_Controller extends MY_Controller {
     
 ////////////////////////////////////////////////////////////////////////////////
 
-    function do_login()//($username, $password)
+    function do_login($success_path= 'fluorish/dash', $fail_path='' )//($username, $password)
 	{
-		$username = $this->input->post('username');
+		$email = $this->input->post('email');
 		$password = $this->input->post('password');
-
+if( !empty($email)|| !empty($password) )
+{
 		$this->membership_module = $this->load->module('membership');
-//compare username/password to the database
-		$result = $this->users_m->login($username, $password);
+//compare email/password to the database
+		$result = $this->users_m->login($email, $password);
 		
 		if( $result )
 		{
@@ -72,14 +73,17 @@ class Loggedin_Controller extends MY_Controller {
 			$this->session->set_userdata('logged_in', $session_array);
 	
 			$this->get_session();
-
-			redirect(base_url().'fluorish/dash');
+		//successful login
+			redirect(base_url().$success_path);
 		}
-		else
-		{
-			$data['message'] = 'Incorrect username or password';
-			$this->load->view('partials/login_p', $data);
-		}
+}
+		//else
+		//{
+			//$data['message'] = 'Incorrect email address or password';
+			//$this->load->view('partials/login_p', $data);
+		//}
+	//failed login
+		redirect(base_url().$fail_path);
 	}
  
 ////////////////////////////////////////////////////////////////////////////////
