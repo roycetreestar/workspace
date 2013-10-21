@@ -6,7 +6,11 @@
           <div class="span8 group-title"> 
           <!-- insert -->
           <a class="accordion-toggle glyphicons type-<?php echo $grouptype ?>" data-toggle="collapse" data-parent="#accordion" href="#group-<?php echo $groupid ?>"><i></i>
-            <h3 id="truncate"><?php echo $groupname ?><span> <?php echo $username ?></span></h3>
+            <h3><?php echo $groupname ?><span> 
+			
+			<?php echo($grouptype == 3)? $username:'' ?>
+            
+            </span></h3>
             </a> 
             
             </div>
@@ -29,7 +33,12 @@
             <?php echo $myimage ?>
               <div class="separator bottom"></div>
               <address class="margin-none">
-              <?php echo $display ?>
+              <!-- -->
+              <p>
+              <div id="truncate"><strong><?php echo $institution ?></strong></div><br>
+              Email: <a href="mailto:<?php echo $email ?>"><?php echo $email; ?></a>
+              </p>
+              <!-- -->
               </address>
               <div class="clearfix separator bottom"></div>
             </div>

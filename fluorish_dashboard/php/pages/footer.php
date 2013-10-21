@@ -1,13 +1,66 @@
+<div class="separator bottom"></div>
+<div class="separator bottom"></div>
 <!-- End Content -->
 </div>
-
-<!-- End Wrapper -->
+ <!-- End Wrapper -->
 </div>
+
+</div>
+</div>
+<style>
+.large {
+    background-color: #2F2F2F;
+    color: #666666;
+    margin-bottom: -14px;
+    padding-top: 5px;
+}
+</style>
+
+<div id="contact" class="container fixed">
+  <div class="container">
+    <div class="row">
+      <div class="span4">
+        <address>
+        <div id="f_logo"><img src="<?php echo base_url() ?>public/themes/fluorish2013/img/logo.png"></div>
+        <br>
+        340 A Street, Suite 101<br>
+        Ashland, OR 97520<br>
+        <abbr title="Phone">P:</abbr> 800-366-6045 (US and Canada)<br>
+        <abbr title="Phone">Int:</abbr> 541-201-0022
+        </address>
+      </div>
+      <div id="footer_support" class="span4">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="mailto:support@fluorish.com">Support@Fluorish.com</a></li>
+          <li><a href="/contact">Leave Feedback or Comments</a></li>
+          <li><a href="/videos">Videos</a></li>
+          <li><a href="/faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div id="footer_partner" class="span4">
+        <h4>Partner center</h4>
+        <ul>
+          <li><a class="btn" href="/partner">Become a partner</a></li>
+          <li><a class="btn" href="/login">Partner Dashboard Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Sticky Footer -->
-<div id="footer" class="visible-desktop"> </div>
+<div id="footer" class="footer">
+	<div id="terms" class="container">
+     	<div class="span5 offset1">
+    		<a href="#">Privacy</a> | <a href="#">Terms</a>
+    	</div>
+        <div class="span5 pull-right" style="color:#5A5A5A">
+    	© 2013 Fluorish. Design by Fluorish, LLC. All Rights Reserved.
+    	</div>
+    </div>
 </div>
-
 <!-- JQueryUI v1.9.2 --> 
 <script src="<?php echo getURL(); ?>theme/scripts/plugins/system/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.min.js"></script> 
 
@@ -111,4 +164,5 @@
 
 </script>
 
-</body></html>
+</body>
+</html>

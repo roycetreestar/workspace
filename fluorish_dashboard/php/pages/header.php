@@ -281,7 +281,7 @@ body {
     overflow: visible; 
     white-space: normal; 
     width: auto;
-	font-size:9px;
+	
 
     }
 
@@ -347,7 +347,7 @@ $(document).ready(function () {
 </head>
 <body>
 <!-- Start Content -->
-<div class="container-fluid menu-hidden fixed">
+<div class="container menu-hidden fixed">
 <div class="navbar main hidden-print"> <a href="#" class="appbrand"></a>
   <ul class="topnav pull-right">
     <li><a href=""><span class=""><img src="<?php echo getAssets() ?>images/dl.png" width="175" height="40"></span></a></li>
