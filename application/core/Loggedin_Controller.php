@@ -86,6 +86,7 @@ if( !empty($email)|| !empty($password) )
 		redirect(base_url().$fail_path);
 	}
  
+ 
 ////////////////////////////////////////////////////////////////////////////////
 /**
  * 	**get_session() functionality lives in the membership module **
