@@ -268,6 +268,23 @@ body {
 	padding-bottom: 5px;
 	padding-left: 64px;
 }
+
+
+#truncate {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    }
+
+#truncate:hover{
+    overflow: visible; 
+    white-space: normal; 
+    width: auto;
+	font-size:9px;
+
+    }
+
 </style>
 <script>
 $(document).ready(function () {

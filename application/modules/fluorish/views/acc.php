@@ -6,7 +6,7 @@
           <div class="span8 group-title"> 
           <!-- insert -->
           <a class="accordion-toggle glyphicons type-<?php echo $grouptype ?>" data-toggle="collapse" data-parent="#accordion" href="#group-<?php echo $groupid ?>"><i></i>
-            <h3> <?php echo $groupname ?><span> <?php echo $username ?></span></h3>
+            <h3 id="truncate"><?php echo $groupname ?><span> <?php echo $username ?></span></h3>
             </a> 
             
             </div>

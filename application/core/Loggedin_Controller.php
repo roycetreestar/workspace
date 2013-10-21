@@ -50,8 +50,8 @@ class Loggedin_Controller extends MY_Controller {
 	{
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
-if( !empty($email)|| !empty($password) )
-{
+	if( !empty($email)|| !empty($password) )
+		{
 		$this->membership_module = $this->load->module('membership');
 //compare email/password to the database
 		$result = $this->users_m->login($email, $password);
@@ -74,7 +74,8 @@ if( !empty($email)|| !empty($password) )
 	
 			$this->get_session();
 		//successful login
-			redirect(base_url().$success_path);
+			//redirect(base_url().$success_path);
+			redirect('fluorish/dash');
 		}
 }
 		//else
@@ -85,6 +86,7 @@ if( !empty($email)|| !empty($password) )
 	//failed login
 		redirect(base_url().$fail_path);
 	}
+ 
  
 ////////////////////////////////////////////////////////////////////////////////
 /**
