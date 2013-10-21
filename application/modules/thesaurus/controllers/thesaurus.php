@@ -42,9 +42,17 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 ///////////////		LOOKUP FORMS		/////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+	function get_application_lookup_form()
+	{
+		return $this->load->view('partials/thesaurus_applications_p', $this->data, true);
+	}
 	function get_catalog_header_lookup_form()
 	{
 		return $this->load->view('partials/thesaurus_catalog_headers_p', $this->data, true);
+	}
+		function get_category_lookup_form()
+	{
+		return $this->load->view('partials/thesaurus_category_p', $this->data, true);
 	}
 	function get_chrome_lookup_form()
 	{
@@ -64,6 +72,10 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	}
 	
 ///////	ALTERNATES LOOKUP FORMS		/////////	
+	function get_application_alternates_lookup_form()
+	{
+		return $this->load->view('partials/thesaurus_application_alternates_p', $this->data, true);
+	}
 	function get_catalog_header_alternates_lookup_form()
 	{
 		$this->data['cat_heads_dd'] = $this->catalog_header_dropdown();
@@ -89,7 +101,11 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		$this->data['targets_dd'] = $this->targets_dropdown();
 		return $this->load->view('partials/thesaurus_target_alternates_p', $this->data, true);
 	}
-	
+	function get_category_alternates_lookup_form()
+	{
+		$this->data['category_dd'] = $this->categories_dropdown();
+		return $this->load->view('partials/thesaurus_category_alternates_p', $this->data, true);
+	}
 //////////////////////////////////////////////////////////////////////////////////////////
 /**
  * if the second parameter, $return, is set true, the value will be returned.
@@ -152,8 +168,6 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 				echo $result;
 		}
 	}
-	
-	
 //////////////////////////////////////////////////////////////////////////////////////////
 /**
  * if the second parameter, $return, is set true, the value will be returned.
@@ -595,11 +609,19 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 	{
 		return $this->load->view('partials/new_catalog_headers_alternates_form_p', $this->data, true);
 	}
+	function get_application_form()
+	{
+		return $this->load->view('partials/new_application_form_p', $this->data, true);
+	}
 	function get_application_alternates_form()
 	{
 		$this->data['applications_dd'] = $this->applications_dropdown();
 		
 		return $this->load->view('partials/new_applications_alternates_form_p', $this->data, true);
+	}
+	function get_category_form()
+	{
+		return $this->load->view('partials/new_category_form_p', '', true);
 	}
 	function get_category_alternates_form()
 	{
