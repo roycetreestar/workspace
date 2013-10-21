@@ -187,4 +187,18 @@ class Catalog_m extends CI_Model
 		
 	}
 
+
+	
+////////////////////////////////////////////////////////////////////////
+	function get_EXCLUDE_arr()
+	{
+		$raw_array = $this->db->get('excludes')->result_array();
+		$returnable = array();
+		foreach($raw_array as $raw)
+			$returnable[]=$raw['term'];
+		
+		return $returnable;
+	}
+
+
 }//end class

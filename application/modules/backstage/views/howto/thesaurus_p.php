@@ -149,6 +149,29 @@
 		<div class="row-fluid">
 
 
+
+<!--	LOOKUP A FLUOROCHROME ALTERNATE NAME	-->
+			<div class="well span12" id="add_chrome_alt">
+
+				lookup chrome alternate names
+			<?=$chrome_alt_lookup?>
+			</div>
+
+		</div><!-- end .row-fluid -->
+		<div class="row-fluid">
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--	ADD A SPECIES	-->
 			<div class="well span12" id="add_species">
 				<h3>add a new species</h3>
@@ -188,7 +211,15 @@
 
 		</div><!-- end .row-fluid -->
 		<div class="row-fluid">
-
+			
+			
+			<div class="well">
+				lookup species alternate names
+				<?=$species_alt_lookup?>
+			</div>
+			
+		</div><!-- end .row-fluid -->
+		<div class="row-fluid">
 
 <!--	ADD A TARGET	-->
 			<div class="well span12" id="add_target">
@@ -217,7 +248,72 @@
 			</div>
 
 			
-		</div>
+		</div><!-- end .row-fluid -->
+		<div class="row-fluid">
+			
+<!--	LOOKUP TARGET ALTERNATE NAMES		-->
+			<div class="well span12" id="lookup_target_alt">
+				lookup target alternate names
+				<?=$target_alt_lookup?>
+			</div>
+			
+		</div><!-- end .row-fluid -->
+		<div class="row-fluid">
 
+<!-- 	CATEGORIES	-->
+			<div class="well">
+				add a new product category
+				<?=$add_category_form?>
+			</div>
+			
+		</div><!-- end .row-fluid -->
+		<div class="row-fluid">
+			
+			<div class="well">
+				lookup category alternate names
+				<?=$category_alt_lookup?>
+			</div>
 
-<?=$add_application_alt_form?>
+		</div><!-- end .row-fluid -->
+		<div class="row-fluid">
+			
+			<div class="well">
+				lookup categories
+				<?=$category_lookup?>
+			</div>
+
+		</div><!-- end .row-fluid -->
+		<div class="row-fluid">
+
+			<div class="well">
+				add a new category alternate name
+				<?=$add_category_alt_form?>
+			</div>
+
+		</div><!-- end .row-fluid -->
+		<div class="row-fluid">
+<!-- APPLICATIONS		-->
+			<div class="well">
+				add new application 
+				<?=$add_application_form?>
+			</div>
+			
+			
+		</div><!-- end .row-fluid -->
+		<div class="row-fluid">			
+			
+			<div class="well">
+				add new application alternate names form
+				<?=$add_application_alt_form?>
+			</div>
+
+		</div><!-- end .row-fluid -->
+		<div class="row-fluid">
+
+<!-- CATALOG FIELD HEADERS		-->
+			<div class="well">
+				lookup catalog header alternate names
+				<?=$cat_head_alt_lookup_form?>
+			</div>
+
+		</div><!-- end .row-fluid -->

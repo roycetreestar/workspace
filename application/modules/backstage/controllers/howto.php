@@ -175,12 +175,22 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 	{
 	//the full page (all lookup partials)
 		//~ $data['full'] = $thesaurus_module->index();
+	//applications
+		$data['add_application_form'] = $this->thesaurus_module->get_application_form();
+		$data['add_application_alt_form'] = $this->thesaurus_module->get_application_alternates_form();
+		$data['application_alt_lookup'] = $this->thesaurus_module->get_application_alternates_lookup_form();
 	//catalog header lookup partial
 		$data['cat_head_lookup'] = $this->thesaurus_module->get_catalog_header_lookup_form();
 		$data['cat_head_alt_form'] = $this->thesaurus_module->get_catalog_header_alternates_form();	
-	
+		$data['cat_head_alt_lookup_form'] = $this->thesaurus_module->get_catalog_header_alternates_lookup_form();
+	//categories
+		$data['add_category_form'] = $this->thesaurus_module->get_category_form();
+		$data['add_category_alt_form'] = $this->thesaurus_module->get_category_alternates_form();
+		$data['category_lookup'] = $this->thesaurus_module->get_category_lookup_form();
+		$data['category_alt_lookup'] = $this->thesaurus_module->get_category_alternates_lookup_form();
 	//chromes 
 		$data['chromes_lookup'] = $this->thesaurus_module->get_chrome_lookup_form();
+		$data['chrome_alt_lookup'] = $this->thesaurus_module->get_chrome_alternates_lookup_form();
 		$data['add_chrome_form']= $this->thesaurus_module->get_chromes_form();	
 		$data['add_chrome_alt_form']= $this->thesaurus_module->get_chromes_alternates_form();	
 		
@@ -190,14 +200,16 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		//~ $data['add_clone_alt_form'] = $this->thesaurus_module->get_clone_alternates_form();	
 	//species
 		$data['species_lookup'] = $this->thesaurus_module->get_species_lookup_form();
+		$data['species_alt_lookup'] =$this->thesaurus_module->get_species_alternates_lookup_form();
 		$data['add_species_form'] = $this->thesaurus_module->get_species_form();	
 		$data['add_species_alt_form'] = $this->thesaurus_module->get_species_alternates_form();	
 	//targets
 		$data['targets_lookup'] = $this->thesaurus_module->get_target_lookup_form();
+		$data['target_alt_lookup'] = $this->thesaurus_module->get_target_alternates_lookup_form();
 		$data['add_target_form'] = $this->thesaurus_module->get_targets_form();	
 		$data['add_target_alt_form'] = $this->thesaurus_module->get_targets_alternates_form();	
 	//product applications
-		$data['add_application_alt_form'] = $this->thesaurus_module->get_application_alternates_form();
+		
 		
 		$this->load->view('header_v'); 
 		$this->load->view('howto/thesaurus_p', $data);
@@ -211,6 +223,7 @@ class Howto extends Loggedin_Controller //MY_Controller //CI_Controller
 		$data['thesaurus_species_p'] = $this->load->view('thesaurus/partials/thesaurus_species_p','', true);
 		$data['thesaurus_targets_p'] = $this->load->view('thesaurus/partials/thesaurus_targets_p','', true);
 		$data['thesaurus_catalog_headers_p'] = $this->load->view('thesaurus/partials/thesaurus_catalog_headers_p','', true);
+		
 		
 		$this->load->view('header_v');
 		$this->load->view('thesaurus/thesaurus_v', $data);
