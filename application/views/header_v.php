@@ -19,7 +19,7 @@
 <div class="row-fluid">
 		<div id="navbar">
 			<a class='btn pull-left' href="<?php echo base_url('backstage/logout') ?>">logout</a>
-			<a class='btn pull-left' href="<?php echo base_url('fluorish_gui/dashboard') ?>">dashboard</a>
+			<a class='btn pull-left' href="<?php echo base_url('fluorish/dash') ?>">dashboard</a>
 		<?php 
 		if(isset( $this->session->userdata['logged_in']))
 		{

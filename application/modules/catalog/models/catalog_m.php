@@ -63,7 +63,7 @@ $this->db->set('format_canonical_id', $data['format_canonical_id']);
 //		$this->db->set('categoryid', $data['categoryid']);
 		if(isset($data['applicationid']))
 			$this->db->set('applicationid', $data['applicationid']);
-		$this->db->set('category', $data['category']);
+		//$this->db->set('category', $data['category']);
 		$this->db->set('categoryid', $data['categoryid']);
 		$this->db->set('date_created', $current_timestamp );
 		$this->db->set('date_updated', $current_timestamp );
@@ -115,7 +115,7 @@ $this->db->set('format_canonical_id', $data['format_canonical_id']);
 //		$this->db->set('regulatory_statusid', $data['regulatory_statusid']);
 //		$this->db->set('categoryid', $data['categoryid']);
 		$this->db->set('applicationid', $data['applicationid']);
-$this->db->set('category', $data['category']);
+//$this->db->set('category', $data['category']);
 $this->db->set('categoryid', $data['categoryid']);
 //		$this->db->set('date_updated');//, $data['date_updated']);
 //		$this->db->set('edit_modified', $data['edit_modified']);
@@ -210,5 +210,31 @@ $this->db->set('categoryid', $data['categoryid']);
 		return $returnable;
 	}
 
+	function log_import($data)
+	{
+		$this->db
+			->set('vendor_id', $data['vendor_id'])
+			->set('filename', $data['filename'])
+			->set('num_rows', $data['num_rows'])
+			->set('num_updates', $data['num_updates'])
+			->set('num_inserts', $data['num_inserts'])
+			->set('num_excludes', $data['num_excludes'])
+			->set('upload_errors', serialize($data['upload_errors']))
+			->set('parse_errors', serialize($data['parse_errors']))
+			->set('unknown_fields', serialize($data['unknown_fields']))
+			->set('bad_application', serialize($data['bad_application']))
+			->set('bad_category', serialize($data['bad_category']))
+			->set('missing_fields', serialize($data['missing_fields']))
+			->set('missing_targets', serialize($data['missing_targets']))
+			->set('missing_chromes', serialize($data['missing_chromes']))
+			->set('missing_clones', serialize($data['missing_clones']))
+			->set('missing_species', serialize($data['missing_species']))
+			->set('success', $data['success'])
+			->set('user_id', $data['user_id']);
+		$result = $this->db->insert('catalog_import_log');
+			
+			return $result;
+
+	}
 
 }//end class

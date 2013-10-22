@@ -49,8 +49,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 	private 	$EXCLUDE  =array(); //= array('2 Color','3 Color','AKP','Carrier-Free','cocktail','kit','Set','Solution','Buffer','ELISA','ELISA Std.','FIX','FluoroFix','Horseradish Peroxidase','HRP','HRP (Horseradish Peroxidase)','HRPO','legend','Lyophilized Supernatant','Misc Supplies','Monensin','Permeabilization','Propidium','RBC','recom','Serum','Solutions and Buffers','Supernatant','Support Products','TMB', 'BGAL','BIMA','Lyophilized','Dual color', 'multitest','tritest','simultest','Quantibrite','Multi-Clone','Agarose','Imag','Lineage Panel','Trucount', 'kit','flowcytomix','elisa','module set','elispot','buffer','solution','recombinant','horseradish','hrp','beads','assay','lysate','2 color','3 color','fusion protein','panel','control cells','substrate','cocktail','ready-set-go!','permeabilization','western blot','whole blood staining','plate', 'serum','immobilized','Cocktail','Alkaline Phosphatase','BIMA','BGAL','Puraflow 8x Sheath Fluid','Caspase Inhibitor','Brefeldin','Flex Set','Bead','Particles','Standard','Tubes','Reagent Set','Multi-Check','retic','Bundle','FACSCount','Sheath Fluid','Detector','Zero Foam','Disinfectant', 'Peroxidase', 'LINEAGE MIXTURE', 'Noxa', 'RIP3', 'p53NIDP1', 'AP (Alkaline Phosphatase)', 'LanthaScreen', 'Sepharose 4B');
 	
 //	private $excluded_rows = array();						//stores product_numbers of rows that match $EXCLUDE so they won't be imported during do_insert();
-	
- 
+
 //////////////////////////////////////////////////////////////////////////////////////////
 	function __construct()
 	{
@@ -100,7 +99,25 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 		//catalogs can be big and imports can take a while, so bump up the max_execution_time for the duration of the import
 		ini_set('max_execution_time', 300);
 	}
- 
+////////////////////////////////////////////////////////////////////////////////
+ 	function log_import()
+	{
+		$data = $this->data['errors'];
+		$data['vendor_id'] = $this->vendor_id;
+		$data['filename'] = $this->filename;
+		$data['num_rows'] = $this->highestRow;
+		$data['num_updates'] = $this->update_num ;
+		$data['num_inserts'] =  $this->insert_num;
+		$data['num_excludes'] = $this->exclude_num ;
+		if( $this->insert_num > 0  ||  $this->update_num > 0 ) 
+			$data['success'] = 1;
+		else 
+			$data['success'] = 0;
+		$data['user_id'] = $this->session->userdata['logged_in']['userid'];
+
+		$this->catalog_m->log_import($data);
+//die("catalog import log<br/><textarea>".print_r($data, true)."</textarea>");
+	}
 ////////////////////////////////////////////////////////////////////////////////
 /**
  * 
@@ -148,7 +165,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 					$this->validate_others();
 				}
 				
-	
+
 			
 			//if error-free, do the insert with rollback
 			// 'error-free' in this case doesn't care about unknown_fields, which won't be imported anyway
@@ -226,6 +243,11 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 			{
 				$this->data['upload_errors_p'] = $this->load->view( 'partials/upload_errors_p', $this->data, true);
 			}
+			
+			
+			
+			$this->log_import();
+			
 		}//end if(file was submitted)		
 
 		$this->data['vendor_id_dropdown'] = $this->vendor_id_dropdown();
@@ -1047,7 +1069,7 @@ if(!isset($children['category']))
 		return $price;
 	}
 	
-	
+
 	
 	
 }//end class

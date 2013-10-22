@@ -152,8 +152,24 @@
 
 <!--	LOOKUP A FLUOROCHROME ALTERNATE NAME	-->
 			<div class="well span12" id="add_chrome_alt">
-
-				lookup chrome alternate names
+				<h3>get_chrome_alternates_lookup_form()</h3><br/>
+				lookup chrome alternate names<br/>
+				Type the name (or alternate name) of a fluorochrome in the box and submit. An included div ('#find_chrome_alts_results') populates via ajax with the term's canonical name and a table of alternate names and their is_exception values.
+				<table class="table table-bordered">
+						<tr>
+							<td ><strong>in the view:</strong></td>
+							<td colspan="2">$this->load->view('thesaurus/partials/get_chrome_alternates_lookup_form');</td>
+						</tr>
+						<tr>
+							<td colspan="2"><strong>in the controller:</strong></td>
+							<td>$variable = thesaurus_module->get_chrome_alternates_lookup_form();</td>
+						</tr>
+						<tr>
+							<td><strong>returns:</strong></td>
+							<td>(string)</td>
+							<td>HTML of the form</td>
+						</tr>
+					</table>
 			<?=$chrome_alt_lookup?>
 			</div>
 
