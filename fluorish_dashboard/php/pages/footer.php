@@ -14,9 +14,85 @@
     margin-bottom: -14px;
     padding-top: 5px;
 }
-</style>
+/* Contact */
+#contact {
+	background: #2F2F2F;
+	color: #999;
+	padding: 60px 0 50x 0;
+	text-align: left;
+	padding-top: 50px;
+	/*margin-bottom: 1px;*/
+	font-size: 14px;
+}
 
-<div id="contact" class="container fixed">
+/* Vendor Login Form */
+#vendor-login-form .form-horizontal .control-label {
+	  text-align: left;
+	   width: 100px;
+	   float: left;
+	}
+
+#vendor-login-form .form-horizontal .controls {
+    margin-left: 85px;
+}
+
+/* Footer */
+#footer {
+	/*background: #0D0D0D url(../img/bg-home.jpg) no-repeat top center;*/
+	background: #2F2F2F;
+	color: #999;
+	padding: 60px 0 50px 0;
+	text-align: center;
+}
+#footer_support h3, #footer_partner h3{
+	
+	 color: #ffffff !important;	
+    border-bottom: 1px solid #CCCCCC;
+    color: #444444;
+    font-family: 'Michroma',Arial,Helvetica,sans-serif, !important;
+    font-size: 25px;
+    font-weight: normal;
+    letter-spacing: -1px;
+	text-shadow:none;
+
+}
+#footer_support li{
+list-style-type: none;	
+}
+#footer_support ul {
+    margin: 0 0 10px;
+}
+#footer_partner li{
+list-style-type: none;
+padding: 5px;	
+}
+#footer_partner ul {
+    margin: 0 0 10px;
+}
+#footer_terms{
+	margin-left: -10px;
+}
+#footer a {
+	color: #FFF;
+}
+#f_logo > img {
+margin-left: -25px;	
+}
+
+#legal {
+    padding-bottom: 25px;
+}
+
+#legal h4 {
+    border-bottom: medium none;
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 3px;
+}
+
+</style>
+<div id="contact" class="large">
   <div class="container">
     <div class="row">
       <div class="span4">
@@ -30,27 +106,35 @@
         </address>
       </div>
       <div id="footer_support" class="span4">
-        <h4>Support</h4>
+        <h3>Support</h3>
         <ul>
           <li><a href="mailto:support@fluorish.com">Support@Fluorish.com</a></li>
-          <li><a href="/contact">Leave Feedback or Comments</a></li>
-          <li><a href="/videos">Videos</a></li>
-          <li><a href="/faq">FAQ</a></li>
+          <li><a href="<?php echo base_url() ?>/contact">Leave Feedback or Comments</a></li>
+          <li><a href="<?php echo base_url() ?>/videos">Videos</a></li>
+          <li><a href="<?php echo base_url() ?>/faq">FAQ</a></li>
         </ul>
       </div>
       <div id="footer_partner" class="span4">
-        <h4>Partner center</h4>
+        <h3>Partner center</h3>
         <ul>
-          <li><a class="btn" href="/partner">Become a partner</a></li>
-          <li><a class="btn" href="/login">Partner Dashboard Login</a></li>
+          <li><a class="btn" href="<?php echo base_url() ?>/partner">Become a partner</a></li>
+          <li><a class="btn" href="<?php echo base_url() ?>/partner/admin/login">Partner Dashboard Login</a></li>
         </ul>
       </div>
     </div>
   </div>
 </div>
-
-
-<!-- Sticky Footer -->
+<footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div id="footer_terms" class="span2"> <a href="http://webdev.treestar.com/george//privacy">Privacy</a> | <a href="http://webdev.treestar.com/george//terms">Terms</a> </div>
+      <div class="span9">
+        <p> &copy; 2013 Fluorish. Design by <a rel="nofollow" href="http://fluorish.com">Fluorish, LLC</a>. All Rights Reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Sticky Footer 
 <div id="footer" class="footer">
 	<div id="terms" class="container">
      	<div class="span5 offset1">
@@ -60,7 +144,7 @@
     	© 2013 Fluorish. Design by Fluorish, LLC. All Rights Reserved.
     	</div>
     </div>
-</div>
+</div>-->
 <!-- JQueryUI v1.9.2 --> 
 <script src="<?php echo getURL(); ?>theme/scripts/plugins/system/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.min.js"></script> 
 

@@ -44,7 +44,7 @@ class Dash extends Loggedin_Controller
 			return $path;
 			}
 		
-		$this->output->enable_profiler(TRUE);
+		//$this->output->enable_profiler(TRUE);
 	  
 	}
 
