@@ -113,7 +113,8 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 			$data['success'] = 1;
 		else 
 			$data['success'] = 0;
-		$data['user_id'] = $this->session->userdata['logged_in']['userid'];
+		if(isset($this->session->userdata['logged_in']))
+			$data['user_id'] = $this->session->userdata['logged_in']['userid'];
 
 		$this->catalog_m->log_import($data);
 //die("catalog import log<br/><textarea>".print_r($data, true)."</textarea>");
