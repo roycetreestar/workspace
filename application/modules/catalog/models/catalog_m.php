@@ -229,8 +229,9 @@ $this->db->set('categoryid', $data['categoryid']);
 			->set('missing_chromes', serialize($data['missing_chromes']))
 			->set('missing_clones', serialize($data['missing_clones']))
 			->set('missing_species', serialize($data['missing_species']))
-			->set('success', $data['success'])
-			->set('user_id', $data['user_id']);
+			->set('success', $data['success']);
+			if(isset($data['user_id']))
+				$this->db->set('user_id', $data['user_id']);
 		$result = $this->db->insert('catalog_import_log');
 			
 			return $result;
