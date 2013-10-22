@@ -44,8 +44,10 @@ class Catalog_m extends CI_Model
 		$this->db->set('vendorid', $data['vendor_id']);
 		$this->db->set('vendor_name', $data['vendor_name']);
 		$this->db->set('target', $data['target']);
-		if(isset($data['format']))
+$this->db->set('target_canonical_id', $data['target_canonical_id']);
+		//if(isset($data['format']))
 			$this->db->set('format', $data['format']);
+$this->db->set('format_canonical_id', $data['format_canonical_id']);
 		if(isset($data['clone']))
 			$this->db->set('clone', $data['clone']);
 		if(isset($data['isotype']))
@@ -60,7 +62,9 @@ class Catalog_m extends CI_Model
 //		$this->db->set('regulatory_statusid', $data['regulatory_statusid']);
 //		$this->db->set('categoryid', $data['categoryid']);
 		if(isset($data['applicationid']))
-		$this->db->set('applicationid', $data['applicationid']);
+			$this->db->set('applicationid', $data['applicationid']);
+		$this->db->set('category', $data['category']);
+		$this->db->set('categoryid', $data['categoryid']);
 		$this->db->set('date_created', $current_timestamp );
 		$this->db->set('date_updated', $current_timestamp );
 //		$this->db->set('edit_modified', $data['edit_modified']);
@@ -94,7 +98,9 @@ class Catalog_m extends CI_Model
 		$this->db->set('vendorid', $data['vendor_id']);
 		$this->db->set('vendor_name', $data['vendor_name'] );
 		$this->db->set('target', $data['target']);
+$this->db->set('target_canonical_id', $data['target_canonical_id']);
 		$this->db->set('format', $data['format']);
+$this->db->set('format_canonical_id', $data['format_canonical_id']);
 		if(isset($data['clone']))
 			$this->db->set('clone', $data['clone']);
 		if(isset($data['isotype']))
@@ -109,6 +115,8 @@ class Catalog_m extends CI_Model
 //		$this->db->set('regulatory_statusid', $data['regulatory_statusid']);
 //		$this->db->set('categoryid', $data['categoryid']);
 		$this->db->set('applicationid', $data['applicationid']);
+$this->db->set('category', $data['category']);
+$this->db->set('categoryid', $data['categoryid']);
 //		$this->db->set('date_updated');//, $data['date_updated']);
 //		$this->db->set('edit_modified', $data['edit_modified']);
 		$this->db->set('date_updated', $current_timestamp );
@@ -130,9 +138,11 @@ class Catalog_m extends CI_Model
 	}
 	
 ////////////////////////////////////////////////////////////////////////	
-	function exists($catalog_number)
+	function exists($catalog_number, $vendor_id=NULL)
 	{
 		$this->db->where('catalog_number', $catalog_number);
+		if($vendor_id !=NULL)
+			$this->db->where('vendorid', $vendor_id);
 		$query=$this->db->get('catalog');
 		
 		if($query->num_rows() > 0)

@@ -246,7 +246,11 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 				echo $result;
 		}
 	}
-
+	function get_chrome_canonical_id($searchterm)
+	{
+		$result=$this->thesaurus_m->get_chromes_canonical_id(trim($searchterm));
+		return $result;
+	}
 	
 //////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -297,7 +301,8 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		if($searchterm === '')
 			$searchterm = $this->input->get('search_string');
 
-		$result = $this->thesaurus_m->get_targets_canonical(trim($searchterm));
+if(trim($searchterm)!='')
+{		$result = $this->thesaurus_m->get_targets_canonical(trim($searchterm));
 		
 		if($return)
 		{
@@ -313,8 +318,14 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 			else
 				echo $result;
 		}
+}
+else return 0;
 	}
-
+	function get_target_canonical_id($searchterm)
+	{
+		$result=$this->thesaurus_m->get_targets_canonical_id($searchterm);
+		return $result;
+	}
 
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
@@ -448,10 +459,10 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 		}
 		else 
 		{
-			//if(!$result)
-				//echo 'no result found';
-			//else
-			//{
+			if(!$result)
+				echo 'no result found';
+			else
+			{
 //  //die('thesaurus/get_species_alternates() got a result:<br/><textarea>'.print_r($result, true).'</textarea>');
 				//$returnable = '<strong>canonical name:</strong> '.$result[0]['species_name'].'<br/><br/><strong>alternate names:</strong>';
 				//foreach($result as $species)
@@ -474,6 +485,7 @@ class Thesaurus extends Loggedin_Controller //Secure_Controller
 				$returnable.= '</table>';
 				
 				echo $returnable;
+			}
 		}
 	}
 /////////////////////////////////////////////////////////////////////////

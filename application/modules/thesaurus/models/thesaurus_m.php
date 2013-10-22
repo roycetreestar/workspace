@@ -57,6 +57,21 @@ class Thesaurus_m extends CI_Model// MY_Model
 		}	
 		else return false;
 	}
+	function get_chromes_canonical_id($term)
+	{
+		$this->db->where('chromes_alternate_name.chrome_name', urldecode($term) );
+		$this->db->or_where('alternate_name', urldecode($term) );
+		$this->db->from('chromes_alternate_name');
+		$this->db->join('chromes', 'chromes_alternate_name.chrome_name = chromes.chrome_name ');
+		$query = $this->db->get();
+		
+		if ($query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+			return $result[0]['id'];
+		}	
+		else return false;
+	}
 ////////////////////////////////////////////////////////////////////////////////
 	function get_species_canonical($term)
 	{
@@ -87,7 +102,24 @@ class Thesaurus_m extends CI_Model// MY_Model
 		}	
 		else return false;
 	}
-
+	function get_targets_canonical_id($term)
+	{
+		$this->db->where('targets_alternate_name.target_name', urldecode($term) );
+		$this->db->or_where('alternate_name', urldecode($term) );
+		$this->db->from('targets_alternate_name');
+		$this->db->join('targets', 'targets_alternate_name.target_name = targets.target_name');
+		
+		$query = $this->db->get();
+		
+		if ($query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+			return $result[0]['id'];
+		}	
+		else
+			//die("target_canonical not found. term: ".$term."<br/>SQL: ".$this->db->last_query() );
+			return false;
+	}
 	function get_catalog_header_canonical($term)
 	{
 		$this->db->join('catalog_field_canonical', 'catalog_field_canonical.id = catalog_field_alternate_names.canonical_nameid');
