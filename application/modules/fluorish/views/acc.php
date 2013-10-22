@@ -35,7 +35,7 @@
               <address class="margin-none">
               <!-- -->
               <p>
-              <div id="truncate"><strong><?php echo $institution ?></strong></div><br>
+              <div><strong><?php echo $institution ?></strong></div><br>
               Email: <a href="mailto:<?php echo $email ?>"><?php echo $email; ?></a>
               </p>
               <!-- -->
