@@ -149,7 +149,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 				}
 				
 	
-//~ die('catalog_imports.php<br/><textarea>'.print_r($this->data['errors'], true).'</textarea><br/>excluded_rows:<br/><textarea>'.print_r($this->data['excluded_rows'], true).'</textarea>');			
+			
 			//if error-free, do the insert with rollback
 			// 'error-free' in this case doesn't care about unknown_fields, which won't be imported anyway
 				if(	   count($this->data['errors']['upload_errors'])   == 0 
@@ -210,7 +210,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 					{
 						$this->data['unknown_applications_p'] = $this->load->view( 'partials/unknown_applications_p', $this->data, true);
 						$this->data['new_application_alternates_form_p'] = $this->thesaurus_module->get_application_alternates_form();
-						$this->data['new_applications_form_p'] = $this->load->view('thesaurus/partials/new_application_form_p', $this->data, true);
+						$this->data['new_applications_form_p'] = $this->thesaurus_module->get_application_form();//$this->load->view('thesaurus/partials/new_application_form_p', $this->data, true);
 						$this->data['thesaurus_application_alternates_p'] = $this->load->view('thesaurus/partials/thesaurus_application_alternates_p', $this->data, true);
 					}
 					if(count($this->data['errors']['bad_category']) > 0)
@@ -413,17 +413,26 @@ else
 			
 					if($this->validated_fields[$col] === 'applications') //'Flow Cytometry')
 					{
-						if(	$this->thesaurus_m->exists_application($this->spreadsheet_arr[$row][$col])
-							&& $this->thesaurus_m->get_applicationid($this->spreadsheet_arr[$row][$col]) > '1'	
-							)
-							$validateme = false;
+						$app_arr = explode(',', $this->spreadsheet_arr[$row][$col]);
+						foreach($app_arr as $app)
+						{						
+							if(	$this->thesaurus_m->exists_application($app)
+								&& $this->thesaurus_m->get_applicationid($app) > '1'	
+								)
+								$validateme = false;
+						}
 					}
 					if($this->validated_fields[$col] === 'category') //'Antibody')
 					{
-						if(	$this->thesaurus_m->exists_category($this->spreadsheet_arr[$row][$col])
-							&& $this->thesaurus_m->get_categoryid($this->spreadsheet_arr[$row][$col]) > '1'
-							)
-							$validateme = false;
+						$cat_arr = explode(',', $this->spreadsheet_arr[$row][$col]);
+						
+						foreach($cat_arr as $cat)
+						{
+							if(	$this->thesaurus_m->exists_category($cat)
+								&& $this->thesaurus_m->get_categoryid($cat) > '1'
+								)
+								$validateme = false;
+						}
 					}
 					if($this->validated_fields[$col] === 'catalog_number')
 						$catalog_number = $this->spreadsheet_arr[$row][$col];
@@ -680,15 +689,17 @@ else
 							//~ else
 							//~ {
 								$data['catalog_number'] = $this_item;
-								if($this->catalog_m->exists($data['catalog_number']))
+								if($this->catalog_m->exists($data['catalog_number'], $data['vendor_id']))
 									$insert=false;
 							//~ }
 							break;
 						case 'target':
-							$data['target'] = $this_item;
+							$data['target'] = $this_item; 
+							$data['target_canonical_id'] = $this->thesaurus_module->get_target_canonical_id($this_item);
 							break;
 						case 'format':
 							$data['format'] = $this_item;
+							$data['format_canonical_id'] = $this->thesaurus_module->get_chrome_canonical_id($this_item);
 							break;
 						case 'clone':
 							$data['clone'] = $this_item;
@@ -723,6 +734,7 @@ else
 							break;
 						case 'category':
 							$categoryid = $this->thesaurus_m->get_categoryid($this_item);
+							$data['category'] = $this_item;
 							$data['categoryid'] = $categoryid;
 							break;
 						case 'item_name':
@@ -789,7 +801,7 @@ else
 		$species_arr = explode(',', $target_species) ;
 		foreach($species_arr as $species)
 		{
-			if( !$this->product_species_model->exists($productid, trim($species) ) )
+			if( $species!='' && !$this->product_species_model->exists($productid, trim($species) ) )
 				$this->product_species_model->insert($productid, trim($species) );
 		}
 	}
@@ -808,7 +820,7 @@ else
 		$species_arr =  explode(',', $target_species) ;
 		foreach($species_arr as $species)
 		{
-			if( !$this->target_species_model->exists($target, trim($species) ) )
+			if( $species!='' && $target!='' && !$this->target_species_model->exists($target, trim($species) ) )
 				$this->target_species_model->insert($target, trim($species) );
 		}
 	}
