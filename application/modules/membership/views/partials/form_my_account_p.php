@@ -8,7 +8,7 @@
 			<div class="row-fluid">
 				<form id="my_account_form" action="<?=base_url()?>membership/users/save" method="post" >
 
-userid:<input type="text" value="<?=$entity_id?>" name="entity_id" />
+<input type="hidden" value="<?=$entity_id?>" name="entity_id" />
 					
 								<div class="span6">
 

@@ -206,7 +206,11 @@ function group_col1($group_id){
 	else
 	$this->data['display'] = $this->address_module->display($address['id']);
 	*/
-	$this->data['display'] = $this->address_module->display();
+	
+	
+	$this->data['institution'] = $this->session->userdata['groups'][$group_id]['institution'];
+	
+	//$this->data['display'] = $this->address_module->display($this->data);
 	//return $data;
 	
 }
