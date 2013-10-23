@@ -131,8 +131,13 @@ class Modules
 			include_once $location;
 			return;
 		}		
-	}
-
+	
+		/* autoload Fluorish library classes */
+		if(is_file($location = FLPATH.'libraries/'.$class.EXT)) {
+			include_once $location;
+			return;
+		}
+}
 	/** Load a module file **/
 	public static function load_file($file, $path, $type = 'other', $result = TRUE)	{
 		

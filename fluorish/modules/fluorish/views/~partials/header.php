@@ -102,33 +102,32 @@
 <script src="<?php echo getURL(); ?>theme/scripts/plugins/system/less-1.3.3.min.js"></script>
 <style>
 body {
-	/*background: url(<?php echo getAssets() ?>images/bg.jpg) no-repeat center center fixed;
+	background: url(../assets/images/bg.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='.myBackground.jpg', sizingMethod='scale');
 	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')";
-	*/
 }
 .icon-my-preferences {
-	background: url(<?php echo getAssets() ?>images/my_preferences_32.png) no-repeat;
+	background: url(../assets/images/my_preferences_32.png) no-repeat;
 	width: 32px;
 	height: 32px;
 	border: none;
 	margin-right: 10px;
 	display: inline-block;
 }
-.icon-lab-preferences, .icon-1-preferences {
-	background: url(<?php echo getAssets() ?>images/lab_preferences_32.png) no-repeat;
+.icon-lab-preferences {
+	background: url(../assets/images/lab_preferences_32.png) no-repeat;
 	width: 32px;
 	height: 32px;
 	border: none;
 	margin-right: 10px;
 	display: inline-block;
 }
-.icon-core-preferences, .icon-2-preferences {
-	background: url(<?php echo getAssets() ?>images/core2_preferences_32.png) no-repeat;
+.icon-core-preferences {
+	background: url(../assets/images/core2_preferences_32.png) no-repeat;
 	width: 32px;
 	height: 32px;
 	border: none;
@@ -136,7 +135,7 @@ body {
 	display: inline-block;
 }
 .icon-panels {
-	background: url(<?php echo getAssets() ?>images/panels_32.png) no-repeat;
+	background: url(../assets/images/panels_32.png) no-repeat;
 	width: 32px;
 	height: 32px;
 	border: none;
@@ -144,7 +143,7 @@ body {
 	display: inline-block;
 }
 .icon-core {
-	background: url(<?php echo getAssets() ?>images/core2_32.png) no-repeat;
+	background: url(../assets/images/core2_32.png) no-repeat;
 	width: 32px;
 	height: 32px;
 	border: none;
@@ -152,7 +151,7 @@ body {
 	display: inline-block;
 }
 .icon-lab {
-	background: url(<?php echo getAssets() ?>images/lab_32.png) no-repeat;
+	background: url(../assets/images/lab_32.png) no-repeat;
 	width: 32px;
 	height: 32px;
 	border: none;
@@ -160,7 +159,7 @@ body {
 	display: inline-block;
 }
 .icon-orders {
-	background: url(<?php echo getAssets() ?>images/orders_pending_32.png) no-repeat;
+	background: url(../assets/images/orders_pending_32.png) no-repeat;
 	width: 32px;
 	height: 32px;
 	border: none;
@@ -168,38 +167,38 @@ body {
 	display: inline-block;
 }
 .icon-messages {
-	background: url(<?php echo getAssets() ?>images/messages_32.png) no-repeat;
+	background: url(../assets/images/messages_32.png) no-repeat;
 	width: 32px;
 	height: 32px;
 	border: none;
 	margin-right: 10px;
 	display: inline-block;
 }
-.glyphicons.myfluorish i, .glyphicons.type-3 i {
-	background-image: url(<?php echo getAssets() ?>images/my_fluorish_32.png);
+.glyphicons.myfluorish i {
+	background-image: url(../assets/images/my_fluorish_32.png);
 	background-position: center;
 	background-repeat: no-repeat;
 	margin-right: 10px;
 }
-.glyphicons.core i, .glyphicons.type-2 i {
-	background-image: url(<?php echo getAssets() ?>images/core_32.png);
+.glyphicons.core i {
+	background-image: url(../assets/images/core_32.png);
 	background-position: center;
 	background-repeat: no-repeat;
 	margin-right: 10px;
 }
-.glyphicons.lab i, .glyphicons.type-1 i {
-	background-image: url(<?php echo getAssets() ?>images/lab_32.png);
+.glyphicons.lab i {
+	background-image: url(../assets/images/lab_32.png);
 	background-position: center;
 	background-repeat: no-repeat;
 	margin-right: 10px;
 }
 .glyphicons.pb i {
-	background-image: url(<?php echo getAssets() ?>images/pb_32.png);
+	background-image: url(../assets/images/pb_32.png);
 	background-position: center;
 	background-repeat: no-repeat;
 }
 .glyphicons.cart i {
-	background-image: url(<?php echo getAssets() ?>images/orders_32.png);
+	background-image: url(../assets/images/orders_32.png);
 	background-position: center;
 	background-repeat: no-repeat;
 }
@@ -268,23 +267,6 @@ body {
 	padding-bottom: 5px;
 	padding-left: 64px;
 }
-
-
-#truncate {
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    }
-
-#truncate:hover{
-    overflow: visible; 
-    white-space: normal; 
-    width: auto;
-	
-
-    }
-
 </style>
 <script>
 $(document).ready(function () {
@@ -328,7 +310,7 @@ $(document).ready(function () {
 	$('#select-group').editable({
             inputclass: 'input-large m-wrap',
             select2: {
-                tags: ['My Fluorish'],
+                tags: ['Ostrat Lab', 'UCSF Flow Core', 'My Core', 'My Lab'],
                 tokenSeparators: [",", " "]
             }
         });
@@ -347,32 +329,21 @@ $(document).ready(function () {
 </head>
 <body>
 <!-- Start Content -->
-<div class="container menu-hidden fixed">
+<div class="container-fluid menu-hidden fixed">
 <div class="navbar main hidden-print"> <a href="#" class="appbrand"></a>
   <ul class="topnav pull-right">
-    <li><a href=""><span class=""><img src="<?php echo getAssets() ?>images/dl.png" width="175" height="40"></span></a></li>
+    <li><a href=""><span class=""><img src="../assets/images/dl.png" width="175" height="40"></span></a></li>
     <li><a href="">Send Invites</a></li>
     <li><a href="">Contact</a></li>
-    <!-- Account DropDown -->
-    <li class="account">
-    <a class="glyphicons logout lock" href="#" data-toggle="dropdown"><span class="hidden-phone text"><?php echo $first_name.' '.$last_name ?></span><i></i></a>
-    <ul class="dropdown-menu pull-right">
-        
-        <li><a class="glyphicons cogwheel" href="<?php echo base_url();?>fluorish/dash/create">Core Membership<i></i></a></li>
-        <li><a class="glyphicons cogwheel" href="<?php echo base_url();?>fluorish/dash/create">Lab Membership<i></i></a></li>
-        <li class="highlight profile">
-        <span>
-        <span class="heading">Profile<a class="pull-right" href="<?php echo base_url()?>fluorish/dash/my_account/">edit</a></span>
-        <span class="img"></span>
-        <span class="details"><?php echo $first_name.' '.$last_name ?><br>
-        <?php echo $email ?></span>
-        <span class="clearfix"></span>
-        </span>
-        </li>
-        <li> <span> <a href="<?php echo base_url().'backstage/logout'; ?>" style="padding: 2px 10px; background: #fff;" class="btn btn-default btn-small pull-right">Sign Out</a> </span> </li>
+    <li class="account"> <a href="#" class="glyphicons logout lock"><span class="hidden-phone text">Welcome <strong>guest</strong></span><i></i></a> <a data-toggle="dropdown" href="#" class="glyphicons logout lock"><span class="hidden-phone text">Royce Cano</span><i></i></a>
+      <ul class="dropdown-menu pull-right">
+        <li><a href="#" class="glyphicons cogwheel">Settings<i></i></a></li>
+        <li><a href="#" class="glyphicons cogwheel">Core Membership<i></i></a></li>
+        <li><a href="#" class="glyphicons cogwheel">Lab Membership<i></i></a></li>
+        <li class="highlight profile"> <span> <span class="heading">Profile <a href="#" class="pull-right">edit</a></span> <span class="img"></span> <span class="details"> <a href="#">Fluorish</a> royce@fluorish.com </span> <span class="clearfix"></span> </span> </li>
+        <li> <span> <a class="btn btn-default btn-small pull-right" style="padding: 2px 10px; background: #fff;" href="#">Sign Out</a> </span> </li>
       </ul>
-   </li>
-    <!-- Account Dropdown -->
+    </li>
   </ul>
 </div>
 <div id="wrapper">
