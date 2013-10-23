@@ -71,7 +71,10 @@ class Cytometers extends Resources
 		
 	}//end config()
 	
-
+	function create()
+	{
+		return $this->edit();
+	}
   //////////////////////////////////////////////////////////////////////////
 	function get_xml_from_session($cytometerid)
 	{

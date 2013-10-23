@@ -51,7 +51,14 @@ die('membership/users/index() would now be redirecting to backstage');
 		//~ redirect('backstage');
 	}
 	
+function set_groups()
+{
 	
+}	
+function get_groups()
+{
+	return $this->groups;
+}
 ////////////////////////////////////////////////////////////////////////
     
     function save($data = NULL) 
@@ -161,9 +168,7 @@ else $pw_update = 'No PW Update Needed';
 ////////////////////////////////////////////////////////////////////////
         function view_users()
     {
-	    $this->data['users'] = $this->users_m->get_all_users();
-	    
-	    
+	    $this->data['users'] = $this->users_m->get_all_users();	    
     }
     
     
@@ -193,6 +198,10 @@ else $pw_update = 'No PW Update Needed';
 
 
 ////////////////////////////////////////////////////////////////////////
+	function create()
+	{
+		return $this->edit();
+	}
 	function edit($userid = '')
 	{
 		$mem_module = $this->load->module('membership/membership');		//for grabbing the institution dropdown

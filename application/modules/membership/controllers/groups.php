@@ -151,7 +151,10 @@ die('<textarea>'.print_r($this_group, true).'</textarea>');
 		
 		return $this->load->view('partials/form_group_p', $data, true);
 	}
-
+	function create()
+	{
+		return $this->edit();
+	}
 ////////////////////////////////////////////////////////////////////////
 
     function available_groups()

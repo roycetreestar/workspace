@@ -1,5 +1,6 @@
 <!-- search -->
 <form id="search_form" action="<?=base_url().'catalog/search/results'?>" method="get">
+	<div class="widget-id" id="form_search_p" style="display:hidden"></div>
   <div id="tabAll" class="tab-pane active">
     <div class="accordion accordion-2" id="accordion-1">
 		

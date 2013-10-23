@@ -96,6 +96,8 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 		$this->thesaurus_module= $this->load->module('thesaurus');
 		$data = $this->input->get();
 		$data = $_GET;
+		
+		$this->log_search($data);
 //~ echo 'catalog search params ($data):<hr/> <pre>'.print_r($data, true).'</pre>';		
 //die("catalog/search/results() DATA:<textarea>".print_r($data, true)."</textarea>");
 		if(isset($data['target']))
@@ -124,8 +126,19 @@ class Search extends MY_Controller//Loggedin_Controller// Secure_Controller
 			echo 'No Products Found';
 		//~ die('catalog search params ($results):<hr/> <pre>'.print_r($results, true).'</pre>');
 	}
+////////////////////////////////////////////////////////////////////////
+	function log_search($data)
+	{
+		$this->load->model('catalog_search_log_m');
+		if(isset($this->session->userdata['logged_in']))
+			$data['userid'] = $this->session->userdata['logged_in']['userid'];
+		else $data['userid'] = 0;
+		$data['session_id'] = $this->session->userdata['session_id'];
+		//die( "catalog/search/log_search()<br/> search terms: <textarea>".print_r($data, true)."</textarea><hr/><hr/>");
+		$this->catalog_search_log_m->insert($data);
+	}
 	
-	
+////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 	function get_all_targets($starts_with='')
 	{

@@ -22,10 +22,13 @@ class Catalog_search_log_m extends CI_Model
 
 	function insert($data)
 	{
-		$this->db->set('user_id', $data['user_id']);
+		$this->db->set('species', $data['species_name']);
 		$this->db->set('target', $data['target']);
+		$this->db->set('format', $data['format']);
 		$this->db->set('clone', $data['clone']);
-		$this->db->set('chrome', $data['chrome']);
+		$this->db->set('vendors', serialize($data['vendors']) );
+		$this->db->set('user_id', $data['userid']);
+		$this->db->set('session_id', $data['session_id']);
 		
 		$result = $this->db->insert('catalog_search_log');
 		

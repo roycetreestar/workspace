@@ -8,7 +8,8 @@
 
 
 <div class="well">
-	<h3>These products were marked for exclusion from our catalog:</h3>
+	<h3>EXCLUDES:</h3>
+	These products will be imported directly into the database without passing through our chrome/target/species ontology validation processes
 	<hr/>
 	<?php 
 		$count = 1;
