@@ -73,6 +73,18 @@ function my_account(){
 		
 		echo $this->page_footer();
 }
+
+function create(){
+	
+	
+		echo $this->page_head();
+		
+		$userid = $this->session->userdata['logged_in']['userid'];
+		echo modules::run('membership/groups/edit', $userid);
+		
+		echo $this->page_footer();
+}
+	
 	
 /*
  *

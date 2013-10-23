@@ -358,8 +358,8 @@ $(document).ready(function () {
     <a class="glyphicons logout lock" href="#" data-toggle="dropdown"><span class="hidden-phone text"><?php echo $first_name.' '.$last_name ?></span><i></i></a>
     <ul class="dropdown-menu pull-right">
         
-        <li><a class="glyphicons cogwheel" href="#">Core Membership<i></i></a></li>
-        <li><a class="glyphicons cogwheel" href="#">Lab Membership<i></i></a></li>
+        <li><a class="glyphicons cogwheel" href="<?php echo base_url();?>fluorish/dash/create">Core Membership<i></i></a></li>
+        <li><a class="glyphicons cogwheel" href="<?php echo base_url();?>fluorish/dash/create">Lab Membership<i></i></a></li>
         <li class="highlight profile">
         <span>
         <span class="heading">Profile<a class="pull-right" href="<?php echo base_url()?>fluorish/dash/my_account/">edit</a></span>

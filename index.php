@@ -47,6 +47,35 @@ if (defined('ENVIRONMENT'))
 }
 
 /*
+|---------------------------------------------------------------
+| DEFAULT INI SETTINGS
+|---------------------------------------------------------------
+|
+| Necessary settings for a higher compatibility. Inspired by PyroCMS code.
+|
+*/
+	// PHP 5.3 requires this
+	if(ini_get('date.timezone') == '')
+	{
+		date_default_timezone_set('GMT');
+	}
+
+
+/*
+ *---------------------------------------------------------------
+ * Fluorish PATH
+ *---------------------------------------------------------------
+ *
+ * Simply change the first "path" variable, and the individual paths
+ * will be set accordingly.
+ */
+	$path = "..";
+
+
+	$fluorish_path = "${path}/fluorish";
+
+
+/*
  *---------------------------------------------------------------
  * SYSTEM FOLDER NAME
  *---------------------------------------------------------------
@@ -73,6 +102,22 @@ if (defined('ENVIRONMENT'))
  *
  */
 	$application_folder = 'application';
+	
+/*
+ *---------------------------------------------------------------
+ * VIEW FOLDER NAME
+ *---------------------------------------------------------------
+ *
+ * If you want to move the view folder out of the application
+ * folder set the path to the folder here. The folder can be renamed
+ * and relocated anywhere on your server. If blank, it will default
+ * to the standard location inside your application folder.  If you
+ * do move this, use the full server path to this folder
+ *
+ * NO TRAILING SLASH!
+ *
+ */
+	$view_folder = '';
 
 /*
  * --------------------------------------------------------------------
@@ -175,7 +220,10 @@ if (defined('ENVIRONMENT'))
 	// Name of the "system folder"
 	define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
 
-
+	
+	// Fluorish Path
+	define('FLPATH', $fluorish_path.'/');
+	
 	// The path to the "application" folder
 	if (is_dir($application_folder))
 	{
@@ -190,6 +238,22 @@ if (defined('ENVIRONMENT'))
 
 		define('APPPATH', BASEPATH.$application_folder.'/');
 	}
+
+	// The path to the "views" folder
+	if (is_dir($view_folder))
+	{
+		define ('VIEWPATH', $view_folder .'/');
+	}
+	else
+	{
+		if ( ! is_dir(APPPATH.'views/'))
+		{
+			exit("Your view folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);
+		}
+
+		define ('VIEWPATH', APPPATH.'views/' );
+	}
+
 
 /*
  * --------------------------------------------------------------------

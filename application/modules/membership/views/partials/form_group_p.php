@@ -49,7 +49,7 @@ if(!isset($group))
 	</form>	
 
 </div><!-- end .widget	-->
-
+<a href="<?php echo base_url(); ?>fluorish/dash" > Dashboard</a>
 
 
 
