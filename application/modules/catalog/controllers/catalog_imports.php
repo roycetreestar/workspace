@@ -724,13 +724,12 @@ else
 						case 'target_species':
 							$data['target_species'] = $this_item;
 							break;
-						case 'regulatory_statusid':
-							$data['regulatory_statusid'] = $this_item;
-							break;
+						//case 'regulatory_statusid':
+							//$data['regulatory_statusid'] = $this->catalog_m->get_regulatory_status_id_by_name($this_item);
+							//break;
 						case 'regulatory_status':
 							$data['regulatory_status'] = $this_item;
-							if(!isset($data['regulatory_statusid']))
-								$data['regulatory_statusid'] = $this->catalog_m->get_regulatory_status_id_by_name($this_item);
+							$data['regulatory_statusid'] = $this->catalog_m->get_regulatory_status_id_by_name($this_item);
 							break;
 						case 'source_species':
 							$data['source_species'] = $this_item;
@@ -753,8 +752,10 @@ else
 			}
 			//~ if(!$exclude_row)
 			//~ {
+//item_name, if not specified in the incoming catalog, is a concatenation of target name and format
 if(!isset($data['item_name']))
 	$data['item_name'] = $data['target'].' '.$data['format'];
+//if regulatory_status is not specified in the incoming catalog, make it 'RUO'
 if(!isset($data['regulatory_status']))
 {
 	$data['regulatory_status'] = 'RUO';
