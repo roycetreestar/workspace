@@ -36,6 +36,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 	private	$validated_fields = array();					//correlates the column number (0, 1, 2, ...) with the canonical name of the column
 
 	private $update_num = 0;
+	private $products_updated = array();					
 	private $insert_num = 0;
 	private $exclude_num = 0;
 	
@@ -771,7 +772,10 @@ if(!isset($data['regulatory_status']))
 				{
 					$product_id = $this->catalog_m->update($data);
 					if($product_id)
+					{
 						$this->update_num++;		//counting this import's updated products
+						$this->products_updated[] = $data['catalog_number'];
+					}
 				}
 				if($exclude_row)
 					$this->exclude_num++;			//counting this import's 'excluded' products
@@ -793,6 +797,7 @@ if(!isset($data['regulatory_status']))
 			$import_counts['insert_num'] = $this->insert_num;
 			$import_counts['update_num'] = $this->update_num;
 			$import_counts['exclude_num'] = $this->exclude_num;
+			$import_counts['products_updated'] = $this->products_updated;
 			$this->data['insert_success_p'] = $this->load->view( 'partials/insert_success_p', $import_counts, true);
 		}
 		else
