@@ -1,6 +1,6 @@
 <div class="row-fluid" >	<!-- start widget	-->
 
-	<div id="upload_form" class="span8 well" style="height:250px;" >
+	<div id="upload_form" class="span5 well" style="height:250px;" >
 
 		<?php 	if(isset($error) && $error !== '')
 				{
@@ -29,7 +29,7 @@ logid:<input type="text" id="logid" name="logid" size="5" readonly />
 
 
 <!-- an import status container -->	
-	<div class="span2 well" id="status_update" style="height:250px; overflow:auto;">
+	<div class="span5 well" id="status_update" style="height:250px; overflow:auto;">
 		import status<hr/>
 	</div>
 	

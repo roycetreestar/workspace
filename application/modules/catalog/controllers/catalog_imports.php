@@ -1134,7 +1134,7 @@ if(!isset($children['category']))
 ////////////////////////////////////////////////////////////////////////////////
 	function quick_log()
 	{
-	
+gc_collect_cycles();	
 		$data['logid'] = $this->log_id;
 		$data['update_num'] = $this->update_num;
 		$data['insert_num'] = $this->insert_num;
@@ -1155,19 +1155,24 @@ if(!isset($children['category']))
 		$status = $this->catalog_m->get_log_status($log_id);
 		if($status)
 			//die("<strong>Import Status</strong><br/><br/><textarea>".print_r($status, true)."</textarea>");
-			die("<strong>Status: ".$status['status']."</strong>
+			die("
+				<div class='span3'>
+					<strong>Status: ".$status['status']."</strong>
 					<br/>
 					Total products: ".$status['num_rows']."
 					<br/>
 					updates: ".$status['num_updates']."<br/>
 					inserts: ".$status['num_inserts']."<br/>
 					excludes: ".$status['num_excludes']."
-					<hr/>
+					
+				</div>
+				<div class='span9'>
 					<table class='table table-bordered'>
 						<tr><td>php.ini memory limit:</td><td>".  ini_get('memory_limit') ."</td></tr>
 						<tr><td>current memory used: </td><td>". number_format($status['current_memory']) /*number_format(memory_get_usage() )*/."</td></tr>
 						<tr><td>peak memory usage: </td><td>".number_format($status['memory_peak'] )."</td></tr>
-					 </table>"
+					 </table>
+				</div>	"
 			);
 		else
 			die("<strong>The database has revolted!</strong> Hide the women and children!");
