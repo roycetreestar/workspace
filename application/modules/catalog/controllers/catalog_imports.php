@@ -43,6 +43,9 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 	
 	private	$uploads_folder = "uploads/catalog/";
 	private	$allowedExts = array("xml", "txt", "csv", "xls", "xlsx");
+	
+	private $log_id;
+	private $import_status;
 
 //the $EXCLUDE array is keywords for products we won't carry, so any target 
 //	or chrome that contains one of these keywords can be dropped.
@@ -107,7 +110,9 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
  */
 	function index()
 	{
-		
+$this->log_id = $this->input->post('logid');
+$this->import_status = "started";
+$this->quick_log();
 		if(isset($_FILES['file']))
 		{
 		//check the uploaded file for upload errors
@@ -131,11 +136,14 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 						$this->parse_xml($_FILES['file']['tmp_name']);
 						break;
 				}
-				
+//$this->log_start();	
+//die("POST:<textarea>".print_r($_POST, true)."</textarea>");			
 			//grab the vendor_id from the form dropdown
 				if($this->vendor_id === 0)
 					$this->vendor_id = $this->input->post('vendor_id_dd');
-				
+
+$this->import_status = "validating";
+$this->quick_log();				
 			//check the fieldnames against canonical names
 				if( $this->validate_fieldnames() )
 				{
@@ -160,12 +168,15 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 					&& count($this->data['errors']['bad_application']) == 0
 					&& count($this->data['errors']['bad_category']) == 0	)
 				{
+$this->import_status = "inserting";
+$this->quick_log();
 					$this->do_insert();
 				}
 			//if there are errors, alert the user in the missing_X_p
 				else 
 				{	
-					
+$this->import_status = "failed";
+$this->quick_log();
 					if(count($this->data['errors']['missing_chromes']) > 0)
 					{
 						$this->data['chromes_dd'] = $this->thesaurus->chromes_dropdown();
@@ -229,7 +240,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 			
 			
 			
-			$this->log_import();
+$this->log_import($this->log_id);
 			
 		}//end if(file was submitted)		
 
@@ -665,13 +676,18 @@ else
  */
 	function do_insert()
 	{
+$time_start = microtime(true);
+$time_end ;
+
+
+		
 		$insert=true;
 		$exclude_row = false;
 		$data['vendor_id'] = $this->vendor_id;
 		$data['vendor_name'] = $this->vendors_model->get_vendor_name($data['vendor_id']);
 	
-	//start transaction
-		$this->db->trans_start();
+////	start transaction
+		//$this->db->trans_start();
 		
 	//for each row, 
 		for($row=2; $row <= $this->highestRow; $row++)
@@ -787,24 +803,33 @@ if(!isset($data['regulatory_status']))
 			//~ }//end if(!$exclude_row)
 			$insert=true;
 			$exclude_row = false;
+			
+			
+$this->quick_log();			
+
 		}
-		
-	//end transaction
-		$this->db->trans_complete();
-	//alert to success or failure of transaction
-		if($this->db->trans_status() === TRUE)
-		{
+$this->import_status = "success";
+$this->quick_log();	
+
+$time_end = microtime(true);
+$import_counts['elapsed_time'] = $time_end - $time_start;
+////	end transaction
+		//$this->db->trans_complete();
+////	alert to success or failure of transaction
+		//if($this->db->trans_status() === TRUE)
+		//{
 			$import_counts['insert_num'] = $this->insert_num;
 			$import_counts['update_num'] = $this->update_num;
 			$import_counts['exclude_num'] = $this->exclude_num;
 			$import_counts['products_updated'] = $this->products_updated;
 			$this->data['insert_success_p'] = $this->load->view( 'partials/insert_success_p', $import_counts, true);
-		}
-		else
-		{
-			
-			$this->data['insert_failure_p'] = $this->load->view( 'partials/insert_failure_p', true);
-		}
+		//}
+		//else
+		//{
+			//
+			//$this->data['insert_failure_p'] = $this->load->view( 'partials/insert_failure_p', true);
+		//}
+
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
@@ -1068,9 +1093,14 @@ if(!isset($children['category']))
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////		IMPORT LOGS					////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
  	function log_import()
 	{
 		$data = $this->data['errors'];
+		$data['logid'] = $this->log_id;
 		$data['vendor_id'] = $this->vendor_id;
 		$data['filename'] = $this->filename;
 		$data['num_rows'] = $this->highestRow;
@@ -1078,9 +1108,9 @@ if(!isset($children['category']))
 		$data['num_inserts'] =  $this->insert_num;
 		$data['num_excludes'] = $this->exclude_num ;
 		if( $this->insert_num > 0  ||  $this->update_num > 0 ) 
-			$data['success'] = 1;
+			$data['status'] = 'success';
 		else 
-			$data['success'] = 0;
+			$data['status'] = 'failed';
 		if(isset($this->session->userdata['logged_in']))
 			$data['user_id'] = $this->session->userdata['logged_in']['userid'];
 
@@ -1088,5 +1118,44 @@ if(!isset($children['category']))
 //die("catalog import log<br/><textarea>".print_r($data, true)."</textarea>");
 	}
 	
+////////////////////////////////////////////////////////////////////////////////
+	function log_start()
+	{
+		$data['userid'] = isset($this->session->userdata['logged_in'])? $this->session->userdata['logged_in']['userid'] : 0 ;
+		$data['status']	= 'started';
+		$data['filename'] = $this->filename;
+		
+		
+		$this->log_id = $this->catalog_m->start_log($data);
+		
+		echo $this->log_id;
+	}
+////////////////////////////////////////////////////////////////////////////////
+	function quick_log()
+	{
 	
+		$data['logid'] = $this->log_id;
+		$data['update_num'] = $this->update_num;
+		$data['insert_num'] = $this->insert_num;
+		$data['exclude_num'] = $this->exclude_num;
+		$data['status'] = $this->import_status;
+		$data['num_rows'] = $this->highestRow;
+	
+		$this->catalog_m->quick_update($data);
+	}
+////////////////////////////////////////////////////////////////////////////////
+	function log_get_status($log_id)
+	{
+		$status = $this->catalog_m->get_log_status($log_id);
+		if($status)
+			//die("<strong>Import Status</strong><br/><br/><textarea>".print_r($status, true)."</textarea>");
+			die("<strong>Status: ".$status['status']."</strong><br/><br/>
+					Total products: ".$status['num_rows']."<br/><br/>
+					updates: ".$status['num_updates']."<br/>
+					inserts: ".$status['num_inserts']."<br/>
+					excludes: ".$status['num_excludes']);
+		else
+			die("<strong>The database has revolted!</strong>");
+			
+	}
 }//end class

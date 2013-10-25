@@ -17,38 +17,115 @@
 <script>
 	$('#uploadPanelForm').submit( function(event)
 	{
-		event.preventDefault();				
-		var values = $(this).serialize();	
+		event.preventDefault();		
+		var keep_checking = true;		
+		var logid = get_logid();
+		$('#logid').val(logid);
 		
-/*
-		$('#results_container').html('');
-*/
+		var values = $(this).serialize();	
+				
+
 		$('#results_container').html($('#load_spinner').html());
 		
 		
 var fd = new FormData($(this)[0]);    
-/*
-fd.append( 'file', $('#file').files[0] );
-alert('vendor dropdown has value: '+$('#vendor_id_dropdown').val() );
-*/
+
+
+
 if($('#vendor_id_dropdown').val() < 0 )
 {
 	$('#results_container').html('Please select a vendor from the dropdown').css('color', 'red');
 }
 else
 {//start die
-$.ajax({
-  url: "<?=base_url().'catalog/catalog_imports' ?>",
-  data: fd,
-  async: false,
-  cache: false,
-  processData: false,
-  contentType: false,
-  type: 'POST',
-  success: function(msg){
-	  $('#results_container').html(msg).css('color', 'black');
-//    alert(msg);
-  },
+
+	$.ajax({
+		url: "<?=base_url().'catalog/catalog_imports' ?>",
+		data: fd,
+		async: true,
+		cache: false,
+		processData: false,
+		contentType: false,
+		type: 'POST',
+		success: function(msg)
+		{
+			  $('#results_container').html(msg).css('color', 'black');
+			 
+			keep_checking = false;
+//			clearInterval(the_timer);
+//		 alert('finished!\n\nkeep_checking: '+keep_checking);
+		 //    alert(msg);
+		  },
+		error: function (msg) 
+		{
+			keep_checking=false; 
+			var the_error = msg.responseText;
+			var start = the_error.indexOf("<div");
+			var end = the_error.indexOf("</div>") + 7;
+			var error_div = the_error.substring(start, end);
+
+			$('#results_container').html(error_div).css('color', 'red');
+//			clearInterval(the_timer);
+//			alert('finished, but poorly');
+		}
+	});
+	
+//check for import updates	
+	var the_time = 1;
+	
+		var the_timer = setInterval(
+			function()
+			{
+
+				if(!keep_checking) 
+					clearInterval(the_timer);
+												$.ajax({
+													url: "<?=base_url().'catalog/catalog_imports/log_get_status/' ?>"+logid,
+													async: true,
+													type: 'GET',
+													success: function(msg)
+													{
+														  $('#status_update').html(msg).css('color', 'black');
+													//	keep_checking = false;
+													},
+													error: function (msg) 
+													{
+													//	keep_checking=false; 
+														var the_error = msg.responseText;
+														var start = the_error.indexOf("<div");
+														var end = the_error.indexOf("</div>") + 7;
+														var error_div = the_error.substring(start, end);
+
+														$('#status_update').html(error_div).css('color', 'red');
+													}
+												});
+					
+				the_time+=2;
+			},
+			2000
+		);//end setInterval()
+
+	
+}//end die
+	});	//end form.submit()
+
+
+function get_logid()
+{
+/*alert("got to get_logid()");*/
+
+
+	var the_logid = "XXXX";
+	$.ajax(
+		{
+			url: '<?=base_url()?>catalog/catalog_imports/log_start' ,
+			async: false,
+			type: 'get',
+			success:function(msg)
+			{
+				the_logid = msg;
+				//$('#status_update').html('logid == '+msg);
+			}, 
 			error: function (msg) 
 			{ 
 				var the_error = msg.responseText;
@@ -56,11 +133,19 @@ $.ajax({
 				var end = the_error.indexOf("</div>") + 7;
 				var error_div = the_error.substring(start, end);
 
-				$('#results_container').html(error_div).css('color', 'red');
+				$('#status_update').html(error_div).css('color', 'red');
 			}
-});
+		});
+	return the_logid;
+}
 
-}//end die
-	});	//end form.submit()
+
 
 </script>
+
+
+
+
+
+
+

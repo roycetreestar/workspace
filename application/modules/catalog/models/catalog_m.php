@@ -220,9 +220,23 @@ class Catalog_m extends CI_Model
 
 
 ////////////////////////////////////////////////////////////////////////
+function start_log($data)
+{
+	$this->db
+		//->set('user_id', $data['user_id'])
+		->set('status', $data['status'])
+		//->set('filename', $data['filename'])
+		->insert('catalog_import_log');
+		
+	return $this->db->insert_id();
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
 	function log_import($data)
 	{
 		$this->db
+			->where('id', $data['logid'])
 			->set('vendor_id', $data['vendor_id'])
 			->set('filename', $data['filename'])
 			->set('num_rows', $data['num_rows'])
@@ -239,13 +253,35 @@ class Catalog_m extends CI_Model
 			->set('missing_chromes', serialize($data['missing_chromes']))
 			->set('missing_clones', serialize($data['missing_clones']))
 			->set('missing_species', serialize($data['missing_species']))
-			->set('success', $data['success']);
+			->set('status', $data['status']);
 			if(isset($data['user_id']))
 				$this->db->set('user_id', $data['user_id']);
-		$result = $this->db->insert('catalog_import_log');
+		//$result = $this->db->insert('catalog_import_log');
+		$result = $this->db->update('catalog_import_log');
 			
 			return $result;
 
 	}
-
+////////////////////////////////////////////////////////////////////////////////
+	function quick_update($data)
+	{		
+		$this->db->where('id', $data['logid'])
+			->set('num_updates', $data['update_num'])
+			->set('num_inserts', $data['insert_num'])
+			->set('num_excludes', $data['exclude_num'])
+			->set('status', $data['status'])
+			->set('num_rows', $data['num_rows'])
+			->update('catalog_import_log');
+	}
+////////////////////////////////////////////////////////////////////////////////
+function get_log_status($logid)
+{
+	$this->db->where('id', $logid);
+	$result = $this->db->get('catalog_import_log')->row_array();
+	if($result)
+		return $result;
+	else
+		return false;
+}
+////////////////////////////////////////////////////////////////////////////////
 }//end class
