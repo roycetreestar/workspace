@@ -102,6 +102,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 		
 		//catalogs can be big and imports can take a while, so bump up the max_execution_time for the duration of the import
 		ini_set('max_execution_time', 300);
+		ini_set('memory_limit', '-1');
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1144,18 +1145,33 @@ if(!isset($children['category']))
 		$this->catalog_m->quick_update($data);
 	}
 ////////////////////////////////////////////////////////////////////////////////
+/** This function provides an update on the status of a current import.
+ * 		The browser can check in from time to time on big imports so the 
+ * 		user knows it hasn't stalled, but is still processing
+ */ 
 	function log_get_status($log_id)
 	{
 		$status = $this->catalog_m->get_log_status($log_id);
 		if($status)
 			//die("<strong>Import Status</strong><br/><br/><textarea>".print_r($status, true)."</textarea>");
-			die("<strong>Status: ".$status['status']."</strong><br/><br/>
-					Total products: ".$status['num_rows']."<br/><br/>
+			die("<strong>Status: ".$status['status']."</strong>
+					<br/>
+					Total products: ".$status['num_rows']."
+					<br/>
 					updates: ".$status['num_updates']."<br/>
 					inserts: ".$status['num_inserts']."<br/>
-					excludes: ".$status['num_excludes']);
+					excludes: ".$status['num_excludes']."
+					<hr/>
+					php.ini memory limit:".  ini_get('memory_limit') ."<br/>
+					current memory used: ". round( memory_get_usage()/1024/1024, 5) ." Mb" 
+			);
 		else
-			die("<strong>The database has revolted!</strong>");
+			die("<strong>The database has revolted!</strong> Hide the women and children!");
 			
+	}
+	function file_size($size)
+	{
+		$filesizename = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
+		return $size ? round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) .$filesizename[$i] : '0 Bytes';
 	}
 }//end class

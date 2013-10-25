@@ -1,14 +1,6 @@
+<div class="row-fluid" >	<!-- start widget	-->
 
-
-<!--<div>
-	<textarea>
-		<? //= $this_upload ?>
-	</textarea>
-</div>-->
-
-<div class="row-fluid" >
-
-	<div id="upload_form" class="span8 well">
+	<div id="upload_form" class="span8 well" style="height:250px;" >
 
 		<?php 	if(isset($error) && $error !== '')
 				{
@@ -32,21 +24,19 @@ logid:<input type="text" id="logid" name="logid" size="5" readonly />
 		</form>
 	</div><!-- end #upload_form -->
 
+
+
+
+
 <!-- an import status container -->	
 	<div class="span2 well" id="status_update" style="height:250px; overflow:auto;">
-		import status:<br/>
+		import status<hr/>
 	</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	
+	<div class="span1 well" id="timer_container" style="height:50px: " >
+		timer here
+	</div>
+	
+	
+</div><!-- end widget -->
