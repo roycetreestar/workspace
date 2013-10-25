@@ -101,8 +101,8 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 
 		
 		//catalogs can be big and imports can take a while, so bump up the max_execution_time for the duration of the import
-		ini_set('max_execution_time', 300);
-		ini_set('memory_limit', '-1');
+		ini_set('max_execution_time', 500);
+		ini_set('memory_limit', '256M');
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1141,6 +1141,7 @@ if(!isset($children['category']))
 		$data['exclude_num'] = $this->exclude_num;
 		$data['status'] = $this->import_status;
 		$data['num_rows'] = $this->highestRow;
+		//$data['memory_peak'] = memory_get_peak_usage();
 	
 		$this->catalog_m->quick_update($data);
 	}
@@ -1162,16 +1163,19 @@ if(!isset($children['category']))
 					inserts: ".$status['num_inserts']."<br/>
 					excludes: ".$status['num_excludes']."
 					<hr/>
-					php.ini memory limit:".  ini_get('memory_limit') ."<br/>
-					current memory used: ". round( memory_get_usage()/1024/1024, 5) ." Mb" 
+					<table class='table table-bordered'>
+						<tr><td>php.ini memory limit:</td><td>".  ini_get('memory_limit') ."</td></tr>
+						<tr><td>current memory used: </td><td>". number_format($status['current_memory']) /*number_format(memory_get_usage() )*/."</td></tr>
+						<tr><td>peak memory usage: </td><td>".number_format($status['memory_peak'] )."</td></tr>
+					 </table>"
 			);
 		else
 			die("<strong>The database has revolted!</strong> Hide the women and children!");
 			
 	}
-	function file_size($size)
-	{
-		$filesizename = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
-		return $size ? round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) .$filesizename[$i] : '0 Bytes';
-	}
+	//function file_size($size)
+	//{
+		//$filesizename = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
+		//return $size ? round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) .$filesizename[$i] : '0 Bytes';
+	//}
 }//end class

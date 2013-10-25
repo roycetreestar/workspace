@@ -99,7 +99,7 @@ else
 														$('#status_update').html(error_div).css('color', 'red');
 													}
 												});
-						$("#timer_container").html(the_time);
+						$("#timer_container").html(the_time+" seconds");
 					
 				the_time+=2;
 			},

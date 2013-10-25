@@ -265,13 +265,21 @@ function start_log($data)
 ////////////////////////////////////////////////////////////////////////////////
 	function quick_update($data)
 	{		
+		$peak_mem_old = $this->get_log_peak_mem($data['logid']);
+		$peak_mem_now = memory_get_peak_usage();
+//die("peak_mem: ".$peak_mem);		
 		$this->db->where('id', $data['logid'])
 			->set('num_updates', $data['update_num'])
 			->set('num_inserts', $data['insert_num'])
 			->set('num_excludes', $data['exclude_num'])
 			->set('status', $data['status'])
 			->set('num_rows', $data['num_rows'])
-			->update('catalog_import_log');
+			->set('current_memory', memory_get_usage());
+		if($peak_mem_old < $peak_mem_now)
+			$this->db->set('memory_peak', $peak_mem_now );//$peak_mem);
+			
+			
+		$this->db->update('catalog_import_log');
 	}
 ////////////////////////////////////////////////////////////////////////////////
 function get_log_status($logid)
@@ -282,6 +290,17 @@ function get_log_status($logid)
 		return $result;
 	else
 		return false;
+}
+function get_log_peak_mem($logid)
+{
+	$result = $this->db
+		//->select('memory_peak')
+		->where('id', $logid)
+		->get('catalog_import_log')->row_array();
+		
+	if(isset($result['memory_peak']))
+		return $result['memory_peak'];
+	else return 0;
 }
 ////////////////////////////////////////////////////////////////////////////////
 }//end class
