@@ -33,10 +33,24 @@ logid:<input type="text" id="logid" name="logid" size="5" readonly />
 		import status<hr/>
 	</div>
 	
-	
-	<div class="span1 well" id="timer_container" style="height:50px: " >
-		timer here
+<!-- the client-side timer -->		
+	<div class="span2"  style="height:50px: " >
+		<div class="row-fluid" >
+			<div class="span12 well" id="timer_container">
+				timer here
+			</div>
+<!--
+			<div class="span12 well" id="time_interval_container" >
+				time_interval_container here<br/>
+				<div class="ui-spinner" >
+					<input type="text" style="width:50px" id="spinner" />
+				</div>
+			</div>
+-->
+		</div>
 	</div>
 	
 	
 </div><!-- end widget -->
+
+

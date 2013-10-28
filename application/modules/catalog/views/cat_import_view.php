@@ -73,6 +73,7 @@ else
 	
 //check for import updates	
 	var the_time = 1;
+	var interval = 2000;
 	
 		var the_timer = setInterval(
 			function()
@@ -104,7 +105,7 @@ else
 					
 				the_time+=2;
 			},
-			2000
+			interval //2000
 		);//end setInterval()
 
 	

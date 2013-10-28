@@ -103,7 +103,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 
 		
 		//catalogs can be big and imports can take a while, so bump up the max_execution_time for the duration of the import
-		ini_set('max_execution_time', 1200);
+		ini_set('max_execution_time', 0);//1200);
 		ini_set('memory_limit', '256M');
 	}
 
@@ -682,7 +682,7 @@ else
 $time_start = microtime(true);
 $time_end ;
 
-
+$logger_row_count = 0;
 		
 		$insert=true;
 		$exclude_row = false;
@@ -822,9 +822,13 @@ if(!isset($data['regulatory_status']))
 			$insert=true;
 			$exclude_row = false;
 			
-			
-$this->quick_log();			
-
+if($logger_row_count == 1000)
+{		
+	$this->quick_log();	
+	$logger_row_count = 0;
+}
+else
+	$logger_row_count++;
 		}//end foreach(row)
 		
 		
