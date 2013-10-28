@@ -161,6 +161,29 @@ class Catalog_m extends CI_Model
 		else 
 			return false;
 	}
+////////////////////////////////////////////////////////////////////////
+	function exists_product_application($application_id, $catalog_number) 
+	{
+		$this->db->where('catalog_number', $catalog_number)
+			->where('application_id', $application_id);
+		$query = $this->db->get('products_applications');
+		
+		if($query->num_rows() > 0)
+			return true;
+		else 
+			return false;
+	}
+////////////////////////////////////////////////////////////////////////
+	function insert_product_application($application_id, $catalog_number)
+	{
+		$this->db->set('catalog_number', $catalog_number)
+			->set('application_id', $application_id);
+		$query = $this->db->insert('products_applications');
+			
+		if( $this->db->affected_rows() == 1 )
+			return true;
+		else return false;
+	}
 ////////////////////////////////////////////////////////////////////////	
 	function search($data)
 	{

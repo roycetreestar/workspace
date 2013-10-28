@@ -514,6 +514,8 @@ else
 					if(!isset($this->data['errors']['bad_application'][$application]	)	)
 						$this->data['errors']['bad_application'][$application] = "REAGENT_APPLICATION | ".$application." | ".$catalog_number." | ".$weblink;
 				}
+				else if( !$this->catalog_m->exists_product_application($this->thesaurus_m->get_applicationid($application), $catalog_number) )
+					$this->catalog_m->insert_product_application($this->thesaurus_m->get_applicationid($application), $catalog_number);
 			}
 		}
 	}
@@ -822,7 +824,7 @@ if(!isset($data['regulatory_status']))
 			$insert=true;
 			$exclude_row = false;
 			
-if($logger_row_count == 1000)
+if($logger_row_count == 100)
 {		
 	$this->quick_log();	
 	$logger_row_count = 0;
