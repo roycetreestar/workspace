@@ -39,6 +39,8 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 	private $products_updated = array();					
 	private $insert_num = 0;
 	private $exclude_num = 0;
+	private $num_ignored = 0;
+	//private $products_ignored = array();
 	
 	
 	private	$uploads_folder = "uploads/catalog/";
@@ -101,7 +103,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 
 		
 		//catalogs can be big and imports can take a while, so bump up the max_execution_time for the duration of the import
-		ini_set('max_execution_time', 500);
+		ini_set('max_execution_time', 1200);
 		ini_set('memory_limit', '256M');
 	}
 
@@ -767,7 +769,7 @@ $time_end ;
 						
 					}
 				}
-			}
+			}//end foreach(column in row)
 			//~ if(!$exclude_row)
 			//~ {
 //item_name, if not specified in the incoming catalog, is a concatenation of target name and format
@@ -787,28 +789,45 @@ if(!isset($data['regulatory_status']))
 				}
 				else 
 				{
-					$product_id = $this->catalog_m->update($data);
-					if($product_id)
+				//only update if price has changed
+					if($this->catalog_m->pre_update_price_check($data) )
 					{
-						$this->update_num++;		//counting this import's updated products
-						$this->products_updated[] = $data['catalog_number'];
+						$product_id = $this->catalog_m->update($data);
+						if($product_id)
+						{
+							$this->update_num++;		//counting this import's updated products
+							$this->products_updated[] = $data['catalog_number'];
+						}
+					}
+					else
+					{
+						$this->num_ignored++;
+						//$this->products_ignored[] = $data['catalog_number'];
 					}
 				}
 				if($exclude_row)
 					$this->exclude_num++;			//counting this import's 'excluded' products
-					
-			//check target_species to make sure we have this target to all its species
-				$this->check_target_species($data['target'], $data['target_species']);
-			//check product_species to make sure we have this product to each of its species
-				$this->check_product_species($product_id,  $data['target_species']);		//($this->db->insert_id(), $data['target_species']);
-			//~ }//end if(!$exclude_row)
+				
+				//if the product wasn't updated or inserted, there's no need to double-check its target_species and product_species records
+				if(isset($product_id))
+				{	
+				//check target_species to make sure we have this target to all its species
+					$this->check_target_species($data['target'], $data['target_species']);
+				//check product_species to make sure we have this product to each of its species
+					$this->check_product_species($product_id,  $data['target_species']);		//($this->db->insert_id(), $data['target_species']);
+				//~ }//end if(!$exclude_row)
+				}
+				
+			
 			$insert=true;
 			$exclude_row = false;
 			
 			
 $this->quick_log();			
 
-		}
+		}//end foreach(row)
+		
+		
 $this->import_status = "success";
 $this->quick_log();	
 
@@ -968,6 +987,7 @@ if(!isset($children['category']))
 			}
 		//store the $this->highestRow
 			$this->highestRow = count($this->spreadsheet_arr);
+//die("highestRow as counted: ".$this->highestRow."<br/><textarea style='widgh:100%; height:100%' >".print_r($this->spreadsheet_arr, true)."</textarea>");
 		}
 	}
 	
@@ -1108,6 +1128,7 @@ if(!isset($children['category']))
 		$data['num_updates'] = $this->update_num ;
 		$data['num_inserts'] =  $this->insert_num;
 		$data['num_excludes'] = $this->exclude_num ;
+		$data['num_ignored'] = $this->num_ignored;
 		if( $this->insert_num > 0  ||  $this->update_num > 0 ) 
 			$data['status'] = 'success';
 		else 
@@ -1141,6 +1162,7 @@ gc_collect_cycles();
 		$data['exclude_num'] = $this->exclude_num;
 		$data['status'] = $this->import_status;
 		$data['num_rows'] = $this->highestRow;
+		$data['num_ignored'] = $this->num_ignored;
 		//$data['memory_peak'] = memory_get_peak_usage();
 	
 		$this->catalog_m->quick_update($data);
@@ -1163,8 +1185,8 @@ gc_collect_cycles();
 					<br/>
 					updates: ".$status['num_updates']."<br/>
 					inserts: ".$status['num_inserts']."<br/>
-					excludes: ".$status['num_excludes']."
-					
+					excludes: ".$status['num_excludes']."<br/>
+					ignores:  ".$status['num_ignored']."
 				</div>
 				<div class='span9'>
 					<table class='table table-bordered'>

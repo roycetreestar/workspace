@@ -25,7 +25,8 @@
 		var values = $(this).serialize();	
 				
 
-		$('#results_container').html($('#load_spinner').html());
+		$('#results_container').html($('#load_spinner').html());		
+		$('#status_update').html();
 		
 		
 var fd = new FormData($(this)[0]);    

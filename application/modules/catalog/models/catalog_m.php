@@ -83,6 +83,26 @@ class Catalog_m extends CI_Model
 
 	
 ////////////////////////////////////////////////////////////////////////	
+/** during automatic imports, only do an update if the price for that
+ * catalog number has changed
+ * 
+ * returns true if price is different (ie. should we update? price is different, so yes)
+ * returns false if price is the same (ie. NO, don't update)
+ */	
+	function pre_update_price_check($data)
+	{
+		$result = $this->db->where('catalog_number', $data['catalog_number'])
+			->get('catalog')
+			->row_array();
+		
+		if($data['price'] != $result['price'])
+			return true;
+		else 
+			return false;
+			
+	}
+
+////////////////////////////////////////////////////////////////////////
 	function update($data)
 	{
 		$current_timestamp = date("Y-m-d H:i:s");
@@ -233,6 +253,9 @@ function start_log($data)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+/** log what's happening with the catalog importer
+ * 
+ */
 	function log_import($data)
 	{
 		$this->db
@@ -243,6 +266,7 @@ function start_log($data)
 			->set('num_updates', $data['num_updates'])
 			->set('num_inserts', $data['num_inserts'])
 			->set('num_excludes', $data['num_excludes'])
+			->set('num_ignored', $data['num_ignored'])
 			->set('upload_errors', serialize($data['upload_errors']))
 			->set('parse_errors', serialize($data['parse_errors']))
 			->set('unknown_fields', serialize($data['unknown_fields']))
@@ -272,6 +296,7 @@ function start_log($data)
 			->set('num_updates', $data['update_num'])
 			->set('num_inserts', $data['insert_num'])
 			->set('num_excludes', $data['exclude_num'])
+			->set('num_ignored', $data['num_ignored'])
 			->set('status', $data['status'])
 			->set('num_rows', $data['num_rows'])
 			->set('current_memory', memory_get_usage());
