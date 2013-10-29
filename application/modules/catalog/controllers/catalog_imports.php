@@ -39,10 +39,15 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 	private $products_updated = array();					
 	private $insert_num = 0;
 	private $exclude_num = 0;
+	private $num_ignored = 0;
+	//private $products_ignored = array();
 	
 	
 	private	$uploads_folder = "uploads/catalog/";
 	private	$allowedExts = array("xml", "txt", "csv", "xls", "xlsx");
+	
+	private $log_id;
+	private $import_status;
 
 //the $EXCLUDE array is keywords for products we won't carry, so any target 
 //	or chrome that contains one of these keywords can be dropped.
@@ -98,7 +103,8 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 
 		
 		//catalogs can be big and imports can take a while, so bump up the max_execution_time for the duration of the import
-		ini_set('max_execution_time', 300);
+		ini_set('max_execution_time', 0);//1200);
+		ini_set('memory_limit', '256M');
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -107,7 +113,9 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
  */
 	function index()
 	{
-		
+$this->log_id = $this->input->post('logid');
+$this->import_status = "started";
+$this->quick_log();
 		if(isset($_FILES['file']))
 		{
 		//check the uploaded file for upload errors
@@ -131,11 +139,14 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 						$this->parse_xml($_FILES['file']['tmp_name']);
 						break;
 				}
-				
+//$this->log_start();	
+//die("POST:<textarea>".print_r($_POST, true)."</textarea>");			
 			//grab the vendor_id from the form dropdown
 				if($this->vendor_id === 0)
 					$this->vendor_id = $this->input->post('vendor_id_dd');
-				
+
+$this->import_status = "validating";
+$this->quick_log();				
 			//check the fieldnames against canonical names
 				if( $this->validate_fieldnames() )
 				{
@@ -160,12 +171,15 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 					&& count($this->data['errors']['bad_application']) == 0
 					&& count($this->data['errors']['bad_category']) == 0	)
 				{
+$this->import_status = "inserting";
+$this->quick_log();
 					$this->do_insert();
 				}
 			//if there are errors, alert the user in the missing_X_p
 				else 
 				{	
-					
+$this->import_status = "failed";
+$this->quick_log();
 					if(count($this->data['errors']['missing_chromes']) > 0)
 					{
 						$this->data['chromes_dd'] = $this->thesaurus->chromes_dropdown();
@@ -229,7 +243,7 @@ class Catalog_imports extends Loggedin_Controller// Secure_Controller
 			
 			
 			
-			$this->log_import();
+$this->log_import($this->log_id);
 			
 		}//end if(file was submitted)		
 
@@ -500,6 +514,8 @@ else
 					if(!isset($this->data['errors']['bad_application'][$application]	)	)
 						$this->data['errors']['bad_application'][$application] = "REAGENT_APPLICATION | ".$application." | ".$catalog_number." | ".$weblink;
 				}
+				else if( !$this->catalog_m->exists_product_application($this->thesaurus_m->get_applicationid($application), $catalog_number) )
+					$this->catalog_m->insert_product_application($this->thesaurus_m->get_applicationid($application), $catalog_number);
 			}
 		}
 	}
@@ -665,13 +681,18 @@ else
  */
 	function do_insert()
 	{
+$time_start = microtime(true);
+$time_end ;
+
+$logger_row_count = 0;
+		
 		$insert=true;
 		$exclude_row = false;
 		$data['vendor_id'] = $this->vendor_id;
 		$data['vendor_name'] = $this->vendors_model->get_vendor_name($data['vendor_id']);
 	
-	//start transaction
-		$this->db->trans_start();
+////	start transaction
+		//$this->db->trans_start();
 		
 	//for each row, 
 		for($row=2; $row <= $this->highestRow; $row++)
@@ -750,7 +771,7 @@ else
 						
 					}
 				}
-			}
+			}//end foreach(column in row)
 			//~ if(!$exclude_row)
 			//~ {
 //item_name, if not specified in the incoming catalog, is a concatenation of target name and format
@@ -770,41 +791,71 @@ if(!isset($data['regulatory_status']))
 				}
 				else 
 				{
-					$product_id = $this->catalog_m->update($data);
-					if($product_id)
+				//only update if price has changed
+					if($this->catalog_m->pre_update_price_check($data) )
 					{
-						$this->update_num++;		//counting this import's updated products
-						$this->products_updated[] = $data['catalog_number'];
+						$product_id = $this->catalog_m->update($data);
+						if($product_id)
+						{
+							$this->update_num++;		//counting this import's updated products
+							$this->products_updated[] = $data['catalog_number'];
+						}
+					}
+					else
+					{
+						$this->num_ignored++;
+						//$this->products_ignored[] = $data['catalog_number'];
 					}
 				}
 				if($exclude_row)
 					$this->exclude_num++;			//counting this import's 'excluded' products
-					
-			//check target_species to make sure we have this target to all its species
-				$this->check_target_species($data['target'], $data['target_species']);
-			//check product_species to make sure we have this product to each of its species
-				$this->check_product_species($product_id,  $data['target_species']);		//($this->db->insert_id(), $data['target_species']);
-			//~ }//end if(!$exclude_row)
+				
+				//if the product wasn't updated or inserted, there's no need to double-check its target_species and product_species records
+				if(isset($product_id))
+				{	
+				//check target_species to make sure we have this target to all its species
+					$this->check_target_species($data['target'], $data['target_species']);
+				//check product_species to make sure we have this product to each of its species
+					$this->check_product_species($product_id,  $data['target_species']);		//($this->db->insert_id(), $data['target_species']);
+				//~ }//end if(!$exclude_row)
+				}
+				
+			
 			$insert=true;
 			$exclude_row = false;
-		}
+			
+if($logger_row_count == 100)
+{		
+	$this->quick_log();	
+	$logger_row_count = 0;
+}
+else
+	$logger_row_count++;
+		}//end foreach(row)
 		
-	//end transaction
-		$this->db->trans_complete();
-	//alert to success or failure of transaction
-		if($this->db->trans_status() === TRUE)
-		{
+		
+$this->import_status = "success";
+$this->quick_log();	
+
+$time_end = microtime(true);
+$import_counts['elapsed_time'] = $time_end - $time_start;
+////	end transaction
+		//$this->db->trans_complete();
+////	alert to success or failure of transaction
+		//if($this->db->trans_status() === TRUE)
+		//{
 			$import_counts['insert_num'] = $this->insert_num;
 			$import_counts['update_num'] = $this->update_num;
 			$import_counts['exclude_num'] = $this->exclude_num;
 			$import_counts['products_updated'] = $this->products_updated;
 			$this->data['insert_success_p'] = $this->load->view( 'partials/insert_success_p', $import_counts, true);
-		}
-		else
-		{
-			
-			$this->data['insert_failure_p'] = $this->load->view( 'partials/insert_failure_p', true);
-		}
+		//}
+		//else
+		//{
+			//
+			//$this->data['insert_failure_p'] = $this->load->view( 'partials/insert_failure_p', true);
+		//}
+
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
@@ -942,6 +993,7 @@ if(!isset($children['category']))
 			}
 		//store the $this->highestRow
 			$this->highestRow = count($this->spreadsheet_arr);
+//die("highestRow as counted: ".$this->highestRow."<br/><textarea style='widgh:100%; height:100%' >".print_r($this->spreadsheet_arr, true)."</textarea>");
 		}
 	}
 	
@@ -1068,19 +1120,25 @@ if(!isset($children['category']))
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////		IMPORT LOGS					////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
  	function log_import()
 	{
 		$data = $this->data['errors'];
+		$data['logid'] = $this->log_id;
 		$data['vendor_id'] = $this->vendor_id;
 		$data['filename'] = $this->filename;
 		$data['num_rows'] = $this->highestRow;
 		$data['num_updates'] = $this->update_num ;
 		$data['num_inserts'] =  $this->insert_num;
 		$data['num_excludes'] = $this->exclude_num ;
+		$data['num_ignored'] = $this->num_ignored;
 		if( $this->insert_num > 0  ||  $this->update_num > 0 ) 
-			$data['success'] = 1;
+			$data['status'] = 'success';
 		else 
-			$data['success'] = 0;
+			$data['status'] = 'failed';
 		if(isset($this->session->userdata['logged_in']))
 			$data['user_id'] = $this->session->userdata['logged_in']['userid'];
 
@@ -1088,5 +1146,69 @@ if(!isset($children['category']))
 //die("catalog import log<br/><textarea>".print_r($data, true)."</textarea>");
 	}
 	
+////////////////////////////////////////////////////////////////////////////////
+	function log_start()
+	{
+		$data['userid'] = isset($this->session->userdata['logged_in'])? $this->session->userdata['logged_in']['userid'] : 0 ;
+		$data['status']	= 'started';
+		$data['filename'] = $this->filename;
+		
+		
+		$this->log_id = $this->catalog_m->start_log($data);
+		
+		echo $this->log_id;
+	}
+////////////////////////////////////////////////////////////////////////////////
+	function quick_log()
+	{
+gc_collect_cycles();	
+		$data['logid'] = $this->log_id;
+		$data['update_num'] = $this->update_num;
+		$data['insert_num'] = $this->insert_num;
+		$data['exclude_num'] = $this->exclude_num;
+		$data['status'] = $this->import_status;
+		$data['num_rows'] = $this->highestRow;
+		$data['num_ignored'] = $this->num_ignored;
+		//$data['memory_peak'] = memory_get_peak_usage();
 	
+		$this->catalog_m->quick_update($data);
+	}
+////////////////////////////////////////////////////////////////////////////////
+/** This function provides an update on the status of a current import.
+ * 		The browser can check in from time to time on big imports so the 
+ * 		user knows it hasn't stalled, but is still processing
+ */ 
+	function log_get_status($log_id)
+	{
+		$status = $this->catalog_m->get_log_status($log_id);
+		if($status)
+			//die("<strong>Import Status</strong><br/><br/><textarea>".print_r($status, true)."</textarea>");
+			die("
+				<div class='span3'>
+					<strong>Status: ".$status['status']."</strong>
+					<br/>
+					Total products: ".$status['num_rows']."
+					<br/>
+					updates: ".$status['num_updates']."<br/>
+					inserts: ".$status['num_inserts']."<br/>
+					excludes: ".$status['num_excludes']."<br/>
+					ignores:  ".$status['num_ignored']."
+				</div>
+				<div class='span9'>
+					<table class='table table-bordered'>
+						<tr><td>php.ini memory limit:</td><td>".  ini_get('memory_limit') ."</td></tr>
+						<tr><td>current memory used: </td><td>". number_format($status['current_memory']) /*number_format(memory_get_usage() )*/."</td></tr>
+						<tr><td>peak memory usage: </td><td>".number_format($status['memory_peak'] )."</td></tr>
+					 </table>
+				</div>	"
+			);
+		else
+			die("<strong>The database has revolted!</strong> Hide the women and children!");
+			
+	}
+	//function file_size($size)
+	//{
+		//$filesizename = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
+		//return $size ? round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) .$filesizename[$i] : '0 Bytes';
+	//}
 }//end class

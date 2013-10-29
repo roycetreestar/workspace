@@ -83,6 +83,26 @@ class Catalog_m extends CI_Model
 
 	
 ////////////////////////////////////////////////////////////////////////	
+/** during automatic imports, only do an update if the price for that
+ * catalog number has changed
+ * 
+ * returns true if price is different (ie. should we update? price is different, so yes)
+ * returns false if price is the same (ie. NO, don't update)
+ */	
+	function pre_update_price_check($data)
+	{
+		$result = $this->db->where('catalog_number', $data['catalog_number'])
+			->get('catalog')
+			->row_array();
+		
+		if($data['price'] != $result['price'])
+			return true;
+		else 
+			return false;
+			
+	}
+
+////////////////////////////////////////////////////////////////////////
 	function update($data)
 	{
 		$current_timestamp = date("Y-m-d H:i:s");
@@ -140,6 +160,29 @@ class Catalog_m extends CI_Model
 			return true;
 		else 
 			return false;
+	}
+////////////////////////////////////////////////////////////////////////
+	function exists_product_application($application_id, $catalog_number) 
+	{
+		$this->db->where('catalog_number', $catalog_number)
+			->where('application_id', $application_id);
+		$query = $this->db->get('products_applications');
+		
+		if($query->num_rows() > 0)
+			return true;
+		else 
+			return false;
+	}
+////////////////////////////////////////////////////////////////////////
+	function insert_product_application($application_id, $catalog_number)
+	{
+		$this->db->set('catalog_number', $catalog_number)
+			->set('application_id', $application_id);
+		$query = $this->db->insert('products_applications');
+			
+		if( $this->db->affected_rows() == 1 )
+			return true;
+		else return false;
 	}
 ////////////////////////////////////////////////////////////////////////	
 	function search($data)
@@ -220,15 +263,33 @@ class Catalog_m extends CI_Model
 
 
 ////////////////////////////////////////////////////////////////////////
+function start_log($data)
+{
+	$this->db
+		//->set('user_id', $data['user_id'])
+		->set('status', $data['status'])
+		//->set('filename', $data['filename'])
+		->insert('catalog_import_log');
+		
+	return $this->db->insert_id();
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/** log what's happening with the catalog importer
+ * 
+ */
 	function log_import($data)
 	{
 		$this->db
+			->where('id', $data['logid'])
 			->set('vendor_id', $data['vendor_id'])
 			->set('filename', $data['filename'])
 			->set('num_rows', $data['num_rows'])
 			->set('num_updates', $data['num_updates'])
 			->set('num_inserts', $data['num_inserts'])
 			->set('num_excludes', $data['num_excludes'])
+			->set('num_ignored', $data['num_ignored'])
 			->set('upload_errors', serialize($data['upload_errors']))
 			->set('parse_errors', serialize($data['parse_errors']))
 			->set('unknown_fields', serialize($data['unknown_fields']))
@@ -239,13 +300,55 @@ class Catalog_m extends CI_Model
 			->set('missing_chromes', serialize($data['missing_chromes']))
 			->set('missing_clones', serialize($data['missing_clones']))
 			->set('missing_species', serialize($data['missing_species']))
-			->set('success', $data['success']);
+			->set('status', $data['status']);
 			if(isset($data['user_id']))
 				$this->db->set('user_id', $data['user_id']);
-		$result = $this->db->insert('catalog_import_log');
+		//$result = $this->db->insert('catalog_import_log');
+		$result = $this->db->update('catalog_import_log');
 			
 			return $result;
 
 	}
-
+////////////////////////////////////////////////////////////////////////////////
+	function quick_update($data)
+	{		
+		$peak_mem_old = $this->get_log_peak_mem($data['logid']);
+		$peak_mem_now = memory_get_peak_usage();
+//die("peak_mem: ".$peak_mem);		
+		$this->db->where('id', $data['logid'])
+			->set('num_updates', $data['update_num'])
+			->set('num_inserts', $data['insert_num'])
+			->set('num_excludes', $data['exclude_num'])
+			->set('num_ignored', $data['num_ignored'])
+			->set('status', $data['status'])
+			->set('num_rows', $data['num_rows'])
+			->set('current_memory', memory_get_usage());
+		if($peak_mem_old < $peak_mem_now)
+			$this->db->set('memory_peak', $peak_mem_now );//$peak_mem);
+			
+			
+		$this->db->update('catalog_import_log');
+	}
+////////////////////////////////////////////////////////////////////////////////
+function get_log_status($logid)
+{
+	$this->db->where('id', $logid);
+	$result = $this->db->get('catalog_import_log')->row_array();
+	if($result)
+		return $result;
+	else
+		return false;
+}
+function get_log_peak_mem($logid)
+{
+	$result = $this->db
+		//->select('memory_peak')
+		->where('id', $logid)
+		->get('catalog_import_log')->row_array();
+		
+	if(isset($result['memory_peak']))
+		return $result['memory_peak'];
+	else return 0;
+}
+////////////////////////////////////////////////////////////////////////////////
 }//end class

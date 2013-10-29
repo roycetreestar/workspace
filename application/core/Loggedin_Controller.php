@@ -76,7 +76,7 @@ function load_modules()
         $is_logged_in = $this->session->userdata('logged_in');
         if(!isset($is_logged_in) || $is_logged_in != true)
 			return false;
-        else return true;
+        else return $this->session->userdata['logged_in']['userid']; //true;
     }
     
 ////////////////////////////////////////////////////////////////////////////////
